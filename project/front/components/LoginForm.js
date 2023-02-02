@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useInput from "../hooks/useInput";
@@ -87,12 +88,11 @@ const LoginForm = () => {
               >
                 Login
               </button>
-              <a
-                href="/signup"
-                className="text-sm text-blue-600 hover:underline"
-              >
-                Don't have an account?
-              </a>
+              <Link href="/signup">
+                <div className="text-sm text-blue-600 hover:underline">
+                  Don't have an account?
+                </div>
+              </Link>
             </div>
           </div>
         </form>

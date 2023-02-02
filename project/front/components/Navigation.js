@@ -4,6 +4,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { LOG_OUT_REQUEST } from "../pages/reducers/user";
+import Link from "next/link";
 
 const navigationMenu = [
   { name: "All Flashes", href: "/", current: false },
@@ -57,9 +58,8 @@ const Navigation = () => {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigationMenu.map((item) => (
-                      <a
+                      <div
                         key={item.name}
-                        href={item.href}
                         className={classNames(
                           item.current
                             ? "bg-gray-900 text-white"
@@ -68,8 +68,8 @@ const Navigation = () => {
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
-                        {item.name}
-                      </a>
+                        <Link href={item.href}>{item.name}</Link>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -117,28 +117,26 @@ const Navigation = () => {
                         <>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                href="#"
+                              <div
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
-                                My Profile
-                              </a>
+                                <Link href="/profile">My Profile</Link>
+                              </div>
                             )}
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                onClick={onLogout}
+                              <div
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
-                                Logout
-                              </a>
+                                <button onClick={onLogout}>Logout</button>
+                              </div>
                             )}
                           </Menu.Item>
                         </>
@@ -146,28 +144,26 @@ const Navigation = () => {
                         <>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                href="/login"
+                              <div
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
-                                Login
-                              </a>
+                                <Link href="/login">Login</Link>
+                              </div>
                             )}
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                href="/signup"
+                              <div
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
-                                Sign Up
-                              </a>
+                                <Link href="/signup">Sign Up</Link>
+                              </div>
                             )}
                           </Menu.Item>
                         </>
