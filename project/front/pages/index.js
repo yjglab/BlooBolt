@@ -6,11 +6,7 @@ import Navigation from "../components/Navigation";
 const Home = () => {
   const { me } = useSelector((state) => state.user);
 
-  return (
-    <AppLayout>
-      <Navigation />
-    </AppLayout>
-  );
+  return <AppLayout></AppLayout>;
 };
 
 export default Home;

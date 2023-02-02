@@ -1,7 +1,13 @@
 import PropTypes from "prop-types";
+import Navigation from "./Navigation";
 
 const AppLayout = ({ children }) => {
-  return <div>{children}</div>;
+  return (
+    <div>
+      <Navigation />
+      <div>{children}</div>
+    </div>
+  );
 };
 
 AppLayout.propTypes = {

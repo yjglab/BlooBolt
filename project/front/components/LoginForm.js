@@ -23,13 +23,11 @@ const LoginForm = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      //   alert("승인");
       dispatch({
         type: LOG_IN_REQUEST,
         data: { email, password },
       });
       console.log(email, password);
-      //   Router.push("/");
     },
     [email, password]
   );
@@ -59,43 +57,50 @@ const LoginForm = () => {
         <form action="submit" onSubmit={onSubmit}>
           <div className="mt-4">
             <div>
-              <label className="block" htmlFor="email">
+              <label className="block" htmlFor="user-email">
                 Email
               </label>
               <input
                 type="email"
+                name="user-email"
                 value="aa@a.com" // {email}
                 placeholder="Email"
                 onChange={onChangeEmail}
                 required
                 className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
               />
-              <span className="text-xs tracking-wide text-red-600">
+              <span className="opacity-0 text-xs tracking-wide text-red-600">
                 Email field is required{" "}
               </span>
             </div>
 
             <div className="mt-4">
-              <label className="block">Password</label>
+              <label className="block" htmlFor="user-password">
+                Password
+              </label>
               <input
                 type="password"
-                value={password}
+                name="user-password"
+                value={"123"} // password
                 placeholder="Password"
                 onChange={onChangePassword}
                 required
                 className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
               />
             </div>
-            <div className="flex items-baseline justify-center">
+            <div className="flex items-baseline justify-between">
               <button
                 type="submit"
                 className="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
               >
                 Login
               </button>
-              {/* <a href="#" className="text-sm text-blue-600 hover:underline">
-                Forgot password?
-              </a> */}
+              <a
+                href="/signup"
+                className="text-sm text-blue-600 hover:underline"
+              >
+                Don't have an account?
+              </a>
             </div>
           </div>
         </form>

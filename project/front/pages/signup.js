@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import AppLayout from "../components/AppLayout";
-import LoginForm from "../components/LoginForm";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Router from "next/router";
+import AppLayout from "../components/AppLayout";
+import SignupForm from "../components/SignupForm";
 
-const Login = () => {
+const Signup = () => {
   const { me } = useSelector((state) => state.user);
   useEffect(() => {
     if (me && me.id) {
@@ -14,9 +13,9 @@ const Login = () => {
 
   return (
     <AppLayout>
-      <LoginForm />
+      <SignupForm />
     </AppLayout>
   );
 };
 
-export default Login;
+export default Signup;
