@@ -3,34 +3,34 @@ import shortid from "shortid";
 export const vtlUser1 = {
   id: 101,
   email: "yjg@flashbag.live",
-  nickname: "yjg",
+  username: "yjg",
   Posts: [],
   Tracings: [
     {
       id: shortid.generate(),
-      nickname: "동키1",
+      username: "동키1",
     },
     {
       id: shortid.generate(),
-      nickname: "동키2",
+      username: "동키2",
     },
     {
       id: shortid.generate(),
-      nickname: "동키3",
+      username: "동키3",
     },
   ],
   Tracers: [
     {
       id: shortid.generate(),
-      nickname: "추적자1",
+      username: "추적자1",
     },
     {
       id: shortid.generate(),
-      nickname: "추적자2",
+      username: "추적자2",
     },
     {
       id: shortid.generate(),
-      nickname: "추적자3",
+      username: "추적자3",
     },
   ],
 };
@@ -40,7 +40,7 @@ export const vtlPost1 = {
   UserId: 101,
   User: {
     id: vtlUser1.id,
-    nickname: vtlUser1.nickname,
+    username: vtlUser1.username,
   },
   Image: [
     {
@@ -57,7 +57,7 @@ export const vtlPost1 = {
       PostId: 33,
       User: {
         id: vtlUser1.id,
-        nickname: vtlUser1.nickname,
+        username: vtlUser1.username,
       },
     },
   ],

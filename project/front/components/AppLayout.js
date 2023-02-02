@@ -5,7 +5,7 @@ const AppLayout = ({ children }) => {
   return (
     <div>
       <Navigation />
-      <div>{children}</div>
+      {children}
     </div>
   );
 };
