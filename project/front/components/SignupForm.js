@@ -1,12 +1,14 @@
+import Router from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 
 import useInput from "../hooks/useInput";
+import { SIGN_UP_REQUEST } from "../pages/reducers/user";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const { me, signUpError, signUpDone } = useSelector((state) => state.user);
   const [email, onChangeEmail] = useInput("");
   const [username, onChangeUsername] = useInput("");
   const [password, onChangePassword] = useInput("");
@@ -36,16 +38,24 @@ const SignupForm = () => {
       if (!term) {
         return alert("서비스 이용 약관에 동의해주십시요.");
       }
+      dispatch({
+        type: SIGN_UP_REQUEST,
+      });
       console.log(email, username, password, passwordCheck);
     },
     [email, password, passwordCheck, term]
   );
 
   useEffect(() => {
-    if (me && me.id) {
-      Router.push("/");
+    if (signUpDone) {
+      Router.push("/login");
     }
-  }, [me && me.id]);
+  }, [signUpDone]);
+  useEffect(() => {
+    if (signUpError) {
+      alert(signUpError);
+    }
+  }, [signUpError]);
 
   return (
     <AppLayout>

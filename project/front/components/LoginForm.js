@@ -1,12 +1,9 @@
-import Router from "next/router";
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useInput from "../hooks/useInput";
 import { LOG_IN_REQUEST } from "../pages/reducers/user";
-import { vtlUser1, vtlPost1 } from "../db";
 
 const LoginForm = () => {
-  const { me } = useSelector((state) => state.user);
   const { logInError } = useSelector((state) => state.user);
   const [email, onChangeEmail] = useInput("");
   const [password, onChangePassword] = useInput("");
@@ -36,22 +33,17 @@ const LoginForm = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg rounded-lg">
         <div className="flex justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-20 h-20 text-blue-600"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path d="M12 14l9-5-9-5-9 5 9 5z" />
-            <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-            />
-          </svg>
+          {/* mobile */}
+          <img
+            className="block h-14 mb-4 w-auto lg:hidden"
+            src="https://cdn-icons-png.flaticon.com/512/880/880910.png"
+            alt="Your Company"
+          />
+          <img
+            className="hidden h-14 mb-4 w-auto lg:block"
+            src="https://cdn-icons-png.flaticon.com/512/880/880910.png"
+            alt="Your Company"
+          />
         </div>
         <h3 className="text-2xl font-bold text-center">aa@a.com</h3>
         <form action="submit" onSubmit={onSubmit}>
