@@ -25,24 +25,32 @@ const reducer = (state = initialState, action) => {
         draft.logInLoading = true;
         draft.logInDone = false;
         draft.logInError = null;
+        break;
       case LOG_IN_SUCCESS:
         draft.logInLoading = false;
         draft.logInDone = true;
         draft.me = action.data;
+        break;
       case LOG_IN_FAILURE:
         draft.logInLoading = false;
         draft.logInError = action.error;
+        break;
       case LOG_OUT_REQUEST:
         draft.logOutLoading = true;
         draft.logOutDone = false;
         draft.logOutError = null;
+        break;
       case LOG_OUT_SUCCESS:
         draft.logOutLoading = false;
         draft.logOutDone = true;
         draft.me = null;
+        break;
       case LOG_OUT_FAILURE:
         draft.logOutLoading = false;
         draft.logOutError = action.error;
+        break;
+      default:
+        break;
     }
   });
 };

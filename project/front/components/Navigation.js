@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { LOG_OUT_REQUEST } from "../pages/reducers/user";
 
 const navigationMenu = [
   { name: "All Flashes", href: "/", current: false },
@@ -16,7 +17,13 @@ function classNames(...classes) {
 }
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
+  const onLogout = useCallback(() => {
+    dispatch({
+      type: LOG_OUT_REQUEST,
+    });
+  });
   return (
     <Disclosure as="nav" className="bg-gray-800 fixed w-full">
       {({ open }) => (
@@ -81,11 +88,19 @@ const Navigation = () => {
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full object-cover"
-                        src="https://vssmn.org/wp-content/uploads/2018/12/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
-                        alt=""
-                      />
+                      {me ? (
+                        <img
+                          className="h-8 w-8 rounded-full object-cover"
+                          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                          alt=""
+                        />
+                      ) : (
+                        <img
+                          className="h-8 w-8 rounded-full object-cover"
+                          src="https://vssmn.org/wp-content/uploads/2018/12/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
+                          alt=""
+                        />
+                      )}
                     </Menu.Button>
                   </div>
                   <Transition
@@ -109,33 +124,20 @@ const Navigation = () => {
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
-                                Your Profile
+                                My Profile
                               </a>
                             )}
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
                               <a
-                                href="#"
+                                onClick={onLogout}
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
-                                Settings
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
-                                Sign out
+                                Logout
                               </a>
                             )}
                           </Menu.Item>
@@ -151,7 +153,7 @@ const Navigation = () => {
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
-                                Log In
+                                Login
                               </a>
                             )}
                           </Menu.Item>

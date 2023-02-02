@@ -1,4 +1,5 @@
 import { all, call, delay, fork, put, takeLatest } from "redux-saga/effects";
+import { vtlUser1 } from "../../db";
 import {
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
@@ -18,7 +19,7 @@ function* logIn(action) {
     // const result = yield call(logInAPI, action.data)
     yield put({
       type: LOG_IN_SUCCESS,
-      data: action.data,
+      data: vtlUser1,
     });
   } catch (error) {
     console.error(error);

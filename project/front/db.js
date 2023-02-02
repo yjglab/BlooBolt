@@ -1,6 +1,6 @@
 import shortid from "shortid";
 
-const vtlUser1 = {
+export const vtlUser1 = {
   id: 101,
   email: "yjg@flashbag.live",
   nickname: "yjg",
@@ -34,8 +34,8 @@ const vtlUser1 = {
     },
   ],
 };
-const vtlPost1 = {
-  id: shortid.generate(),
+export const vtlPost1 = {
+  id: 33,
   content: "가상 포스트1",
   UserId: 101,
   User: {
@@ -46,7 +46,7 @@ const vtlPost1 = {
     {
       id: shortid.generate(),
       src: "",
-      PostId: vtlPost1.id,
+      PostId: 33,
     },
   ],
   Comments: [
@@ -54,7 +54,7 @@ const vtlPost1 = {
       id: shortid.generate(),
       content: "댓글댓글",
       UserId: vtlUser1.id,
-      PostId: vtlPost1.id,
+      PostId: 33,
       User: {
         id: vtlUser1.id,
         nickname: vtlUser1.nickname,
