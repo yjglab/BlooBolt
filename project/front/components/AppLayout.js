@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 const AppLayout = ({ children }) => {
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 AppLayout.propTypes = {
