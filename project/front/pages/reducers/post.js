@@ -1,7 +1,8 @@
 import produce from "immer";
+import { genPost, vtlUser1 } from "../../db";
 
 export const initialState = {
-  mainPosts: [],
+  mainPosts: [genPost(vtlUser1, "ddd")],
   imagePaths: [],
 
   addPostLoading: false,

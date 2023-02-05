@@ -18,10 +18,10 @@ const Home = () => {
   return (
     <AppLayout>
       <div className="flex h-screen overflow-y-scroll bg-gray-100">
-        <div className="mt-24 w-2/5 ml-12 hidden sm:block ">
+        <div className="mt-24 w-2/5 ml-8 hidden sm:block ">
           <div className=" font-semibold">좌측사이드바</div>
         </div>
-        <div className="mt-24 w-full h-full mx-4 sm:mr-12 relative ">
+        <div className="mt-24 w-full h-full mx-4 sm:mr-8 relative ">
           <div className="font-semibold text-gray-700 text-2xl">
             User Square
           </div>

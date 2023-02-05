@@ -7,6 +7,7 @@ import { REMOVE_POST_REQUEST } from "../pages/reducers/post";
 import {
   ChatBubbleOvalLeftEllipsisIcon,
   HeartIcon,
+  PlusIcon,
 } from "@heroicons/react/24/outline";
 
 function classNames(...classes) {
@@ -123,8 +124,40 @@ const PostCard = ({ post }) => {
           <div className="text-gray-500 text-xs relative bottom-1.5">
             {post.User.role}
           </div>
-          <div className="mt-3 mb-4 text-gray-700 text-md break-all">
-            {post.content}
+          <div className="mt-3 mb-4">
+            <div className=" text-gray-700 text-md break-all">
+              {post.content}
+            </div>
+            <div className="my-7 pr-2 w-full flex justify-between ">
+              <div className="w-4/12 mx-0.5">
+                <img
+                  className="rounded  aspect-square object-cover"
+                  src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+                  role="presentation"
+                  alt=""
+                />
+              </div>
+              <div className="w-4/12 mx-0.5">
+                <img
+                  className="rounded  aspect-square object-cover"
+                  src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+                  role="presentation"
+                  alt=""
+                />
+              </div>
+              <div className="w-4/12 mx-0.5 relative">
+                <button className="hover:text-white hover:bg-gray-700 text-xs font-semibold py-0.5 absolute rounded bg-white px-1.5 right-2 top-2 flex justify-between items-center">
+                  MORE +{3}
+                </button>
+
+                <img
+                  className="rounded  aspect-square object-cover"
+                  src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+                  role="presentation"
+                  alt=""
+                />
+              </div>
+            </div>
           </div>
           <div className="mt-4 pt-1 mr-4 border-t flex items-center">
             <div className="flex items-center text-gray-700 text-sm mr-3">
