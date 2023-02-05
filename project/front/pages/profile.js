@@ -44,7 +44,7 @@ const Profile = () => {
               </div>
 
               <div className="mt-10">
-                <h1 className="font-bold text-center text-3xl text-gray-700 mb-2">
+                <h1 className="font-semibold text-center text-3xl text-gray-700 mb-2">
                   {me?.username}
                 </h1>
                 <div className="text-center text-sm text-gray-400 font-medium">

@@ -5,7 +5,7 @@ import useInput from "../hooks/useInput";
 const UserInfoProfile = () => {
   const { me } = useSelector((state) => state.user);
   const [username, onChangeUsername] = useInput(me?.username || "");
-  const [greeting, onChangeGreeting] = useInput(me?.greeting || "");
+  const [about, onChangeAbout] = useInput(me?.about || "");
 
   return (
     <>
@@ -16,7 +16,7 @@ const UserInfoProfile = () => {
         <form className="w-full">
           <div className="flex flex-wrap -mx-3 mb-3">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 NAME
               </label>
               <input
@@ -28,13 +28,13 @@ const UserInfoProfile = () => {
               />
             </div>
             <div className="w-full md:w-1/2 px-3 mb-3 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                GREETING
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-semibold mb-2">
+                about
               </label>
               <input
                 className="appearance-none block w-full bg-gray-100 text-gray-700   rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                value={greeting}
-                onChange={onChangeGreeting}
+                value={about}
+                onChange={onChangeAbout}
                 type="text"
                 placeholder="hello, visitors!"
               />
@@ -43,7 +43,7 @@ const UserInfoProfile = () => {
 
           <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 City
               </label>
               <input
@@ -53,7 +53,7 @@ const UserInfoProfile = () => {
               />
             </div>
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 State
               </label>
               <div className="relative">
@@ -74,7 +74,7 @@ const UserInfoProfile = () => {
               </div>
             </div>
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 Zip
               </label>
               <input

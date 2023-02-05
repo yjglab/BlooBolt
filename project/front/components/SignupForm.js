@@ -75,7 +75,7 @@ const SignupForm = () => {
               alt="Your Company"
             />
           </div>
-          <h3 className="text-2xl font-bold text-center">Sign Up</h3>
+          <h3 className="text-2xl font-semibold text-center">Sign Up</h3>
           <form action="submit" onSubmit={onSubmit}>
             <div className="mt-4">
               <div>

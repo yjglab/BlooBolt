@@ -14,25 +14,34 @@ const CommentSection = ({ post }) => {
 
   return (
     <div className="w-full flex justify-end">
-      <div className="px-4 py-4 bg-white w-4/5 sm:w-4/5 my-2 shadow rounded-lg rounded-t-lg">
+      <div className="px-4 py-4 bg-white w-5/6 sm:w-4/5 my-2 shadow rounded-lg rounded-t-lg">
         <CommentForm />
         {post.Comments.map((comment) => (
           <div
             key={comment.id}
-            className="mt-2 mb-7 px-2 pt-2 pb-4 text-base border-b"
+            className="mt-2 mb-7 px-2 pt-2 pb-4 relative text-base border-b"
           >
+            <span className="text-xs text-gray-400 absolute right-2 bottom-2">
+              {comment.createdAt}
+            </span>
             <footer className="flex justify-between items-center mb-2">
-              <div className="flex w-full items-center justify-between">
+              <div className="flex w-full items-center">
                 <div className="inline-flex items-center mr-3 text-sm text-gray-700 ">
                   <img
-                    className="mr-2 w-8 h-8 rounded-full border-4 border-gray-700"
+                    className={`mr-2 w-8 h-8 rounded-full shadow border-2 p-0.5 ${
+                      comment.User.status
+                        ? "border-yellow-400"
+                        : "border-gray-700"
+                    }`}
                     src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
                     alt="Michael Gough"
                   />
-                  <div className="font-bold">{comment.User.username}</div>
+                  <div className="relative bottom-0.5 font-semibold text-base">
+                    {comment.User.username}
+                  </div>
                 </div>
-                <div className="text-sm text-gray-400 relative right-2">
-                  {comment.createdAt}
+                <div className=" text-xs text-gray-400 ">
+                  {comment.User.role}
                 </div>
               </div>
               <Menu as="div" className="relative inline-block text-left">

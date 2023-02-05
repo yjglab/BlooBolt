@@ -10,6 +10,8 @@ export function genComment(user, text) {
     User: {
       id: user.id,
       username: user.username,
+      status: user.status,
+      role: user.role,
     },
   };
   return comment;
@@ -23,6 +25,8 @@ export function genPost(user, text) {
     User: {
       id: user.id,
       username: user.username,
+      status: user.status,
+      role: user.role,
     },
     Image: [
       {
@@ -42,8 +46,9 @@ export const vtlUser1 = {
   email: "yjg@flashbag.live",
   username: "yjg",
   status: true, // add
-  greeting: "안녕하세요", // add string (30제한)
+  about: "안녕하세요", // add string (30제한)
   avatar: "", // add string src
+  role: "Web Developer", // add string(18)
   Posts: [
     {
       id: shortid.generate(),

@@ -1,8 +1,9 @@
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import CommentSection from "./CommentSection";
+import { REMOVE_POST_REQUEST } from "../pages/reducers/post";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -12,11 +13,20 @@ const PostCard = ({ post }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
 
+  const onRemovePost = useCallback(() => {
+    dispatch({
+      type: REMOVE_POST_REQUEST,
+      data: post.id,
+    });
+  }, []);
+
   return (
     <div className="flex flex-col mb-6">
       <div className="flex bg-white shadow rounded-lg w-full px-4 py-6 ">
         <img
-          className="w-12 h-12 rounded-full object-cover mr-4 shadow border-4 border-gray-700"
+          className={`w-12 h-12 rounded-full object-cover mr-4 shadow border-2 p-0.5 ${
+            post.User.status ? "border-yellow-400" : "border-gray-700"
+          }`}
           src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
           alt="avatar"
         />
@@ -26,8 +36,8 @@ const PostCard = ({ post }) => {
               {post.User.username}
             </h2>
             <div className="flex items-center">
-              <small className="text-sm text-gray-700 relative right-2">
-                22h ago
+              <small className="text-sm text-gray-400 relative right-2">
+                {post.createdAt}
               </small>
               <Menu as="div" className="relative inline-block text-left">
                 <div>
@@ -72,8 +82,8 @@ const PostCard = ({ post }) => {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <button
+                            onClick={onRemovePost}
                             className={classNames(
                               active
                                 ? "bg-gray-100 text-gray-700"
@@ -82,7 +92,7 @@ const PostCard = ({ post }) => {
                             )}
                           >
                             Delete
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                       <Menu.Item>
@@ -107,7 +117,7 @@ const PostCard = ({ post }) => {
             </div>
           </div>
           <div className="text-gray-500 text-xs relative bottom-1.5">
-            역할or직위
+            {post.User.role}
           </div>
           <div className="mt-3 text-gray-700 text-md">{post.content}</div>
           <div className="mt-4 flex items-center">
@@ -126,7 +136,7 @@ const PostCard = ({ post }) => {
                 <path stroke="none" d="M0 0h24v24H0z" />
                 <path d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7" />
               </svg>
-              <span className="ml-1">12</span>
+              <span className="ml-1">122</span>
             </div>
             <div className="flex items-center text-gray-700 text-sm mr-8">
               <svg
@@ -146,7 +156,7 @@ const PostCard = ({ post }) => {
                 <line x1="8" y1="11" x2="8" y2="11.01" />
                 <line x1="16" y1="11" x2="16" y2="11.01" />
               </svg>
-              <span className="ml-1">8</span>
+              <span className="ml-1">{post.Comments.length}</span>
             </div>
           </div>
         </div>

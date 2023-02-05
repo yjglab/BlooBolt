@@ -45,7 +45,20 @@ const reducer = (state = initialState, action) => {
         draft.addPostLoading = false;
         draft.addPostError = action.error;
         break;
-
+      case REMOVE_POST_REQUEST:
+        draft.removePostLoading = true;
+        draft.removePostDone = false;
+        draft.removePostError = null;
+        break;
+      case REMOVE_POST_SUCCESS:
+        draft.removePostLoading = false;
+        draft.removePostDone = true;
+        draft.mainPosts = draft.mainPosts.filter((v) => v.id !== action.data);
+        break;
+      case REMOVE_POST_FAILURE:
+        draft.removePostLoading = false;
+        draft.removePostError = action.error;
+        break;
       case ADD_COMMENT_REQUEST:
         draft.addCommentLoading = true;
         draft.addCommentDone = false;
@@ -61,6 +74,7 @@ const reducer = (state = initialState, action) => {
         draft.addCommentLoading = false;
         draft.addCommentError = action.error;
         break;
+
       default:
         break;
     }
