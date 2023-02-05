@@ -37,7 +37,7 @@ const CommentForm = () => {
       <div className="pt-2 pb-0 px-3 mb-2 border-b w-full  ">
         <label className="sr-only"></label>
         <textarea
-          rows="3"
+          rows="2"
           onChange={onChangeText}
           value={text}
           className="px-0 w-full text-sm  border-0 focus:ring-0 focus:outline-none "

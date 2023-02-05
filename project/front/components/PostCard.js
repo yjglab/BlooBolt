@@ -4,6 +4,10 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import CommentSection from "./CommentSection";
 import { REMOVE_POST_REQUEST } from "../pages/reducers/post";
+import {
+  ChatBubbleOvalLeftEllipsisIcon,
+  HeartIcon,
+} from "@heroicons/react/24/outline";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -119,43 +123,19 @@ const PostCard = ({ post }) => {
           <div className="text-gray-500 text-xs relative bottom-1.5">
             {post.User.role}
           </div>
-          <div className="mt-3 text-gray-700 text-md">{post.content}</div>
-          <div className="mt-4 flex items-center">
+          <div className="mt-3 mb-4 text-gray-700 text-md break-all">
+            {post.content}
+          </div>
+          <div className="mt-4 pt-1 mr-4 border-t flex items-center">
             <div className="flex items-center text-gray-700 text-sm mr-3">
-              <svg
-                className="h-5 w-5 text-black hover:text-red-500 cursor-pointer"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" />
-                <path d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7" />
-              </svg>
+              <HeartIcon
+                className="stroke-2 block h-5 w-5 hover:text-red-400 cursor-pointer"
+                aria-hidden="true"
+              />
               <span className="ml-1">122</span>
             </div>
             <div className="flex items-center text-gray-700 text-sm mr-8">
-              <svg
-                className="h-5 w-5 text-black hover:text-yellow-400 cursor-pointer"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" />
-                <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />
-                <line x1="12" y1="11" x2="12" y2="11.01" />
-                <line x1="8" y1="11" x2="8" y2="11.01" />
-                <line x1="16" y1="11" x2="16" y2="11.01" />
-              </svg>
+              <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5 hover:text-yellow-400 cursor-pointer" />
               <span className="ml-1">{post.Comments.length}</span>
             </div>
           </div>
