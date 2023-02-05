@@ -1,14 +1,28 @@
 import shortid from "shortid";
 
-export function gernerateVtlPost(vtlUser) {
+export function genComment(user, text) {
+  const comment = {
+    id: shortid.generate(),
+    content: text,
+    createdAt: "2000.00.00",
+    UserId: user.id,
+    PostId: 33,
+    User: {
+      id: user.id,
+      username: user.username,
+    },
+  };
+  return comment;
+}
+export function genPost(user, text) {
   const post = {
     id: 33,
-    content: "가상 포스트1",
+    content: text,
     createdAt: "1999.99.99",
     UserId: 101,
     User: {
-      id: vtlUser.id,
-      username: vtlUser.username,
+      id: user.id,
+      username: user.username,
     },
     Image: [
       {
@@ -17,21 +31,8 @@ export function gernerateVtlPost(vtlUser) {
         PostId: 33,
       },
     ],
-    Comments: [
-      // gernerate로
-      {
-        id: shortid.generate(),
-        content: "댓글댓글",
-        createdAt: "2000.00.00",
-        UserId: vtlUser.id,
-        PostId: 33,
-        User: {
-          id: vtlUser.id,
-          username: vtlUser.username,
-        },
-      },
-    ],
-    Likers: [{ id: 101 }],
+    Comments: [],
+    Likers: [{ id: 101 }, { id: 102 }],
   };
   return post;
 }

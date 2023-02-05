@@ -1,4 +1,5 @@
 import produce from "immer";
+import { vtlUser1 } from "../../db";
 
 export const initialState = {
   signUpLoading: false,
@@ -10,7 +11,7 @@ export const initialState = {
   logOutLoading: false,
   logOutDone: false,
   logOutError: null,
-  me: null,
+  me: vtlUser1,
 };
 
 export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST";
