@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
-const UserInfo = () => {
+const UserTraceProfile = () => {
   const { me } = useSelector((state) => state.user);
   const [traceMenu, setTraceMenu] = useState("Tracers");
 
@@ -15,19 +15,19 @@ const UserInfo = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <h3 className="font-medium text-gray-900 text-left px-6 pb-1">
+        <h3 className="font-medium text-gray-700 text-left px-6 pb-1">
           {traceMenu}
         </h3>
         <div className="flex px-6">
           <button
             onClick={onLoadTracers}
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-1 text-sm rounded-l"
+            className="bg-gray-200 hover:bg-gray-400 text-gray-700 px-3 py-1 text-sm rounded-l"
           >
             Tracers
           </button>
           <button
             onClick={onLoadTracings}
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-1 text-sm rounded-r"
+            className="bg-gray-200 hover:bg-gray-400 text-gray-700 px-3 py-1 text-sm rounded-r"
           >
             Tracings
           </button>
@@ -90,4 +90,4 @@ const UserInfo = () => {
   );
 };
 
-export default UserInfo;
+export default UserTraceProfile;

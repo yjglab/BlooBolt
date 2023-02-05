@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useState } from "react";
 import AppLayout from "../components/AppLayout";
 import { useSelector } from "react-redux";
 import Router from "next/router";
-import UserInfo from "../components/UserInfo";
-import UserFlashes from "../components/UserFlashes";
-import UserTrace from "../components/UserTrace";
+import UserInfoProfile from "../components/UserInfoProfile";
+import UserPostProfile from "../components/UserPostProfile";
+import UserTraceProfile from "../components/UserTraceProfile";
 
 const Profile = () => {
   const { me } = useSelector((state) => state.user);
@@ -44,7 +44,7 @@ const Profile = () => {
               </div>
 
               <div className="mt-10">
-                <h1 className="font-bold text-center text-3xl text-gray-900 mb-2">
+                <h1 className="font-bold text-center text-3xl text-gray-700 mb-2">
                   {me?.username}
                 </h1>
                 <div className="text-center text-sm text-gray-400 font-medium">
@@ -54,51 +54,51 @@ const Profile = () => {
                   <span></span>
                 </div>
                 <div className="my-5 px-6 w-full flex justify-center">
-                  <button className="text-gray-200 w-full lg:w-1/2 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-gray-900 hover:bg-black hover:text-white">
+                  <button className="text-white w-full lg:w-1/2 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-gray-700 hover:bg-black hover:text-white">
                     Edit Profile
                   </button>
                 </div>
                 <div className="flex justify-between items-center my-5 px-6">
                   <button
                     onClick={onLoadInfo}
-                    className="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
+                    className="text-gray-700 hover:text-gray-700 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
                   >
                     Info
                   </button>
                   <button
                     onClick={onLoadFlashes}
-                    className="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
+                    className="text-gray-700 hover:text-gray-700 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
                   >
                     Flashes
                   </button>
                   <button
                     onClick={onLoadTrace}
-                    className="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
+                    className="text-gray-700 hover:text-gray-700 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
                   >
                     Trace
                   </button>
                   <button
                     onClick={onLoadSetting}
-                    className="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
+                    className="text-gray-700 hover:text-gray-700 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
                   >
                     Setting
                   </button>
                 </div>
                 {profileMenu === "info" ? (
                   <div className="w-full rounded-lg overflow-hidden">
-                    <UserInfo />
+                    <UserInfoProfile />
                   </div>
                 ) : profileMenu === "flashes" ? (
                   <div className="w-full rounded-lg overflow-hidden">
-                    <UserFlashes />
+                    <UserPostProfile />
                   </div>
                 ) : profileMenu === "trace" ? (
                   <div className="w-full rounded-lg overflow-hidden">
-                    <UserTrace />
+                    <UserTraceProfile />
                   </div>
                 ) : (
                   <div className="w-full rounded-lg overflow-hidden">
-                    <h3 className="font-medium text-gray-900 text-left px-6 pb-1">
+                    <h3 className="font-medium text-gray-700 text-left px-6 pb-1">
                       Application Setting
                     </h3>
                     <div className="overflow-auto mt-5 w-full h-64 flex flex-col text-sm"></div>

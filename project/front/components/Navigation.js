@@ -7,8 +7,8 @@ import { LOG_OUT_REQUEST } from "../pages/reducers/user";
 import Link from "next/link";
 
 const navigationMenu = [
-  { name: "All Flashes", href: "/", current: false },
-  { name: "2", href: "#", current: false },
+  { name: "Square", href: "/", current: false },
+  { name: "Profile", href: "/profile", current: false },
   { name: "3", href: "#", current: false },
   { name: "4", href: "#", current: false },
 ];
@@ -26,7 +26,7 @@ const Navigation = () => {
     });
   });
   return (
-    <Disclosure as="nav" className="bg-gray-800 fixed w-full z-50 top-0">
+    <Disclosure as="nav" className="bg-white shadow fixed w-full z-50 top-0">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -62,8 +62,8 @@ const Navigation = () => {
                         key={item.name}
                         className={classNames(
                           item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            ? "bg-gray-700 text-white"
+                            : "text-gray-700 hover:bg-gray-700 hover:text-white",
                           "px-3 py-2 rounded-md text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
@@ -77,7 +77,7 @@ const Navigation = () => {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="rounded-full  p-1 text-gray-700 hover:text-white hover:bg-gray-700  focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-700"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
@@ -86,7 +86,7 @@ const Navigation = () => {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Menu.Button className="flex rounded-full  text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-700">
                       <span className="sr-only">Open user menu</span>
                       {me ? (
                         <img
@@ -112,7 +112,7 @@ const Navigation = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
                       {me ? (
                         <>
                           <Menu.Item>
@@ -184,8 +184,8 @@ const Navigation = () => {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      ? "bg-gray-700 text-white"
+                      : "text-gray-700 hover:bg-gray-700 hover:text-white",
                     "block px-3 py-2 rounded-md text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}

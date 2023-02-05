@@ -61,7 +61,7 @@ const SignupForm = () => {
   return (
     <AppLayout>
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg rounded-lg ">
+        <div className="px-8 py-6 mt-4 text-left bg-white shadow rounded-lg ">
           <div className="flex justify-center">
             {/* mobile */}
             <img
@@ -150,11 +150,11 @@ const SignupForm = () => {
                   value=""
                   checked={term}
                   onChange={onChangeTerm}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label
                   htmlFor="default-checkbox"
-                  className="ml-2 text-sm font-medium text-gray-900"
+                  className="ml-2 text-sm font-medium text-gray-700"
                 >
                   Subscribe Terms of Service.
                 </label>

@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const UserInfo = () => {
+const UserPostProfile = () => {
   const { me } = useSelector((state) => state.user);
 
   return (
     <>
-      <h3 className="font-medium text-gray-900 text-left px-6 pb-1">
+      <h3 className="font-medium text-gray-700 text-left px-6 pb-1">
         Recent my flashes
       </h3>
       <div className="overflow-auto mt-5 w-full h-64 flex flex-col text-sm">
@@ -35,4 +35,4 @@ const UserInfo = () => {
   );
 };
 
-export default UserInfo;
+export default UserPostProfile;

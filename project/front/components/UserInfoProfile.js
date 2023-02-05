@@ -2,14 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import useInput from "../hooks/useInput";
 
-const UserInfo = () => {
+const UserInfoProfile = () => {
   const { me } = useSelector((state) => state.user);
   const [username, onChangeUsername] = useInput(me?.username || "");
   const [greeting, onChangeGreeting] = useInput(me?.greeting || "");
 
   return (
     <>
-      <h3 className="font-medium text-gray-900 text-left px-6 pb-1">
+      <h3 className="font-medium text-gray-700 text-left px-6 pb-1">
         My Information
       </h3>
       <div className="overflow-auto mt-5 w-full p-4 h-64 flex flex-col text-sm">
@@ -20,7 +20,7 @@ const UserInfo = () => {
                 NAME
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-gray-100 text-gray-700   rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 value={username}
                 onChange={onChangeUsername}
                 type="text"
@@ -32,7 +32,7 @@ const UserInfo = () => {
                 GREETING
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-gray-100 text-gray-700   rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 value={greeting}
                 onChange={onChangeGreeting}
                 type="text"
@@ -47,7 +47,7 @@ const UserInfo = () => {
                 City
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-gray-100 text-gray-700   rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="text"
                 placeholder="adwqd"
               />
@@ -57,7 +57,7 @@ const UserInfo = () => {
                 State
               </label>
               <div className="relative">
-                <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <select className="block appearance-none w-full bg-gray-100   text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -78,7 +78,7 @@ const UserInfo = () => {
                 Zip
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-gray-100 text-gray-700   rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="number"
                 placeholder="90210"
               />
@@ -90,4 +90,4 @@ const UserInfo = () => {
   );
 };
 
-export default UserInfo;
+export default UserInfoProfile;
