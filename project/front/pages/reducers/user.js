@@ -11,7 +11,7 @@ export const initialState = {
   logOutLoading: false,
   logOutDone: false,
   logOutError: null,
-  me: vtlUser1,
+  me: null,
 };
 
 export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST";

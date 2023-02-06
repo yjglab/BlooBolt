@@ -3,7 +3,7 @@ import shortid from "shortid";
 export function genComment(user, text) {
   const comment = {
     id: shortid.generate(),
-    content: text,
+    content: text, // 제힌 800
     createdAt: "2000.00.00",
     UserId: user.id,
     PostId: 33,
@@ -19,7 +19,7 @@ export function genComment(user, text) {
 export function genPost(user, text) {
   const post = {
     id: 33,
-    content: text,
+    content: text, // 제힌 800
     createdAt: "1999.99.99",
     UserId: 101,
     User: {
