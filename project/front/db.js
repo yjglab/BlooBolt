@@ -45,11 +45,12 @@ export const vtlUser1 = {
   id: 101,
   email: "yjg@bloobolt.live",
   username: "yjg",
+  realname: "realyjg",
   status: true, // add
   about: "안녕하세요", // add string (30제한)
   avatar: "", // add string src
   role: "Web Developer", // add string(18)
-  country: "korea",
+  country: "Korea",
   website: "demo.com",
   Posts: [
     {
