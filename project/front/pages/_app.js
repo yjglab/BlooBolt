@@ -6,12 +6,12 @@ import "../styles/globals.css";
 import wrapper from "./store/configureStore";
 import Navigation from "../components/Navigation";
 
-const FlashbagOrigin = ({ Component }) => {
+const BlooBolt = ({ Component }) => {
   return (
     <>
       <Head>
         <meta charSet="utf-8" />
-        <title>FlashBag</title>
+        <title>BlooBolt</title>
       </Head>
       <Navigation />
       <Component />
@@ -19,8 +19,8 @@ const FlashbagOrigin = ({ Component }) => {
   );
 };
 
-FlashbagOrigin.propTypes = {
+BlooBolt.propTypes = {
   Component: PropTypes.elementType.isRequired,
 };
 
-export default wrapper.withRedux(FlashbagOrigin);
+export default wrapper.withRedux(BlooBolt);

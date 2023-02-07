@@ -52,7 +52,7 @@ const LoginForm = () => {
                   href="#"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  make your flashbag account
+                  make your bloobolt account
                 </a>
               </Link>
             </p>

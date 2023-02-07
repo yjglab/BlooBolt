@@ -43,7 +43,7 @@ export function genPost(user, text) {
 
 export const vtlUser1 = {
   id: 101,
-  email: "yjg@flashbag.live",
+  email: "yjg@bloobolt.live",
   username: "yjg",
   status: true, // add
   about: "안녕하세요", // add string (30제한)
@@ -115,28 +115,34 @@ export const vtlUser1 = {
     {
       id: shortid.generate(),
       username: "동키1",
+      role: "동키1의 역할",
     },
     {
       id: shortid.generate(),
       username: "동키2",
+      role: "동키1의 역할",
     },
     {
       id: shortid.generate(),
       username: "동키3",
+      role: "동키1의 역할",
     },
   ],
   Tracers: [
     {
       id: shortid.generate(),
       username: "추적자1",
+      role: "추적자1의 역할",
     },
     {
       id: shortid.generate(),
       username: "추적자2",
+      role: "추적자1의 역할",
     },
     {
       id: shortid.generate(),
       username: "추적자3",
+      role: "추적자1의 역할",
     },
   ],
 };
