@@ -1,3 +1,4 @@
+import { TrashIcon } from "@heroicons/react/20/solid";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +9,7 @@ import { ADD_POST_REQUEST } from "../pages/reducers/post";
 const PostForm = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { addPostDone } = useSelector((state) => state.post);
+  const { addPostDone, imagePaths } = useSelector((state) => state.post);
 
   const [text, onChangeText, setText] = useInput("");
 
@@ -58,13 +59,31 @@ const PostForm = () => {
             <textarea
               value={text}
               onChange={onChangeText}
-              maxLength={500}
+              maxLength={800}
               rows="6"
               className="px-0 pt-2 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-gray-300"
               placeholder="Suggest a new topic."
               required
             ></textarea>
+            <div className="mt-2 border-t border-gray-200  py-2 w-full">
+              <div className="mt-1 flex justify-between w-2/3">
+                <button
+                  type="button"
+                  onClick={""}
+                  className="w-2/12 sm:w-2/12 mx-0.5 relative rounded overflow-hidden  "
+                >
+                  <img
+                    className="hover:opacity-25 z-0 aspect-square object-cover"
+                    src="https://i.guim.co.uk/img/media/c5e73ed8e8325d7e79babf8f1ebbd9adc0d95409/2_5_1754_1053/master/1754.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=d41b50ebb44dd5d055f57f30b97708ab"
+                  />
+                  <div className="z-1 flex justify-center items-center w-full h-full top-0 left-0 absolute opacity-0 hover:bg-white hover:opacity-100 hover:bg-opacity-50">
+                    <TrashIcon className="text-gray-900 w-1/2 h-1/2" />
+                  </div>
+                </button>
+              </div>
+            </div>
           </div>
+
           <div className="absolute flex items-center right-0">
             <input
               type="file"
