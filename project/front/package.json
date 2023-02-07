@@ -21,7 +21,8 @@
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-saga": "^1.2.2",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",

@@ -49,9 +49,12 @@ export const vtlUser1 = {
   about: "안녕하세요", // add string (30제한)
   avatar: "", // add string src
   role: "Web Developer", // add string(18)
+  country: "korea",
+  website: "demo.com",
   Posts: [
     {
       id: shortid.generate(),
+      createdAt: "1888.88.88",
       content: "가상 포스트1",
       UserId: 101,
       User: {
@@ -80,6 +83,7 @@ export const vtlUser1 = {
     },
     {
       id: shortid.generate(),
+      createdAt: "1777.77.77",
       content: "가상 포스트1",
       UserId: 101,
       User: {

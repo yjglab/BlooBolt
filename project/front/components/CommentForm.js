@@ -40,7 +40,7 @@ const CommentForm = () => {
           rows="2"
           onChange={onChangeText}
           value={text}
-          className="px-0 w-full text-sm  border-0 focus:ring-0 focus:outline-none "
+          className="px-0 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-gray-300"
           placeholder="Write a comment."
           required
         ></textarea>

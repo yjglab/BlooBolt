@@ -80,7 +80,7 @@ const SignupForm = () => {
                     href="#"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    login if you have an account
+                    login your account
                   </a>
                 </Link>
               </p>

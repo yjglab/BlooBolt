@@ -60,7 +60,7 @@ const PostForm = () => {
               onChange={onChangeText}
               maxLength={500}
               rows="6"
-              className="px-0 pt-2 w-full text-sm  border-0 focus:ring-0 focus:outline-none "
+              className="px-0 pt-2 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-gray-300"
               placeholder="Suggest a new topic."
               required
             ></textarea>
