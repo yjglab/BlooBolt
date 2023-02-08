@@ -27,6 +27,7 @@ export function genPost(user, text) {
       username: user.username,
       status: user.status,
       role: user.role,
+      rank: user.rank,
     },
     Images: [
       {
@@ -36,7 +37,7 @@ export function genPost(user, text) {
       },
       {
         id: shortid.generate(),
-        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc3uzoXR-8RW329LQPSX7rTIVvRu2jjAAjRaaeHrcNq6SJumXGf76LcyaNu1vDETv5yJY&usqp=CAU",
+        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc3uzoXR-8RW329LQPSX7rTIVvRu2jjAAjRaaeHrcNq6SJumXGf76Lindigou1vDETv5yJY&usqp=CAU",
         PostId: 33,
       },
       {
@@ -67,6 +68,7 @@ export const vtlUser1 = {
   role: "Web Developer", // add string(18)
   country: "Korea",
   website: "demo.com",
+  rank: null, // 1 ~ 5, 기본 null, 어드민 9
   Posts: [
     {
       id: shortid.generate(),

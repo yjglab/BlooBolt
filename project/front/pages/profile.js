@@ -6,17 +6,28 @@ import { Fragment } from "react";
 import {
   BriefcaseIcon,
   CalendarIcon,
+  CheckBadgeIcon,
+  CheckCircleIcon,
   CheckIcon,
   ChevronDownIcon,
   CurrencyDollarIcon,
+  CursorArrowRippleIcon,
+  GlobeAsiaAustraliaIcon,
   LinkIcon,
   MapPinIcon,
+  PauseCircleIcon,
   PencilIcon,
+  PlayCircleIcon,
+  ShieldCheckIcon,
+  StarIcon,
+  TrophyIcon,
+  UserCircleIcon,
 } from "@heroicons/react/20/solid";
 import { Menu, Transition, Tab } from "@headlessui/react";
 import AppLayout from "../components/AppLayout";
 import UserActivity from "../components/UserActivity";
 import UserInformation from "../components/UserInformation";
+import Link from "next/link";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -35,37 +46,81 @@ const Profile = () => {
     <AppLayout>
       <div className="pt-24 px-6 pb-6 w-full bg-gray-100 lg:flex lg:items-center lg:justify-between">
         <div className="min-w-0 flex-1">
-          <h2 className="text-2xl font-bold leading-7 text-gray-900 md:truncate md:text-3xl md:tracking-tight">
-            {me.username}
-          </h2>
+          <div className="flex items-center mb-1">
+            <h2 className="text-2xl font-bold leading-7 text-gray-900 md:truncate md:text-3xl md:tracking-tight">
+              {me.username}
+            </h2>
+            {me.rank ? (
+              <ShieldCheckIcon
+                className={`ml-2 relative top-0.5 h-5 w-5 flex-shrink-0 ${
+                  me.rank === 1
+                    ? "text-cyan-400"
+                    : me.rank === 2
+                    ? "text-amber-400"
+                    : me.rank === 3
+                    ? "text-amber-700/70"
+                    : me.rank === 4
+                    ? "text-indigo-500/90"
+                    : me.rank === 5
+                    ? "text-gray-400"
+                    : me.rank === 9
+                    ? "text-red-400"
+                    : null
+                }`}
+                aria-hidden="true"
+              />
+            ) : (
+              <Link href="#">
+                <span className="cursor-pointer ml-2.5 px-2 py-0.5 rounded-xl bg-gray-400 relative top-1 text-xs text-white">
+                  Not Ranked
+                </span>
+              </Link>
+            )}
+          </div>
           <div className="mt-1 flex flex-col md:mt-0 md:flex-row md:flex-wrap md:space-x-6">
             <div className="mt-2 flex items-center text-sm text-gray-500">
-              <BriefcaseIcon
+              {me.status ? (
+                <>
+                  <PlayCircleIcon
+                    className="mr-1.5 h-5 w-5 flex-shrink-0 text-indigo-500/90"
+                    aria-hidden="true"
+                  />
+                  Active
+                </>
+              ) : (
+                <>
+                  <PauseCircleIcon
+                    className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  Offline
+                </>
+              )}
+            </div>
+
+            <div className="mt-2 flex items-center text-sm text-gray-500">
+              <UserCircleIcon
                 className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
                 aria-hidden="true"
               />
               {me.role}
             </div>
+
             <div className="mt-2 flex items-center text-sm text-gray-500">
-              <MapPinIcon
+              <CursorArrowRippleIcon
                 className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
                 aria-hidden="true"
               />
-              {me.website}
+              <a href={me.website} target="_blank" rel="noreferrer noopenner">
+                {me.website}
+              </a>
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
-              <CurrencyDollarIcon
+              <GlobeAsiaAustraliaIcon
                 className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
                 aria-hidden="true"
               />
               {me.country}
-            </div>
-            <div className="mt-2 flex items-center text-sm text-gray-500">
-              <CalendarIcon
-                className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                aria-hidden="true"
-              />
-              {"Active"}
             </div>
           </div>
         </div>
@@ -73,7 +128,7 @@ const Profile = () => {
           <span className="hidden sm:block">
             <button
               type="button"
-              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
             >
               <PencilIcon
                 className="-ml-1 mr-2 h-5 w-5 text-gray-500"
@@ -86,7 +141,7 @@ const Profile = () => {
           <span className="sm:ml-3">
             <button
               type="button"
-              className="inline-flex items-center rounded-md border border-transparent bg-cyan-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+              className="inline-flex items-center rounded-md border border-transparent bg-indigo-500/90 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
             >
               <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
               Trace
@@ -95,7 +150,7 @@ const Profile = () => {
 
           {/* 모바일 드롭다운 */}
           <Menu as="div" className="relative ml-3 sm:hidden">
-            <Menu.Button className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2">
+            <Menu.Button className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2">
               More
               <ChevronDownIcon
                 className="-mr-1 ml-2 h-5 w-5 text-gray-500"

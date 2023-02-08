@@ -9,6 +9,7 @@ import {
   ChatBubbleLeftRightIcon,
   BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
+  ShieldCheckIcon,
 } from "@heroicons/react/20/solid";
 import PostImages from "./PostImages";
 
@@ -32,16 +33,38 @@ const PostCard = ({ post }) => {
       <div className="flex bg-white shadow rounded-lg w-full px-4 py-6 ">
         <img
           className={`w-12 h-12 rounded-full object-cover mr-4 shadow border-2 p-0.5 ${
-            post.User.status ? "border-cyan-400" : "border-gray-700"
+            post.User.status ? "border-indigo-400" : "border-gray-700"
           }`}
           src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
           alt="avatar"
         />
         <div className="w-full">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-700 -mt-1">
-              {post.User.username}
-            </h2>
+            <div className="flex ">
+              <h2 className="text-lg font-semibold text-gray-700 -mt-1">
+                {post.User.username}
+              </h2>
+              {post.User.rank && (
+                <ShieldCheckIcon
+                  className={`ml-0.5 relative top-0.5 h-4 w-4 flex-shrink-0 ${
+                    post.User.rank === 1
+                      ? "text-cyan-400"
+                      : post.User.rank === 2
+                      ? "text-amber-400"
+                      : post.User.rank === 3
+                      ? "text-amber-700/70"
+                      : post.User.rank === 4
+                      ? "text-indigo-500/90"
+                      : post.User.rank === 5
+                      ? "text-gray-400"
+                      : post.User.rank === 9
+                      ? "text-red-400"
+                      : null
+                  }`}
+                  aria-hidden="true"
+                />
+              )}
+            </div>
             <div className="flex items-center">
               <small className="text-sm text-gray-400 relative right-2">
                 {post.createdAt}
@@ -74,17 +97,16 @@ const PostCard = ({ post }) => {
                     <div className="py-1">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <button
                             className={classNames(
                               active
                                 ? "bg-gray-100 text-gray-700"
                                 : "text-gray-700",
-                              "block px-4 py-2 text-sm"
+                              "block px-4 py-2 text-sm text-left w-full"
                             )}
                           >
                             Edit
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                       <Menu.Item>
@@ -95,7 +117,7 @@ const PostCard = ({ post }) => {
                               active
                                 ? "bg-gray-100 text-gray-700"
                                 : "text-gray-700",
-                              "block px-4 py-2 text-sm"
+                              "block px-4 py-2 text-sm text-left w-full"
                             )}
                           >
                             Delete
@@ -104,17 +126,16 @@ const PostCard = ({ post }) => {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <button
                             className={classNames(
                               active
                                 ? "bg-gray-100 text-gray-700"
                                 : "text-gray-700",
-                              "block px-4 py-2 text-sm"
+                              "block px-4 py-2 text-sm text-left w-full"
                             )}
                           >
                             Report
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                     </div>
@@ -135,13 +156,13 @@ const PostCard = ({ post }) => {
           <div className="mt-4 pt-1 mr-4 border-t flex items-center">
             <div className="flex items-center text-gray-700 text-sm mr-3">
               <BoltIcon
-                className="stroke-2 block h-5 w-5 hover:text-cyan-500 cursor-pointer"
+                className="stroke-2 block h-5 w-5 hover:text-indigo-500/90 cursor-pointer"
                 aria-hidden="true"
               />
               <span className="ml-1">122</span>
             </div>
             <div className="flex items-center text-gray-700 text-sm mr-8">
-              <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5  hover:text-cyan-500 cursor-pointer" />
+              <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5  hover:text-indigo-500/90 cursor-pointer" />
               <span className="ml-1">{post.Comments.length}</span>
             </div>
           </div>

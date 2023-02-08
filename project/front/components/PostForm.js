@@ -43,11 +43,6 @@ const PostForm = () => {
   return (
     <div className="flex  rounded-lg mb-5">
       <div className="flex w-full py-6 ">
-        {/* <img
-            className="w-12 h-12 rounded-full object-cover mr-4 shadow border-4 border-gray-700"
-            src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-            alt="avatar"
-          /> */}
         <form
           action="submit"
           onSubmit={onSubmit}
@@ -60,9 +55,9 @@ const PostForm = () => {
               value={text}
               onChange={onChangeText}
               maxLength={800}
-              rows="6"
+              rows="4"
               className="px-0 pt-2 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-gray-300"
-              placeholder="Suggest a new topic."
+              placeholder="새로운 주제를 제안해보세요. 우측 아래를 드래그하여 입력창을 넓힐 수 있습니다."
               required
             ></textarea>
             <div className="mt-2 border-t border-gray-200  py-2 w-full">
@@ -70,14 +65,14 @@ const PostForm = () => {
                 <button
                   type="button"
                   onClick={null}
-                  className="w-2/12 sm:w-2/12 mx-0.5 relative rounded overflow-hidden  "
+                  className="w-2/12 lg:w-1/12 sm:w-2/12 mx-0.5 relative rounded overflow-hidden  "
                 >
                   <img
                     className="hover:opacity-25 z-0 aspect-square object-cover"
                     src="https://i.guim.co.uk/img/media/c5e73ed8e8325d7e79babf8f1ebbd9adc0d95409/2_5_1754_1053/master/1754.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=d41b50ebb44dd5d055f57f30b97708ab"
                   />
                   <div className="z-1 flex justify-center items-center w-full h-full top-0 left-0 absolute opacity-0 hover:bg-white hover:opacity-100 hover:bg-opacity-50">
-                    <TrashIcon className="text-gray-900 w-1/3 h-1/3" />
+                    <TrashIcon className="text-gray-900 w-1/3 h-1/3 " />
                   </div>
                 </button>
               </div>
@@ -102,7 +97,7 @@ const PostForm = () => {
             </button>
             <button
               type="submit"
-              className="ml-1.5 py-2 px-4 text-xs font-medium text-center shadow bg-cyan-500 rounded-lg text-white hover:bg-cyan-400"
+              className="ml-1.5 py-2 px-4 text-xs font-medium text-center shadow bg-indigo-500/90 rounded-lg text-white hover:bg-indigo-600"
             >
               Flash
             </button>

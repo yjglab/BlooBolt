@@ -78,7 +78,7 @@ const SignupForm = () => {
                 <Link href="/login">
                   <a
                     href="#"
-                    className="font-medium text-cyan-500 hover:text-cyan-500"
+                    className="font-medium text-indigo-500/90 hover:text-indigo-500/90"
                   >
                     login your account
                   </a>
@@ -103,7 +103,7 @@ const SignupForm = () => {
                     onChange={onChangeEmail}
                     id="user-email"
                     required
-                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
                     placeholder="Email address"
                   />
                 </div>
@@ -118,7 +118,7 @@ const SignupForm = () => {
                     onChange={onChangeUsername}
                     id="user-name"
                     required
-                    className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
                     placeholder="User Name"
                   />
                 </div>
@@ -134,7 +134,7 @@ const SignupForm = () => {
                     onChange={onChangePassword}
                     required
                     id="user-password"
-                    className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
                   />
                 </div>
                 <div className="relative flex items-center">
@@ -149,10 +149,10 @@ const SignupForm = () => {
                     onChange={onChangePasswordCheck}
                     required
                     id="user-password-check"
-                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
                   />
                   {passwordError ? (
-                    <span className="z-1 absolute right-5 text-xs tracking-wide text-cyan-500">
+                    <span className="z-1 absolute right-5 text-xs tracking-wide text-indigo-500/90">
                       Password Dismatch
                     </span>
                   ) : (
@@ -171,7 +171,7 @@ const SignupForm = () => {
                     onChange={onChangeTerm}
                     id="user-term"
                     type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500"
+                    className="h-4 w-4 rounded border-gray-300 text-indigo-500/90 focus:ring-indigo-500/90"
                   />
                   <label
                     htmlFor="user-term"
@@ -185,7 +185,7 @@ const SignupForm = () => {
                   <Link href="/login">
                     <a
                       href="#"
-                      className="font-medium text-cyan-500 hover:text-cyan-500"
+                      className="font-medium text-indigo-500/90 hover:text-indigo-500/90"
                     >
                       Already have an account?
                     </a>
@@ -196,11 +196,11 @@ const SignupForm = () => {
               <div>
                 <button
                   type="submit"
-                  className="group relative flex w-full justify-center rounded-md border border-transparent bg-cyan-500 py-2 px-4 text-sm font-medium text-white hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+                  className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500/90 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-500/90 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                     <LockClosedIcon
-                      className="h-5 w-5 text-cyan-500 group-hover:text-cyan-500"
+                      className="h-5 w-5 text-indigo-500/90 group-hover:text-indigo-500/90"
                       aria-hidden="true"
                     />
                   </span>

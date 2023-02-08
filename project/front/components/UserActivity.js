@@ -21,12 +21,12 @@ const UserActivity = () => {
                 classNames(
                   "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700",
                   selected
-                    ? "bg-cyan-500 text-white"
-                    : "text-gray-700 hover:bg-white/[0.12] hover:text-cyan-500"
+                    ? "bg-indigo-500/90 text-white"
+                    : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500/90"
                 )
               }
             >
-              Recent Posts
+              {`Posts (${me.Posts.length})`}
             </Tab>
 
             <Tab
@@ -34,12 +34,12 @@ const UserActivity = () => {
                 classNames(
                   "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700",
                   selected
-                    ? "bg-cyan-500 text-white"
-                    : "text-gray-700 hover:bg-white/[0.12] hover:text-cyan-500"
+                    ? "bg-indigo-500/90 text-white"
+                    : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500/90"
                 )
               }
             >
-              Tracers
+              {`Tracers (${me.Tracers.length})`}
             </Tab>
 
             <Tab
@@ -47,12 +47,12 @@ const UserActivity = () => {
                 classNames(
                   "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700",
                   selected
-                    ? "bg-cyan-500 text-white"
-                    : "text-gray-700 hover:bg-white/[0.12] hover:text-cyan-500"
+                    ? "bg-indigo-500/90 text-white"
+                    : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500/90"
                 )
               }
             >
-              Tracings
+              {`Tracings (${me.Tracings.length})`}
             </Tab>
           </Tab.List>
           <Tab.Panels className="mt-2 ">
@@ -60,7 +60,7 @@ const UserActivity = () => {
               key={"s"}
               className={classNames(
                 "rounded-xl bg-white p-3 h-3/5 ",
-                "ring-white ring-opacity-60 ring-offset-2 ring-offset-cyan-500 focus:outline-none focus:ring-2"
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500/90 focus:outline-none focus:ring-2"
               )}
             >
               <ul>
@@ -84,7 +84,7 @@ const UserActivity = () => {
                       href="#"
                       className={classNames(
                         "absolute inset-0 rounded-md ",
-                        "ring-cyan-500 focus:z-10 focus:outline-none focus:ring-2"
+                        "ring-indigo-500/90 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
                   </li>
@@ -96,7 +96,7 @@ const UserActivity = () => {
               key={"s"}
               className={classNames(
                 "rounded-xl bg-white p-3 h-3/5 ",
-                "ring-white ring-opacity-60 ring-offset-2 ring-offset-cyan-500 focus:outline-none focus:ring-2"
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500/90 focus:outline-none focus:ring-2"
               )}
             >
               <ul>
@@ -123,7 +123,7 @@ const UserActivity = () => {
                       href="#"
                       className={classNames(
                         "absolute inset-0 rounded-md ",
-                        "ring-cyan-500 focus:z-10 focus:outline-none focus:ring-2"
+                        "ring-indigo-500/90 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
                   </li>
@@ -135,7 +135,7 @@ const UserActivity = () => {
               key={"s"}
               className={classNames(
                 "rounded-xl bg-white p-3 h-3/5 ",
-                "ring-white ring-opacity-60 ring-offset-2 ring-offset-cyan-500 focus:outline-none focus:ring-2"
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500/90 focus:outline-none focus:ring-2"
               )}
             >
               <ul>
@@ -162,9 +162,12 @@ const UserActivity = () => {
                       href="#"
                       className={classNames(
                         "absolute inset-0 rounded-md ",
-                        "ring-cyan-500 focus:z-10 focus:outline-none focus:ring-2"
+                        "ring-indigo-500/90 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
+                    <button class="absolute right-2 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2">
+                      Untrace
+                    </button>
                   </li>
                 ))}
               </ul>

@@ -34,20 +34,26 @@ const CommentForm = () => {
 
   return (
     <form action="submit" onSubmit={onSubmit} className="mb-16 relative">
-      <div className="pt-2 pb-0 px-3 mb-2 border-b w-full  ">
+      <div className="pt-2 pb-0 pr-3 mb-2  w-full flex items-center">
+        <div className="w-20 h-full ">
+          <img
+            className="w-12 h-12 rounded-full object-cover shadow border-2 p-0.5 border-indigo-400"
+            src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+          />
+        </div>
         <label className="sr-only"></label>
         <textarea
           rows="2"
           onChange={onChangeText}
           value={text}
-          className="px-0 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-gray-300"
-          placeholder="Write a comment."
+          className="px-0 border-b border-gray-200 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-gray-300"
+          placeholder={`${me?.username}님의 의견을 들려주세요.`}
           required
         ></textarea>
       </div>
       <button
         type="submit"
-        className="absolute right-0 shadow items-center py-2 px-4 text-xs font-medium text-center hover:text-white  rounded-lg focus:ring-4 focus:ring-cyan-200 hover:bg-gray-700"
+        className="absolute right-0 shadow bg-indigo-500/90 items-center py-2 px-4 text-xs font-medium text-center text-white hover:text-white  rounded-lg focus:ring-4 focus:ring-indigo-200 hover:bg-indigo-600"
       >
         Flash
       </button>

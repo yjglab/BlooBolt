@@ -6,7 +6,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body className="overflow-y-scroll">
+        <body className="overflow-y-scroll bg-gray-50">
           <Main />
           <NextScript />
         </body>
