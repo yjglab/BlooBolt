@@ -15,7 +15,7 @@ const UserActivity = () => {
       <div className="text-2xl font-semibold">Activity</div>
       <div className="w-full  py-6 sm:px-0">
         <Tab.Group>
-          <Tab.List className="flex space-x-1 rounded-xl bg-white shadow p-1">
+          <Tab.List className="flex space-x-1 rounded-md bg-white shadow p-1">
             <Tab
               className={({ selected }) =>
                 classNames(
@@ -55,11 +55,11 @@ const UserActivity = () => {
               {`Tracings (${me.Tracings.length})`}
             </Tab>
           </Tab.List>
-          <Tab.Panels className="mt-2 ">
+          <Tab.Panels className="mt-2 rounded shadow">
             <Tab.Panel
               key={"s"}
               className={classNames(
-                "rounded-xl bg-white p-3 h-3/5 ",
+                "rounded-md bg-white p-3 h-3/5 ",
                 "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500/90 focus:outline-none focus:ring-2"
               )}
             >
@@ -95,7 +95,7 @@ const UserActivity = () => {
             <Tab.Panel
               key={"s"}
               className={classNames(
-                "rounded-xl bg-white p-3 h-3/5 ",
+                "rounded-md bg-white p-3 h-3/5 ",
                 "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500/90 focus:outline-none focus:ring-2"
               )}
             >
@@ -134,7 +134,7 @@ const UserActivity = () => {
             <Tab.Panel
               key={"s"}
               className={classNames(
-                "rounded-xl bg-white p-3 h-3/5 ",
+                "rounded-md bg-white p-3 h-3/5 ",
                 "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500/90 focus:outline-none focus:ring-2"
               )}
             >

@@ -15,8 +15,8 @@ const UserInformation = () => {
       <div className="text-2xl font-semibold">Information</div>
       <div className="w-full  py-6 sm:px-0">
         <div>
-          <div className="md:grid md:grid-cols-3 md:gap-6">
-            <div className="md:col-span-1">
+          <div className="lg:grid lg:grid-cols-3 lg:gap-6">
+            <div className="lg:col-span-1">
               <div className="px-4 sm:px-0">
                 <h3 className="text-lg font-medium leading-6 text-gray-900">
                   Public Information
@@ -26,7 +26,7 @@ const UserInformation = () => {
                 </p>
               </div>
             </div>
-            <div className="mt-5 md:col-span-2 md:mt-0">
+            <div className="mt-5 lg:col-span-2 lg:mt-0">
               <form action="submit">
                 <div className="shadow sm:overflow-hidden sm:rounded-md">
                   <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
@@ -97,7 +97,7 @@ const UserInformation = () => {
                           name="about"
                           rows="3"
                           className="mt-1 placeholder:text-gray-300 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500/90 focus:ring-indigo-500/90 sm:text-sm"
-                          placeholder="you@example.com"
+                          placeholder="안녕하세요."
                         ></textarea>
                       </div>
                     </div>
@@ -149,8 +149,8 @@ const UserInformation = () => {
         </div>
 
         <div className="mt-10 sm:mt-0">
-          <div className="md:grid md:grid-cols-3 md:gap-6">
-            <div className="md:col-span-1">
+          <div className="lg:grid lg:grid-cols-3 lg:gap-6">
+            <div className="lg:col-span-1">
               <div className="px-4 sm:px-0">
                 <h3 className="text-lg font-medium leading-6 text-gray-900">
                   Personal Information
@@ -160,7 +160,7 @@ const UserInformation = () => {
                 </p>
               </div>
             </div>
-            <div className="mt-5 md:col-span-2 md:mt-0">
+            <div className="mt-5 lg:col-span-2 lg:mt-0">
               <form action="#" method="POST">
                 <div className="overflow-hidden shadow sm:rounded-md">
                   <div className="bg-white px-4 py-5 sm:p-6">
@@ -254,8 +254,8 @@ const UserInformation = () => {
         </div>
 
         <div className="mt-10 sm:mt-0">
-          <div className="md:grid md:grid-cols-3 md:gap-6">
-            <div className="md:col-span-1">
+          <div className="lg:grid lg:grid-cols-3 lg:gap-6">
+            <div className="lg:col-span-1">
               <div className="px-4 sm:px-0">
                 <h3 className="text-lg font-medium leading-6 text-gray-900">
                   Service Setting
@@ -265,7 +265,7 @@ const UserInformation = () => {
                 </p>
               </div>
             </div>
-            <div className="mt-5 md:col-span-2 md:mt-0">
+            <div className="mt-5 lg:col-span-2 lg:mt-0">
               <form action="#" method="POST">
                 <div className="overflow-hidden shadow sm:rounded-md">
                   <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
@@ -302,7 +302,7 @@ const UserInformation = () => {
                             htmlFor="push-email"
                             className="ml-3 block text-sm font-medium text-gray-700"
                           >
-                            Deactive
+                            Off
                           </label>
                         </div>
                       </div>
