@@ -77,7 +77,7 @@ const PostForm = () => {
                     src="https://i.guim.co.uk/img/media/c5e73ed8e8325d7e79babf8f1ebbd9adc0d95409/2_5_1754_1053/master/1754.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=d41b50ebb44dd5d055f57f30b97708ab"
                   />
                   <div className="z-1 flex justify-center items-center w-full h-full top-0 left-0 absolute opacity-0 hover:bg-white hover:opacity-100 hover:bg-opacity-50">
-                    <TrashIcon className="text-gray-900 w-1/2 h-1/2" />
+                    <TrashIcon className="text-gray-900 w-1/3 h-1/3" />
                   </div>
                 </button>
               </div>
@@ -96,13 +96,13 @@ const PostForm = () => {
             <button
               type="button"
               onClick={onClickImageUpload}
-              className="py-1.5 px-1.5 text-xs font-medium text-center bg-white shadow text-gray-700 rounded-lg focus:ring-4 focus:ring-gray-200 hover:text-white hover:bg-gray-700"
+              className="py-1.5 px-1.5 text-xs font-medium text-center bg-white shadow text-gray-700 rounded-lg focus:ring-4 focus:ring-gray-200  hover:bg-gray-50"
             >
               <PhotoIcon className="stroke-2 block h-5 w-5  cursor-pointer" />
             </button>
             <button
               type="submit"
-              className="ml-1.5 py-2 px-4 text-xs font-medium text-center shadow bg-white rounded-lg hover:text-white hover:bg-gray-700"
+              className="ml-1.5 py-2 px-4 text-xs font-medium text-center shadow bg-cyan-500 rounded-lg text-white hover:bg-cyan-400"
             >
               Flash
             </button>

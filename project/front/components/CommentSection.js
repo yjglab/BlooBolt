@@ -30,7 +30,7 @@ const CommentSection = ({ post }) => {
                   <img
                     className={`mr-2 w-8 h-8 rounded-full shadow border-2 p-0.5 ${
                       comment.User.status
-                        ? "border-yellow-400"
+                        ? "border-cyan-400"
                         : "border-gray-700"
                     }`}
                     src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"

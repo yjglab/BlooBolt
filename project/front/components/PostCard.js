@@ -4,11 +4,12 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import CommentSection from "./CommentSection";
 import { REMOVE_POST_REQUEST } from "../pages/reducers/post";
+
 import {
+  ChatBubbleLeftRightIcon,
+  BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
-  HeartIcon,
-  PlusIcon,
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/20/solid";
 import PostImages from "./PostImages";
 
 function classNames(...classes) {
@@ -31,7 +32,7 @@ const PostCard = ({ post }) => {
       <div className="flex bg-white shadow rounded-lg w-full px-4 py-6 ">
         <img
           className={`w-12 h-12 rounded-full object-cover mr-4 shadow border-2 p-0.5 ${
-            post.User.status ? "border-yellow-400" : "border-gray-700"
+            post.User.status ? "border-cyan-400" : "border-gray-700"
           }`}
           src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
           alt="avatar"
@@ -133,14 +134,14 @@ const PostCard = ({ post }) => {
           </div>
           <div className="mt-4 pt-1 mr-4 border-t flex items-center">
             <div className="flex items-center text-gray-700 text-sm mr-3">
-              <HeartIcon
-                className="stroke-2 block h-5 w-5 hover:text-red-400 cursor-pointer"
+              <BoltIcon
+                className="stroke-2 block h-5 w-5 hover:text-cyan-500 cursor-pointer"
                 aria-hidden="true"
               />
               <span className="ml-1">122</span>
             </div>
             <div className="flex items-center text-gray-700 text-sm mr-8">
-              <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5 hover:text-yellow-400 cursor-pointer" />
+              <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5  hover:text-cyan-500 cursor-pointer" />
               <span className="ml-1">{post.Comments.length}</span>
             </div>
           </div>

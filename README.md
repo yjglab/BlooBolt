@@ -2,7 +2,7 @@
 
 ### front
 
-- React, Redux, Next, Tailwind
+- React, redux, Next, Tailwind
 - 4040
 
 ### back

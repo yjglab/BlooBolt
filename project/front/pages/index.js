@@ -17,7 +17,7 @@ const Home = () => {
   // const liked = post.Likers.find((v) => v.id === id);
   return (
     <AppLayout>
-      <div className="flex h-full bg-gray-100">
+      <div className="flex h-full bg-gray-50">
         <div className="mt-24 w-2/5 ml-8 hidden sm:block ">
           <div className=" font-semibold">좌측사이드바</div>
         </div>

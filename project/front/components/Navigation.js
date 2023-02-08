@@ -71,7 +71,7 @@ const Navigation = () => {
             </Link>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
-            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500">
               <span className="sr-only">Open menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
@@ -83,7 +83,7 @@ const Navigation = () => {
                   <Popover.Button
                     className={classNames(
                       open ? "text-gray-900" : "text-gray-500",
-                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
                     )}
                   >
                     <span>Home Square</span>
@@ -115,7 +115,7 @@ const Navigation = () => {
                               className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
                             >
                               <item.icon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                className="h-6 w-6 flex-shrink-0 text-cyan-500"
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
@@ -153,7 +153,7 @@ const Navigation = () => {
                           <div className="mt-5 text-sm">
                             <a
                               href="#"
-                              className="font-medium text-indigo-600 hover:text-indigo-500"
+                              className="font-medium text-cyan-500 hover:text-cyan-500"
                             >
                               View all posts
                               <span aria-hidden="true"> &rarr;</span>
@@ -172,7 +172,7 @@ const Navigation = () => {
                   <Popover.Button
                     className={classNames(
                       open ? "text-gray-900" : "text-gray-500",
-                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
                     )}
                   >
                     <span>User Section</span>
@@ -204,7 +204,7 @@ const Navigation = () => {
                               className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
                             >
                               <item.icon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                className="h-6 w-6 flex-shrink-0 text-cyan-500"
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
@@ -274,7 +274,7 @@ const Navigation = () => {
                   </div>
                 </Link>
                 <Link href="/login">
-                  <div className="cursor-pointer ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                  <div className="cursor-pointer ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-500">
                     Login
                   </div>
                 </Link>
@@ -308,7 +308,7 @@ const Navigation = () => {
                   />
                 </div>
                 <div className="-mr-2">
-                  <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                  <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500">
                     <span className="sr-only">Close menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </Popover.Button>
@@ -323,7 +323,7 @@ const Navigation = () => {
                       className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                     >
                       <item.icon
-                        className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                        className="h-6 w-6 flex-shrink-0 text-cyan-500"
                         aria-hidden="true"
                       />
                       <span className="ml-3 text-base font-medium text-gray-900">
@@ -363,21 +363,21 @@ const Navigation = () => {
                 {me ? (
                   <button
                     onClick={onLogout}
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-cyan-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-500"
                   >
                     Logout
                   </button>
                 ) : (
                   <>
                     <Link href="/login">
-                      <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                      <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-cyan-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-500">
                         Login
                       </div>
                     </Link>
                     <p className="mt-6 text-center text-base font-medium text-gray-500">
                       Already have an account?{" "}
                       <Link href="/signup">
-                        <span className="text-indigo-600 hover:text-indigo-500">
+                        <span className="text-cyan-500 hover:text-cyan-500">
                           Sign up
                         </span>
                       </Link>

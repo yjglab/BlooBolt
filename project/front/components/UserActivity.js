@@ -15,15 +15,14 @@ const UserActivity = () => {
       <div className="text-2xl font-semibold">Activity</div>
       <div className="w-full  py-6 sm:px-0">
         <Tab.Group>
-          <Tab.List className="flex space-x-1 rounded-xl bg-gray-400 p-1">
+          <Tab.List className="flex space-x-1 rounded-xl bg-white shadow p-1">
             <Tab
               className={({ selected }) =>
                 classNames(
                   "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700",
-                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-gray-400 focus:outline-none focus:ring-2",
                   selected
-                    ? "bg-white shadow"
-                    : "text-gray-100 hover:bg-white/[0.12] hover:text-white"
+                    ? "bg-cyan-500 text-white"
+                    : "text-gray-700 hover:bg-white/[0.12] hover:text-cyan-500"
                 )
               }
             >
@@ -34,10 +33,9 @@ const UserActivity = () => {
               className={({ selected }) =>
                 classNames(
                   "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700",
-                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-gray-400 focus:outline-none focus:ring-2",
                   selected
-                    ? "bg-white shadow"
-                    : "text-gray-100 hover:bg-white/[0.12] hover:text-white"
+                    ? "bg-cyan-500 text-white"
+                    : "text-gray-700 hover:bg-white/[0.12] hover:text-cyan-500"
                 )
               }
             >
@@ -48,10 +46,9 @@ const UserActivity = () => {
               className={({ selected }) =>
                 classNames(
                   "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700",
-                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-gray-400 focus:outline-none focus:ring-2",
                   selected
-                    ? "bg-white shadow"
-                    : "text-gray-100 hover:bg-white/[0.12] hover:text-white"
+                    ? "bg-cyan-500 text-white"
+                    : "text-gray-700 hover:bg-white/[0.12] hover:text-cyan-500"
                 )
               }
             >
@@ -63,7 +60,7 @@ const UserActivity = () => {
               key={"s"}
               className={classNames(
                 "rounded-xl bg-white p-3 h-3/5 ",
-                "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-cyan-500 focus:outline-none focus:ring-2"
               )}
             >
               <ul>
@@ -87,7 +84,7 @@ const UserActivity = () => {
                       href="#"
                       className={classNames(
                         "absolute inset-0 rounded-md ",
-                        "ring-blue-400 focus:z-10 focus:outline-none focus:ring-2"
+                        "ring-cyan-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
                   </li>
@@ -99,7 +96,7 @@ const UserActivity = () => {
               key={"s"}
               className={classNames(
                 "rounded-xl bg-white p-3 h-3/5 ",
-                "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-cyan-500 focus:outline-none focus:ring-2"
               )}
             >
               <ul>
@@ -126,7 +123,7 @@ const UserActivity = () => {
                       href="#"
                       className={classNames(
                         "absolute inset-0 rounded-md ",
-                        "ring-blue-400 focus:z-10 focus:outline-none focus:ring-2"
+                        "ring-cyan-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
                   </li>
@@ -138,7 +135,7 @@ const UserActivity = () => {
               key={"s"}
               className={classNames(
                 "rounded-xl bg-white p-3 h-3/5 ",
-                "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-cyan-500 focus:outline-none focus:ring-2"
               )}
             >
               <ul>
@@ -165,7 +162,7 @@ const UserActivity = () => {
                       href="#"
                       className={classNames(
                         "absolute inset-0 rounded-md ",
-                        "ring-blue-400 focus:z-10 focus:outline-none focus:ring-2"
+                        "ring-cyan-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
                   </li>
