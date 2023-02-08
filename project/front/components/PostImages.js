@@ -1,10 +1,9 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PostImagesCarousel from "./PostImagesCarousel";
+import PropTypes from "prop-types";
 
-const PostImages = () => {
-  const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+const PostImages = ({ images }) => {
   const [openCarousel, setOpenCarousel] = useState(false);
 
   const onOpenCarousel = useCallback(() => {
@@ -28,7 +27,12 @@ const PostImages = () => {
           />
         </button>
 
-        {openCarousel && <PostImagesCarousel />}
+        {openCarousel && (
+          <PostImagesCarousel
+            images={images}
+            onCloseCarousel={onCloseCarousel}
+          />
+        )}
       </div>
     );
   }
@@ -51,7 +55,12 @@ const PostImages = () => {
             alt=""
           />
         </button>
-        {openCarousel && <PostImagesCarousel />}
+        {openCarousel && (
+          <PostImagesCarousel
+            images={images}
+            onCloseCarousel={onCloseCarousel}
+          />
+        )}
       </div>
     );
   }
@@ -82,7 +91,12 @@ const PostImages = () => {
             alt=""
           />
         </button>
-        {openCarousel && <PostImagesCarousel />}
+        {openCarousel && (
+          <PostImagesCarousel
+            images={images}
+            onCloseCarousel={onCloseCarousel}
+          />
+        )}
       </div>
     );
   }
@@ -119,9 +133,15 @@ const PostImages = () => {
           alt=""
         />
       </button>
-      {openCarousel && <PostImagesCarousel />}
+      {openCarousel && (
+        <PostImagesCarousel images={images} onCloseCarousel={onCloseCarousel} />
+      )}
     </div>
   );
+};
+
+PostImages.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default PostImages;

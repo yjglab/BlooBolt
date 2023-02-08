@@ -130,7 +130,7 @@ const PostCard = ({ post }) => {
             <div className=" text-gray-700 text-md break-all">
               {post.content}
             </div>
-            <PostImages />
+            {post.Images[0] && <PostImages images={post.Images} />}
           </div>
           <div className="mt-4 pt-1 mr-4 border-t flex items-center">
             <div className="flex items-center text-gray-700 text-sm mr-3">

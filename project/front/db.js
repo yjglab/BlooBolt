@@ -28,10 +28,25 @@ export function genPost(user, text) {
       status: user.status,
       role: user.role,
     },
-    Image: [
+    Images: [
       {
         id: shortid.generate(),
         src: "https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg",
+        PostId: 33,
+      },
+      {
+        id: shortid.generate(),
+        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc3uzoXR-8RW329LQPSX7rTIVvRu2jjAAjRaaeHrcNq6SJumXGf76LcyaNu1vDETv5yJY&usqp=CAU",
+        PostId: 33,
+      },
+      {
+        id: shortid.generate(),
+        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQIyMWFCp45hPeakHrpSmOZATi_Gd1FkYZQA&usqp=CAU",
+        PostId: 33,
+      },
+      {
+        id: shortid.generate(),
+        src: "https://cdn.shopify.com/s/files/1/1759/2157/products/0L7A4217_720x@2x.JPG?v=1530530879",
         PostId: 33,
       },
     ],
@@ -62,7 +77,7 @@ export const vtlUser1 = {
         id: 101,
         username: "yjg",
       },
-      Image: [
+      Images: [
         {
           id: shortid.generate(),
           src: "",
@@ -91,7 +106,7 @@ export const vtlUser1 = {
         id: 101,
         username: "yjg",
       },
-      Image: [
+      Images: [
         {
           id: shortid.generate(),
           src: "",

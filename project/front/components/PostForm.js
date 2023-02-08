@@ -69,7 +69,7 @@ const PostForm = () => {
               <div className="mt-1 flex justify-between w-2/3">
                 <button
                   type="button"
-                  onClick={""}
+                  onClick={null}
                   className="w-2/12 sm:w-2/12 mx-0.5 relative rounded overflow-hidden  "
                 >
                   <img
