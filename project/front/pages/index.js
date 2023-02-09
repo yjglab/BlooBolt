@@ -3,6 +3,9 @@ import {
   BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   ChatBubbleOvalLeftIcon,
+  CubeIcon,
+  PaperAirplaneIcon,
+  UserGroupIcon,
 } from "@heroicons/react/20/solid";
 
 import React, { Fragment } from "react";
@@ -28,8 +31,9 @@ const Home = () => {
             <div className=" pt-6  h-full w-full bg-gray-50  ">
               <div className="pr-4 py-4 w-full h-full flex flex-col justify-between">
                 <div className="pb-8 w-full h-full flex flex-col justify-between">
-                  <h1 className="pl-4 relative mb-2 left-1 text-lg font-bold text-gray-700">
-                    Relation
+                  <h1 className="pl-4 relative mb-2 left-1 text-lg font-bold text-gray-700 flex items-center">
+                    <UserGroupIcon className="mr-1 w-[19px]" />
+                    <span>Relation</span>
                   </h1>
                   <div className="bg-white rounded-r-md shadow-md p-2 relative w-full h-full flex flex-col">
                     {[1, 1, 1, 1].map((v) => (
@@ -50,7 +54,10 @@ const Home = () => {
         </div>
 
         <div className="mt-20 px-0 md:pl-5 md:w-9/12 lg:px-3 w-full lg:w-7/12 h-full mx-4 md:mx-0 relative ">
-          <div className="font-bold text-gray-700 text-2xl">Square</div>
+          <div className="font-bold text-gray-700 text-2xl flex items-center">
+            <CubeIcon className="mr-1.5 w-6 relative top-0.5" />
+            <span>Square</span>
+          </div>
           <PostForm />
           {mainPosts.map((post) => (
             <PostCard key={post.id} post={post} />
@@ -62,8 +69,9 @@ const Home = () => {
             <div className=" pt-6  h-full w-full bg-gray-50  ">
               <div className="pl-4 py-4 w-full h-full flex flex-col justify-between">
                 <div className="pb-8 w-full h-1/2 flex flex-col justify-between">
-                  <h1 className="relative mb-2 left-1 text-lg font-bold text-gray-700">
-                    Most Flashed
+                  <h1 className="relative mb-2 left-1 text-lg font-bold text-gray-700 flex items-center">
+                    <BoltIcon className="mr-1 w-[19px]" />
+                    <span>Most Flashed</span>
                   </h1>
                   <div className="bg-white rounded-l-md shadow-md p-2 overflow-y-scroll relative w-full h-full flex flex-col justify-between">
                     {[1, 1, 1, 1, 1, 1, 1, 1, 1].map((v) => (
@@ -95,8 +103,9 @@ const Home = () => {
                 </div>
 
                 <div className="pb-8 w-full h-1/2 flex flex-col justify-between">
-                  <h1 className="relative mb-2 left-1 text-lg font-bold text-gray-700">
-                    Traced
+                  <h1 className="relative mb-2 left-1 text-lg font-bold text-gray-700 flex items-center">
+                    <PaperAirplaneIcon className="mr-1 w-[19px]" />
+                    <span>Traced</span>
                   </h1>
                   <div className="bg-white rounded-md shadow-md p-2 overflow-y-scroll relative w-full h-full flex flex-col justify-between">
                     {[1, 1, 1, 1, 1, 1, 1, 1, 1].map((v) => (
