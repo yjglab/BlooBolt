@@ -2,6 +2,7 @@ import { LockClosedIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Router from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 
@@ -11,53 +12,27 @@ import { SIGN_UP_REQUEST } from "../pages/reducers/user";
 const SignupForm = () => {
   const dispatch = useDispatch();
   const { me, signUpError, signUpDone } = useSelector((state) => state.user);
-  const [email, onChangeEmail] = useInput("");
-  const [username, onChangeUsername] = useInput("");
-  const [password, onChangePassword] = useInput("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
-  const [term, setTerm] = useState("");
 
-  const onChangePasswordCheck = useCallback(
-    (e) => {
-      setPasswordCheck(e.target.value);
-      setPasswordError(e.target.value !== password);
-    },
-    [password]
-  );
-  const onChangeTerm = useCallback(
-    (e) => {
-      setTerm(e.target.checked);
-    },
-    [term]
-  );
-  const onSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (passwordError) {
-        return alert("비밀번호가 일치하지 않습니다.");
-      }
-      if (!term) {
-        return alert("서비스 이용 약관에 동의해주십시요.");
-      }
-      dispatch({
-        type: SIGN_UP_REQUEST,
-      });
-      console.log(email, username, password, passwordCheck);
-    },
-    [email, password, passwordCheck, term]
-  );
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm();
 
-  useEffect(() => {
+  const onSignUp = useCallback((formData) => {
+    dispatch({
+      type: SIGN_UP_REQUEST,
+    });
     if (signUpDone) {
       Router.push("/login");
     }
-  }, [signUpDone]);
-  useEffect(() => {
-    if (signUpError) {
-      alert(signUpError);
-    }
-  }, [signUpError]);
+    console.log(
+      formData.email,
+      formData.username,
+      formData.password,
+      formData.passwordCheck
+    );
+  }, []);
 
   return (
     <AppLayout>
@@ -71,111 +46,109 @@ const SignupForm = () => {
                 alt="logo-image"
               />
               <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                Make your BlooBolt
+                Welcome BlooBolt
               </h2>
               <p className="mt-2 text-center text-sm text-gray-600">
-                Or{" "}
-                <Link href="/login">
-                  <a
-                    href="#"
-                    className="font-medium text-indigo-500/90 hover:text-indigo-500/90"
-                  >
-                    login your account
-                  </a>
-                </Link>
+                <span
+                  href="#"
+                  className="font-medium text-indigo-500/90 hover:text-indigo-500/90"
+                >
+                  Make your BlooBolt account
+                </span>
               </p>
             </div>
-            <form
-              className="mt-8 space-y-6"
-              action="submit"
-              onSubmit={onSubmit}
-            >
+            <form className="mt-8 space-y-3" onSubmit={handleSubmit(onSignUp)}>
               <input type="hidden" name="remember" defaultValue="true" />
-              <div className="-space-y-px rounded-md shadow-sm">
+              <div className="-space-y-px rounded-md ">
                 <div>
-                  <label htmlFor="user-email" className="sr-only">
+                  <label htmlFor="email" className="sr-only">
                     Email address
                   </label>
                   <input
-                    type="email"
-                    name="user-email"
-                    value={email}
-                    onChange={onChangeEmail}
-                    id="user-email"
-                    required
-                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
+                    id="email"
+                    type="text"
                     placeholder="Email address"
+                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
+                    {...register("email", {
+                      required: "이메일은 필수 입력입니다",
+                      pattern: {
+                        value: /\S+@\S+\.\S+/,
+                        message: "이메일 형식에 맞지 않습니다",
+                      },
+                    })}
                   />
                 </div>
                 <div>
-                  <label htmlFor="user-name" className="sr-only">
+                  <label htmlFor="username" className="sr-only">
                     User Name
                   </label>
                   <input
+                    id="username"
                     type="text"
-                    name="username"
-                    value={username}
-                    onChange={onChangeUsername}
-                    id="user-name"
-                    required
                     className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
                     placeholder="User Name"
+                    {...register("username", {
+                      required: "사용자명은 필수 입력입니다",
+                      minLength: {
+                        value: 2,
+                        message: "2자리 이상의 사용자명을 입력해주세요",
+                      },
+                    })}
                   />
                 </div>
                 <div>
-                  <label htmlFor="user-password" className="sr-only">
+                  <label htmlFor="password" className="sr-only">
                     Password
                   </label>
                   <input
+                    id="password"
                     type="password"
-                    name="user-password"
-                    value={password}
                     placeholder="Password"
-                    onChange={onChangePassword}
-                    required
-                    id="user-password"
                     className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
+                    {...register("password", {
+                      required: "비밀번호를 입력해주세요",
+                      minLength: {
+                        value: 4,
+                        message: "4자리 이상의 비밀번호를 입력해주세요",
+                      },
+                    })}
                   />
                 </div>
                 <div className="relative flex items-center">
-                  <label htmlFor="user-password-check" className="sr-only">
+                  <label htmlFor="passwordCheck" className="sr-only">
                     Password Check
                   </label>
                   <input
+                    id="passwordCheck"
                     type="password"
-                    name="user-password-check"
-                    value={passwordCheck}
                     placeholder="Password Check"
-                    onChange={onChangePasswordCheck}
-                    required
-                    id="user-password-check"
                     className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
+                    {...register("passwordCheck", {
+                      required: "비밀번호를 입력해주세요",
+                      minLength: {
+                        value: 4,
+                        message: "4자리 이상의 비밀번호를 입력해주세요",
+                      },
+                    })}
                   />
-                  {passwordError ? (
-                    <span className="z-1 absolute right-5 text-xs tracking-wide text-indigo-500/90">
-                      Password Dismatch
-                    </span>
-                  ) : (
-                    <span className="z-1 absolute right-5 opacity-0 text-xs tracking-wide text-green-600">
-                      Password Dismatch
-                    </span>
-                  )}
                 </div>
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <input
-                    name="user-term"
-                    checked={term}
-                    onChange={onChangeTerm}
-                    id="user-term"
+                    id="term"
+                    // checked={term}
+                    // onChange={onChangeTerm}
                     type="checkbox"
                     className="h-4 w-4 rounded border-gray-300 text-indigo-500/90 focus:ring-indigo-500/90"
+                    {...register("term", {
+                      required: "서비스 약관에 동의해주세요",
+                    })}
                   />
                   <label
-                    htmlFor="user-term"
-                    className="ml-2 block text-sm text-gray-900"
+                    htmlFor="term"
+                    className="ml-2 block text-sm text-gray-700"
                   >
                     Subscribe Terms of Service.
                   </label>
@@ -194,8 +167,27 @@ const SignupForm = () => {
               </div>
 
               <div>
+                <div
+                  className="h-6 flex justify-center text-red-500 text-xs "
+                  role="alert"
+                >
+                  {errors.email ? (
+                    <>{errors.email.message}</>
+                  ) : errors.username ? (
+                    <>{errors.username.message}</>
+                  ) : errors.password ? (
+                    <>{errors.password.message}</>
+                  ) : errors.term ? (
+                    <>{errors.term.message}</>
+                  ) : signUpError ? (
+                    <>{signUpError}</>
+                  ) : (
+                    ""
+                  )}
+                </div>
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500/90 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-500/90 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
