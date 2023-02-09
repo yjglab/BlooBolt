@@ -12,6 +12,7 @@ export function genComment(user, text) {
       username: user.username,
       status: user.status,
       role: user.role,
+      rank: 2,
     },
   };
   return comment;
@@ -68,7 +69,7 @@ export const vtlUser1 = {
   role: "Web Developer", // add string(18)
   country: "Korea",
   website: "demo.com",
-  rank: null, // 1 ~ 5, 기본 null, 어드민 9
+  rank: 5, // 1 ~ 5, 기본 null, 어드민 9
   Posts: [
     {
       id: shortid.generate(),
@@ -95,6 +96,7 @@ export const vtlUser1 = {
           User: {
             id: 76,
             username: "댓글러",
+            rank: 2,
           },
         },
       ],
@@ -134,16 +136,19 @@ export const vtlUser1 = {
       id: shortid.generate(),
       username: "동키1",
       role: "동키1의 역할",
+      rank: 2,
     },
     {
       id: shortid.generate(),
       username: "동키2",
       role: "동키1의 역할",
+      rank: 2,
     },
     {
       id: shortid.generate(),
       username: "동키3",
       role: "동키1의 역할",
+      rank: 2,
     },
   ],
   Tracers: [
@@ -151,16 +156,19 @@ export const vtlUser1 = {
       id: shortid.generate(),
       username: "추적자1",
       role: "추적자1의 역할",
+      rank: 4,
     },
     {
       id: shortid.generate(),
       username: "추적자2",
       role: "추적자1의 역할",
+      rank: 4,
     },
     {
       id: shortid.generate(),
       username: "추적자3",
       role: "추적자1의 역할",
+      rank: 4,
     },
   ],
 };

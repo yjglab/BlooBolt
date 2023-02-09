@@ -57,7 +57,7 @@ const PostForm = () => {
               maxLength={800}
               rows="4"
               className="px-0 pt-2 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-gray-300"
-              placeholder="새로운 주제를 제안해보세요. 우측 아래를 드래그하여 입력창을 넓힐 수 있습니다."
+              placeholder="우측 아래를 드래그하여 입력창을 넓힐 수 있습니다."
               required
             ></textarea>
             <div className="mt-2 border-t border-gray-200  py-2 w-full">

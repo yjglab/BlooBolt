@@ -51,24 +51,26 @@ const Profile = () => {
               {me.username}
             </h2>
             {me.rank ? (
-              <ShieldCheckIcon
-                className={`ml-2 relative top-0.5 h-5 w-5 flex-shrink-0 ${
-                  me.rank === 1
-                    ? "text-cyan-400"
-                    : me.rank === 2
-                    ? "text-amber-400"
-                    : me.rank === 3
-                    ? "text-amber-700/70"
-                    : me.rank === 4
-                    ? "text-indigo-500/90"
-                    : me.rank === 5
-                    ? "text-gray-400"
-                    : me.rank === 9
-                    ? "text-red-400"
-                    : null
-                }`}
-                aria-hidden="true"
-              />
+              <Link href="#">
+                <ShieldCheckIcon
+                  className={`ml-1.5 relative top-0.5 h-5 w-5 flex-shrink-0 ${
+                    me.rank === 1
+                      ? "text-cyan-400"
+                      : me.rank === 2
+                      ? "text-amber-400"
+                      : me.rank === 3
+                      ? "text-amber-700/70"
+                      : me.rank === 4
+                      ? "text-indigo-500/90"
+                      : me.rank === 5
+                      ? "text-gray-400"
+                      : me.rank === 9
+                      ? "text-red-400"
+                      : null
+                  }`}
+                  aria-hidden="true"
+                />
+              </Link>
             ) : (
               <Link href="#">
                 <span className="cursor-pointer ml-2.5 px-2 py-0.5 rounded-xl bg-gray-400 relative top-1 text-xs text-white">

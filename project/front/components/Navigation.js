@@ -6,33 +6,36 @@ import { LOG_OUT_REQUEST } from "../pages/reducers/user";
 import Link from "next/link";
 import { Fragment } from "react";
 import {
-  ChartBarIcon,
-  LifebuoyIcon,
   PhoneIcon,
   PlayIcon,
   XMarkIcon,
   Bars3Icon,
 } from "@heroicons/react/24/outline";
-import { ChevronDownIcon, HeartIcon } from "@heroicons/react/20/solid";
+import {
+  ChevronDownIcon,
+  HeartIcon,
+  UserCircleIcon,
+  UserGroupIcon,
+} from "@heroicons/react/20/solid";
 
 const solutions = [
   {
     name: "유저메뉴1",
     description: "유저메뉴설명",
     href: "#",
-    icon: ChartBarIcon,
+    icon: HeartIcon,
   },
 ];
 const callsToAction = [
-  { name: "aa", href: "#", icon: PlayIcon },
-  { name: "bb", href: "#", icon: PhoneIcon },
+  { name: "aa", href: "#", icon: HeartIcon },
+  { name: "bb", href: "#", icon: HeartIcon },
 ];
 const resources = [
   {
     name: "Center",
     description: "Center설명",
     href: "#",
-    icon: LifebuoyIcon,
+    icon: HeartIcon,
   },
 ];
 const recentPosts = [{ id: 1, name: "최근포스트", href: "#" }];
@@ -98,26 +101,41 @@ const Navigation = () => {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
-                    <Popover.Panel className="absolute ml-14 xs:ml-0 left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/3 lg:-translate-x-1/2 transform px-2 sm:px-0">
+                    <Popover.Panel className="absolute ml-20 lg:ml-0 xs:ml-0 left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/3 lg:-translate-x-1/2 transform px-2 sm:px-0">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          <button
-                            href={"item.href"}
-                            className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                          >
-                            <HeartIcon
-                              className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
-                              aria-hidden="true"
-                            />
-                            <div className="ml-4">
-                              <p className="text-base text-left font-medium text-gray-900">
-                                {"item.name"}
-                              </p>
-                              <p className="mt-1 text-sm text-gray-500">
-                                {"item.description"}
-                              </p>
-                            </div>
-                          </button>
+                          <Link href="/">
+                            <button className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
+                              <UserGroupIcon
+                                className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
+                                aria-hidden="true"
+                              />
+                              <div className="ml-4">
+                                <p className="text-base text-left font-medium text-gray-900">
+                                  User Square
+                                </p>
+                                <p className="mt-0.5 text-xs text-gray-500 text-left">
+                                  새로운 주제를 제안해보세요.
+                                </p>
+                              </div>
+                            </button>
+                          </Link>
+                          <Link href={me ? "/profile" : "/login"}>
+                            <button className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
+                              <UserCircleIcon
+                                className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
+                                aria-hidden="true"
+                              />
+                              <div className="ml-4">
+                                <p className="text-base text-left font-medium text-gray-900">
+                                  Profile
+                                </p>
+                                <p className="mt-0.5 text-xs text-gray-500 text-left">
+                                  내 정보를 수정할 수 있습니다.
+                                </p>
+                              </div>
+                            </button>
+                          </Link>
                         </div>
 
                         <div className="bg-gray-50 px-5 py-5 sm:px-8 sm:py-8">
@@ -157,7 +175,7 @@ const Navigation = () => {
                 </>
               )}
             </Popover>
-            <Popover className="relative">
+            {/* <Popover className="relative">
               {({ open }) => (
                 <>
                   <Popover.Button
@@ -185,52 +203,80 @@ const Navigation = () => {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
-                    <Popover.Panel className="absolute z-10 -ml-8 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
+                    <Popover.Panel className="absolute ml-20 lg:ml-0 xs:ml-0 left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/3 lg:-translate-x-1/2 transform px-2 sm:px-0">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          {solutions.map((item) => (
-                            <a
-                              key={item.name}
-                              href={item.href}
-                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                            >
-                              <item.icon
+                          <Link href="/">
+                            <button className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
+                              <UserGroupIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">
-                                  {item.name}
+                                <p className="text-base text-left font-medium text-gray-900">
+                                  User Square
                                 </p>
-                                <p className="mt-1 text-sm text-gray-500">
-                                  {item.description}
+                                <p className="mt-0.5 text-xs text-gray-500 text-left">
+                                  새로운 주제를 제안해보세요.
                                 </p>
                               </div>
-                            </a>
-                          ))}
+                            </button>
+                          </Link>
+                          <Link href="/profile">
+                            <button className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
+                              <UserCircleIcon
+                                className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
+                                aria-hidden="true"
+                              />
+                              <div className="ml-4">
+                                <p className="text-base text-left font-medium text-gray-900">
+                                  Profile
+                                </p>
+                                <p className="mt-0.5 text-xs text-gray-500 text-left">
+                                  내 정보를 수정할 수 있습니다.
+                                </p>
+                              </div>
+                            </button>
+                          </Link>
                         </div>
-                        <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
-                          {callsToAction.map((item) => (
-                            <div key={item.name} className="flow-root">
-                              <a
-                                href={item.href}
-                                className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
-                              >
-                                <item.icon
-                                  className="h-6 w-6 flex-shrink-0 text-gray-400"
-                                  aria-hidden="true"
-                                />
-                                <span className="ml-3">{item.name}</span>
-                              </a>
-                            </div>
-                          ))}
+
+                        <div className="bg-gray-50 px-5 py-5 sm:px-8 sm:py-8">
+                          <div>
+                            <h3 className="text-base font-medium text-gray-500">
+                              Recent Posts
+                            </h3>
+                            <ul role="list" className="mt-4 space-y-4">
+                              {recentPosts.map((post) => (
+                                <li
+                                  key={post.id}
+                                  className="truncate text-base"
+                                >
+                                  <a
+                                    href={post.href}
+                                    className="font-medium text-gray-900 hover:text-gray-700"
+                                  >
+                                    {post.name}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="mt-5 text-sm">
+                            <a
+                              href="#"
+                              className="font-medium text-indigo-500/90 hover:text-indigo-600"
+                            >
+                              View all posts
+                              <span aria-hidden="true"> &rarr;</span>
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </Popover.Panel>
                   </Transition>
                 </>
               )}
-            </Popover>
+            </Popover> */}
             <Link href="/about">
               <div
                 href="#"

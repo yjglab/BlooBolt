@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Menu, Transition, Tab } from "@headlessui/react";
+import { ShieldCheckIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -110,10 +111,31 @@ const UserActivity = () => {
                       src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
                     />
                     <div>
-                      <h3 className="truncate  text-sm font-medium leading-5 ">
-                        {tracer.username}
-                      </h3>
-
+                      <div className="flex">
+                        <h3 className="truncate  text-sm font-medium leading-5 ">
+                          {tracer.username}
+                        </h3>
+                        {tracer.rank && (
+                          <ShieldCheckIcon
+                            className={`ml-1 relative top-0.5 h-4 w-4 flex-shrink-0 ${
+                              tracer.rank === 1
+                                ? "text-cyan-400"
+                                : tracer.rank === 2
+                                ? "text-amber-400"
+                                : tracer.rank === 3
+                                ? "text-amber-700/70"
+                                : tracer.rank === 4
+                                ? "text-indigo-500/90"
+                                : tracer.rank === 5
+                                ? "text-gray-400"
+                                : tracer.rank === 9
+                                ? "text-red-400"
+                                : null
+                            }`}
+                            aria-hidden="true"
+                          />
+                        )}
+                      </div>
                       <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
                         <li>{tracer.role}</li>
                         {/* <li>&middot;</li> */}
@@ -149,10 +171,31 @@ const UserActivity = () => {
                       src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
                     />
                     <div>
-                      <h3 className="truncate  text-sm font-medium leading-5 ">
-                        {tracing.username}
-                      </h3>
-
+                      <div className="flex">
+                        <h3 className="truncate  text-sm font-medium leading-5 ">
+                          {tracing.username}
+                        </h3>
+                        {tracing.rank && (
+                          <ShieldCheckIcon
+                            className={`ml-1 relative top-0.5 h-4 w-4 flex-shrink-0 ${
+                              tracing.rank === 1
+                                ? "text-cyan-400"
+                                : tracing.rank === 2
+                                ? "text-amber-400"
+                                : tracing.rank === 3
+                                ? "text-amber-700/70"
+                                : tracing.rank === 4
+                                ? "text-indigo-500/90"
+                                : tracing.rank === 5
+                                ? "text-gray-400"
+                                : tracing.rank === 9
+                                ? "text-red-400"
+                                : null
+                            }`}
+                            aria-hidden="true"
+                          />
+                        )}
+                      </div>
                       <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
                         <li>{tracing.role}</li>
                         {/* <li>&middot;</li> */}
