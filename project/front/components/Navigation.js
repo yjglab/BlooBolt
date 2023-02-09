@@ -54,7 +54,7 @@ const Navigation = () => {
   });
 
   return (
-    <Popover className="fixed top-0 w-full left-0 z-50 shadow">
+    <Popover className="fixed top-0 w-full left-0 z-50 shadow-md">
       <div className="">
         <div className="px-6 flex bg-white items-center justify-between  py-2.5 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1 ">
@@ -105,7 +105,7 @@ const Navigation = () => {
                     leaveTo="opacity-0 translate-y-1"
                   >
                     <Popover.Panel className="absolute ml-20 lg:ml-0 xs:ml-0 left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/3 lg:-translate-x-1/2 transform px-2 sm:px-0">
-                      <div className="overflow-hidden rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                      <div className="overflow-hidden rounded-md shadow-md-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           <Link href="/">
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-gray-50">
@@ -226,7 +226,7 @@ const Navigation = () => {
                   </div>
                 </Link>
                 <Link href="/login">
-                  <div className="cursor-pointer ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-500/90 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-600">
+                  <div className="cursor-pointer ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-500/90 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-600">
                     Login
                   </div>
                 </Link>
@@ -249,7 +249,7 @@ const Navigation = () => {
           focus
           className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
         >
-          <div className="divide-y-2 divide-gray-50 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+          <div className="divide-y-2 divide-gray-50 rounded-md bg-white shadow-md-lg ring-1 ring-black ring-opacity-5">
             <div className="px-5 pt-5 pb-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -315,14 +315,14 @@ const Navigation = () => {
                 {me ? (
                   <button
                     onClick={onLogout}
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500/90 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-500/90"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500/90 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500/90"
                   >
                     Logout
                   </button>
                 ) : (
                   <>
                     <Link href="/login">
-                      <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500/90 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-500/90">
+                      <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500/90 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500/90">
                         Login
                       </div>
                     </Link>

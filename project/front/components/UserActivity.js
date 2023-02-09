@@ -16,7 +16,7 @@ const UserActivity = () => {
       <div className="text-2xl font-semibold">Activity</div>
       <div className="w-full  py-6 sm:px-0">
         <Tab.Group>
-          <Tab.List className="flex space-x-1 rounded-md bg-white shadow p-1">
+          <Tab.List className="flex space-x-1 rounded-md bg-white shadow-md p-1">
             <Tab
               className={({ selected }) =>
                 classNames(
@@ -56,7 +56,7 @@ const UserActivity = () => {
               {`Tracings (${me.Tracings.length})`}
             </Tab>
           </Tab.List>
-          <Tab.Panels className="mt-2 rounded shadow">
+          <Tab.Panels className="mt-2 rounded shadow-md">
             <Tab.Panel
               key={"s"}
               className={classNames(
@@ -208,7 +208,7 @@ const UserActivity = () => {
                         "ring-indigo-500/90 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
-                    <button class="absolute right-2 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2">
+                    <button class="absolute right-2 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-md-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2">
                       Untrace
                     </button>
                   </li>

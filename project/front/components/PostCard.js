@@ -30,9 +30,9 @@ const PostCard = ({ post }) => {
 
   return (
     <div className="flex flex-col mb-6">
-      <div className="flex bg-white shadow rounded-md w-full px-4 py-6 ">
+      <div className="flex bg-white shadow-md rounded-lg w-full px-4 py-6 ">
         <img
-          className={`w-12 h-12 rounded-full object-cover mr-4 shadow border-2 p-0.5 ${
+          className={`w-12 h-12 rounded-full object-cover mr-4 shadow-md border-2 p-0.5 ${
             post.User.status ? "border-indigo-400" : "border-gray-700"
           }`}
           src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
@@ -93,7 +93,7 @@ const PostCard = ({ post }) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       <Menu.Item>
                         {({ active }) => (

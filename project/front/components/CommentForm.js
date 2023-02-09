@@ -37,7 +37,7 @@ const CommentForm = () => {
       <div className="pt-2 pb-0 pr-3 mb-2  w-full flex items-center">
         <div className="w-20 h-full ">
           <img
-            className="w-12 h-12 rounded-full object-cover shadow border-2 p-0.5 border-indigo-400"
+            className="w-12 h-12 rounded-full object-cover shadow-md border-2 p-0.5 border-indigo-400"
             src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
           />
         </div>
@@ -53,7 +53,7 @@ const CommentForm = () => {
       </div>
       <button
         type="submit"
-        className="absolute right-2 shadow bg-indigo-500/90 items-center py-2 px-4 text-xs font-medium text-center text-white hover:text-white  rounded-md focus:ring-4 focus:ring-indigo-200 hover:bg-indigo-600"
+        className="absolute right-2 shadow-md bg-indigo-500/90 items-center py-2 px-4 text-xs font-medium text-center text-white hover:text-white  rounded-md focus:ring-4 focus:ring-indigo-200 hover:bg-indigo-600"
       >
         Flash
       </button>
