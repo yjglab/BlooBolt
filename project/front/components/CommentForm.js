@@ -53,7 +53,7 @@ const CommentForm = () => {
       </div>
       <button
         type="submit"
-        className="absolute right-0 shadow bg-indigo-500/90 items-center py-2 px-4 text-xs font-medium text-center text-white hover:text-white  rounded-lg focus:ring-4 focus:ring-indigo-200 hover:bg-indigo-600"
+        className="absolute right-2 shadow bg-indigo-500/90 items-center py-2 px-4 text-xs font-medium text-center text-white hover:text-white  rounded-md focus:ring-4 focus:ring-indigo-200 hover:bg-indigo-600"
       >
         Flash
       </button>

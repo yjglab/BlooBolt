@@ -20,7 +20,7 @@ const UserActivity = () => {
             <Tab
               className={({ selected }) =>
                 classNames(
-                  "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700",
+                  "w-full rounded-md py-2.5 text-sm font-medium leading-5 text-gray-700",
                   selected
                     ? "bg-indigo-500/90 text-white"
                     : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500/90"
@@ -33,7 +33,7 @@ const UserActivity = () => {
             <Tab
               className={({ selected }) =>
                 classNames(
-                  "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700",
+                  "w-full rounded-md py-2.5 text-sm font-medium leading-5 text-gray-700",
                   selected
                     ? "bg-indigo-500/90 text-white"
                     : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500/90"
@@ -46,7 +46,7 @@ const UserActivity = () => {
             <Tab
               className={({ selected }) =>
                 classNames(
-                  "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700",
+                  "w-full rounded-md py-2.5 text-sm font-medium leading-5 text-gray-700",
                   selected
                     ? "bg-indigo-500/90 text-white"
                     : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500/90"

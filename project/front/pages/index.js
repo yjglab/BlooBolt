@@ -17,16 +17,51 @@ const Home = () => {
   // const liked = post.Likers.find((v) => v.id === id);
   return (
     <AppLayout>
-      <div className="flex h-full ">
-        <div className="mt-24 w-2/5 ml-8 hidden sm:block ">
-          <div className=" font-semibold">좌측사이드바</div>
+      <div className="flex h-full">
+        <div className="w-2/12 hidden md:block">
+          <div className="my-10 fixed left-0 w-2/12 h-full">
+            <div className=" pt-6  h-full w-full bg-white shadow ">
+              <div className="px-5 py-4 w-full h-full flex flex-col justify-between">
+                <div className="w-full h-full">
+                  <h1 className="text-lg font-bold text-gray-700">Relation</h1>
+                  <div></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="mt-24 w-full h-full mx-4 sm:mr-8 relative ">
-          <div className="font-semibold text-gray-700 text-2xl">Square</div>
+
+        <div className="mt-20 px-0 md:px-3 w-full md:w-7/12 h-full mx-4 relative ">
+          <div className="font-bold text-gray-700 text-2xl">Square</div>
           <PostForm />
           {mainPosts.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}
+        </div>
+
+        <div className="w-3/12 hidden md:block">
+          <div className="fixed right-0  h-full my-10 w-3/12  ">
+            <div className=" pt-6  h-full w-full bg-white shadow ">
+              <div className="px-5 py-4 w-full h-full flex flex-col justify-between">
+                <div className="w-full h-full flex flex-col justify-between">
+                  <h1 className="text-lg font-bold text-gray-700">
+                    Most Flashed
+                  </h1>
+                  <div className="w-full h-full flex flex-col justify-between pb-3">
+                    <div className="w-full h-full">s</div>
+                    <div className="w-full h-full">s</div>
+                    <div className="w-full h-full">s</div>
+                    <div className="w-full h-full">s</div>
+                    <div className="w-full h-full">s</div>
+                  </div>
+                </div>
+                <div className="w-full h-full">
+                  <h1 className="text-lg font-bold text-gray-700">Traced</h1>
+                  <div></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </AppLayout>

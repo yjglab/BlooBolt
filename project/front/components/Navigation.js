@@ -105,10 +105,10 @@ const Navigation = () => {
                     leaveTo="opacity-0 translate-y-1"
                   >
                     <Popover.Panel className="absolute ml-20 lg:ml-0 xs:ml-0 left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/3 lg:-translate-x-1/2 transform px-2 sm:px-0">
-                      <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                      <div className="overflow-hidden rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           <Link href="/">
-                            <button className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
+                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-gray-50">
                               <UserGroupIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
                                 aria-hidden="true"
@@ -124,7 +124,7 @@ const Navigation = () => {
                             </button>
                           </Link>
                           <Link href={me ? "/profile" : "/login"}>
-                            <button className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
+                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-gray-50">
                               <UserCircleIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
                                 aria-hidden="true"
@@ -249,7 +249,7 @@ const Navigation = () => {
           focus
           className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
         >
-          <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+          <div className="divide-y-2 divide-gray-50 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
             <div className="px-5 pt-5 pb-6">
               <div className="flex items-center justify-between">
                 <div>

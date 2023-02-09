@@ -41,7 +41,7 @@ const PostForm = () => {
   const onChangeImages = useCallback(() => {}, []);
 
   return (
-    <div className="flex  rounded-lg mb-5">
+    <div className="flex  rounded-md mb-5">
       <div className="flex w-full py-6 ">
         <form
           action="submit"
@@ -49,7 +49,7 @@ const PostForm = () => {
           encType="multipart/form-data"
           className="mb-8 w-full relative "
         >
-          <div className="py-2 px-4 mb-2 bg-white w-full shadow rounded-lg rounded-t-lg ">
+          <div className="py-2 px-4 mb-2 bg-white w-full shadow rounded-md rounded-t-lg ">
             <label className="sr-only"></label>
             <textarea
               value={text}
@@ -91,13 +91,13 @@ const PostForm = () => {
             <button
               type="button"
               onClick={onClickImageUpload}
-              className="py-1.5 px-1.5 text-xs font-medium text-center bg-white shadow text-gray-700 rounded-lg focus:ring-4 focus:ring-gray-200  hover:bg-gray-50"
+              className="py-1.5 px-1.5 text-xs font-medium text-center bg-white shadow text-gray-700 rounded-md focus:ring-4 focus:ring-gray-200  hover:bg-gray-50"
             >
               <PhotoIcon className="stroke-2 block h-5 w-5  cursor-pointer" />
             </button>
             <button
               type="submit"
-              className="ml-1.5 py-2 px-4 text-xs font-medium text-center shadow bg-indigo-500/90 rounded-lg text-white hover:bg-indigo-600"
+              className="ml-1.5 py-2 px-4 text-xs font-medium text-center shadow bg-indigo-500/90 rounded-md text-white hover:bg-indigo-600"
             >
               Flash
             </button>
