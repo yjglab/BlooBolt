@@ -22,9 +22,7 @@ const Home = () => {
           <div className=" font-semibold">좌측사이드바</div>
         </div>
         <div className="mt-24 w-full h-full mx-4 sm:mr-8 relative ">
-          <div className="font-semibold text-gray-700 text-2xl">
-            User Square
-          </div>
+          <div className="font-semibold text-gray-700 text-2xl">Square</div>
           <PostForm />
           {mainPosts.map((post) => (
             <PostCard key={post.id} post={post} />

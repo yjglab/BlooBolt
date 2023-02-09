@@ -72,7 +72,10 @@ const Navigation = () => {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
           </div>
-          <Popover.Group as="nav" className="hidden space-x-6 md:flex">
+          <Popover.Group
+            as="nav"
+            className="items-center hidden space-x-6 md:flex"
+          >
             <Popover className="relative">
               {({ open }) => (
                 <>
@@ -82,7 +85,7 @@ const Navigation = () => {
                       "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
                     )}
                   >
-                    <span>Area</span>
+                    <span>User Section</span>
                     <ChevronDownIcon
                       className={classNames(
                         open ? "text-gray-600" : "text-gray-400",
@@ -131,7 +134,7 @@ const Navigation = () => {
                                   Profile
                                 </p>
                                 <p className="mt-0.5 text-xs text-gray-500 text-left">
-                                  내 정보를 수정할 수 있습니다.
+                                  프로필을 수정할 수 있습니다.
                                 </p>
                               </div>
                             </button>
@@ -141,7 +144,7 @@ const Navigation = () => {
                         <div className="bg-gray-50 px-5 py-5 sm:px-8 sm:py-8">
                           <div>
                             <h3 className="text-base font-medium text-gray-500">
-                              Recent Posts
+                              Recent Traced
                             </h3>
                             <ul role="list" className="mt-4 space-y-4">
                               {recentPosts.map((post) => (
@@ -175,108 +178,7 @@ const Navigation = () => {
                 </>
               )}
             </Popover>
-            {/* <Popover className="relative">
-              {({ open }) => (
-                <>
-                  <Popover.Button
-                    className={classNames(
-                      open ? "text-gray-700" : "text-gray-500",
-                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
-                    )}
-                  >
-                    <span>User Section</span>
-                    <ChevronDownIcon
-                      className={classNames(
-                        open ? "text-gray-600" : "text-gray-400",
-                        "ml-2 h-5 w-5 group-hover:text-gray-500"
-                      )}
-                      aria-hidden="true"
-                    />
-                  </Popover.Button>
 
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-200"
-                    enterFrom="opacity-0 translate-y-1"
-                    enterTo="opacity-100 translate-y-0"
-                    leave="transition ease-in duration-150"
-                    leaveFrom="opacity-100 translate-y-0"
-                    leaveTo="opacity-0 translate-y-1"
-                  >
-                    <Popover.Panel className="absolute ml-20 lg:ml-0 xs:ml-0 left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/3 lg:-translate-x-1/2 transform px-2 sm:px-0">
-                      <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                        <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          <Link href="/">
-                            <button className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
-                              <UserGroupIcon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
-                                aria-hidden="true"
-                              />
-                              <div className="ml-4">
-                                <p className="text-base text-left font-medium text-gray-900">
-                                  User Square
-                                </p>
-                                <p className="mt-0.5 text-xs text-gray-500 text-left">
-                                  새로운 주제를 제안해보세요.
-                                </p>
-                              </div>
-                            </button>
-                          </Link>
-                          <Link href="/profile">
-                            <button className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
-                              <UserCircleIcon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
-                                aria-hidden="true"
-                              />
-                              <div className="ml-4">
-                                <p className="text-base text-left font-medium text-gray-900">
-                                  Profile
-                                </p>
-                                <p className="mt-0.5 text-xs text-gray-500 text-left">
-                                  내 정보를 수정할 수 있습니다.
-                                </p>
-                              </div>
-                            </button>
-                          </Link>
-                        </div>
-
-                        <div className="bg-gray-50 px-5 py-5 sm:px-8 sm:py-8">
-                          <div>
-                            <h3 className="text-base font-medium text-gray-500">
-                              Recent Posts
-                            </h3>
-                            <ul role="list" className="mt-4 space-y-4">
-                              {recentPosts.map((post) => (
-                                <li
-                                  key={post.id}
-                                  className="truncate text-base"
-                                >
-                                  <a
-                                    href={post.href}
-                                    className="font-medium text-gray-900 hover:text-gray-700"
-                                  >
-                                    {post.name}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div className="mt-5 text-sm">
-                            <a
-                              href="#"
-                              className="font-medium text-indigo-500/90 hover:text-indigo-600"
-                            >
-                              View all posts
-                              <span aria-hidden="true"> &rarr;</span>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </Popover.Panel>
-                  </Transition>
-                </>
-              )}
-            </Popover> */}
             <Link href="/about">
               <div
                 href="#"
@@ -285,6 +187,19 @@ const Navigation = () => {
                 About
               </div>
             </Link>
+
+            {/* 사이드바로 옮기기 나중애 */}
+            <div className="flex h-7">
+              <span className="inline-flex items-center bg-indigo-500/90 rounded-l-md 0  px-2.5 text-sm text-white">
+                #
+              </span>
+              <input
+                type="text"
+                id="company-website"
+                className=" h-full border-none outline-none bg-gray-50 placeholder:text-gray-400 w-28 flex-1 text-gray-700 focus:bg-gray-100 focus:ring-0 rounded-r-md  sm:text-sm"
+                placeholder="Hashtag"
+              />
+            </div>
           </Popover.Group>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
             {me ? (

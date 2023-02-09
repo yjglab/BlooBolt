@@ -33,8 +33,8 @@ const CommentSection = ({ post }) => {
                         ? "border-indigo-400"
                         : "border-gray-700"
                     }`}
-                    src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                    alt="Michael Gough"
+                    src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
+                    alt="avatar"
                   />
                   <div className="relative bottom-0.5 font-semibold text-base">
                     {comment.User.username}

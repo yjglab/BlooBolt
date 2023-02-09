@@ -35,7 +35,7 @@ const PostCard = ({ post }) => {
           className={`w-12 h-12 rounded-full object-cover mr-4 shadow border-2 p-0.5 ${
             post.User.status ? "border-indigo-400" : "border-gray-700"
           }`}
-          src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+          src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
           alt="avatar"
         />
         <div className="w-full">

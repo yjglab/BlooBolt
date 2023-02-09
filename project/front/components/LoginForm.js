@@ -66,10 +66,10 @@ const LoginForm = () => {
                   placeholder="Email address"
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
                   {...register("email", {
-                    required: "이메일은 필수 입력입니다.",
+                    required: "이메일은 필수 입력입니다",
                     pattern: {
                       value: /\S+@\S+\.\S+/,
-                      message: "이메일 형식에 맞지 않습니다.",
+                      message: "이메일 형식에 맞지 않습니다",
                     },
                   })}
                 />
@@ -84,10 +84,10 @@ const LoginForm = () => {
                   placeholder="Password"
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
                   {...register("password", {
-                    required: "비밀번호를 입력해주세요.",
+                    required: "비밀번호를 입력해주세요",
                     minLength: {
                       value: 4,
-                      message: "4자리 이상의 비밀번호를 입력해주세요.",
+                      message: "4자리 이상의 비밀번호를 입력해주세요",
                     },
                   })}
                 />

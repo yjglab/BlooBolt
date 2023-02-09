@@ -1,4 +1,4 @@
-import { LockClosedIcon } from "@heroicons/react/24/outline";
+import { LockClosedIcon, UserPlusIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import Router from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
@@ -188,11 +188,11 @@ const SignupForm = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500/90 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-500/90 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
+                  className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500/90 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <LockClosedIcon
-                      className="h-5 w-5 text-indigo-500/90 group-hover:text-indigo-500/90"
+                    <UserPlusIcon
+                      className="h-5 w-5 text-indigo-600 group-hover:text-indigo-50"
                       aria-hidden="true"
                     />
                   </span>

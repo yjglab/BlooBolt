@@ -38,7 +38,7 @@ const CommentForm = () => {
         <div className="w-20 h-full ">
           <img
             className="w-12 h-12 rounded-full object-cover shadow border-2 p-0.5 border-indigo-400"
-            src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
           />
         </div>
         <label className="sr-only"></label>
