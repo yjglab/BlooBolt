@@ -5,32 +5,28 @@ import useInput from "../hooks/useInput";
 import { LOG_IN_REQUEST } from "../pages/reducers/user";
 
 import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { useForm } from "react-hook-form";
+
+//   let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+//   regex.test("string")
 
 const LoginForm = () => {
-  const { logInError } = useSelector((state) => state.user);
-  const [email, onChangeEmail] = useInput("");
-  const [password, onChangePassword] = useInput("");
   const dispatch = useDispatch();
-  //   let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-  //   regex.test("string")
+  const { logInError } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    if (logInError) {
-      alert(loginError);
-    }
-  }, [logInError]);
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm();
 
-  const onSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      dispatch({
-        type: LOG_IN_REQUEST,
-        data: { email, password },
-      });
-      console.log(email, password);
-    },
-    [email, password]
-  );
+  const onLogin = useCallback((formData) => {
+    dispatch({
+      type: LOG_IN_REQUEST,
+      data: { email: formData.email, password: formData.password },
+    });
+    console.log(formData);
+  }, []);
 
   return (
     <div className="h-screen bg-gray-50">
@@ -57,39 +53,43 @@ const LoginForm = () => {
               </Link>
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="submit" onSubmit={onSubmit}>
+          <form className="mt-8 space-y-3" onSubmit={handleSubmit(onLogin)}>
             <input type="hidden" name="remember" defaultValue="true" />
-            <div className="-space-y-px rounded-md shadow-sm">
+            <div className="-space-y-px rounded-md ">
               <div>
-                <label htmlFor="user-email" className="sr-only">
+                <label htmlFor="email" className="sr-only">
                   Email address
                 </label>
                 <input
-                  type="email"
-                  name="user-email"
-                  value="aa@a.com" // {email}
-                  onChange={onChangeEmail}
-                  id="user-email"
-                  autoComplete="email"
-                  required
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
+                  id="email"
+                  type="text"
                   placeholder="Email address"
+                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
+                  {...register("email", {
+                    required: "이메일은 필수 입력입니다.",
+                    pattern: {
+                      value: /\S+@\S+\.\S+/,
+                      message: "이메일 형식에 맞지 않습니다.",
+                    },
+                  })}
                 />
               </div>
               <div>
-                <label htmlFor="user-password" className="sr-only">
+                <label htmlFor="password" className="sr-only">
                   Password
                 </label>
                 <input
+                  id="password"
                   type="password"
-                  name="user-password"
-                  value={"123"} // password
                   placeholder="Password"
-                  onChange={onChangePassword}
-                  required
-                  id="user-password"
-                  autoComplete="current-password"
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
+                  {...register("password", {
+                    required: "비밀번호를 입력해주세요.",
+                    minLength: {
+                      value: 4,
+                      message: "4자리 이상의 비밀번호를 입력해주세요.",
+                    },
+                  })}
                 />
               </div>
             </div>
@@ -98,7 +98,6 @@ const LoginForm = () => {
               <div className="flex items-center">
                 <input
                   id="remember-me"
-                  name="remember-me"
                   type="checkbox"
                   className="h-4 w-4 rounded border-gray-300 text-indigo-500/90 focus:ring-indigo-500/90"
                 />
@@ -112,29 +111,43 @@ const LoginForm = () => {
 
               <div className="text-sm">
                 <Link href="/signup">
-                  <a
-                    href="#"
-                    className="font-medium text-indigo-500/90 hover:text-indigo-500/90"
-                  >
+                  <span className="cursor-pointer font-medium text-indigo-500/90 hover:text-indigo-600">
                     Don't have an account?
-                  </a>
+                  </span>
                 </Link>
               </div>
             </div>
 
             <div>
-              <button
-                type="submit"
-                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500/90 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
-              >
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <LockClosedIcon
-                    className="h-5 w-5 text-indigo-600 group-hover:text-indigo-50"
-                    aria-hidden="true"
-                  />
-                </span>
-                Access
-              </button>
+              <div>
+                <div
+                  className="h-6 flex justify-center text-red-500 text-xs "
+                  role="alert"
+                >
+                  {errors.email ? (
+                    <>{errors.email.message}</>
+                  ) : errors.password ? (
+                    <>{errors.password.message}</>
+                  ) : logInError ? (
+                    <>{logInError}</>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500/90 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
+                >
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <LockClosedIcon
+                      className="h-5 w-5 text-indigo-600 group-hover:text-indigo-50"
+                      aria-hidden="true"
+                    />
+                  </span>
+                  Access
+                </button>
+              </div>
             </div>
           </form>
         </div>
