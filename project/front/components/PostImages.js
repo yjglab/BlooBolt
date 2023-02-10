@@ -121,7 +121,7 @@ const PostImages = ({ images }) => {
       <button onClick={onOpenCarousel} className="w-4/12 mx-0.5 relative">
         <button
           onClick={onOpenCarousel}
-          className="hover:text-white hover:bg-gray-700 text-xs font-semibold py-0.5 absolute rounded bg-white px-1.5 right-2 top-2 flex justify-between items-center"
+          className="hover:text-white hover:bg-slate-700 text-xs font-semibold py-0.5 absolute rounded bg-white px-1.5 right-2 top-2 flex justify-between items-center"
         >
           MORE +{3}
         </button>

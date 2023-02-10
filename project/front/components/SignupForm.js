@@ -38,7 +38,7 @@ const SignupForm = () => {
 
   return (
     <AppLayout>
-      <div className="h-screen bg-gray-50">
+      <div className="h-screen bg-slate-50">
         <div className="flex h-full  items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-md space-y-8">
             <div>
@@ -50,10 +50,10 @@ const SignupForm = () => {
                   placeholder="blur"
                 />
               </div>
-              <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+              <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-slate-700">
                 Welcome BlooBolt
               </h2>
-              <p className="mt-2 text-center text-sm text-gray-600">
+              <p className="mt-2 text-center text-sm text-slate-600">
                 <span
                   href="#"
                   className="font-medium text-indigo-500 hover:text-indigo-500"
@@ -73,7 +73,7 @@ const SignupForm = () => {
                     id="email"
                     type="text"
                     placeholder="Email address"
-                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2.5 text-slate-700 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("email", {
                       required: "이메일은 필수 입력입니다",
                       pattern: {
@@ -90,7 +90,7 @@ const SignupForm = () => {
                   <input
                     id="username"
                     type="text"
-                    className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2.5 text-slate-700 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     placeholder="User Name"
                     {...register("username", {
                       required: "사용자명은 필수 입력입니다",
@@ -109,7 +109,7 @@ const SignupForm = () => {
                     id="password"
                     type="password"
                     placeholder="Password"
-                    className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2.5 text-slate-700 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("password", {
                       required: "비밀번호를 입력해주세요",
                       minLength: {
@@ -127,7 +127,7 @@ const SignupForm = () => {
                     id="passwordCheck"
                     type="password"
                     placeholder="Password Check"
-                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-700 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("passwordCheck", {
                       required: "비밀번호를 입력해주세요",
                       minLength: {
@@ -146,14 +146,14 @@ const SignupForm = () => {
                     // checked={term}
                     // onChange={onChangeTerm}
                     type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-indigo-500 focus:ring-indigo-500"
+                    className="h-4 w-4 rounded border-slate-300 text-indigo-500 focus:ring-indigo-500"
                     {...register("term", {
                       required: "서비스 약관에 동의해주세요",
                     })}
                   />
                   <label
                     htmlFor="term"
-                    className="ml-2 block text-sm text-gray-700"
+                    className="ml-2 block text-sm text-slate-700"
                   >
                     Subscribe Terms of Service.
                   </label>

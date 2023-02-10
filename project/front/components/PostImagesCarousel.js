@@ -27,20 +27,20 @@ const PostImagesCarousel = ({ images, onCloseCarousel }) => {
   };
 
   return (
-    <div className="flex-col  w-screen h-screen fixed  flex z-50 justify-center items-center top-0 left-0 bg-gray-50">
+    <div className="flex-col  w-screen h-screen fixed  flex z-50 justify-center items-center top-0 left-0 bg-slate-50">
       <div className="relative w-[96%] h-full py-16 sm:py-0 sm:w-[93.5%] sm:h-[90%] group ">
         <XMarkIcon
           onClick={onCloseCarousel}
-          className="text-gray-600  absolute top-5 right-5 sm:hidden group-hover:block p-0.5 stroke-2 cursor-pointer w-8 h-8  rounded-full"
+          className="text-slate-600  absolute top-5 right-5 sm:hidden group-hover:block p-0.5 stroke-2 cursor-pointer w-8 h-8  rounded-full"
         />
         <img
           src={images[currentIndex].src}
           className="w-full h-full object-cover  bg-center bg-cover shadow-md rounded-md "
         ></img>
-        <div className="bg-gray-700/30 hover:bg-gray-800/60 p-0.5 sm:hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5  rounded-full  text-white cursor-pointer">
+        <div className="bg-slate-700/30 hover:bg-slate-700/60 p-0.5 sm:hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5  rounded-full  text-white cursor-pointer">
           <ArrowLeftCircleIcon onClick={prevSlide} className=" w-9 h-9   " />
         </div>
-        <div className="bg-gray-700/30 hover:bg-gray-800/60 p-0.5 sm:hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5  rounded-full  text-white  cursor-pointer">
+        <div className="bg-slate-700/30 hover:bg-slate-700/60 p-0.5 sm:hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5  rounded-full  text-white  cursor-pointer">
           <ArrowRightCircleIcon onClick={nextSlide} className=" w-9 h-9   " />
         </div>
         <div className="flex top-4 justify-center py-2">
@@ -50,7 +50,7 @@ const PostImagesCarousel = ({ images, onCloseCarousel }) => {
               onClick={() => goToSlide(slideIndex)}
               className="cursor-pointer "
             >
-              <div className="w-2.5 h-2.5 my-2 mx-1.5 rounded-full bg-gray-700  hover:bg-indigo-600 "></div>
+              <div className="w-2.5 h-2.5 my-2 mx-1.5 rounded-full bg-slate-700  hover:bg-indigo-600 "></div>
             </div>
           ))}
         </div>

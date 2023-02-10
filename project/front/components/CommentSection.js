@@ -3,6 +3,7 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import CommentForm from "./CommentForm";
+import { ShieldCheckIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -21,32 +22,52 @@ const CommentSection = ({ post }) => {
             key={comment.id}
             className="mt-2 mb-7 px-2 pt-2 pb-4 relative text-base border-b"
           >
-            <span className="text-xs text-gray-400 absolute right-2 bottom-2">
+            <span className="text-xs text-slate-400 absolute right-2 bottom-2">
               {comment.createdAt}
             </span>
-            <footer className="flex justify-between items-center mb-2">
-              <div className="flex w-full items-center">
-                <div className="inline-flex items-center mr-3 text-sm text-gray-700 ">
+            <footer className="flex justify-between  mb-2">
+              <div className="flex flex-col">
+                <div className="flex items-center">
                   <img
-                    className={`mr-2 w-8 h-8 rounded-full shadow-md border-2 p-0.5 ${
-                      comment.User.status
-                        ? "border-indigo-400"
-                        : "border-gray-700"
-                    }`}
+                    className="w-10 h-10 rounded-full object-cover shadow-md border-2 p-0.5 border-indigo-400"
                     src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
-                    alt="avatar"
                   />
-                  <div className="relative bottom-0.5 font-semibold text-base">
-                    {comment.User.username}
+                  <div className="flex flex-col ml-3 ">
+                    <div className="flex">
+                      <h2 className="text-md py-0.5 font-semibold text-slate-700 -mt-1">
+                        {comment.User.username}
+                      </h2>
+                      {comment.User.rank && (
+                        <ShieldCheckIcon
+                          className={`ml-0.5 relative top-0.5 h-4 w-4 flex-shrink-0 ${
+                            comment.User.rank === 1
+                              ? "text-cyan-400"
+                              : comment.User.rank === 2
+                              ? "text-amber-400"
+                              : comment.User.rank === 3
+                              ? "text-amber-700/70"
+                              : comment.User.rank === 4
+                              ? "text-indigo-500"
+                              : comment.User.rank === 5
+                              ? "text-slate-400"
+                              : comment.User.rank === 9
+                              ? "text-red-400"
+                              : null
+                          }`}
+                          aria-hidden="true"
+                        />
+                      )}
+                    </div>
+                    <div className="text-slate-500 text-xs py-0.5 relative bottom-1.5">
+                      {post.User.role}
+                    </div>
                   </div>
                 </div>
-                <div className=" text-xs text-gray-400 ">
-                  {comment.User.role}
-                </div>
               </div>
+
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <Menu.Button className="rounded-md px-3 py-1.5 text-sm font-medium  hover:bg-gray-50 focus:outline-none">
+                  <Menu.Button className="rounded-md px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
                     <svg
                       className="w-5 h-5"
                       aria-hidden="true"
@@ -76,8 +97,8 @@ const CommentSection = ({ post }) => {
                             href="#"
                             className={classNames(
                               active
-                                ? "bg-gray-100 text-gray-700"
-                                : "text-gray-700",
+                                ? "bg-slate-100 text-slate-700"
+                                : "text-slate-700",
                               "block px-4 py-2 text-sm"
                             )}
                           >
@@ -91,8 +112,8 @@ const CommentSection = ({ post }) => {
                             href="#"
                             className={classNames(
                               active
-                                ? "bg-gray-100 text-gray-700"
-                                : "text-gray-700",
+                                ? "bg-slate-100 text-slate-700"
+                                : "text-slate-700",
                               "block px-4 py-2 text-sm"
                             )}
                           >
@@ -105,7 +126,7 @@ const CommentSection = ({ post }) => {
                 </Transition>
               </Menu>
             </footer>
-            <div className="text-gray-500 text-sm md:text-md break-all pb-6">
+            <div className="text-slate-500 text-sm md:text-md break-all pb-6">
               {comment.content}
             </div>
           </div>

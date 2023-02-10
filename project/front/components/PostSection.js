@@ -17,7 +17,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const PostCard = ({ post }) => {
+const PostSection = ({ post }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
 
@@ -33,7 +33,7 @@ const PostCard = ({ post }) => {
       <div className="flex bg-white shadow-md rounded-lg w-full px-4 py-6 ">
         <img
           className={`w-12 h-12 rounded-full object-cover mr-4 shadow-md border-2 p-0.5 ${
-            post.User.status ? "border-indigo-400" : "border-gray-700"
+            post.User.status ? "border-indigo-400" : "border-slate-700"
           }`}
           src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
           alt="avatar"
@@ -41,7 +41,7 @@ const PostCard = ({ post }) => {
         <div className="w-full">
           <div className="flex items-center justify-between">
             <div className="flex ">
-              <h2 className="text-lg font-semibold text-gray-700 -mt-1">
+              <h2 className="text-lg font-semibold text-slate-700 -mt-1">
                 {post.User.username}
               </h2>
               {post.User.rank && (
@@ -56,7 +56,7 @@ const PostCard = ({ post }) => {
                       : post.User.rank === 4
                       ? "text-indigo-500"
                       : post.User.rank === 5
-                      ? "text-gray-400"
+                      ? "text-slate-400"
                       : post.User.rank === 9
                       ? "text-red-400"
                       : null
@@ -66,12 +66,12 @@ const PostCard = ({ post }) => {
               )}
             </div>
             <div className="flex items-center">
-              <small className="text-sm bg-gray-400 px-2 shadow sm:py-0.5 rounded text-white relative right-2">
+              <small className="text-sm bg-slate-400 px-2 shadow sm:py-0.5 rounded text-white relative right-2">
                 {post.topic}
               </small>
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <Menu.Button className="rounded-md px-3 py-1.5 text-sm font-medium  hover:bg-gray-50 focus:outline-none">
+                  <Menu.Button className="rounded-md px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
                     <svg
                       className="w-5 h-5"
                       aria-hidden="true"
@@ -100,8 +100,8 @@ const PostCard = ({ post }) => {
                           <button
                             className={classNames(
                               active
-                                ? "bg-gray-100 text-gray-700"
-                                : "text-gray-700",
+                                ? "bg-slate-100 text-slate-700"
+                                : "text-slate-700",
                               "block px-4 py-2 text-sm text-left w-full"
                             )}
                           >
@@ -115,8 +115,8 @@ const PostCard = ({ post }) => {
                             onClick={onRemovePost}
                             className={classNames(
                               active
-                                ? "bg-gray-100 text-gray-700"
-                                : "text-gray-700",
+                                ? "bg-slate-100 text-slate-700"
+                                : "text-slate-700",
                               "block px-4 py-2 text-sm text-left w-full"
                             )}
                           >
@@ -129,8 +129,8 @@ const PostCard = ({ post }) => {
                           <button
                             className={classNames(
                               active
-                                ? "bg-gray-100 text-gray-700"
-                                : "text-gray-700",
+                                ? "bg-slate-100 text-slate-700"
+                                : "text-slate-700",
                               "block px-4 py-2 text-sm text-left w-full"
                             )}
                           >
@@ -144,28 +144,28 @@ const PostCard = ({ post }) => {
               </Menu>
             </div>
           </div>
-          <div className="text-gray-500 text-xs relative bottom-1.5">
+          <div className="text-slate-500 text-xs relative bottom-1.5">
             {post.User.role}
           </div>
           <div className="mt-3 mb-4">
-            <div className=" text-gray-700 text-sm md:text-md break-all">
+            <div className=" text-slate-700 text-sm md:text-md break-all">
               {post.content}
             </div>
             {post.Images[0] && <PostImages images={post.Images} />}
           </div>
           <div className="relative mt-4 pt-1 mr-4 border-t flex items-center">
-            <div className="flex items-center text-gray-700 text-sm mr-3">
+            <div className="flex items-center text-slate-700 text-sm mr-3">
               <BoltIcon
                 className="stroke-2 block h-5 w-5 hover:text-indigo-500 cursor-pointer"
                 aria-hidden="true"
               />
               <span className="ml-1">122</span>
             </div>
-            <div className="flex items-center text-gray-700 text-sm mr-8">
+            <div className="flex items-center text-slate-700 text-sm mr-8">
               <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5  hover:text-indigo-500 cursor-pointer" />
               <span className="ml-1">{post.Comments.length}</span>
             </div>
-            <small className="absolute right-0 text-sm text-gray-400">
+            <small className="absolute right-0 text-sm text-slate-400">
               {post.createdAt}
             </small>
           </div>
@@ -176,7 +176,7 @@ const PostCard = ({ post }) => {
   );
 };
 
-PostCard.propTypes = {
+PostSection.propTypes = {
   post: PropTypes.object.isRequired,
 };
-export default PostCard;
+export default PostSection;

@@ -34,7 +34,7 @@ const CommentForm = () => {
 
   return (
     <form action="submit" onSubmit={onSubmit} className="mb-16 relative">
-      <div className="pt-2 pb-0 pr-3 mb-2  w-full flex items-center">
+      <div className="pt-2 pb-0 px-1 mb-2  w-full flex items-center">
         <div className="w-20 h-full ">
           <img
             className="w-12 h-12 rounded-full object-cover shadow-md border-2 p-0.5 border-indigo-400"
@@ -46,7 +46,7 @@ const CommentForm = () => {
           rows="2"
           onChange={onChangeText}
           value={text}
-          className="px-0 border-b border-gray-200 w-full text-sm sm:text-sm md:text-md  border-0 focus:ring-0 focus:outline-none placeholder:text-gray-300"
+          className="px-0 border-b border-slate-200 w-full text-sm sm:text-sm md:text-md  border-0 focus:ring-0 focus:outline-none placeholder:text-slate-300"
           placeholder={`${me?.username}님의 의견을 들려주세요.`}
           required
         ></textarea>
