@@ -41,7 +41,7 @@ const PostForm = () => {
   const onChangeImages = useCallback(() => {}, []);
 
   return (
-    <div className="flex  rounded-md mb-5">
+    <div className="flex  rounded mb-5">
       <div className="flex w-full py-6 ">
         <form
           action="submit"
@@ -49,7 +49,7 @@ const PostForm = () => {
           encType="multipart/form-data"
           className="mb-8 w-full relative "
         >
-          <div className="py-2 px-4 mb-2 bg-white w-full shadow-md rounded-md rounded-t-lg ">
+          <div className="py-2 px-4 mb-2 bg-white w-full shadow-md rounded rounded-t-lg ">
             <label
               htmlFor="first-name"
               className="block text-sm font-medium text-slate-700"
@@ -103,13 +103,13 @@ const PostForm = () => {
             <button
               type="button"
               onClick={onClickImageUpload}
-              className="py-1.5 px-1.5 text-xs font-medium text-center bg-white shadow-md text-slate-700 rounded-md focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
+              className="py-1.5 px-1.5 text-xs font-medium text-center bg-white shadow-md text-slate-700 rounded focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
             >
-              <PhotoIcon className="stroke-2 block h-5 w-5  cursor-pointer" />
+              <PhotoIcon className="stroke-2 block h-4 w-4  cursor-pointer" />
             </button>
             <button
               type="submit"
-              className="ml-1.5 py-2 px-4 text-xs font-medium text-center shadow-md bg-indigo-500 rounded-md text-white hover:bg-indigo-600"
+              className="ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow-md bg-indigo-500 rounded text-white hover:bg-indigo-600"
             >
               Flash
             </button>

@@ -66,12 +66,12 @@ const PostSection = ({ post }) => {
               )}
             </div>
             <div className="flex items-center">
-              <small className="text-sm bg-slate-400 px-2 shadow sm:py-0.5 rounded text-white relative right-2">
+              <small className="text-xs bg-slate-400 px-2 shadow sm:py-1.5 rounded text-white relative right-2">
                 {post.topic}
               </small>
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <Menu.Button className="rounded-md px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
+                  <Menu.Button className="rounded px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
                     <svg
                       className="w-5 h-5"
                       aria-hidden="true"
@@ -93,7 +93,7 @@ const PostSection = ({ post }) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       <Menu.Item>
                         {({ active }) => (
