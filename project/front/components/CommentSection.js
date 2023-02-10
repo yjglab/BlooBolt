@@ -20,7 +20,7 @@ const CommentSection = ({ post }) => {
         {post.Comments.map((comment) => (
           <div
             key={comment.id}
-            className="mt-2 mb-7 px-2 pt-2 pb-4 relative text-base border-b"
+            className="mt-2 mb-2 px-2 pt-2 pb-4 relative text-base border-b"
           >
             <span className="text-xs text-slate-400 absolute right-2 bottom-2">
               {comment.createdAt}

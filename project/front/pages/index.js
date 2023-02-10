@@ -26,7 +26,7 @@ const Home = () => {
         <div className="w-2/12 hidden lg:block">
           <div className="pt-10 fixed left-0 w-2/12 h-full">
             <div className=" pt-6  h-full w-full bg-slate-50  ">
-              <div className="pr-4 py-4 w-full h-full flex flex-col justify-between">
+              <div className="pr-1 py-4 w-full h-full flex flex-col justify-between">
                 <div className="pb-8 w-full h-full flex flex-col justify-between">
                   <h1 className="pl-4 relative mb-2 left-1 text-lg font-bold text-slate-700 flex items-center">
                     <span>Relation</span>
@@ -102,7 +102,7 @@ const Home = () => {
         <div className="w-3/12 hidden  md:block">
           <div className="pt-10 fixed right-0  h-full  w-3/12  ">
             <div className=" pt-6  h-full w-full bg-slate-50  ">
-              <div className="pl-4 py-4 w-full h-full flex flex-col justify-between">
+              <div className="pl-1 py-4 w-full h-full flex flex-col justify-between">
                 <div className="pb-8 w-full h-1/2 flex flex-col justify-between">
                   <h1 className="relative mb-2 left-1 text-lg font-bold text-slate-700 flex items-center">
                     <span>Most Flashed</span>

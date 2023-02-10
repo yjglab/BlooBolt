@@ -67,7 +67,7 @@ const PostForm = () => {
               value={text}
               onChange={onChangeText}
               maxLength={800}
-              rows="4"
+              rows="3"
               className="px-0 pt-2 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-slate-300"
               placeholder="우측 아래를 드래그하여 입력창을 넓힐 수 있습니다."
               required
@@ -103,9 +103,9 @@ const PostForm = () => {
             <button
               type="button"
               onClick={onClickImageUpload}
-              className="py-1.5 px-1.5 text-xs font-medium text-center bg-white shadow-md text-slate-700 rounded focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
+              className="py-1 px-1 text-xs font-medium text-center bg-white shadow-md text-slate-700 rounded focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
             >
-              <PhotoIcon className="stroke-2 block h-4 w-4  cursor-pointer" />
+              <PhotoIcon className="stroke-2 block h-5 w-5  cursor-pointer" />
             </button>
             <button
               type="submit"
