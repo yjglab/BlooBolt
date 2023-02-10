@@ -61,7 +61,7 @@ const Profile = () => {
                       : me.rank === 3
                       ? "text-amber-700/70"
                       : me.rank === 4
-                      ? "text-indigo-500/90"
+                      ? "text-indigo-500"
                       : me.rank === 5
                       ? "text-gray-400"
                       : me.rank === 9
@@ -84,7 +84,7 @@ const Profile = () => {
               {me.status ? (
                 <>
                   <PlayCircleIcon
-                    className="mr-1.5 h-5 w-5 flex-shrink-0 text-indigo-500/90"
+                    className="mr-1.5 h-5 w-5 flex-shrink-0 text-indigo-500"
                     aria-hidden="true"
                   />
                   Active
@@ -130,7 +130,7 @@ const Profile = () => {
           <span className="hidden sm:block">
             <button
               type="button"
-              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-md-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
+              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-md-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               <PencilIcon
                 className="-ml-1 mr-2 h-5 w-5 text-gray-500"
@@ -143,7 +143,7 @@ const Profile = () => {
           <span className="sm:ml-3">
             <button
               type="button"
-              className="inline-flex items-center rounded-md border border-transparent bg-indigo-500/90 px-4 py-2 text-sm font-medium text-white shadow-md-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
+              className="inline-flex items-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-md-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
               Trace
@@ -152,7 +152,7 @@ const Profile = () => {
 
           {/* 모바일 드롭다운 */}
           <Menu as="div" className="relative ml-3 sm:hidden">
-            <Menu.Button className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-md-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2">
+            <Menu.Button className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-md-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
               More
               <ChevronDownIcon
                 className="-mr-1 ml-2 h-5 w-5 text-gray-500"

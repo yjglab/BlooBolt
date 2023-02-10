@@ -22,8 +22,8 @@ const UserActivity = () => {
                 classNames(
                   "w-full rounded-md py-2.5 text-sm font-medium leading-5 text-gray-700",
                   selected
-                    ? "bg-indigo-500/90 text-white"
-                    : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500/90"
+                    ? "bg-indigo-500 text-white"
+                    : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500"
                 )
               }
             >
@@ -35,8 +35,8 @@ const UserActivity = () => {
                 classNames(
                   "w-full rounded-md py-2.5 text-sm font-medium leading-5 text-gray-700",
                   selected
-                    ? "bg-indigo-500/90 text-white"
-                    : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500/90"
+                    ? "bg-indigo-500 text-white"
+                    : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500"
                 )
               }
             >
@@ -48,8 +48,8 @@ const UserActivity = () => {
                 classNames(
                   "w-full rounded-md py-2.5 text-sm font-medium leading-5 text-gray-700",
                   selected
-                    ? "bg-indigo-500/90 text-white"
-                    : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500/90"
+                    ? "bg-indigo-500 text-white"
+                    : "text-gray-700 hover:bg-white/[0.12] hover:text-indigo-500"
                 )
               }
             >
@@ -61,7 +61,7 @@ const UserActivity = () => {
               key={"s"}
               className={classNames(
                 "rounded-md bg-white p-3 h-3/5 ",
-                "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500/90 focus:outline-none focus:ring-2"
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500 focus:outline-none focus:ring-2"
               )}
             >
               <ul>
@@ -85,7 +85,7 @@ const UserActivity = () => {
                       href="#"
                       className={classNames(
                         "absolute inset-0 rounded-md ",
-                        "ring-indigo-500/90 focus:z-10 focus:outline-none focus:ring-2"
+                        "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
                   </li>
@@ -97,7 +97,7 @@ const UserActivity = () => {
               key={"s"}
               className={classNames(
                 "rounded-md bg-white p-3 h-3/5 ",
-                "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500/90 focus:outline-none focus:ring-2"
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500 focus:outline-none focus:ring-2"
               )}
             >
               <ul>
@@ -125,7 +125,7 @@ const UserActivity = () => {
                                 : tracer.rank === 3
                                 ? "text-amber-700/70"
                                 : tracer.rank === 4
-                                ? "text-indigo-500/90"
+                                ? "text-indigo-500"
                                 : tracer.rank === 5
                                 ? "text-gray-400"
                                 : tracer.rank === 9
@@ -145,7 +145,7 @@ const UserActivity = () => {
                       href="#"
                       className={classNames(
                         "absolute inset-0 rounded-md ",
-                        "ring-indigo-500/90 focus:z-10 focus:outline-none focus:ring-2"
+                        "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
                   </li>
@@ -157,7 +157,7 @@ const UserActivity = () => {
               key={"s"}
               className={classNames(
                 "rounded-md bg-white p-3 h-3/5 ",
-                "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500/90 focus:outline-none focus:ring-2"
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500 focus:outline-none focus:ring-2"
               )}
             >
               <ul>
@@ -185,7 +185,7 @@ const UserActivity = () => {
                                 : tracing.rank === 3
                                 ? "text-amber-700/70"
                                 : tracing.rank === 4
-                                ? "text-indigo-500/90"
+                                ? "text-indigo-500"
                                 : tracing.rank === 5
                                 ? "text-gray-400"
                                 : tracing.rank === 9
@@ -205,10 +205,10 @@ const UserActivity = () => {
                       href="#"
                       className={classNames(
                         "absolute inset-0 rounded-md ",
-                        "ring-indigo-500/90 focus:z-10 focus:outline-none focus:ring-2"
+                        "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
-                    <button class="absolute right-2 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-md-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2">
+                    <button class="absolute right-2 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-md-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       Untrace
                     </button>
                   </li>

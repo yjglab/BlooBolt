@@ -58,7 +58,7 @@ const Home = () => {
                                     : tracing.rank === 3
                                     ? "text-amber-700/70"
                                     : tracing.rank === 4
-                                    ? "text-indigo-500/90"
+                                    ? "text-indigo-500"
                                     : tracing.rank === 5
                                     ? "text-gray-400"
                                     : tracing.rank === 9
@@ -77,7 +77,7 @@ const Home = () => {
                           href="#"
                           className={classNames(
                             "absolute inset-0 rounded-md ",
-                            "ring-indigo-500/90 focus:z-10 focus:outline-none focus:ring-2"
+                            "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
                           )}
                         />
                       </li>

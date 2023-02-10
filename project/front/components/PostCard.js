@@ -54,7 +54,7 @@ const PostCard = ({ post }) => {
                       : post.User.rank === 3
                       ? "text-amber-700/70"
                       : post.User.rank === 4
-                      ? "text-indigo-500/90"
+                      ? "text-indigo-500"
                       : post.User.rank === 5
                       ? "text-gray-400"
                       : post.User.rank === 9
@@ -66,8 +66,8 @@ const PostCard = ({ post }) => {
               )}
             </div>
             <div className="flex items-center">
-              <small className="text-sm text-gray-400 relative right-2">
-                {post.createdAt}
+              <small className="text-sm bg-gray-400 px-2 shadow sm:py-0.5 rounded text-white relative right-2">
+                {post.topic}
               </small>
               <Menu as="div" className="relative inline-block text-left">
                 <div>
@@ -153,18 +153,21 @@ const PostCard = ({ post }) => {
             </div>
             {post.Images[0] && <PostImages images={post.Images} />}
           </div>
-          <div className="mt-4 pt-1 mr-4 border-t flex items-center">
+          <div className="relative mt-4 pt-1 mr-4 border-t flex items-center">
             <div className="flex items-center text-gray-700 text-sm mr-3">
               <BoltIcon
-                className="stroke-2 block h-5 w-5 hover:text-indigo-500/90 cursor-pointer"
+                className="stroke-2 block h-5 w-5 hover:text-indigo-500 cursor-pointer"
                 aria-hidden="true"
               />
               <span className="ml-1">122</span>
             </div>
             <div className="flex items-center text-gray-700 text-sm mr-8">
-              <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5  hover:text-indigo-500/90 cursor-pointer" />
+              <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5  hover:text-indigo-500 cursor-pointer" />
               <span className="ml-1">{post.Comments.length}</span>
             </div>
+            <small className="absolute right-0 text-sm text-gray-400">
+              {post.createdAt}
+            </small>
           </div>
         </div>
       </div>

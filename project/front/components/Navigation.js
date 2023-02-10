@@ -17,7 +17,8 @@ import {
   UserCircleIcon,
   UserGroupIcon,
 } from "@heroicons/react/20/solid";
-
+import Image from "next/image";
+import bloobolt_logo from "../public/bloobolt_logo.png";
 const solutions = [
   {
     name: "유저메뉴1",
@@ -56,18 +57,21 @@ const Navigation = () => {
   return (
     <Popover className="fixed top-0 w-full left-0 z-50 shadow-md">
       <div className="">
-        <div className="px-6 flex bg-white items-center justify-between  py-2.5 md:justify-start md:space-x-10">
+        <div className="px-6 flex bg-white items-center justify-between  py-1.5 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1 ">
             <Link href="/">
-              <img
-                className="h-8 w-auto sm:h-10 cursor-pointer"
-                src="https://cdn-icons-png.flaticon.com/512/880/880910.png"
-                alt="logo-image"
-              />
+              <div className="h-10 w-10 sm:h-10 relative">
+                <Image
+                  className=" cursor-pointer w-full h-full"
+                  src={bloobolt_logo}
+                  alt="logo-image"
+                  placeholder="blur"
+                />
+              </div>
             </Link>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
-            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500/90">
+            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
               <span className="sr-only">Open menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
@@ -82,7 +86,7 @@ const Navigation = () => {
                   <Popover.Button
                     className={classNames(
                       open ? "text-gray-700" : "text-gray-500",
-                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
+                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     )}
                   >
                     <span>User Section</span>
@@ -110,7 +114,7 @@ const Navigation = () => {
                           <Link href="/">
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-gray-50">
                               <UserGroupIcon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
+                                className="h-6 w-6 flex-shrink-0 text-indigo-500"
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
@@ -126,7 +130,7 @@ const Navigation = () => {
                           <Link href={me ? "/profile" : "/login"}>
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-gray-50">
                               <UserCircleIcon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
+                                className="h-6 w-6 flex-shrink-0 text-indigo-500"
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
@@ -165,7 +169,7 @@ const Navigation = () => {
                           <div className="mt-5 text-sm">
                             <a
                               href="#"
-                              className="font-medium text-indigo-500/90 hover:text-indigo-600"
+                              className="font-medium text-indigo-500 hover:text-indigo-600"
                             >
                               View all posts
                               <span aria-hidden="true"> &rarr;</span>
@@ -190,7 +194,7 @@ const Navigation = () => {
 
             {/* 사이드바로 옮기기 나중애 */}
             <div className="flex h-7">
-              <span className="inline-flex items-center bg-indigo-500/90 rounded-l-md 0  px-2.5 text-sm text-white">
+              <span className="inline-flex items-center bg-indigo-500 rounded-l-md 0  px-2.5 text-sm text-white">
                 #
               </span>
               <input
@@ -226,7 +230,7 @@ const Navigation = () => {
                   </div>
                 </Link>
                 <Link href="/login">
-                  <div className="cursor-pointer ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-500/90 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-600">
+                  <div className="cursor-pointer ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-600">
                     Login
                   </div>
                 </Link>
@@ -260,7 +264,7 @@ const Navigation = () => {
                   />
                 </div>
                 <div className="-mr-2">
-                  <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500/90">
+                  <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                     <span className="sr-only">Close menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </Popover.Button>
@@ -275,7 +279,7 @@ const Navigation = () => {
                       className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                     >
                       <item.icon
-                        className="h-6 w-6 flex-shrink-0 text-indigo-500/90"
+                        className="h-6 w-6 flex-shrink-0 text-indigo-500"
                         aria-hidden="true"
                       />
                       <span className="ml-3 text-base font-medium text-gray-900">
@@ -315,21 +319,21 @@ const Navigation = () => {
                 {me ? (
                   <button
                     onClick={onLogout}
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500/90 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500/90"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500"
                   >
                     Logout
                   </button>
                 ) : (
                   <>
                     <Link href="/login">
-                      <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500/90 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500/90">
+                      <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500">
                         Login
                       </div>
                     </Link>
                     <p className="mt-6 text-center text-base font-medium text-gray-500">
                       Already have an account?{" "}
                       <Link href="/signup">
-                        <span className="text-indigo-500/90 hover:text-indigo-500/90">
+                        <span className="text-indigo-500 hover:text-indigo-500">
                           Sign up
                         </span>
                       </Link>

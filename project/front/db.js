@@ -21,7 +21,7 @@ export function genPost(user, text) {
   const post = {
     id: 33,
     content: text, // 제힌 800
-    topic: "Java", // 제한 10
+    topic: "JavaScript", // 제한 10
     createdAt: "1999.99.99",
     UserId: 101,
     User: {

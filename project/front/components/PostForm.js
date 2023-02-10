@@ -97,7 +97,7 @@ const PostForm = () => {
             </button>
             <button
               type="submit"
-              className="ml-1.5 py-2 px-4 text-xs font-medium text-center shadow-md bg-indigo-500/90 rounded-md text-white hover:bg-indigo-600"
+              className="ml-1.5 py-2 px-4 text-xs font-medium text-center shadow-md bg-indigo-500 rounded-md text-white hover:bg-indigo-600"
             >
               Flash
             </button>

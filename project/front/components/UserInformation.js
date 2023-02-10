@@ -42,7 +42,7 @@ const UserInformation = () => {
                         name="first-name"
                         id="first-name"
                         autoComplete="given-name"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500/90 focus:ring-indigo-500/90 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-3">
@@ -58,7 +58,7 @@ const UserInformation = () => {
                         id="first-name"
                         autoComplete="given-name"
                         placeholder="Web Developer"
-                        className="placeholder:text-gray-300 mt-1 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500/90 focus:ring-indigo-500/90 sm:text-sm"
+                        className="placeholder:text-gray-300 mt-1 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
                     <div className="grid grid-cols-3 gap-6">
@@ -77,7 +77,7 @@ const UserInformation = () => {
                             type="text"
                             name="company-website"
                             id="company-website"
-                            className="block placeholder:text-gray-300 w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500/90 focus:ring-indigo-500/90 sm:text-sm"
+                            className="block placeholder:text-gray-300 w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             placeholder="www.mywebsite.com"
                           />
                         </div>
@@ -96,7 +96,7 @@ const UserInformation = () => {
                           id="about"
                           name="about"
                           rows="3"
-                          className="mt-1 placeholder:text-gray-300 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500/90 focus:ring-indigo-500/90 sm:text-sm"
+                          className="mt-1 placeholder:text-gray-300 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder="안녕하세요."
                         ></textarea>
                       </div>
@@ -118,7 +118,7 @@ const UserInformation = () => {
                         </span>
                         <button
                           type="button"
-                          className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-md-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
+                          className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-md-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         >
                           Change
                         </button>
@@ -131,7 +131,7 @@ const UserInformation = () => {
                   <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                     <button
                       type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-500/90 py-2 px-4 text-sm font-medium text-white shadow-md-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white shadow-md-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       Save
                     </button>
@@ -177,7 +177,7 @@ const UserInformation = () => {
                           name="first-name"
                           id="first-name"
                           autoComplete="given-name"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500/90 focus:ring-indigo-500/90 sm:text-sm"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
 
@@ -193,7 +193,7 @@ const UserInformation = () => {
                           name="email-address"
                           id="email-address"
                           autoComplete="email"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500/90 focus:ring-indigo-500/90 sm:text-sm"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
 
@@ -208,7 +208,7 @@ const UserInformation = () => {
                           id="country"
                           name="country"
                           autoComplete="country-name"
-                          className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-md-sm focus:border-indigo-500/90 focus:outline-none focus:ring-indigo-500/90 sm:text-sm"
+                          className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-md-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         >
                           <option>Korea</option>
                           <option>Canada</option>
@@ -228,7 +228,7 @@ const UserInformation = () => {
                           name="street-address"
                           id="street-address"
                           autoComplete="street-address"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500/90 focus:ring-indigo-500/90 sm:text-sm"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-md-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
                     </div>
@@ -236,7 +236,7 @@ const UserInformation = () => {
                   <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                     <button
                       type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-500/90 py-2 px-4 text-sm font-medium text-white shadow-md-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white shadow-md-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       Save
                     </button>
@@ -282,7 +282,7 @@ const UserInformation = () => {
                             id="push-everything"
                             name="push-notifications"
                             type="radio"
-                            className="h-4 w-4 border-gray-300 text-indigo-500/90 focus:ring-indigo-500/90"
+                            className="h-4 w-4 border-gray-300 text-indigo-500 focus:ring-indigo-500"
                           />
                           <label
                             htmlFor="push-everything"
@@ -296,7 +296,7 @@ const UserInformation = () => {
                             id="push-email"
                             name="push-notifications"
                             type="radio"
-                            className="h-4 w-4 border-gray-300 text-indigo-500/90 focus:ring-indigo-500/90"
+                            className="h-4 w-4 border-gray-300 text-indigo-500 focus:ring-indigo-500"
                           />
                           <label
                             htmlFor="push-email"
@@ -320,7 +320,7 @@ const UserInformation = () => {
                           id="push-everything"
                           name="push-notifications"
                           type="radio"
-                          className="h-4 w-4 border-gray-300 text-indigo-500/90 focus:ring-indigo-500/90"
+                          className="h-4 w-4 border-gray-300 text-indigo-500 focus:ring-indigo-500"
                         />
                         <label
                           htmlFor="push-everything"
@@ -334,7 +334,7 @@ const UserInformation = () => {
                           id="push-email"
                           name="push-notifications"
                           type="radio"
-                          className="h-4 w-4 border-gray-300 text-indigo-500/90 focus:ring-indigo-500/90"
+                          className="h-4 w-4 border-gray-300 text-indigo-500 focus:ring-indigo-500"
                         />
                         <label
                           htmlFor="push-email"
@@ -349,7 +349,7 @@ const UserInformation = () => {
                   <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                     <button
                       type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-500/90 py-2 px-4 text-sm font-medium text-white shadow-md-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/90 focus:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white shadow-md-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       Save
                     </button>
