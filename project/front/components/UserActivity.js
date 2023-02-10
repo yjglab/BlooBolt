@@ -107,7 +107,7 @@ const UserActivity = () => {
                     className="relative rounded-md p-3 flex items-center hover:bg-gray-100"
                   >
                     <img
-                      className="rounded-full w-9 h-9 mr-3"
+                      className="shadow-md border-2 p-0.5 border-indigo-400 rounded-full w-10 h-10 mr-3"
                       src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
                     />
                     <div>
@@ -136,7 +136,7 @@ const UserActivity = () => {
                           />
                         )}
                       </div>
-                      <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
+                      <ul className="flex space-x-1 text-xs font-normal leading-4 text-gray-500">
                         <li>{tracer.role}</li>
                         {/* <li>&middot;</li> */}
                       </ul>
@@ -167,7 +167,7 @@ const UserActivity = () => {
                     className="relative rounded-md p-3 flex items-center hover:bg-gray-100"
                   >
                     <img
-                      className="rounded-full w-9 h-9 mr-3"
+                      className="shadow-md border-2 p-0.5 border-indigo-400 rounded-full w-10 h-10 mr-3"
                       src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
                     />
                     <div>
@@ -196,7 +196,7 @@ const UserActivity = () => {
                           />
                         )}
                       </div>
-                      <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
+                      <ul className="flex space-x-1 text-xs font-normal leading-4 text-gray-500">
                         <li>{tracing.role}</li>
                         {/* <li>&middot;</li> */}
                       </ul>

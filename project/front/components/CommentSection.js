@@ -105,7 +105,7 @@ const CommentSection = ({ post }) => {
                 </Transition>
               </Menu>
             </footer>
-            <div className="text-gray-500 text-md break-all pb-6">
+            <div className="text-gray-500 text-sm md:text-md break-all pb-6">
               {comment.content}
             </div>
           </div>

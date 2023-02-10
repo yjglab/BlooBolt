@@ -148,7 +148,7 @@ const PostCard = ({ post }) => {
             {post.User.role}
           </div>
           <div className="mt-3 mb-4">
-            <div className=" text-gray-700 text-md break-all">
+            <div className=" text-gray-700 text-sm md:text-md break-all">
               {post.content}
             </div>
             {post.Images[0] && <PostImages images={post.Images} />}

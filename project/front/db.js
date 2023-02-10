@@ -61,7 +61,7 @@ export function genPost(user, text) {
 
 export const vtlUser1 = {
   id: 101,
-  email: "yjg@bloobolt.live",
+  email: "yjg@bloobolt.com",
   username: "yjg",
   realname: "realyjg",
   status: true, // add
@@ -71,6 +71,8 @@ export const vtlUser1 = {
   country: "Korea",
   website: "demo.com",
   rank: 5, // 1 ~ 5, 기본 null, 어드민 9
+  rankPoint: 0,
+  reported: 0, // 10 -> blind
   Posts: [
     {
       id: shortid.generate(),
@@ -136,19 +138,19 @@ export const vtlUser1 = {
     {
       id: shortid.generate(),
       username: "동키1",
-      role: "동키1의 역할",
+      role: "동키 역할",
       rank: 2,
     },
     {
       id: shortid.generate(),
       username: "동키2",
-      role: "동키1의 역할",
+      role: "동키 역할",
       rank: 2,
     },
     {
       id: shortid.generate(),
       username: "동키3",
-      role: "동키1의 역할",
+      role: "동키 역할",
       rank: 2,
     },
   ],
@@ -156,19 +158,19 @@ export const vtlUser1 = {
     {
       id: shortid.generate(),
       username: "추적자1",
-      role: "추적자1의 역할",
+      role: "추적자의 역할",
       rank: 4,
     },
     {
       id: shortid.generate(),
       username: "추적자2",
-      role: "추적자1의 역할",
+      role: "추적자의 역할",
       rank: 4,
     },
     {
       id: shortid.generate(),
       username: "추적자3",
-      role: "추적자1의 역할",
+      role: "추적자의 역할",
       rank: 4,
     },
   ],
