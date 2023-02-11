@@ -1,14 +1,13 @@
-import { LockClosedIcon, UserPlusIcon } from "@heroicons/react/20/solid";
+import { UserPlusIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
 import Router from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 
-import useInput from "../hooks/useInput";
-import { SIGN_UP_REQUEST } from "../pages/reducers/user";
+import { SIGN_UP_REQUEST } from "../reducers/user";
 import bloobolt_logo from "../public/bloobolt_logo.png";
 
 const SignupForm = () => {
@@ -21,20 +20,25 @@ const SignupForm = () => {
     formState: { isSubmitting, errors },
   } = useForm();
 
-  const onSignUp = useCallback((formData) => {
+  const onSignUp = (formData) => {
+    const { email, username, password, passwordCheck } = formData;
+
+    if (password !== passwordCheck) {
+      return alert("비밀번호 확인이 일치하지 않습니다.");
+    }
     dispatch({
       type: SIGN_UP_REQUEST,
+      data: {
+        email,
+        username,
+        password,
+      },
     });
     if (signUpDone) {
       Router.push("/login");
     }
-    console.log(
-      formData.email,
-      formData.username,
-      formData.password,
-      formData.passwordCheck
-    );
-  }, []);
+    console.log(email, username, password, passwordCheck);
+  };
 
   return (
     <AppLayout>
@@ -98,6 +102,10 @@ const SignupForm = () => {
                         value: 2,
                         message: "2자리 이상의 사용자명을 입력해주세요",
                       },
+                      maxLength: {
+                        value: 10,
+                        message: "10자리 이하의 사용자명을 입력해주세요",
+                      },
                     })}
                   />
                 </div>
@@ -116,6 +124,10 @@ const SignupForm = () => {
                         value: 4,
                         message: "4자리 이상의 비밀번호를 입력해주세요",
                       },
+                      maxLength: {
+                        value: 14,
+                        message: "14자리 이히의 비밀번호를 입력해주세요",
+                      },
                     })}
                   />
                 </div>
@@ -130,10 +142,6 @@ const SignupForm = () => {
                     className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-700 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("passwordCheck", {
                       required: "비밀번호를 입력해주세요",
-                      minLength: {
-                        value: 4,
-                        message: "4자리 이상의 비밀번호를 입력해주세요",
-                      },
                     })}
                   />
                 </div>
@@ -143,8 +151,6 @@ const SignupForm = () => {
                 <div className="flex items-center">
                   <input
                     id="term"
-                    // checked={term}
-                    // onChange={onChangeTerm}
                     type="checkbox"
                     className="h-4 w-4 rounded border-slate-300 text-indigo-500 focus:ring-indigo-500"
                     {...register("term", {

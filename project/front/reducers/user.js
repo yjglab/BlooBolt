@@ -1,5 +1,4 @@
 import produce from "immer";
-import { vtlUser1 } from "../../db";
 
 export const initialState = {
   signUpLoading: false,

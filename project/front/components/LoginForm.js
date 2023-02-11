@@ -1,12 +1,13 @@
 import Link from "next/link";
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useInput from "../hooks/useInput";
-import { LOG_IN_REQUEST } from "../pages/reducers/user";
+
+import { LOG_IN_REQUEST } from "../reducers/user";
 
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
 import bloobolt_logo from "../public/bloobolt_logo.png";
+
 import Image from "next/image";
 //   let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
 //   regex.test("string")

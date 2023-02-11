@@ -4,23 +4,14 @@ import Router from "next/router";
 
 import { Fragment } from "react";
 import {
-  BriefcaseIcon,
-  CalendarIcon,
-  CheckBadgeIcon,
-  CheckCircleIcon,
   CheckIcon,
   ChevronDownIcon,
-  CurrencyDollarIcon,
   CursorArrowRippleIcon,
   GlobeAsiaAustraliaIcon,
-  LinkIcon,
-  MapPinIcon,
   PauseCircleIcon,
   PencilIcon,
   PlayCircleIcon,
   ShieldCheckIcon,
-  StarIcon,
-  TrophyIcon,
   UserCircleIcon,
 } from "@heroicons/react/20/solid";
 import { Menu, Transition, Tab } from "@headlessui/react";

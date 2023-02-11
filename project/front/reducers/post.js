@@ -1,5 +1,5 @@
 import produce from "immer";
-import { genPost, vtlUser1 } from "../../db";
+import { genPost, vtlUser1 } from "../db";
 
 export const initialState = {
   mainPosts: [genPost(vtlUser1, "ddd")],

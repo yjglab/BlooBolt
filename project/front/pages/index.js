@@ -1,4 +1,3 @@
-import { Menu, Transition } from "@headlessui/react";
 import {
   BoltIcon,
   ChatBubbleOvalLeftIcon,

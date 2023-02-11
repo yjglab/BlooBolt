@@ -2,15 +2,10 @@ import React, { useCallback } from "react";
 import { Transition, Popover } from "@headlessui/react";
 import {} from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { LOG_OUT_REQUEST } from "../pages/reducers/user";
+import { LOG_OUT_REQUEST } from "../reducers/user";
 import Link from "next/link";
 import { Fragment } from "react";
-import {
-  PhoneIcon,
-  PlayIcon,
-  XMarkIcon,
-  Bars3Icon,
-} from "@heroicons/react/24/outline";
+import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
   HeartIcon,

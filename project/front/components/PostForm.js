@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { genPost } from "../db";
 import useInput from "../hooks/useInput";
-import { ADD_POST_REQUEST } from "../pages/reducers/post";
+import { ADD_POST_REQUEST } from "../reducers/post";
 
 const PostForm = () => {
   const dispatch = useDispatch();

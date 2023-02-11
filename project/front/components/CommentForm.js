@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { genComment } from "../db";
 import useInput from "../hooks/useInput";
-import { ADD_COMMENT_REQUEST } from "../pages/reducers/post";
+import { ADD_COMMENT_REQUEST } from "../reducers/post";
 
 const CommentForm = () => {
   const dispatch = useDispatch();

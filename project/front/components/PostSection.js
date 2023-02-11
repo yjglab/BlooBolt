@@ -3,7 +3,7 @@ import React, { Fragment, useCallback } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import CommentSection from "./CommentSection";
-import { REMOVE_POST_REQUEST } from "../pages/reducers/post";
+import { REMOVE_POST_REQUEST } from "../reducers/post";
 
 import {
   ChatBubbleLeftRightIcon,
