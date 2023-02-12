@@ -22,16 +22,22 @@ const PostForm = () => {
 
   const {
     register,
+    reset,
+    resetField,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm();
+  } = useForm({
+    mode: "onSubmit",
+    defaultValues: {
+      topic: "",
+      content: "",
+    },
+  });
 
   const onUploadPost = (formData) => {
-    if (!topic) {
-      formData.topic = "주제 없음";
-    }
     const { topic, content } = formData;
     console.log(topic, content);
+    reset();
     // return dispatch({
     //   type: ADD_POST_REQUEST,
     //   data: { topic, content },
