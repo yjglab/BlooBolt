@@ -24,3 +24,8 @@
 - 유료기능추가?뱃지,로얄유저.
 - login 100, post 5, comment 5
 - report 10 -> auto blind
+- 사용자생성일
+
+### 문제
+
+- ALTER TABLE 명 CHANGE 반복현상

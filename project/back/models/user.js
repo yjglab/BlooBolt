@@ -8,12 +8,12 @@ module.exports = class User extends Model {
         email: {
           type: DataTypes.STRING(20),
           allowNull: false,
-          unique: true,
+          unique: "email",
         },
         username: {
           type: DataTypes.STRING(10),
           allowNull: false,
-          unique: true,
+          unique: "username",
         },
         realname: {
           type: DataTypes.STRING(10),
