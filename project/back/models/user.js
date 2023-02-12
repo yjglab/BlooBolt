@@ -24,7 +24,7 @@ module.exports = class User extends Model {
           allowNull: false,
         },
         status: {
-          type: DataTypes.BOOLEAN(false),
+          type: DataTypes.BOOLEAN,
           allowNull: false,
         },
         about: {

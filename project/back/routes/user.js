@@ -2,10 +2,12 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 
 const { User, Userboard } = require("../models");
+const { isNotLoggedIn } = require("./middlewares");
+const passport = require("passport");
 
 const router = express.Router();
 
-router.post("/signup", async (req, res, next) => {
+router.post("/signup", isNotLoggedIn, async (req, res, next) => {
   try {
     const existedEmail = await User.findOne({
       where: {
@@ -45,12 +47,32 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-router.post("/login", async (req, res, next) => {
-  try {
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
+router.post("/login", isNotLoggedIn, async (req, res, next) => {
+  passport.authenticate("local", (error, user, info) => {
+    if (error) {
+      console.error(error);
+      return next(error);
+    }
+    if (info) {
+      return res.status(401).send(info.reason);
+    }
+    return req.logIn(user, async (loginError) => {
+      if (loginError) {
+        console.error(loginError);
+        return next(loginError);
+      }
+      const resultUser = await User.findOne({
+        where: { id: user.id },
+        attributes: { exclude: ["password"] },
+        include: [
+          {
+            model: Userboard,
+          },
+        ],
+      });
+      return res.status(200).json(resultUser);
+    });
+  })(req, res, next);
 });
 
 module.exports = router;

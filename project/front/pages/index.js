@@ -33,7 +33,7 @@ const Home = () => {
 
                   {/* 이부분은 나중에 스크롤->버튼로드로 바꾸기 */}
                   <div className="bg-white rounded-r overflow-y-auto shadow-md p-2 relative w-full h-full flex flex-col">
-                    {me?.Tracings.map((tracing) => (
+                    {me?.Tracings?.map((tracing) => (
                       <li
                         key={tracing.id}
                         className="relative rounded p-3 flex items-center hover:bg-slate-100"

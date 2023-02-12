@@ -7,6 +7,8 @@ const path = require("path");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const db = require("./models");
+const passportConfig = require("./passport");
+const passport = require("passport");
 
 dotenv.config();
 const app = express();
@@ -16,6 +18,8 @@ db.sequelize
     console.log("✅ Database 연결");
   })
   .catch(console.error);
+
+passportConfig();
 
 if (process.env.NODE_ENV === "production") {
 } else {
@@ -44,6 +48,9 @@ app.use(
     },
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/user", userRouter);
 
