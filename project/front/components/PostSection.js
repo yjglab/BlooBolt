@@ -30,7 +30,7 @@ const PostSection = ({ post }) => {
 
   return (
     <div className="flex flex-col mb-6">
-      <div className="flex bg-white shadow-md rounded-lg w-full px-4 py-6 ">
+      <div className="flex bg-white shadow-md rounded w-full px-4 py-6 ">
         <img
           className={`w-12 h-12 rounded-full object-cover mr-4 shadow-md border-2 p-0.5 ${
             post.User.status ? "border-indigo-400" : "border-slate-700"

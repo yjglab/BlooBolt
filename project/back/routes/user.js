@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 
 const { User, Userboard } = require("../models");
-const { isNotLoggedIn } = require("./middlewares");
+const { isNotLoggedIn, isLoggedIn } = require("./middlewares");
 const passport = require("passport");
 
 const router = express.Router();
@@ -75,4 +75,9 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
   })(req, res, next);
 });
 
+router.post("/logout", isLoggedIn, (req, res, next) => {
+  req.logout();
+  req.session.destroy();
+  res.send("ok");
+});
 module.exports = router;

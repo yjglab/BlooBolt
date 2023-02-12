@@ -49,7 +49,7 @@ const PostForm = () => {
           encType="multipart/form-data"
           className="mb-8 w-full relative "
         >
-          <div className="py-2 px-4 mb-2 bg-white w-full shadow-md rounded rounded-t-lg ">
+          <div className="py-2 px-4 mb-2 bg-white w-full shadow-md rounded  ">
             <label
               htmlFor="first-name"
               className="block text-sm font-medium text-slate-700"

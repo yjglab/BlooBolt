@@ -54,13 +54,12 @@ function* logIn(action) {
   }
 }
 function logOutAPI() {
-  return axios.post("/user/logOut");
+  return axios.post("/user/logout");
 }
 
 function* logOut() {
   try {
-    yield delay(500);
-    // const result = yield call(logInAPI, action.data)
+    yield call(logOutAPI);
     yield put({
       type: LOG_OUT_SUCCESS,
     });
