@@ -1,6 +1,7 @@
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import React, { useCallback, useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { genPost } from "../db";
 import useInput from "../hooks/useInput";
@@ -19,20 +20,23 @@ const PostForm = () => {
     }
   }, [addPostDone]);
 
-  const onSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (!text || !text.trim()) {
-        return alert("빈 글을 업로드 할 수 없습니다.");
-      }
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm();
 
-      return dispatch({
-        type: ADD_POST_REQUEST,
-        data: genPost(me, text),
-      });
-    },
-    [text, me]
-  );
+  const onUploadPost = (formData) => {
+    if (!topic) {
+      formData.topic = "주제 없음";
+    }
+    const { topic, content } = formData;
+    console.log(topic, content);
+    // return dispatch({
+    //   type: ADD_POST_REQUEST,
+    //   data: { topic, content },
+    // });
+  };
 
   const imageInput = useRef();
   const onClickImageUpload = useCallback(() => {
@@ -41,36 +45,39 @@ const PostForm = () => {
   const onChangeImages = useCallback(() => {}, []);
 
   return (
-    <div className="flex  rounded mb-5">
-      <div className="flex w-full py-6 ">
+    <div className="flex  rounded mb-10">
+      <div className="flex relative flex-col w-full ">
         <form
-          action="submit"
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit(onUploadPost)}
           encType="multipart/form-data"
           className="mb-8 w-full relative "
         >
           <div className="py-2 px-4 mb-2 bg-white w-full shadow-md rounded  ">
             <label
-              htmlFor="first-name"
+              htmlFor="topic"
               className="block text-sm font-medium text-slate-700"
             ></label>
             <input
+              id="topic"
               type="text"
-              name="first-name"
-              id="first-name"
-              autoComplete="given-name"
               placeholder="토픽 설정"
-              className="my-1  py-1.5 block  placeholder:text-slate-300 text-sm rounded border-slate-300  focus:border-indigo-500 focus:ring-indigo-500 "
+              className="my-1  py-1.5 block w-1/3 placeholder:text-slate-300 text-sm rounded border-slate-300  focus:border-indigo-500 focus:ring-indigo-500 "
+              {...register("topic")}
             />
-            <label className="sr-only"></label>
+            <label htmlFor="content" className="sr-only"></label>
             <textarea
-              value={text}
-              onChange={onChangeText}
+              id="content"
               maxLength={800}
               rows="3"
               className="px-0 pt-2 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-slate-300"
               placeholder="우측 아래를 드래그하여 입력창을 넓힐 수 있습니다."
-              required
+              {...register("content", {
+                required: "내용을 입력해주세요",
+                maxLength: {
+                  value: 800,
+                  message: "800자 이내로 입력해주세요",
+                },
+              })}
             ></textarea>
             <div className="mt-2 border-t border-slate-200  py-2 w-full">
               <div className="mt-1 flex justify-between w-2/3">
@@ -109,12 +116,19 @@ const PostForm = () => {
             </button>
             <button
               type="submit"
+              disabled={isSubmitting}
               className="ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow-md bg-indigo-500 rounded text-white hover:bg-indigo-600"
             >
               Flash
             </button>
           </div>
         </form>
+        <div
+          className="absolute bottom-2 left-1.5 flex text-orange-500 text-xs "
+          role="alert"
+        >
+          {errors.content ? <>{errors.content.message}</> : ""}
+        </div>
       </div>
     </div>
   );

@@ -165,19 +165,19 @@ const SignupForm = () => {
 
                 <div className="text-sm">
                   <Link href="/login">
-                    <a
+                    <span
                       href="#"
                       className="font-medium text-indigo-500 hover:text-indigo-500"
                     >
                       Already have an account?
-                    </a>
+                    </span>
                   </Link>
                 </div>
               </div>
 
               <div>
                 <div
-                  className="h-6 flex justify-center text-red-500 text-xs "
+                  className="h-6 flex justify-center text-orange-500 text-xs "
                   role="alert"
                 >
                   {errors.email ? (

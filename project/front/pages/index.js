@@ -88,11 +88,11 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="mt-20 px-0 md:pl-5 md:w-9/12 lg:px-3 w-full lg:w-7/12 h-full mx-4 md:mx-0 relative ">
-          <div className="font-bold text-slate-600 text-2xl flex items-center">
+        <div className="mt-20 px-0 md:px-5 md:w-9/12 lg:px-3 w-full lg:w-7/12 h-full mx-4 md:mx-0 relative ">
+          <div className="font-bold text-slate-600 text-2xl mb-8 flex items-center">
             <span>Square</span>
           </div>
-          <PostForm />
+          {me && <PostForm />}
           {mainPosts.map((post) => (
             <PostSection key={post.id} post={post} />
           ))}
@@ -101,7 +101,7 @@ const Home = () => {
         <div className="w-3/12 hidden  md:block">
           <div className="pt-10 fixed right-0  h-full  w-3/12  ">
             <div className=" pt-6  h-full w-full bg-slate-50  ">
-              <div className="pl-1 py-4 w-full h-full flex flex-col justify-between">
+              <div className="pl-0 lg:pl-1 py-4 w-full h-full flex flex-col justify-between">
                 <div className="pb-8 w-full h-1/2 flex flex-col justify-between">
                   <h1 className="relative mb-2 left-1 text-lg font-bold text-slate-700 flex items-center">
                     <span>Most Flashed</span>

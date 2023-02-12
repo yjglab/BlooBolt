@@ -118,7 +118,7 @@ const LoginForm = () => {
             <div>
               <div>
                 <div
-                  className="h-6 flex justify-center text-red-500 text-xs "
+                  className="h-6 flex justify-center text-orange-500 text-xs "
                   role="alert"
                 >
                   {errors.email ? (
