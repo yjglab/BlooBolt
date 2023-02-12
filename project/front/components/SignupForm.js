@@ -2,7 +2,7 @@ import { UserPlusIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
 import Router from "next/router";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
@@ -34,9 +34,7 @@ const SignupForm = () => {
         password,
       },
     });
-    if (signUpDone) {
-      Router.push("/login");
-    }
+
     console.log(email, username, password, passwordCheck);
   };
 

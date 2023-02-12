@@ -9,8 +9,6 @@ import { useForm } from "react-hook-form";
 import bloobolt_logo from "../public/bloobolt_logo.png";
 
 import Image from "next/image";
-//   let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-//   regex.test("string")
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -22,13 +20,13 @@ const LoginForm = () => {
     formState: { isSubmitting, errors },
   } = useForm();
 
-  const onLogin = useCallback((formData) => {
+  const onLogin = (formData) => {
+    const { email, password } = formData;
     dispatch({
       type: LOG_IN_REQUEST,
-      data: { email: formData.email, password: formData.password },
+      data: { email, password },
     });
-    console.log(formData);
-  }, []);
+  };
 
   return (
     <div className="h-screen bg-slate-50">
@@ -50,12 +48,9 @@ const LoginForm = () => {
             <p className="mt-2 text-center text-sm text-slate-600">
               Or{" "}
               <Link href="/signup">
-                <a
-                  href="#"
-                  className="font-medium text-indigo-500 hover:text-indigo-500"
-                >
+                <span className="font-medium text-indigo-500 hover:text-indigo-500">
                   make your bloobolt account
-                </a>
+                </span>
               </Link>
             </p>
           </div>
@@ -91,10 +86,6 @@ const LoginForm = () => {
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-700 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   {...register("password", {
                     required: "비밀번호를 입력해주세요",
-                    minLength: {
-                      value: 4,
-                      message: "4자리 이상의 비밀번호를 입력해주세요",
-                    },
                   })}
                 />
               </div>

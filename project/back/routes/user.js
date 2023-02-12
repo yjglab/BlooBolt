@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 
-const { User } = require("../models");
+const { User, Userboard } = require("../models");
 
 const router = express.Router();
 
@@ -25,14 +25,28 @@ router.post("/signup", async (req, res, next) => {
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    await User.create({
+    const user = await User.create({
       email: req.body.email,
       username: req.body.username,
       password: hashedPassword,
       status: false,
     });
 
+    await user.createUserboard({
+      UserId: user.id,
+      rank: 0,
+      rankpoint: 0,
+      reported: 0,
+    });
     res.status(201).send("ok");
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.post("/login", async (req, res, next) => {
+  try {
   } catch (error) {
     console.error(error);
     next(error);

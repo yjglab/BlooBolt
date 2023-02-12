@@ -53,7 +53,9 @@ module.exports = class User extends Model {
       }
     );
   }
-  static associate(db) {}
+  static associate(db) {
+    db.User.belongsTo(db.Userboard);
+  }
 };
 
 // id: 101,
@@ -68,6 +70,6 @@ module.exports = class User extends Model {
 // website: "demo.com",
 
 // 유저보드
-// rank: 5, // 1 ~ 5, 기본 null, 어드민 9
+// rank: 5, // 1 ~ 5, 기본 0, 어드민 9
 // rankPoint: 0,
 // reported: 0, // 10 -> blind

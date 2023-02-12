@@ -1,4 +1,5 @@
 import axios from "axios";
+import Router from "next/router";
 import { all, call, delay, fork, put, takeLatest } from "redux-saga/effects";
 import { vtlUser1 } from "../db";
 import {
@@ -23,6 +24,7 @@ function* signUp(action) {
     yield put({
       type: SIGN_UP_SUCCESS,
     });
+    Router.push("/login");
   } catch (error) {
     console.error(error);
     yield put({
@@ -38,11 +40,10 @@ function logInAPI(data) {
 
 function* logIn(action) {
   try {
-    yield delay(500);
-    // const result = yield call(logInAPI, action.data)
+    const result = yield call(logInAPI, action.data);
     yield put({
       type: LOG_IN_SUCCESS,
-      data: vtlUser1,
+      data: result.data,
     });
   } catch (error) {
     console.error(error);
