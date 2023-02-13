@@ -2,6 +2,7 @@ import axios from "axios";
 import Router from "next/router";
 import { all, call, delay, fork, put, takeLatest } from "redux-saga/effects";
 import { vtlUser1 } from "../db";
+import { STATUS_ON, STATUS_OFF } from "../reducers/post";
 import {
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
@@ -45,6 +46,10 @@ function* logIn(action) {
       type: LOG_IN_SUCCESS,
       data: result.data,
     });
+    yield put({
+      type: STATUS_ON,
+      data: result.data.id,
+    });
   } catch (error) {
     console.error(error);
     yield put({
@@ -57,11 +62,15 @@ function logOutAPI() {
   return axios.post("/user/logout");
 }
 
-function* logOut() {
+function* logOut(action) {
   try {
     yield call(logOutAPI);
     yield put({
       type: LOG_OUT_SUCCESS,
+    });
+    yield put({
+      type: STATUS_OFF,
+      data: action.data,
     });
   } catch (error) {
     console.error(error);

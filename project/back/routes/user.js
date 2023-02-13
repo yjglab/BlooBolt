@@ -61,6 +61,16 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
         console.error(loginError);
         return next(loginError);
       }
+      await User.update(
+        {
+          status: true,
+        },
+        {
+          where: {
+            id: user.id,
+          },
+        }
+      );
       const resultUser = await User.findOne({
         where: { id: user.id },
         attributes: { exclude: ["password"] },
@@ -79,7 +89,18 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
   })(req, res, next);
 });
 
-router.post("/logout", isLoggedIn, (req, res, next) => {
+router.post("/logout", isLoggedIn, async (req, res, next) => {
+  await User.update(
+    {
+      status: false,
+    },
+    {
+      where: {
+        id: req.user.id,
+      },
+    }
+  );
+
   req.logout();
   req.session.destroy();
   res.send("ok");

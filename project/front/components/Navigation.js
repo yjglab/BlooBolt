@@ -47,6 +47,7 @@ const Navigation = () => {
   const onLogout = useCallback(() => {
     dispatch({
       type: LOG_OUT_REQUEST,
+      data: me.id,
     });
   });
 

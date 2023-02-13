@@ -32,9 +32,30 @@ export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
 export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
 export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE";
 
+export const STATUS_ON = "STATUS_ON";
+export const STATUS_OFF = "STATUS_OFF";
+
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case STATUS_ON: {
+        const posts = draft.mainPosts.filter(
+          (post) => post.User.id === action.data
+        );
+        posts.map((post) => {
+          post.User.status = true;
+        });
+        break;
+      }
+      case STATUS_OFF: {
+        const posts = draft.mainPosts.filter(
+          (post) => post.User.id === action.data
+        );
+        posts.map((post) => {
+          post.User.status = false;
+        });
+        break;
+      }
       case UPLOAD_POST_REQUEST:
         draft.uploadPostLoading = true;
         draft.uploadPostDone = false;

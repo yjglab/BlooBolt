@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/", isLoggedIn, async (req, res, next) => {
   try {
     const post = await Post.create({
-      topic: req.body.topic,
+      topic: req.body.topic || "토픽 없음",
       content: req.body.content,
       UserId: req.user.id,
     });
@@ -16,7 +16,7 @@ router.post("/", isLoggedIn, async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username"],
+          attributes: ["id", "username", "status"],
         },
       ],
     });
