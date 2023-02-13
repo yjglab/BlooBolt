@@ -18,7 +18,7 @@ const Home = () => {
   const { me } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
-  // const liked = post.Likers.find((v) => v.id === id);
+  // const liked = post.Grokkers.find((v) => v.id === id);
   return (
     <AppLayout>
       <div className="flex h-full">

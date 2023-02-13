@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const dotenv = require("dotenv");
-const userRouter = require("./routes/user");
+
 const morgan = require("morgan");
 const path = require("path");
 const cors = require("cors");
@@ -9,6 +9,9 @@ const cookieParser = require("cookie-parser");
 const db = require("./models");
 const passportConfig = require("./passport");
 const passport = require("passport");
+
+const userRouter = require("./routes/user");
+const postRouter = require("./routes/post");
 
 dotenv.config();
 const app = express();
@@ -53,6 +56,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/user", userRouter);
+app.use("/post", postRouter);
 
 app.listen(4080, () => {
   console.log("🌐 Server 연결");

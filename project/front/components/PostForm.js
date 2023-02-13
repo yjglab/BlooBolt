@@ -5,20 +5,11 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { genPost } from "../db";
 import useInput from "../hooks/useInput";
-import { ADD_POST_REQUEST } from "../reducers/post";
+import { UPLOAD_POST_REQUEST } from "../reducers/post";
 
 const PostForm = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { addPostDone, imagePaths } = useSelector((state) => state.post);
-
-  const [text, onChangeText, setText] = useInput("");
-
-  useEffect(() => {
-    if (addPostDone) {
-      setText("");
-    }
-  }, [addPostDone]);
 
   const {
     register,
@@ -36,12 +27,11 @@ const PostForm = () => {
 
   const onUploadPost = (formData) => {
     const { topic, content } = formData;
-    console.log(topic, content);
     reset();
-    // return dispatch({
-    //   type: ADD_POST_REQUEST,
-    //   data: { topic, content },
-    // });
+    return dispatch({
+      type: UPLOAD_POST_REQUEST,
+      data: { topic, content },
+    });
   };
 
   const imageInput = useRef();

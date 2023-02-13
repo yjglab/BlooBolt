@@ -25,9 +25,15 @@ export const LOG_OUT_REQUEST = "LOG_OUT_REQUEST";
 export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
 export const LOG_OUT_FAILURE = "LOG_OUT_FAILURE";
 
+export const ADD_POST_TO_ME = "ADD_POST_TO_ME";
+
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case ADD_POST_TO_ME:
+        draft.me.Posts.unshift({ id: action.data });
+        break;
+
       case SIGN_UP_REQUEST:
         draft.signUpLoading = true;
         draft.signUpDone = false;

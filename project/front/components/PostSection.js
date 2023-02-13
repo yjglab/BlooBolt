@@ -151,7 +151,7 @@ const PostSection = ({ post }) => {
             <div className=" text-slate-700 text-sm md:text-md break-all">
               {post.content}
             </div>
-            {post.Images[0] && <PostImages images={post.Images} />}
+            {/* {post.Images[0] && <PostImages images={post.Images} />} */}
           </div>
           <div className="relative mt-4 pt-1 mr-4 border-t flex items-center">
             <div className="flex items-center text-slate-700 text-sm mr-3">
@@ -163,7 +163,7 @@ const PostSection = ({ post }) => {
             </div>
             <div className="flex items-center text-slate-700 text-sm mr-8">
               <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5  hover:text-indigo-500 cursor-pointer" />
-              <span className="ml-1">{post.Comments.length}</span>
+              <span className="ml-1">{post.Comments?.length}</span>
             </div>
             <small className="absolute right-0 text-sm text-slate-400">
               {post.createdAt}

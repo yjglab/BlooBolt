@@ -17,7 +17,7 @@ const CommentSection = ({ post }) => {
     <div className="w-full flex justify-end">
       <div className="px-4 pt-4 bg-white w-5/6 sm:w-4/5 my-2 shadow-md rounded ">
         <CommentForm />
-        {post.Comments.map((comment) => (
+        {post.Comments?.map((comment) => (
           <div
             key={comment.id}
             className="mt-2 mb-2 px-2 pt-2 pb-4 relative text-base border-b"

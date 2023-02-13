@@ -54,7 +54,7 @@ export function genPost(user, text) {
       },
     ],
     Comments: [],
-    Likers: [{ id: 101 }, { id: 102 }],
+    Grokkers: [{ id: 101 }, { id: 102 }],
   };
   return post;
 }

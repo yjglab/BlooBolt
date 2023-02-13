@@ -2,16 +2,16 @@ import produce from "immer";
 import { genPost, vtlUser1 } from "../db";
 
 export const initialState = {
-  mainPosts: [genPost(vtlUser1, "ddd")],
+  mainPosts: [],
   imagePaths: [
     "https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&quality=85&auto=format&fit=max&s=a52bbe202f57ac0f5ff7f47166906403",
     "https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&quality=85&auto=format&fit=max&s=a52bbe202f57ac0f5ff7f47166906403",
     "https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&quality=85&auto=format&fit=max&s=a52bbe202f57ac0f5ff7f47166906403",
   ],
 
-  addPostLoading: false,
-  addPostDone: false,
-  addPostError: null,
+  uploadPostLoading: false,
+  uploadPostDone: false,
+  uploadPostError: null,
   removePostLoading: false,
   removePostDone: false,
   removePostError: null,
@@ -20,9 +20,9 @@ export const initialState = {
   addCommentError: null,
 };
 
-export const ADD_POST_REQUEST = "ADD_POST_REQUEST";
-export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
-export const ADD_POST_FAILURE = "ADD_POST_FAILURE";
+export const UPLOAD_POST_REQUEST = "UPLOAD_POST_REQUEST";
+export const UPLOAD_POST_SUCCESS = "UPLOAD_POST_SUCCESS";
+export const UPLOAD_POST_FAILURE = "UPLOAD_POST_FAILURE";
 
 export const REMOVE_POST_REQUEST = "REMOVE_POST_REQUEST";
 export const REMOVE_POST_SUCCESS = "REMOVE_POST_SUCCESS";
@@ -35,20 +35,20 @@ export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE";
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      case ADD_POST_REQUEST:
-        draft.addPostLoading = true;
-        draft.addPostDone = false;
-        draft.addPostError = null;
+      case UPLOAD_POST_REQUEST:
+        draft.uploadPostLoading = true;
+        draft.uploadPostDone = false;
+        draft.uploadPostError = null;
         break;
-      case ADD_POST_SUCCESS:
-        draft.addPostLoading = false;
-        draft.addPostDone = true;
+      case UPLOAD_POST_SUCCESS:
+        draft.uploadPostLoading = false;
+        draft.uploadPostDone = true;
         draft.mainPosts.unshift(action.data);
         draft.imagePaths = [];
         break;
-      case ADD_POST_FAILURE:
-        draft.addPostLoading = false;
-        draft.addPostError = action.error;
+      case UPLOAD_POST_FAILURE:
+        draft.uploadPostLoading = false;
+        draft.uploadPostError = action.error;
         break;
       case REMOVE_POST_REQUEST:
         draft.removePostLoading = true;
