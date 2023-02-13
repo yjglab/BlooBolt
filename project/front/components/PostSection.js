@@ -1,5 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment, useCallback } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import CommentSection from "./CommentSection";
@@ -20,6 +20,7 @@ function classNames(...classes) {
 const PostSection = ({ post }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
+  const [toggleCommentSection, setToggleCommentSection] = useState(false);
 
   const onRemovePost = useCallback(() => {
     dispatch({
@@ -27,6 +28,9 @@ const PostSection = ({ post }) => {
       data: post.id,
     });
   }, []);
+  const onOpenCommentSection = useCallback(() => {
+    setToggleCommentSection(!toggleCommentSection);
+  }, [toggleCommentSection]);
 
   return (
     <div className="flex flex-col mb-6">
@@ -161,17 +165,20 @@ const PostSection = ({ post }) => {
               />
               <span className="ml-1">122</span>
             </div>
-            <div className="flex items-center text-slate-700 text-sm mr-8">
-              <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5  hover:text-indigo-500 cursor-pointer" />
+            <button
+              onClick={onOpenCommentSection}
+              className="flex items-center text-slate-700 text-sm mr-8"
+            >
+              <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5  hover:text-indigo-500" />
               <span className="ml-1">{post.Comments?.length}</span>
-            </div>
+            </button>
             <small className="absolute right-0 text-sm text-slate-400">
               {post.createdAt}
             </small>
           </div>
         </div>
       </div>
-      <CommentSection post={post} />
+      {toggleCommentSection && <CommentSection post={post} />}
     </div>
   );
 };
