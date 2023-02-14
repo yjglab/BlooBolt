@@ -1,8 +1,11 @@
 import axios from "axios";
 import Router from "next/router";
 import { all, call, delay, fork, put, takeLatest } from "redux-saga/effects";
-import { vtlUser1 } from "../db";
-import { STATUS_ON, STATUS_OFF } from "../reducers/post";
+import {
+  STATUS_ON,
+  STATUS_OFF,
+  CANCEL_ALL_POST_IMAGES,
+} from "../reducers/post";
 import {
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
@@ -67,6 +70,9 @@ function* logOut(action) {
     yield call(logOutAPI);
     yield put({
       type: LOG_OUT_SUCCESS,
+    });
+    yield put({
+      type: CANCEL_ALL_POST_IMAGES,
     });
     yield put({
       type: STATUS_OFF,

@@ -10,6 +10,7 @@ import {
   BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   ShieldCheckIcon,
+  UserPlusIcon,
 } from "@heroicons/react/20/solid";
 import PostImages from "./PostImages";
 
@@ -158,19 +159,26 @@ const PostSection = ({ post }) => {
             {post.PostImages[0] && <PostImages postImages={post.PostImages} />}
           </div>
           <div className="relative mt-4 pt-1 mr-4 border-t flex items-center">
-            <div className="flex items-center text-slate-600 text-sm mr-3">
+            <button className="flex items-center hover:text-indigo-500 text-slate-600 text-sm mr-3">
               <BoltIcon
-                className="stroke-2 block h-5 w-5 hover:text-indigo-500 cursor-pointer"
+                className="stroke-2 block h-5 w-5  "
                 aria-hidden="true"
               />
               <span className="ml-1">122</span>
-            </div>
+            </button>
             <button
               onClick={onOpenCommentSection}
-              className="flex items-center text-slate-600 text-sm mr-8"
+              className="flex items-center hover:text-indigo-500 text-slate-600 text-sm mr-8"
             >
-              <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5  hover:text-indigo-500" />
+              <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5 " />
               <span className="ml-1">{post.Comments?.length}</span>
+            </button>
+            <button className="flex items-center hover:text-indigo-500 text-slate-600 text-sm mr-3">
+              <UserPlusIcon
+                className="stroke-2 block h-5 w-5  "
+                aria-hidden="true"
+              />
+              <span className="ml-1">Trace</span>
             </button>
             <small className="absolute right-0 text-sm text-slate-400">
               {post.createdAt}
