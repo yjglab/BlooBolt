@@ -29,7 +29,7 @@ const CommentSection = ({ post }) => {
               <div className="flex flex-col">
                 <div className="flex items-center">
                   <img
-                    className="w-10 h-10 rounded-full object-cover shadow-md border-2 p-0.5 border-indigo-400"
+                    className="w-10 h-10 rounded-full object-cover shadow-md border-2 p-0.5 border-amber-400"
                     src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
                   />
                   <div className="flex flex-col ml-3 ">

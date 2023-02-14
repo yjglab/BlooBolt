@@ -25,6 +25,7 @@ module.exports = class Post extends Model {
   }
   static associate(db) {
     db.Post.belongsTo(db.User);
+    db.Post.hasMany(db.PostImage);
   }
 };
 /*

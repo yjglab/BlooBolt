@@ -63,7 +63,6 @@ const Navigation = () => {
                     className=" cursor-pointer w-full h-full"
                     src={bloobolt_logo}
                     alt="logo-image"
-                    placeholder="blur"
                   />
                 </div>
                 <span className="hidden sm:inline">BlooBolt</span>
@@ -264,7 +263,6 @@ const Navigation = () => {
                         className=" cursor-pointer w-full h-full"
                         src={bloobolt_logo}
                         alt="logo-image"
-                        placeholder="blur"
                       />
                     </div>
                     BlooBolt

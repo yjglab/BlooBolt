@@ -1,21 +1,25 @@
 import { TrashIcon } from "@heroicons/react/20/solid";
-import { PhotoIcon } from "@heroicons/react/24/outline";
-import React, { useCallback, useEffect, useRef } from "react";
+import Image from "next/image";
+import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { genPost } from "../db";
-import useInput from "../hooks/useInput";
-import { UPLOAD_POST_REQUEST } from "../reducers/post";
+import {
+  UPLOAD_POST_IMAGES_REQUEST,
+  UPLOAD_POST_REQUEST,
+} from "../reducers/post";
+import { backUrl } from "../config/config";
 
 const PostForm = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
+  const { postImagePaths } = useSelector((state) => state.post);
 
   const {
     register,
     reset,
     resetField,
     handleSubmit,
+    watch,
     formState: { isSubmitting, errors },
   } = useForm({
     mode: "onSubmit",
@@ -34,11 +38,24 @@ const PostForm = () => {
     });
   };
 
-  const imageInput = useRef();
-  const onClickImageUpload = useCallback(() => {
-    imageInput.current.click();
-  }, [imageInput.current]);
-  const onChangeImages = useCallback(() => {}, []);
+  // useEffect(() => {
+  //   if (postImages && postImages.length > 0) {
+  //     console.log(postImages[0]);
+  //   }
+  // });
+
+  const onChangePostImages = () => {
+    const postImageFiles = watch("image");
+    const postImageFormData = new FormData();
+    [].forEach.call(postImageFiles, (file) => {
+      postImageFormData.append("postImages", file);
+    });
+
+    dispatch({
+      type: UPLOAD_POST_IMAGES_REQUEST,
+      data: postImageFormData,
+    });
+  };
 
   return (
     <div className="flex  rounded mb-10">
@@ -77,39 +94,61 @@ const PostForm = () => {
             ></textarea>
             <div className="mt-2 border-t border-slate-200  py-2 w-full">
               <div className="mt-1 flex justify-between w-2/3">
-                <button
-                  type="button"
-                  onClick={null}
-                  className="w-2/12 lg:w-1/12 sm:w-2/12 mx-0.5 relative rounded overflow-hidden  "
-                >
-                  <img
-                    className="hover:opacity-25 z-0 aspect-square object-cover"
-                    src="https://i.guim.co.uk/img/media/c5e73ed8e8325d7e79babf8f1ebbd9adc0d95409/2_5_1754_1053/master/1754.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=d41b50ebb44dd5d055f57f30b97708ab"
-                  />
-                  <div className="z-1 flex justify-center items-center w-full h-full top-0 left-0 absolute opacity-0 hover:bg-white hover:opacity-100 hover:bg-opacity-50">
-                    <TrashIcon className="text-slate-700 w-1/3 h-1/3 " />
-                  </div>
-                </button>
+                {postImagePaths.map((v, i) => (
+                  <button
+                    type="button"
+                    key={v}
+                    onClick={null}
+                    className="border border-slate-300 w-2/12 aspect-square lg:w-1/12 sm:w-2/12 mx-0.5 relative rounded overflow-hidden  "
+                  >
+                    {/* <Image
+                      className="hover:opacity-25 z-0 aspect-square object-cover"
+                      layout="fill"
+                      src={
+                        process.env.NODE_ENV === "production"
+                          ? ``
+                          : `${backUrl}/${v}`
+                      }
+                      alt={v}
+                    /> */}
+                    {
+                      <img
+                        className="hover:opacity-25 z-0 aspect-square object-cover"
+                        src={
+                          process.env.NODE_ENV === "production"
+                            ? ``
+                            : `${backUrl}/${v}`
+                        }
+                        alt={v}
+                      />
+                    }
+                    <div className="z-1 flex justify-center items-center w-full h-full top-0 left-0 absolute opacity-0 hover:bg-gray-200 hover:opacity-100 hover:bg-opacity-50">
+                      <TrashIcon className="text-slate-700 w-1/3 h-1/3 " />
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
 
           <div className="absolute flex items-center right-0">
+            <label htmlFor="postImages"></label>
             <input
+              id="postImages"
               type="file"
-              name="image"
               multiple
-              hidden
-              ref={imageInput}
-              onChange={onChangeImages}
+              accept="image/*"
+              {...register("image", {
+                onChange: onChangePostImages,
+              })}
             />
-            <button
+            {/* <button
               type="button"
               onClick={onClickImageUpload}
               className="py-1 px-1 text-xs font-medium text-center bg-white shadow-md text-slate-700 rounded focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
             >
               <PhotoIcon className="stroke-2 block h-5 w-5  cursor-pointer" />
-            </button>
+            </button> */}
             <button
               type="submit"
               disabled={isSubmitting}
@@ -120,7 +159,7 @@ const PostForm = () => {
           </div>
         </form>
         <div
-          className="absolute bottom-2 left-1.5 flex text-orange-500 text-xs "
+          className="absolute bottom-2 left-1.5 flex text-amber-400 text-xs "
           role="alert"
         >
           {errors.content ? <>{errors.content.message}</> : ""}

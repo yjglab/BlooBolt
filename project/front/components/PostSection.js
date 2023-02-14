@@ -37,7 +37,7 @@ const PostSection = ({ post }) => {
       <div className="flex bg-white shadow-md rounded w-full px-4 py-6 ">
         <img
           className={`w-12 h-12 rounded-full object-cover mr-4 shadow-md border-2 p-0.5 ${
-            post.User.status ? "border-indigo-400" : "border-slate-700"
+            post.User.status ? "border-amber-400" : "border-slate-700"
           }`}
           src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
           alt="avatar"

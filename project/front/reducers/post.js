@@ -1,13 +1,8 @@
 import produce from "immer";
-import { genPost, vtlUser1 } from "../db";
 
 export const initialState = {
   mainPosts: [],
-  imagePaths: [
-    "https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&quality=85&auto=format&fit=max&s=a52bbe202f57ac0f5ff7f47166906403",
-    "https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&quality=85&auto=format&fit=max&s=a52bbe202f57ac0f5ff7f47166906403",
-    "https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&quality=85&auto=format&fit=max&s=a52bbe202f57ac0f5ff7f47166906403",
-  ],
+  postImagePaths: [],
 
   uploadPostLoading: false,
   uploadPostDone: false,
@@ -15,6 +10,9 @@ export const initialState = {
   removePostLoading: false,
   removePostDone: false,
   removePostError: null,
+  uploadPostImagesLoading: false,
+  uploadPostImagesDone: false,
+  uploadPostImagesError: null,
   addCommentLoading: false,
   addCommentDone: false,
   addCommentError: null,
@@ -27,6 +25,10 @@ export const UPLOAD_POST_FAILURE = "UPLOAD_POST_FAILURE";
 export const REMOVE_POST_REQUEST = "REMOVE_POST_REQUEST";
 export const REMOVE_POST_SUCCESS = "REMOVE_POST_SUCCESS";
 export const REMOVE_POST_FAILURE = "REMOVE_POST_FAILURE";
+
+export const UPLOAD_POST_IMAGES_REQUEST = "UPLOAD_POST_IMAGES_REQUEST";
+export const UPLOAD_POST_IMAGES_SUCCESS = "UPLOAD_POST_IMAGES_SUCCESS";
+export const UPLOAD_POST_IMAGES_FAILURE = "UPLOAD_POST_IMAGES_FAILURE";
 
 export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
 export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
@@ -65,7 +67,7 @@ const reducer = (state = initialState, action) => {
         draft.uploadPostLoading = false;
         draft.uploadPostDone = true;
         draft.mainPosts.unshift(action.data);
-        draft.imagePaths = [];
+        draft.postImagePaths = [];
         break;
       case UPLOAD_POST_FAILURE:
         draft.uploadPostLoading = false;
@@ -84,6 +86,20 @@ const reducer = (state = initialState, action) => {
       case REMOVE_POST_FAILURE:
         draft.removePostLoading = false;
         draft.removePostError = action.error;
+        break;
+      case UPLOAD_POST_IMAGES_REQUEST:
+        draft.uploadPostImagesLoading = true;
+        draft.uploadPostImagesDone = false;
+        draft.uploadPostImagesError = null;
+        break;
+      case UPLOAD_POST_IMAGES_SUCCESS:
+        draft.uploadPostImagesLoading = false;
+        draft.uploadPostImagesDone = true;
+        draft.postImagePaths = draft.postImagePaths.concat(action.data);
+        break;
+      case UPLOAD_POST_IMAGES_FAILURE:
+        draft.uploadPostImagesLoading = false;
+        draft.uploadPostImagesError = action.error;
         break;
       case ADD_COMMENT_REQUEST:
         draft.addCommentLoading = true;

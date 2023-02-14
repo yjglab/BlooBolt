@@ -49,7 +49,6 @@ const SignupForm = () => {
                   className=" cursor-pointer w-full h-full"
                   src={bloobolt_logo}
                   alt="logo-image"
-                  placeholder="blur"
                 />
               </div>
               <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-slate-700">
@@ -177,7 +176,7 @@ const SignupForm = () => {
 
               <div>
                 <div
-                  className="h-6 flex justify-center text-orange-500 text-xs "
+                  className="h-6 flex justify-center text-amber-400 text-xs "
                   role="alert"
                 >
                   {errors.email ? (
