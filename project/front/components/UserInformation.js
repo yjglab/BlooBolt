@@ -16,7 +16,7 @@ const UserInformation = () => {
           <div className="lg:grid lg:grid-cols-3 lg:gap-6">
             <div className="lg:col-span-1">
               <div className="px-4 sm:px-0">
-                <h3 className="text-lg font-medium leading-6 text-slate-700">
+                <h3 className="text-lg font-medium leading-6 text-slate-600">
                   Public Information
                 </h3>
                 <p className="mt-1 text-xs text-slate-600">
@@ -31,7 +31,7 @@ const UserInformation = () => {
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="first-name"
-                        className="block text-sm font-medium text-slate-700"
+                        className="block text-sm font-medium text-slate-600"
                       >
                         Name
                       </label>
@@ -46,7 +46,7 @@ const UserInformation = () => {
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="first-name"
-                        className="block text-sm font-medium text-slate-700"
+                        className="block text-sm font-medium text-slate-600"
                       >
                         Role
                       </label>
@@ -63,7 +63,7 @@ const UserInformation = () => {
                       <div className="w-full col-span-3">
                         <label
                           htmlFor="company-website"
-                          className="block text-sm font-medium text-slate-700"
+                          className="block text-sm font-medium text-slate-600"
                         >
                           Website
                         </label>
@@ -85,7 +85,7 @@ const UserInformation = () => {
                     <div>
                       <label
                         htmlFor="about"
-                        className="block text-sm font-medium text-slate-700"
+                        className="block text-sm font-medium text-slate-600"
                       >
                         About
                       </label>
@@ -101,7 +101,7 @@ const UserInformation = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-slate-700">
+                      <label className="block text-sm font-medium text-slate-600">
                         Avatar
                       </label>
                       <div className="mt-1 flex items-center">
@@ -116,7 +116,7 @@ const UserInformation = () => {
                         </span>
                         <button
                           type="button"
-                          className="ml-5 rounded border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-700 shadow-md-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                          className="ml-5 rounded border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-600 shadow-md-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         >
                           Change
                         </button>
@@ -150,7 +150,7 @@ const UserInformation = () => {
           <div className="lg:grid lg:grid-cols-3 lg:gap-6">
             <div className="lg:col-span-1">
               <div className="px-4 sm:px-0">
-                <h3 className="text-lg font-medium leading-6 text-slate-700">
+                <h3 className="text-lg font-medium leading-6 text-slate-600">
                   Personal Information
                 </h3>
                 <p className="mt-1 text-xs text-slate-600">
@@ -166,7 +166,7 @@ const UserInformation = () => {
                       <div className="col-span-6 ">
                         <label
                           htmlFor="first-name"
-                          className="block text-sm font-medium text-slate-700"
+                          className="block text-sm font-medium text-slate-600"
                         >
                           Real name
                         </label>
@@ -182,7 +182,7 @@ const UserInformation = () => {
                       <div className="col-span-6 ">
                         <label
                           htmlFor="email-address"
-                          className="block text-sm font-medium text-slate-700"
+                          className="block text-sm font-medium text-slate-600"
                         >
                           Email address
                         </label>
@@ -198,7 +198,7 @@ const UserInformation = () => {
                       <div className="col-span-6 sm:col-span-4">
                         <label
                           htmlFor="country"
-                          className="block text-sm font-medium text-slate-700"
+                          className="block text-sm font-medium text-slate-600"
                         >
                           Country
                         </label>
@@ -217,7 +217,7 @@ const UserInformation = () => {
                       <div className="col-span-6">
                         <label
                           htmlFor="street-address"
-                          className="block text-sm font-medium text-slate-700"
+                          className="block text-sm font-medium text-slate-600"
                         >
                           Address
                         </label>
@@ -255,7 +255,7 @@ const UserInformation = () => {
           <div className="lg:grid lg:grid-cols-3 lg:gap-6">
             <div className="lg:col-span-1">
               <div className="px-4 sm:px-0">
-                <h3 className="text-lg font-medium leading-6 text-slate-700">
+                <h3 className="text-lg font-medium leading-6 text-slate-600">
                   Service Setting
                 </h3>
                 <p className="mt-1 text-xs text-slate-600">
@@ -268,7 +268,7 @@ const UserInformation = () => {
                 <div className="overflow-hidden shadow-md sm:rounded">
                   <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                     <fieldset>
-                      <legend className="contents text-base font-medium text-slate-700">
+                      <legend className="contents text-base font-medium text-slate-600">
                         Status
                       </legend>
                       <p className="text-xs text-slate-500">
@@ -284,7 +284,7 @@ const UserInformation = () => {
                           />
                           <label
                             htmlFor="push-everything"
-                            className="ml-3 block text-sm font-medium text-slate-700"
+                            className="ml-3 block text-sm font-medium text-slate-600"
                           >
                             Active
                           </label>
@@ -298,7 +298,7 @@ const UserInformation = () => {
                           />
                           <label
                             htmlFor="push-email"
-                            className="ml-3 block text-sm font-medium text-slate-700"
+                            className="ml-3 block text-sm font-medium text-slate-600"
                           >
                             Off
                           </label>
@@ -306,7 +306,7 @@ const UserInformation = () => {
                       </div>
                     </fieldset>
                     {/* <fieldset>
-                    <legend className="contents text-base font-medium text-slate-700">
+                    <legend className="contents text-base font-medium text-slate-600">
                       Profile disclosure
                     </legend>
                     <p className="text-sm text-slate-500">
@@ -322,7 +322,7 @@ const UserInformation = () => {
                         />
                         <label
                           htmlFor="push-everything"
-                          className="ml-3 block text-sm font-medium text-slate-700"
+                          className="ml-3 block text-sm font-medium text-slate-600"
                         >
                           Public
                         </label>
@@ -336,7 +336,7 @@ const UserInformation = () => {
                         />
                         <label
                           htmlFor="push-email"
-                          className="ml-3 block text-sm font-medium text-slate-700"
+                          className="ml-3 block text-sm font-medium text-slate-600"
                         >
                           Private
                         </label>

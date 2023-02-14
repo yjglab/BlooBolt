@@ -37,7 +37,9 @@ const CommentForm = () => {
       <div className="pt-2 pb-0 px-1 mb-2  w-full flex items-center">
         <div className="w-20 h-full ">
           <img
-            className="w-12 h-12 rounded-full object-cover shadow-md border-2 p-0.5 border-indigo-400"
+            className={`w-12 h-12 rounded-full object-cover shadow-md border-2 p-0.5  ${
+              me.status ? "border-indigo-400" : ""
+            }`}
             src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
           />
         </div>

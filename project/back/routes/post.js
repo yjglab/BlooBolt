@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
 
-const { User, Post, Userboard } = require("../models");
+const { User, Post, Userboard, PostImage } = require("../models");
 const { isLoggedIn } = require("./middlewares");
 const path = require("path");
 
@@ -69,12 +69,23 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
         },
       }
     );
+
+    if (req.body.postImagePaths && Array.isArray(req.body.postImagePaths)) {
+      const postImages = await Promise.all(
+        req.body.postImagePaths.map((path) => PostImage.create({ src: path }))
+      );
+      await post.addPostImages(postImages);
+    }
+
     const resultPost = await Post.findOne({
       where: { id: post.id },
       include: [
         {
           model: User,
           attributes: ["id", "username", "status"],
+        },
+        {
+          model: PostImage,
         },
       ],
     });

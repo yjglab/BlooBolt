@@ -85,8 +85,8 @@ const Navigation = () => {
                 <>
                   <Popover.Button
                     className={classNames(
-                      open ? "text-slate-700" : "text-slate-500",
-                      "group inline-flex items-center rounded bg-white text-base font-medium hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      open ? "text-slate-600" : "text-slate-500",
+                      "group inline-flex items-center rounded bg-white text-base font-medium hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     )}
                   >
                     <span>User Section</span>
@@ -118,7 +118,7 @@ const Navigation = () => {
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
-                                <p className="text-base text-left font-medium text-slate-700">
+                                <p className="text-base text-left font-medium text-slate-600">
                                   User Square
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
@@ -134,7 +134,7 @@ const Navigation = () => {
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
-                                <p className="text-base text-left font-medium text-slate-700">
+                                <p className="text-base text-left font-medium text-slate-600">
                                   Profile
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
@@ -158,7 +158,7 @@ const Navigation = () => {
                                 >
                                   <a
                                     href={post.href}
-                                    className="font-medium text-slate-700 hover:text-slate-700"
+                                    className="font-medium text-slate-600 hover:text-slate-600"
                                   >
                                     {post.name}
                                   </a>
@@ -186,7 +186,7 @@ const Navigation = () => {
             <Link href="/about">
               <div
                 href="#"
-                className="cursor-pointer hover:text-slate-700 text-base font-medium text-slate-500"
+                className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500"
               >
                 About
               </div>
@@ -200,7 +200,7 @@ const Navigation = () => {
               <input
                 type="text"
                 id="company-website"
-                className=" h-full border-none outline-none bg-slate-50 placeholder:text-slate-400 w-28 flex-1 text-slate-700 focus:bg-slate-100 focus:ring-0 rounded-r  sm:text-sm"
+                className=" h-full border-none outline-none bg-slate-50 placeholder:text-slate-400 w-28 flex-1 text-slate-600 focus:bg-slate-100 focus:ring-0 rounded-r  sm:text-sm"
                 placeholder="Hashtag"
               />
             </div>
@@ -210,7 +210,7 @@ const Navigation = () => {
               <>
                 <button
                   onClick={onLogout}
-                  className="whitespace-nowrap text-base font-medium text-slate-500 hover:text-slate-700"
+                  className="whitespace-nowrap text-base font-medium text-slate-500 hover:text-slate-600"
                 >
                   Logout
                 </button>
@@ -225,7 +225,7 @@ const Navigation = () => {
             ) : (
               <>
                 <Link href="/signup">
-                  <div className="cursor-pointer whitespace-nowrap text-base font-medium text-slate-500 hover:text-slate-700">
+                  <div className="cursor-pointer whitespace-nowrap text-base font-medium text-slate-500 hover:text-slate-600">
                     Sign Up
                   </div>
                 </Link>
@@ -283,7 +283,7 @@ const Navigation = () => {
                         className="h-6 w-6 flex-shrink-0 text-indigo-500"
                         aria-hidden="true"
                       />
-                      <span className="ml-3 text-base font-medium text-slate-700">
+                      <span className="ml-3 text-base font-medium text-slate-600">
                         Square
                       </span>
                     </div>
@@ -295,7 +295,7 @@ const Navigation = () => {
                           className="h-6 w-6 flex-shrink-0 text-indigo-500"
                           aria-hidden="true"
                         />
-                        <span className="ml-3 text-base font-medium text-slate-700">
+                        <span className="ml-3 text-base font-medium text-slate-600">
                           Profile
                         </span>
                       </div>
@@ -308,7 +308,7 @@ const Navigation = () => {
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
                 <a
                   href="#"
-                  className="text-base font-medium text-slate-700 hover:text-slate-700"
+                  className="text-base font-medium text-slate-600 hover:text-slate-600"
                 >
                   Menu-01
                 </a>

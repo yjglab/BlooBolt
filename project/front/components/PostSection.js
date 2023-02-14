@@ -36,8 +36,8 @@ const PostSection = ({ post }) => {
     <div className="flex flex-col mb-6">
       <div className="flex bg-white shadow-md rounded w-full px-4 py-6 ">
         <img
-          className={`w-12 h-12 rounded-full object-cover mr-4 shadow-md border-2 p-0.5 ${
-            post.User.status ? "border-amber-400" : "border-slate-700"
+          className={`w-12 h-12 rounded-full object-cover mr-4 shadow border-2 p-0.5 ${
+            post.User.status ? "border-indigo-400" : ""
           }`}
           src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
           alt="avatar"
@@ -45,7 +45,7 @@ const PostSection = ({ post }) => {
         <div className="w-full">
           <div className="flex items-center justify-between">
             <div className="flex ">
-              <h2 className="text-lg font-semibold text-slate-700 -mt-1">
+              <h2 className="text-lg font-semibold text-slate-600 -mt-1">
                 {post.User.username}
               </h2>
               {post.User.rank && (
@@ -70,7 +70,7 @@ const PostSection = ({ post }) => {
               )}
             </div>
             <div className="flex items-center">
-              <small className="text-xs bg-slate-400 px-2 shadow sm:py-1.5 rounded text-white relative right-2">
+              <small className="text-xs bg-slate-600 px-2 shadow sm:py-1.5 rounded text-white relative right-2">
                 {post.topic}
               </small>
               <Menu as="div" className="relative inline-block text-left">
@@ -104,8 +104,8 @@ const PostSection = ({ post }) => {
                           <button
                             className={classNames(
                               active
-                                ? "bg-slate-100 text-slate-700"
-                                : "text-slate-700",
+                                ? "bg-slate-100 text-slate-600"
+                                : "text-slate-600",
                               "block px-4 py-2 text-sm text-left w-full"
                             )}
                           >
@@ -119,8 +119,8 @@ const PostSection = ({ post }) => {
                             onClick={onRemovePost}
                             className={classNames(
                               active
-                                ? "bg-slate-100 text-slate-700"
-                                : "text-slate-700",
+                                ? "bg-slate-100 text-slate-600"
+                                : "text-slate-600",
                               "block px-4 py-2 text-sm text-left w-full"
                             )}
                           >
@@ -133,8 +133,8 @@ const PostSection = ({ post }) => {
                           <button
                             className={classNames(
                               active
-                                ? "bg-slate-100 text-slate-700"
-                                : "text-slate-700",
+                                ? "bg-slate-100 text-slate-600"
+                                : "text-slate-600",
                               "block px-4 py-2 text-sm text-left w-full"
                             )}
                           >
@@ -152,13 +152,13 @@ const PostSection = ({ post }) => {
             {post.User.role}
           </div>
           <div className="mt-3 mb-4">
-            <div className=" text-slate-700 text-sm md:text-md break-all">
+            <div className=" text-slate-600 text-sm md:text-md break-all">
               {post.content}
             </div>
-            {/* {post.Images[0] && <PostImages images={post.Images} />} */}
+            {post.PostImages[0] && <PostImages postImages={post.PostImages} />}
           </div>
           <div className="relative mt-4 pt-1 mr-4 border-t flex items-center">
-            <div className="flex items-center text-slate-700 text-sm mr-3">
+            <div className="flex items-center text-slate-600 text-sm mr-3">
               <BoltIcon
                 className="stroke-2 block h-5 w-5 hover:text-indigo-500 cursor-pointer"
                 aria-hidden="true"
@@ -167,7 +167,7 @@ const PostSection = ({ post }) => {
             </div>
             <button
               onClick={onOpenCommentSection}
-              className="flex items-center text-slate-700 text-sm mr-8"
+              className="flex items-center text-slate-600 text-sm mr-8"
             >
               <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5  hover:text-indigo-500" />
               <span className="ml-1">{post.Comments?.length}</span>

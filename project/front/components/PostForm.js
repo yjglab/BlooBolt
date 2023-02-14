@@ -1,6 +1,6 @@
 import { TrashIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,6 +9,7 @@ import {
   CANCEL_POST_IMAGE,
 } from "../reducers/post";
 import { backUrl } from "../config/config";
+import { PhotoIcon } from "@heroicons/react/24/outline";
 
 const PostForm = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const PostForm = () => {
   const { postImagePaths, uploadPostImagesError } = useSelector(
     (state) => state.post
   );
+  const [uploadPostBlock, setUploadPostBlock] = useState(false);
 
   const {
     register,
@@ -35,9 +37,10 @@ const PostForm = () => {
   const onUploadPost = (formData) => {
     const { topic, content } = formData;
     reset();
+
     return dispatch({
       type: UPLOAD_POST_REQUEST,
-      data: { topic, content },
+      data: { topic, content, postImagePaths },
     });
   };
 
@@ -47,6 +50,7 @@ const PostForm = () => {
       data: i,
     });
   });
+
   const onChangePostImages = () => {
     const postImages = watch("image");
     const postImagesFormData = new FormData();
@@ -71,7 +75,7 @@ const PostForm = () => {
           <div className="py-2 px-4 mb-2 bg-white w-full shadow-md rounded  ">
             <label
               htmlFor="topic"
-              className="block text-sm font-medium text-slate-700"
+              className="block text-sm font-medium text-slate-600"
             ></label>
             <input
               id="topic"
@@ -126,7 +130,7 @@ const PostForm = () => {
                       alt={v}
                     /> */}
                     <div className="z-1 flex justify-center items-center w-full h-full top-0 left-0 absolute opacity-0 hover:bg-gray-200 hover:opacity-100 hover:bg-opacity-50">
-                      <TrashIcon className="text-slate-700 w-1/3 h-1/3 " />
+                      <TrashIcon className="text-slate-600 w-1/3 h-1/3 " />
                     </div>
                   </button>
                 ))}
@@ -135,13 +139,19 @@ const PostForm = () => {
           </div>
 
           <div className="absolute flex items-center right-0">
-            <label htmlFor="postImages"></label>
+            <label
+              htmlFor="postImages"
+              className="py-1 px-1 cursor-pointer text-xs font-medium text-center bg-white shadow-md text-slate-600 rounded focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
+            >
+              <PhotoIcon className="stroke-2 block h-5 w-5 " />
+            </label>
             <input
               name="postImages"
               id="postImages"
               type="file"
               multiple
               accept="image/*"
+              className="hidden"
               {...register("image", {
                 onChange: onChangePostImages,
               })}
@@ -149,13 +159,13 @@ const PostForm = () => {
             {/* <button
               type="button"
               onClick={onClickImageUpload}
-              className="py-1 px-1 text-xs font-medium text-center bg-white shadow-md text-slate-700 rounded focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
+              className="py-1 px-1 text-xs font-medium text-center bg-white shadow-md text-slate-600 rounded focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
             >
               <PhotoIcon className="stroke-2 block h-5 w-5  cursor-pointer" />
             </button> */}
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={uploadPostBlock || isSubmitting}
               className="ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow-md bg-indigo-500 rounded text-white hover:bg-indigo-600"
             >
               Flash
@@ -168,6 +178,8 @@ const PostForm = () => {
         >
           {errors.content ? (
             <>{errors.content.message}</>
+          ) : errors.postImages ? (
+            <>{errors.postImages.message}</>
           ) : uploadPostImagesError ? (
             <>{uploadPostImagesError}</>
           ) : (

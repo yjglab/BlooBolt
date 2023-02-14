@@ -41,7 +41,7 @@ const LoginForm = () => {
               />
             </div>
 
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-slate-700">
+            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-slate-600">
               Login to your account
             </h2>
             <p className="mt-2 text-center text-sm text-slate-600">
@@ -64,7 +64,7 @@ const LoginForm = () => {
                   id="email"
                   type="text"
                   placeholder="Email address"
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2.5 text-slate-700 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   {...register("email", {
                     required: "이메일은 필수 입력입니다",
                     pattern: {
@@ -82,7 +82,7 @@ const LoginForm = () => {
                   id="password"
                   type="password"
                   placeholder="Password"
-                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-700 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   {...register("password", {
                     required: "비밀번호를 입력해주세요",
                   })}
@@ -99,7 +99,7 @@ const LoginForm = () => {
                 />
                 <label
                   htmlFor="remember-me"
-                  className="ml-2 block text-sm text-slate-700"
+                  className="ml-2 block text-sm text-slate-600"
                 >
                   Remember me
                 </label>

@@ -38,7 +38,7 @@ const Profile = () => {
       <div className="pt-24 px-6 pb-6 w-full bg-slate-100 lg:flex lg:items-center lg:justify-between">
         <div className="min-w-0 flex-1">
           <div className="flex items-center mb-1">
-            <h2 className="text-2xl font-bold leading-7 text-slate-700 md:truncate md:text-3xl md:tracking-tight">
+            <h2 className="text-2xl font-bold leading-7 text-slate-600 md:truncate md:text-3xl md:tracking-tight">
               {me.username}
             </h2>
             {me.rank ? (
@@ -121,7 +121,7 @@ const Profile = () => {
           <span className="hidden sm:block">
             <button
               type="button"
-              className="inline-flex items-center rounded border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-md-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex items-center rounded border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-md-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               <PencilIcon
                 className="-ml-1 mr-2 h-5 w-5 text-slate-500"
@@ -143,7 +143,7 @@ const Profile = () => {
 
           {/* 모바일 드롭다운 */}
           <Menu as="div" className="relative ml-3 sm:hidden">
-            <Menu.Button className="inline-flex items-center rounded border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-md-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <Menu.Button className="inline-flex items-center rounded border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-md-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
               More
               <ChevronDownIcon
                 className="-mr-1 ml-2 h-5 w-5 text-slate-500"
@@ -167,7 +167,7 @@ const Profile = () => {
                       href="#"
                       className={classNames(
                         active ? "bg-slate-100" : "",
-                        "block px-4 py-2 text-sm text-slate-700"
+                        "block px-4 py-2 text-sm text-slate-600"
                       )}
                     >
                       Edit

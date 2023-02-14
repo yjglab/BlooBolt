@@ -2,8 +2,10 @@ import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PostImagesCarousel from "./PostImagesCarousel";
 import PropTypes from "prop-types";
+import Image from "next/image";
+import { backUrl } from "../config/config";
 
-const PostImages = ({ images }) => {
+const PostImages = ({ postImages }) => {
   const [openCarousel, setOpenCarousel] = useState(false);
 
   const onOpenCarousel = useCallback(() => {
@@ -13,15 +15,17 @@ const PostImages = ({ images }) => {
     setOpenCarousel(false);
   }, []);
 
-  const imageLength = 3;
-
-  if (imageLength === 1) {
+  if (postImages.length === 1) {
     return (
       <div className="my-7 pr-2 w-full flex justify-between ">
         <button onClick={onOpenCarousel} className="w-5/11 mx-0.5">
           <img
-            className="rounded  aspect-square object-cover"
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+            className="rounded aspect-square object-cover"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[0].src}`
+                : `${backUrl}/${postImages[0].src}`
+            }
             role="presentation"
             alt=""
           />
@@ -29,71 +33,91 @@ const PostImages = ({ images }) => {
 
         {openCarousel && (
           <PostImagesCarousel
-            images={images}
+            postImages={postImages}
             onCloseCarousel={onCloseCarousel}
           />
         )}
       </div>
     );
   }
-  if (imageLength === 2) {
+  if (postImages.length === 2) {
     return (
       <div className="my-7 pr-2 w-full flex justify-between ">
         <button onClick={onOpenCarousel} className="w-5/11 mx-0.5">
           <img
-            className="rounded  aspect-square object-cover"
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+            className="rounded aspect-square object-cover"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[0].src}`
+                : `${backUrl}/${postImages[0].src}`
+            }
             role="presentation"
             alt=""
           />
         </button>
         <button onClick={onOpenCarousel} className="w-5/11 mx-0.5">
           <img
-            className="rounded  aspect-square object-cover"
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+            className="rounded aspect-square object-cover"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[1].src}`
+                : `${backUrl}/${postImages[1].src}`
+            }
             role="presentation"
             alt=""
           />
         </button>
         {openCarousel && (
           <PostImagesCarousel
-            images={images}
+            postImages={postImages}
             onCloseCarousel={onCloseCarousel}
           />
         )}
       </div>
     );
   }
-  if (imageLength === 3) {
+  if (postImages.length === 3) {
     return (
       <div className="my-7 pr-2 w-full flex justify-between ">
         <button onClick={onOpenCarousel} className="w-4/12 mx-0.5">
           <img
-            className="rounded  aspect-square object-cover"
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+            className="rounded aspect-square object-cover"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[0].src}`
+                : `${backUrl}/${postImages[0].src}`
+            }
             role="presentation"
             alt=""
           />
         </button>
         <button onClick={onOpenCarousel} className="w-4/12 mx-0.5">
           <img
-            className="rounded  aspect-square object-cover"
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+            className="rounded aspect-square object-cover"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[1].src}`
+                : `${backUrl}/${postImages[1].src}`
+            }
             role="presentation"
             alt=""
           />
         </button>
         <button onClick={onOpenCarousel} className="w-4/12 mx-0.5 relative">
           <img
-            className="rounded  aspect-square object-cover"
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+            className="rounded aspect-square object-cover"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[2].src}`
+                : `${backUrl}/${postImages[2].src}`
+            }
             role="presentation"
             alt=""
           />
         </button>
         {openCarousel && (
           <PostImagesCarousel
-            images={images}
+            postImages={postImages}
             onCloseCarousel={onCloseCarousel}
           />
         )}
@@ -102,46 +126,64 @@ const PostImages = ({ images }) => {
   }
   return (
     <div className="my-7 pr-2 w-full flex justify-between ">
-      <button onClick={onOpenCarousel} className="w-4/12 mx-0.5">
+      <button onClick={onOpenCarousel} className="w-4/12 mx-0.5 relative">
         <img
-          className="rounded  aspect-square object-cover"
-          src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+          className="rounded aspect-square object-cover"
+          src={
+            process.env.NODE_ENV === "production"
+              ? `${postImages[0].src}`
+              : `${backUrl}/${postImages[0].src}`
+          }
           role="presentation"
           alt=""
         />
       </button>
-      <button onClick={onOpenCarousel} className="w-4/12 mx-0.5">
+
+      <button onClick={onOpenCarousel} className="w-4/12 mx-0.5 relative">
         <img
-          className="rounded  aspect-square object-cover"
-          src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+          className="rounded aspect-square object-cover"
+          src={
+            process.env.NODE_ENV === "production"
+              ? `${postImages[1].src}`
+              : `${backUrl}/${postImages[1].src}`
+          }
           role="presentation"
           alt=""
         />
       </button>
+
       <button onClick={onOpenCarousel} className="w-4/12 mx-0.5 relative">
         <button
           onClick={onOpenCarousel}
-          className="hover:text-white hover:bg-slate-700 text-xs font-semibold py-0.5 absolute rounded bg-white px-1.5 right-2 top-2 flex justify-between items-center"
+          className="hover:text-white border border-slate-200 hover:bg-slate-700 text-xs font-semibold py-0.5 absolute rounded bg-white px-1.5 right-2 top-2 flex justify-between items-center"
         >
-          MORE +{3}
+          MORE +{postImages.length - 3}
         </button>
 
         <img
-          className="rounded  aspect-square object-cover"
-          src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg"
+          className="rounded aspect-square object-cover"
+          src={
+            process.env.NODE_ENV === "production"
+              ? `${postImages[2].src}`
+              : `${backUrl}/${postImages[2].src}`
+          }
           role="presentation"
           alt=""
         />
       </button>
+
       {openCarousel && (
-        <PostImagesCarousel images={images} onCloseCarousel={onCloseCarousel} />
+        <PostImagesCarousel
+          postImages={postImages}
+          onCloseCarousel={onCloseCarousel}
+        />
       )}
     </div>
   );
 };
 
 PostImages.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.object),
+  postImages: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default PostImages;

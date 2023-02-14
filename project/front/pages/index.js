@@ -27,7 +27,7 @@ const Home = () => {
             <div className=" pt-6  h-full w-full bg-slate-50  ">
               <div className="pr-1 py-4 w-full h-full flex flex-col justify-between">
                 <div className="pb-8 w-full h-full flex flex-col justify-between">
-                  <h1 className="pl-4 relative mb-2 left-1 text-lg font-bold text-slate-700 flex items-center">
+                  <h1 className="pl-4 relative mb-2 left-1 text-lg font-bold text-slate-600 flex items-center">
                     <span>Relation</span>
                   </h1>
 
@@ -103,16 +103,16 @@ const Home = () => {
             <div className=" pt-6  h-full w-full bg-slate-50  ">
               <div className="pl-0 lg:pl-1 py-4 w-full h-full flex flex-col justify-between">
                 <div className="pb-8 w-full h-1/2 flex flex-col justify-between">
-                  <h1 className="relative mb-2 left-1 text-lg font-bold text-slate-700 flex items-center">
+                  <h1 className="relative mb-2 left-1 text-lg font-bold text-slate-600 flex items-center">
                     <span>Most Flashed</span>
                   </h1>
                   <div className="bg-white rounded-l shadow-md p-2 overflow-y-scroll relative w-full h-full flex flex-col justify-between">
                     {[1, 1, 1, 1, 1, 1, 1, 1, 1].map((v) => (
                       <div className="my-0.5 cursor-pointer w-full h-full hover:bg-slate-100 py-2.5 px-3  rounded">
-                        <h1 className=" text-sm text-slate-700 font-semibold">
+                        <h1 className=" text-sm text-slate-600 font-semibold">
                           Gardian1
                         </h1>
-                        <h1 className="text-xs 2xl:text-base text-slate-700 relative top-0.5 truncate">
+                        <h1 className="text-xs 2xl:text-base text-slate-600 relative top-0.5 truncate">
                           가상포스트가상포스트가상포스트가상포스트가상포스트
                         </h1>
                         <ul className="2xl:text-base mt-1 flex space-x-1 text-xs font-normal leading-4 text-slate-500">
@@ -136,16 +136,16 @@ const Home = () => {
                 </div>
 
                 <div className="pb-8 w-full h-1/2 flex flex-col justify-between">
-                  <h1 className="relative mb-2 left-1 text-lg font-bold text-slate-700 flex items-center">
+                  <h1 className="relative mb-2 left-1 text-lg font-bold text-slate-600 flex items-center">
                     <span>Traced</span>
                   </h1>
                   <div className="bg-white rounded shadow-md p-2 overflow-y-scroll relative w-full h-full flex flex-col justify-between">
                     {[1, 1, 1, 1, 1, 1, 1, 1, 1].map((v) => (
                       <div className="my-0.5 cursor-pointer w-full h-full hover:bg-slate-100 py-2.5 px-3  rounded">
-                        <h1 className=" text-sm text-slate-700 font-semibold">
+                        <h1 className=" text-sm text-slate-600 font-semibold">
                           Gardian1
                         </h1>
-                        <h1 className="text-xs 2xl:text-base text-slate-700 relative top-0.5 truncate">
+                        <h1 className="text-xs 2xl:text-base text-slate-600 relative top-0.5 truncate">
                           가상포스트가상포스트가상포스트가상포스트가상포스트
                         </h1>
                         <ul className="2xl:text-base mt-1 flex space-x-1 text-xs font-normal leading-4 text-slate-500">

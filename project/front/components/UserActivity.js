@@ -13,7 +13,7 @@ const UserActivity = () => {
 
   return (
     <div className="w-full px-3">
-      <div className="text-2xl font-semibold text-slate-700">Activity</div>
+      <div className="text-2xl font-semibold text-slate-600">Activity</div>
       <div className="w-full  py-6 sm:px-0">
         <Tab.Group>
           <Tab.List className="flex space-x-1 rounded bg-white shadow-md p-1">
@@ -23,7 +23,7 @@ const UserActivity = () => {
                   "w-full rounded py-2.5 text-sm font-medium leading-5 text-white",
                   selected
                     ? "bg-indigo-500 text-white"
-                    : "text-slate-700 hover:bg-slate-200/50 hover:text-slate-800"
+                    : "text-slate-600 hover:bg-slate-200/50 hover:text-slate-800"
                 )
               }
             >
@@ -36,7 +36,7 @@ const UserActivity = () => {
                   "w-full rounded py-2.5 text-sm font-medium leading-5 text-white",
                   selected
                     ? "bg-indigo-500 text-white"
-                    : "text-slate-700 hover:bg-slate-200/50 hover:text-slate-800"
+                    : "text-slate-600 hover:bg-slate-200/50 hover:text-slate-800"
                 )
               }
             >
@@ -49,7 +49,7 @@ const UserActivity = () => {
                   "w-full rounded py-2.5 text-sm font-medium leading-5 text-white",
                   selected
                     ? "bg-indigo-500 text-white"
-                    : "text-slate-700 hover:bg-slate-200/50 hover:text-slate-800"
+                    : "text-slate-600 hover:bg-slate-200/50 hover:text-slate-800"
                 )
               }
             >
@@ -209,7 +209,7 @@ const UserActivity = () => {
                         "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
-                    <button class="absolute right-2 rounded border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-700 shadow-md-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <button class="absolute right-2 rounded border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-600 shadow-md-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       Untrace
                     </button>
                   </li>

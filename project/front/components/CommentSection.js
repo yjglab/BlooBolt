@@ -34,7 +34,7 @@ const CommentSection = ({ post }) => {
                   />
                   <div className="flex flex-col ml-3 ">
                     <div className="flex">
-                      <h2 className="text-md py-0.5 font-semibold text-slate-700 -mt-1">
+                      <h2 className="text-md py-0.5 font-semibold text-slate-600 -mt-1">
                         {comment.User.username}
                       </h2>
                       {comment.User.rank && (
@@ -97,8 +97,8 @@ const CommentSection = ({ post }) => {
                             href="#"
                             className={classNames(
                               active
-                                ? "bg-slate-100 text-slate-700"
-                                : "text-slate-700",
+                                ? "bg-slate-100 text-slate-600"
+                                : "text-slate-600",
                               "block px-4 py-2 text-sm"
                             )}
                           >
@@ -112,8 +112,8 @@ const CommentSection = ({ post }) => {
                             href="#"
                             className={classNames(
                               active
-                                ? "bg-slate-100 text-slate-700"
-                                : "text-slate-700",
+                                ? "bg-slate-100 text-slate-600"
+                                : "text-slate-600",
                               "block px-4 py-2 text-sm"
                             )}
                           >
