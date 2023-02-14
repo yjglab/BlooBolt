@@ -70,7 +70,7 @@ const PostSection = ({ post }) => {
               )}
             </div>
             <div className="flex items-center">
-              <small className="text-xs bg-slate-600 px-2 shadow sm:py-1.5 rounded text-white relative right-2">
+              <small className="text-xs bg-slate-600 px-2 shadow py-0.5 sm:py-1.5 rounded text-white relative right-2">
                 {post.topic}
               </small>
               <Menu as="div" className="relative inline-block text-left">

@@ -82,7 +82,12 @@ const PostForm = () => {
               type="text"
               placeholder="토픽 설정"
               className="my-1  py-1.5 block w-1/3 placeholder:text-slate-300 text-sm rounded border-slate-300  focus:border-indigo-500 focus:ring-indigo-500 "
-              {...register("topic")}
+              {...register("topic", {
+                maxLength: {
+                  value: 10,
+                  message: "토픽은 10자 이내로 설정해야 합니다",
+                },
+              })}
             />
             <label htmlFor="content" className="sr-only"></label>
             <textarea
@@ -156,13 +161,6 @@ const PostForm = () => {
                 onChange: onChangePostImages,
               })}
             />
-            {/* <button
-              type="button"
-              onClick={onClickImageUpload}
-              className="py-1 px-1 text-xs font-medium text-center bg-white shadow-md text-slate-600 rounded focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
-            >
-              <PhotoIcon className="stroke-2 block h-5 w-5  cursor-pointer" />
-            </button> */}
             <button
               type="submit"
               disabled={uploadPostBlock || isSubmitting}
@@ -178,6 +176,8 @@ const PostForm = () => {
         >
           {errors.content ? (
             <>{errors.content.message}</>
+          ) : errors.topic ? (
+            <>{errors.topic.message}</>
           ) : errors.postImages ? (
             <>{errors.postImages.message}</>
           ) : uploadPostImagesError ? (
