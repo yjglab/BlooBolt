@@ -29,6 +29,7 @@ export const REMOVE_POST_FAILURE = "REMOVE_POST_FAILURE";
 export const UPLOAD_POST_IMAGES_REQUEST = "UPLOAD_POST_IMAGES_REQUEST";
 export const UPLOAD_POST_IMAGES_SUCCESS = "UPLOAD_POST_IMAGES_SUCCESS";
 export const UPLOAD_POST_IMAGES_FAILURE = "UPLOAD_POST_IMAGES_FAILURE";
+export const CANCEL_POST_IMAGE = "CANCEL_POST_IMAGE";
 
 export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
 export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
@@ -100,6 +101,11 @@ const reducer = (state = initialState, action) => {
       case UPLOAD_POST_IMAGES_FAILURE:
         draft.uploadPostImagesLoading = false;
         draft.uploadPostImagesError = action.error;
+        break;
+      case CANCEL_POST_IMAGE:
+        draft.postImagePaths = draft.postImagePaths.filter(
+          (v, i) => i !== action.data
+        );
         break;
       case ADD_COMMENT_REQUEST:
         draft.addCommentLoading = true;

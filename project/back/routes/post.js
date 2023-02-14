@@ -37,11 +37,18 @@ router.post(
   isLoggedIn,
   upload.array("postImages"),
   async (req, res, next) => {
-    res.json(
-      req.files.map((v) =>
-        process.env.NODE_ENV === "production" ? "" : v.filename
-      )
-    );
+    try {
+      if (req.files.length > 6) {
+        return res.status(401).send("이미지는 6장을 초과할 수 없습니다");
+      }
+      res.json(
+        req.files.map((v) =>
+          process.env.NODE_ENV === "production" ? "" : v.filename
+        )
+      );
+    } catch (error) {
+      console.error(error);
+    }
   }
 );
 

@@ -6,20 +6,23 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   UPLOAD_POST_IMAGES_REQUEST,
   UPLOAD_POST_REQUEST,
+  CANCEL_POST_IMAGE,
 } from "../reducers/post";
 import { backUrl } from "../config/config";
 
 const PostForm = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { postImagePaths } = useSelector((state) => state.post);
+  const { postImagePaths, uploadPostImagesError } = useSelector(
+    (state) => state.post
+  );
 
   const {
     register,
     reset,
-    resetField,
     handleSubmit,
     watch,
+    setError,
     formState: { isSubmitting, errors },
   } = useForm({
     mode: "onSubmit",
@@ -38,22 +41,22 @@ const PostForm = () => {
     });
   };
 
-  // useEffect(() => {
-  //   if (postImages && postImages.length > 0) {
-  //     console.log(postImages[0]);
-  //   }
-  // });
-
+  const onCancelPostImage = useCallback((i) => () => {
+    dispatch({
+      type: CANCEL_POST_IMAGE,
+      data: i,
+    });
+  });
   const onChangePostImages = () => {
-    const postImageFiles = watch("image");
-    const postImageFormData = new FormData();
-    [].forEach.call(postImageFiles, (file) => {
-      postImageFormData.append("postImages", file);
+    const postImages = watch("image");
+    const postImagesFormData = new FormData();
+    [].forEach.call(postImages, (file) => {
+      postImagesFormData.append("postImages", file);
     });
 
     dispatch({
       type: UPLOAD_POST_IMAGES_REQUEST,
-      data: postImageFormData,
+      data: postImagesFormData,
     });
   };
 
@@ -93,24 +96,14 @@ const PostForm = () => {
               })}
             ></textarea>
             <div className="mt-2 border-t border-slate-200  py-2 w-full">
-              <div className="mt-1 flex justify-between w-2/3">
+              <div className="mt-1 flex w-full">
                 {postImagePaths.map((v, i) => (
                   <button
                     type="button"
                     key={v}
-                    onClick={null}
+                    onClick={onCancelPostImage(i)}
                     className="border border-slate-300 w-2/12 aspect-square lg:w-1/12 sm:w-2/12 mx-0.5 relative rounded overflow-hidden  "
                   >
-                    {/* <Image
-                      className="hover:opacity-25 z-0 aspect-square object-cover"
-                      layout="fill"
-                      src={
-                        process.env.NODE_ENV === "production"
-                          ? ``
-                          : `${backUrl}/${v}`
-                      }
-                      alt={v}
-                    /> */}
                     {
                       <img
                         className="hover:opacity-25 z-0 aspect-square object-cover"
@@ -122,6 +115,16 @@ const PostForm = () => {
                         alt={v}
                       />
                     }
+                    {/* <Image
+                      className="hover:opacity-25 z-0 aspect-square object-cover"
+                      layout="fill"
+                      src={
+                        process.env.NODE_ENV === "production"
+                          ? ``
+                          : `${backUrl}/${v}`
+                      }
+                      alt={v}
+                    /> */}
                     <div className="z-1 flex justify-center items-center w-full h-full top-0 left-0 absolute opacity-0 hover:bg-gray-200 hover:opacity-100 hover:bg-opacity-50">
                       <TrashIcon className="text-slate-700 w-1/3 h-1/3 " />
                     </div>
@@ -134,6 +137,7 @@ const PostForm = () => {
           <div className="absolute flex items-center right-0">
             <label htmlFor="postImages"></label>
             <input
+              name="postImages"
               id="postImages"
               type="file"
               multiple
@@ -162,7 +166,13 @@ const PostForm = () => {
           className="absolute bottom-2 left-1.5 flex text-amber-400 text-xs "
           role="alert"
         >
-          {errors.content ? <>{errors.content.message}</> : ""}
+          {errors.content ? (
+            <>{errors.content.message}</>
+          ) : uploadPostImagesError ? (
+            <>{uploadPostImagesError}</>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
