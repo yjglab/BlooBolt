@@ -16,7 +16,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const CommentSection = ({ post }) => {
+const CommentSection = ({ post, onToggleCommentSection }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
 
@@ -27,7 +27,7 @@ const CommentSection = ({ post }) => {
 
   return (
     <>
-      <div className="w-full h-[75%] overflow-y-auto">
+      <div className="w-full h-[75%] overflow-y-auto ">
         {/* 개별코멘트 */}
         <div className="border-b py-3 ">
           <div className="mb-1.5 flex items-center">
@@ -42,10 +42,86 @@ const CommentSection = ({ post }) => {
               </h1>
               <h1 className="text-xs relative bottom-0.5">직업</h1>
             </div>
+            <Menu
+              as="div"
+              className="relative bottom-2 inline-block text-left "
+            >
+              <div>
+                <Menu.Button className="rounded px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
+                  <svg
+                    className="w-5 h-5"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                  </svg>
+                </Menu.Button>
+              </div>
+
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute right-1 z-10 mt-2 w-32 origin-top-right rounded bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="py-1">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          className={classNames(
+                            active
+                              ? "bg-slate-100 text-slate-600"
+                              : "text-slate-600",
+                            "block px-4 py-2 text-sm text-left w-full"
+                          )}
+                        >
+                          Edit
+                        </button>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          onClick={null}
+                          className={classNames(
+                            active
+                              ? "bg-slate-100 text-slate-600"
+                              : "text-slate-600",
+                            "block px-4 py-2 text-sm text-left w-full"
+                          )}
+                        >
+                          Delete
+                        </button>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          className={classNames(
+                            active
+                              ? "bg-slate-100 text-slate-600"
+                              : "text-slate-600",
+                            "block px-4 py-2 text-sm text-left w-full"
+                          )}
+                        >
+                          Report
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </div>
+                </Menu.Items>
+              </Transition>
+            </Menu>
           </div>
           <p
             class={`mb-2 text-sm break-words ${
-              extendComment && "line-clamp-4"
+              extendComment || "line-clamp-4"
             } font-normal text-slate-700`}
           >
             중앙선거관리위원회는 법령의 범위안에서 선거관리·국민투표관리 또는
@@ -71,22 +147,22 @@ const CommentSection = ({ post }) => {
             >
               {extendComment ? (
                 <>
-                  <PlusIcon className="w-5" />
-                  <span>Extend</span>
+                  <MinusIcon className="w-5" />
+                  <span>Close</span>
                 </>
               ) : (
                 <>
-                  <MinusIcon className="w-5" />
-                  <span>Reduce</span>
+                  <PlusIcon className="w-5" />
+                  <span>More</span>
                 </>
               )}
             </button>
           </div>
         </div>
       </div>
-      <CommentForm />
+      <CommentForm onToggleCommentSection={onToggleCommentSection} />
       {/* <div className="w-full flex justify-end">
-        <div className="px-4 pt-4 bg-white w-5/6 sm:w-4/5 my-2 shadow-md rounded ">
+        <div className="px-4 pt-4 bg-white w-5/6 sm:w-4/5 my-2 shadow rounded ">
           {post?.Comments?.map((comment) => (
             <div
               key={comment.id}
@@ -99,7 +175,7 @@ const CommentSection = ({ post }) => {
                 <div className="flex flex-col">
                   <div className="flex items-center">
                     <img
-                      className="w-10 h-10 rounded-full object-cover shadow-md border-2 p-0.5 border-amber-400"
+                      className="w-10 h-10 rounded-full object-cover shadow border-2 p-0.5 border-amber-400"
                       src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
                     />
                     <div className="flex flex-col ml-3 ">
@@ -159,7 +235,7 @@ const CommentSection = ({ post }) => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="py-1">
                         <Menu.Item>
                           {({ active }) => (
@@ -209,5 +285,6 @@ const CommentSection = ({ post }) => {
 
 CommentSection.propTypes = {
   post: PropTypes.object.isRequired,
+  onToggleCommentSection: PropTypes.func.isRequired,
 };
 export default CommentSection;

@@ -16,7 +16,7 @@ const UserActivity = () => {
       <div className="text-2xl font-semibold text-slate-600">Activity</div>
       <div className="w-full  py-6 sm:px-0">
         <Tab.Group>
-          <Tab.List className="flex space-x-1 rounded bg-white shadow-md p-1">
+          <Tab.List className="flex space-x-1 rounded bg-white shadow p-1">
             <Tab
               className={({ selected }) =>
                 classNames(
@@ -56,7 +56,7 @@ const UserActivity = () => {
               {`Tracings (${me.Tracings.length})`}
             </Tab>
           </Tab.List>
-          <Tab.Panels className="mt-2 rounded shadow-md">
+          <Tab.Panels className="mt-2 rounded shadow">
             <Tab.Panel
               key={"s"}
               className={classNames(
@@ -108,7 +108,7 @@ const UserActivity = () => {
                     className="relative rounded p-3 flex items-center hover:bg-slate-100"
                   >
                     <img
-                      className="shadow-md border-2 p-0.5 border-indigo-400 rounded-full w-10 h-10 mr-3"
+                      className="shadow border-2 p-0.5 border-indigo-400 rounded-full w-10 h-10 mr-3"
                       src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
                     />
                     <div>
@@ -168,7 +168,7 @@ const UserActivity = () => {
                     className="relative rounded p-3 flex items-center hover:bg-slate-100"
                   >
                     <img
-                      className="shadow-md border-2 p-0.5 border-indigo-400 rounded-full w-10 h-10 mr-3"
+                      className="shadow border-2 p-0.5 border-indigo-400 rounded-full w-10 h-10 mr-3"
                       src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
                     />
                     <div>
@@ -209,7 +209,7 @@ const UserActivity = () => {
                         "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
-                    <button class="absolute right-2 rounded border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-600 shadow-md-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <button class="absolute right-2 rounded border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       Untrace
                     </button>
                   </li>

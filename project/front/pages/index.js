@@ -33,14 +33,14 @@ const Home = () => {
                     <span>Relation</span>
                   </h1>
 
-                  <div className="bg-white rounded-r overflow-y-auto shadow-md p-2 relative w-full h-full flex flex-col">
+                  <div className="bg-white rounded-r overflow-y-auto shadow p-2 relative w-full h-full flex flex-col">
                     {me?.Tracings?.map((tracing) => (
                       <li
                         key={tracing.id}
                         className="relative rounded p-3 flex items-center hover:bg-slate-100"
                       >
                         <img
-                          className="shadow-md border-2 p-0.5 border-indigo-400 rounded-full w-10 h-10 mr-3"
+                          className="shadow border-2 p-0.5 border-indigo-400 rounded-full w-10 h-10 mr-3"
                           src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
                         />
                         <div className="">
@@ -111,7 +111,7 @@ const Home = () => {
                   <h1 className="relative mb-2 left-1 text-lg font-bold text-slate-600 flex items-center">
                     <span>Most Flashed</span>
                   </h1>
-                  <div className="bg-white rounded-l shadow-md p-2 overflow-y-scroll relative w-full h-full flex flex-col justify-between">
+                  <div className="bg-white rounded-l shadow p-2 overflow-y-scroll relative w-full h-full flex flex-col justify-between">
                     {[1, 1, 1, 1, 1, 1, 1, 1, 1].map((v) => (
                       <div className="my-0.5 cursor-pointer w-full h-full hover:bg-slate-100 py-2.5 px-3  rounded">
                         <h1 className=" text-sm text-slate-600 font-semibold">
@@ -144,7 +144,7 @@ const Home = () => {
                   <h1 className="relative mb-2 left-1 text-lg font-bold text-slate-600 flex items-center">
                     <span>Traced</span>
                   </h1>
-                  <div className="bg-white rounded shadow-md p-2 overflow-y-scroll relative w-full h-full flex flex-col justify-between">
+                  <div className="bg-white rounded shadow p-2 overflow-y-scroll relative w-full h-full flex flex-col justify-between">
                     {[1, 1, 1, 1, 1, 1, 1, 1, 1].map((v) => (
                       <div className="my-0.5 cursor-pointer w-full h-full hover:bg-slate-100 py-2.5 px-3  rounded">
                         <h1 className=" text-sm text-slate-600 font-semibold">

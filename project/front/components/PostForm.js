@@ -72,7 +72,7 @@ const PostForm = () => {
           encType="multipart/form-data"
           className="mb-8 w-full relative "
         >
-          <div className="py-2 px-4 mb-2 bg-white w-full shadow-md rounded  ">
+          <div className="py-2 px-4 mb-2 bg-white w-full shadow rounded  ">
             <label
               htmlFor="topic"
               className="block text-sm font-medium text-slate-600"
@@ -146,7 +146,7 @@ const PostForm = () => {
           <div className="absolute flex items-center right-0">
             <label
               htmlFor="postImages"
-              className="py-1 px-1 cursor-pointer text-xs font-medium text-center bg-white shadow-md text-slate-600 rounded focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
+              className="py-1 px-1 cursor-pointer text-xs font-medium text-center bg-white shadow text-slate-600 rounded focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
             >
               <PhotoIcon className="stroke-2 block h-5 w-5 " />
             </label>
@@ -164,7 +164,7 @@ const PostForm = () => {
             <button
               type="submit"
               disabled={uploadPostBlock || isSubmitting}
-              className="ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow-md bg-indigo-500 rounded text-white hover:bg-indigo-600"
+              className="ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow bg-indigo-500 rounded text-white hover:bg-indigo-600"
             >
               Flash
             </button>

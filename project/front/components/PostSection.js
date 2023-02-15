@@ -32,49 +32,64 @@ const PostSection = ({ post }) => {
       data: post.id,
     });
   }, []);
-  const onOpenCommentSection = useCallback(() => {
+  const onToggleCommentSection = useCallback(() => {
     setToggleCommentSection(!toggleCommentSection);
   }, [toggleCommentSection]);
 
   return (
     <>
       {/* 개별카드 */}
-      <div className=" bg-white  rounded-lg shadow relative overflow-hidden pb-4">
+      <div className=" bg-white  rounded shadow relative overflow-hidden pb-4 mb-4">
         {toggleCommentSection && (
-          <div className="w-full h-full p-3 absolute top-0 left-0 bg-white z-10">
-            <CommentSection />
+          <div className="w-full h-full p-3 absolute top-0 left-0 bg-white/90 backdrop-blur-sm z-10">
+            <CommentSection onToggleCommentSection={onToggleCommentSection} />
           </div>
         )}
         <div className="flex rounded-t-lg gap-1 h-52">
           <PostImages postImages={post.PostImages} />
-          {/* <img
-            className="object-cover w-1/2"
-            src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
-            alt=""
-          />
-          <img
-            className="object-cover w-1/2"
-            src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
-            alt=""
-          /> */}
         </div>
         <div className="p-5 pt-3">
-          <small className="text-slate-400">2020.00.22</small>
+          <small className="text-slate-400">
+            {dayjs(post.createdAt).format("YYYY.MM.DD | H:mm:ss")}
+          </small>
           <h5 className="mb-2 break-words line-clamp-2 text-2xl font-bold leading-tight tracking-tight text-slate-700">
-            Noteworthy techn acquisitions 2021
+            {post.topic}
           </h5>
 
           <div className="mb-3 flex items-center">
             <img
               src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
-              className="h-14 w-14 border-2 p-1 rounded-full object-cover"
+              className={`h-14 w-14 border-4 ${
+                post.User.status ? "border-indigo-500" : ""
+              } p-0.5 rounded-full object-cover`}
             />
             <div className="ml-2 w-full flex flex-col">
-              <h1 className="text-md flex items-center">
-                작성자
-                <TrophyIcon className="w-3.5 ml-0.5" />
+              <h1 className="text-md font-bold flex items-center">
+                {post.User.username}
+                {post.User.rank && (
+                  <ShieldCheckIcon
+                    className={`ml-1 relative h-4 w-4 flex-shrink-0 ${
+                      post.User.rank === 1
+                        ? "text-cyan-400"
+                        : post.User.rank === 2
+                        ? "text-amber-400"
+                        : post.User.rank === 3
+                        ? "text-amber-700/70"
+                        : post.User.rank === 4
+                        ? "text-indigo-500"
+                        : post.User.rank === 5
+                        ? "text-slate-400"
+                        : post.User.rank === 9
+                        ? "text-red-400"
+                        : null
+                    }`}
+                    aria-hidden="true"
+                  />
+                )}
               </h1>
-              <h1 className="text-xs relative bottom-0.5">직업</h1>
+              <h1 className="text-xs relative bottom-0.5">
+                {post.User.role || "No role"}
+              </h1>
             </div>
 
             <Menu as="div" className="relative bottom-2 inline-block text-left">
@@ -101,7 +116,7 @@ const PostSection = ({ post }) => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
                     <Menu.Item>
                       {({ active }) => (
@@ -151,13 +166,8 @@ const PostSection = ({ post }) => {
               </Transition>
             </Menu>
           </div>
-          <p className="mb-3 text-sm break-words line-clamp-5 md:line-clamp-8  font-normal text-slate-700">
-            중앙선거관리위원회는 법령의 범위안에서 선거관리·국민투표관리 또는
-            정당사무에 관한 규칙을 제정할 수 있으며, 법률에 저촉되지 아니하는
-            범위안에서 내부규율에 관한 규칙을 제정할 수 있다. 국가는 모성의
-            보호를 위하여 노력하여야 한다. 각급 선거관리위원회의 조직·직무범위
-            기타 필요한 사항은 법률로 정한다. 혼인과 가족생활은 개인의 존엄과
-            양성의 평등을 기초로 성립되고 유지되어야 하며, 국가는 이를 보장한다.
+          <p className="mb-3 h-24 text-sm break-words line-clamp-5 md:line-clamp-5  font-normal text-slate-700">
+            {post.content}
           </p>
 
           <div className="flex gap-2 absolute bottom-3 text-sm text-slate-700">
@@ -165,7 +175,10 @@ const PostSection = ({ post }) => {
               <BoltIcon className="w-5 " />
               12
             </button>
-            <button className="flex items-center gap-1 hover:text-indigo-500">
+            <button
+              onClick={onToggleCommentSection}
+              className="flex items-center gap-1 hover:text-indigo-500"
+            >
               <ChatBubbleOvalLeftEllipsisIcon className="w-5" />
               12
             </button>
@@ -178,7 +191,7 @@ const PostSection = ({ post }) => {
       </div>
     </>
     // <div className="flex flex-col mb-6">
-    //   <div className="flex bg-white shadow-md rounded w-full px-4 py-6 ">
+    //   <div className="flex bg-white shadow rounded w-full px-4 py-6 ">
     //     <img
     //       className={`w-12 h-12 rounded-full object-cover mr-4 shadow border-2 p-0.5 ${
     //         post.User.status ? "border-indigo-400" : ""
@@ -241,7 +254,7 @@ const PostSection = ({ post }) => {
     //               leaveFrom="transform opacity-100 scale-100"
     //               leaveTo="transform opacity-0 scale-95"
     //             >
-    //               <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
+    //               <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
     //                 <div className="py-1">
     //                   <Menu.Item>
     //                     {({ active }) => (
@@ -310,7 +323,7 @@ const PostSection = ({ post }) => {
     //           <span className="ml-1">122</span>
     //         </button>
     //         <button
-    //           onClick={onOpenCommentSection}
+    //           onClick={onToggleCommentSection}
     //           className="flex items-center hover:text-indigo-500 text-slate-600 text-sm mr-8"
     //         >
     //           <ChatBubbleOvalLeftEllipsisIcon className="stroke-2 block h-5 w-5 " />
