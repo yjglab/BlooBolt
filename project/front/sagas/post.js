@@ -1,6 +1,9 @@
 import axios from "axios";
 import { all, call, fork, put, takeLatest } from "redux-saga/effects";
 import {
+  REMOVE_POST_FAILURE,
+  REMOVE_POST_REQUEST,
+  REMOVE_POST_SUCCESS,
   UPLOAD_POST_FAILURE,
   UPLOAD_POST_IMAGES_FAILURE,
   UPLOAD_POST_IMAGES_REQUEST,
@@ -53,13 +56,39 @@ function* uploadPostImages(action) {
   }
 }
 
+function removePostAPI(data) {
+  return axios.delete(`/post/${data}`);
+}
+function* removePost(action) {
+  try {
+    const result = yield call(removePostAPI, action.data);
+    yield put({
+      type: REMOVE_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: REMOVE_POST_FAILURE,
+      error: error.response.data,
+    });
+  }
+}
+
 function* watchUploadPost() {
   yield takeLatest(UPLOAD_POST_REQUEST, uploadPost);
 }
 function* watchUploadPostImages() {
   yield takeLatest(UPLOAD_POST_IMAGES_REQUEST, uploadPostImages);
 }
+function* watchRemovePost() {
+  yield takeLatest(REMOVE_POST_REQUEST, removePost);
+}
 
 export default function* postSaga() {
-  yield all([fork(watchUploadPost), fork(watchUploadPostImages)]);
+  yield all([
+    fork(watchUploadPost),
+    fork(watchUploadPostImages),
+    fork(watchRemovePost),
+  ]);
 }
