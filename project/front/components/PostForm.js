@@ -67,14 +67,14 @@ const PostForm = ({ onTogglePostForm }) => {
   };
 
   return (
-    <div className="flex md:w-2/3 sm:w-4/5 w-11/12 rounded mb-10 relative top-8">
+    <div className="flex md:w-2/3 sm:w-4/5  w-11/12 rounded mb-10 relative top-8">
       <div className="flex relative flex-col w-full ">
         <form
           onSubmit={handleSubmit(onUploadPost)}
           encType="multipart/form-data"
           className="mb-8 w-full relative "
         >
-          <div className="pt-4 pb-4 px-4 mb-2 bg-white w-full shadow-xl rounded   ">
+          <div className="pt-4 pb-4 px-4 mb-2  bg-white w-full shadow-xl rounded   ">
             <label
               htmlFor="topic"
               className="block text-sm font-medium text-slate-600"
@@ -96,7 +96,7 @@ const PostForm = ({ onTogglePostForm }) => {
               id="content"
               maxLength={1500}
               rows="14"
-              className="px-1.5 pt-2 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-slate-300"
+              className="px-1.5 pt-2 w-full text-sm xl:text-base  border-0 focus:ring-0 focus:outline-none placeholder:text-slate-300"
               placeholder="우측 아래를 드래그하여 입력창을 넓힐 수 있습니다."
               {...register("content", {
                 required: "내용을 입력해주세요",

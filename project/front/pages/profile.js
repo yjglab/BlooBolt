@@ -39,9 +39,9 @@ const Profile = () => {
         <div className="min-w-0 flex-1">
           <div className="flex items-center mb-1">
             <h2 className="text-2xl font-bold leading-7 text-slate-600 md:truncate md:text-3xl md:tracking-tight">
-              {me.username}
+              {me?.username}
             </h2>
-            {me.rank ? (
+            {me?.rank ? (
               <Link href="#">
                 <ShieldCheckIcon
                   className={`ml-1.5 relative top-0.5 h-5 w-5 flex-shrink-0 ${

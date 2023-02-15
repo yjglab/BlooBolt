@@ -52,9 +52,9 @@ const Navigation = () => {
   });
 
   return (
-    <Popover className="fixed top-0 w-full left-0 z-50 shadow-md">
+    <Popover className="fixed top-0 w-full left-0 z-50 bg-white/90 shadow backdrop-blur">
       <div className="">
-        <div className="px-6 flex bg-white items-center justify-between  py-1.5 md:justify-start md:space-x-10">
+        <div className="px-6 flex  items-center justify-between  py-1.5 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1 ">
             <Link href="/square">
               <div className="cursor-pointer flex items-center text-xl font-bold text-indigo-500">
@@ -191,19 +191,6 @@ const Navigation = () => {
                 About
               </div>
             </Link>
-
-            {/* 사이드바로 옮기기 나중애 */}
-            <div className="flex h-7">
-              <span className="inline-flex items-center bg-indigo-500 rounded-l 0  px-2.5 text-sm text-white">
-                #
-              </span>
-              <input
-                type="text"
-                id="company-website"
-                className=" h-full border-none outline-none bg-slate-50 placeholder:text-slate-400 w-28 flex-1 text-slate-600 focus:bg-slate-100 focus:ring-0 rounded-r  sm:text-sm"
-                placeholder="Hashtag"
-              />
-            </div>
           </Popover.Group>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
             {me ? (

@@ -25,6 +25,7 @@
 - login 100, post 5, comment 5
 - report 10 -> auto blind
 - 사용자생성일
+- scrap 기능
 
 ### 문제
 

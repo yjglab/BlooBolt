@@ -40,7 +40,7 @@ const UserActivity = () => {
                 )
               }
             >
-              {`Tracers (${me.Tracers.length})`}
+              {`Tracers (${me.Tracers?.length})`}
             </Tab>
 
             <Tab
@@ -53,7 +53,7 @@ const UserActivity = () => {
                 )
               }
             >
-              {`Tracings (${me.Tracings.length})`}
+              {`Tracings (${me.Tracings?.length})`}
             </Tab>
           </Tab.List>
           <Tab.Panels className="mt-2 rounded shadow">
@@ -79,7 +79,7 @@ const UserActivity = () => {
                       <li>&middot;</li>
                       <li>5 flashed</li>
                       <li>&middot;</li>
-                      <li>{post.Comments.length} comments</li>
+                      <li>{post.Comments?.length} comments</li>
                     </ul>
 
                     <a
@@ -102,7 +102,7 @@ const UserActivity = () => {
               )}
             >
               <ul>
-                {me.Tracers.map((tracer) => (
+                {me.Tracers?.map((tracer) => (
                   <li
                     key={tracer.id}
                     className="relative rounded p-3 flex items-center hover:bg-slate-100"
@@ -162,7 +162,7 @@ const UserActivity = () => {
               )}
             >
               <ul>
-                {me.Tracings.map((tracing) => (
+                {me.Tracings?.map((tracing) => (
                   <li
                     key={tracing.id}
                     className="relative rounded p-3 flex items-center hover:bg-slate-100"
