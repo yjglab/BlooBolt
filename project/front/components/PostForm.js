@@ -1,4 +1,4 @@
-import { TrashIcon } from "@heroicons/react/20/solid";
+import { TrashIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -9,9 +9,10 @@ import {
   CANCEL_POST_IMAGE,
 } from "../reducers/post";
 import { backUrl } from "../config/config";
-import { PhotoIcon } from "@heroicons/react/24/outline";
+import { ArrowUpCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import PropTypes from "prop-types";
 
-const PostForm = () => {
+const PostForm = ({ onTogglePostForm }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
   const { postImagePaths, uploadPostImagesError } = useSelector(
@@ -37,6 +38,7 @@ const PostForm = () => {
   const onUploadPost = (formData) => {
     const { topic, content } = formData;
     reset();
+    onTogglePostForm(false);
 
     return dispatch({
       type: UPLOAD_POST_REQUEST,
@@ -65,14 +67,14 @@ const PostForm = () => {
   };
 
   return (
-    <div className="flex  rounded mb-10">
+    <div className="flex w-2/3 rounded mb-10 relative top-8">
       <div className="flex relative flex-col w-full ">
         <form
           onSubmit={handleSubmit(onUploadPost)}
           encType="multipart/form-data"
           className="mb-8 w-full relative "
         >
-          <div className="py-2 px-4 mb-2 bg-white w-full shadow rounded  ">
+          <div className="py-4 px-4 mb-2 bg-white w-full shadow-xl rounded   ">
             <label
               htmlFor="topic"
               className="block text-sm font-medium text-slate-600"
@@ -81,26 +83,26 @@ const PostForm = () => {
               id="topic"
               type="text"
               placeholder="토픽 설정"
-              className="my-1  py-1.5 block w-1/3 placeholder:text-slate-300 text-sm rounded border-slate-300  focus:border-indigo-500 focus:ring-indigo-500 "
+              className="my-1 px-1.5 py-1.5 block w-full placeholder:text-slate-300 text-sm rounded border-slate-300  focus:border-indigo-500 focus:ring-indigo-500 "
               {...register("topic", {
                 maxLength: {
-                  value: 10,
-                  message: "토픽은 10자 이내로 설정해야 합니다",
+                  value: 30,
+                  message: "토픽은 30자 이내로 제한됩니다.",
                 },
               })}
             />
             <label htmlFor="content" className="sr-only"></label>
             <textarea
               id="content"
-              maxLength={800}
-              rows="3"
-              className="px-0 pt-2 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-slate-300"
+              maxLength={1500}
+              rows="14"
+              className="px-1.5 pt-2 w-full text-sm  border-0 focus:ring-0 focus:outline-none placeholder:text-slate-300"
               placeholder="우측 아래를 드래그하여 입력창을 넓힐 수 있습니다."
               {...register("content", {
                 required: "내용을 입력해주세요",
                 maxLength: {
-                  value: 800,
-                  message: "800자 이내로 입력해주세요",
+                  value: 1000,
+                  message: "1000자 이내로 입력해주세요",
                 },
               })}
             ></textarea>
@@ -143,12 +145,22 @@ const PostForm = () => {
             </div>
           </div>
 
-          <div className="absolute flex items-center right-0">
+          <div className="gap-1.5 absolute flex items-center right-0">
+            <button
+              type="submit"
+              disabled={uploadPostBlock || isSubmitting}
+              className="text-center "
+            >
+              <XMarkIcon
+                onClick={onTogglePostForm}
+                className="w-9 p-0.5 text-slate-600 shadow bg-white rounded-full hover:bg-slate-700 hover:text-white"
+              />
+            </button>
             <label
               htmlFor="postImages"
-              className="py-1 px-1 cursor-pointer text-xs font-medium text-center bg-white shadow text-slate-600 rounded focus:ring-4 focus:ring-slate-200  hover:bg-slate-50"
+              className="p-1.5 cursor-pointer text-xs hover:text-white rounded-full font-medium text-center bg-white shadow text-slate-600  focus:ring-4 focus:ring-slate-200  hover:bg-slate-700"
             >
-              <PhotoIcon className="stroke-2 block h-5 w-5 " />
+              <PhotoIcon className="stroke-2 block w-6  " />
             </label>
             <input
               name="postImages"
@@ -164,9 +176,9 @@ const PostForm = () => {
             <button
               type="submit"
               disabled={uploadPostBlock || isSubmitting}
-              className="ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow bg-indigo-500 rounded text-white hover:bg-indigo-600"
+              className="text-center  "
             >
-              Flash
+              <ArrowUpCircleIcon className="w-9 text-indigo-500 shadow bg-white rounded-full hover:bg-indigo-500 hover:text-white" />
             </button>
           </div>
         </form>
@@ -191,4 +203,7 @@ const PostForm = () => {
   );
 };
 
+PostForm.propTypes = {
+  onTogglePostForm: PropTypes.func.isRequired,
+};
 export default PostForm;

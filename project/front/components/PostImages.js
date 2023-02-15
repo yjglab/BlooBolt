@@ -82,7 +82,7 @@ const PostImages = ({ postImages }) => {
           }
           alt={postImages[0].src}
         />
-        <div className="w-1/2 flex flex-col gap-1  relative bottom-1">
+        <div className="w-1/2 flex flex-col gap-1  ">
           <img
             onClick={onOpenCarousel}
             className="object-cover h-1/2 cursor-pointer"

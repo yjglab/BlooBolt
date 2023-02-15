@@ -6,7 +6,7 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/20/solid";
 
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 import PostSection from "../components/PostSection";
@@ -19,10 +19,20 @@ function classNames(...classes) {
 const Home = () => {
   const { me } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
+  const [togglePostForm, setTogglePostForm] = useState(false);
+
+  const onTogglePostForm = useCallback(() => {
+    setTogglePostForm(!togglePostForm);
+  }, [togglePostForm]);
 
   // const liked = post.Grokkers.find((v) => v.id === id);
   return (
     <AppLayout>
+      {me && togglePostForm && (
+        <div className="fixed flex justify-center items-center bg-white/30 backdrop-blur-md w-screen h-screen z-30">
+          {me && <PostForm onTogglePostForm={onTogglePostForm} />}
+        </div>
+      )}
       <div className="flex h-full">
         {/* <div className="w-2/12 hidden lg:block">
           <div className="pt-10 fixed left-0 w-2/12 h-full">
@@ -89,12 +99,17 @@ const Home = () => {
           </div>
         </div> */}
 
-        <div className="mt-20 px-0 md:px-5  lg:px-3 w-full  h-full mx-4 md:mx-0 relative ">
-          <div className="font-bold text-slate-600 text-2xl mb-8 flex items-center">
-            <span>Square</span>
+        <div className="mt-16 px-2 sm:px-4 w-full  h-full  md:mx-0 relative ">
+          <div className="font-bold text-slate-600 text-2xl mb-8 flex justify-between items-center">
+            <span className="relative left-1">Square</span>
+            <button
+              type="button"
+              onClick={onTogglePostForm}
+              className="relative right-1 ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow bg-indigo-500 rounded text-white hover:bg-indigo-600"
+            >
+              Share Your Topic
+            </button>
           </div>
-
-          {me && <PostForm />}
 
           <div className="grid auto-cols-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {mainPosts.map((post) => (
