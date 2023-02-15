@@ -1,7 +1,12 @@
 import PropTypes from "prop-types";
+import Footer from "./Footer";
 
 const AppLayout = ({ children }) => {
-  return <>{children}</>;
+  return (
+    <>
+      {children} <Footer />
+    </>
+  );
 };
 
 AppLayout.propTypes = {

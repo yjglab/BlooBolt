@@ -67,14 +67,14 @@ const PostForm = ({ onTogglePostForm }) => {
   };
 
   return (
-    <div className="flex w-2/3 rounded mb-10 relative top-8">
+    <div className="flex md:w-2/3 sm:w-4/5 w-11/12 rounded mb-10 relative top-8">
       <div className="flex relative flex-col w-full ">
         <form
           onSubmit={handleSubmit(onUploadPost)}
           encType="multipart/form-data"
           className="mb-8 w-full relative "
         >
-          <div className="py-4 px-4 mb-2 bg-white w-full shadow-xl rounded   ">
+          <div className="pt-4 pb-4 px-4 mb-2 bg-white w-full shadow-xl rounded   ">
             <label
               htmlFor="topic"
               className="block text-sm font-medium text-slate-600"
