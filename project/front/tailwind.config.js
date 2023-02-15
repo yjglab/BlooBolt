@@ -6,5 +6,9 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/forms"), require("tailwind-scrollbar-hide")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("tailwind-scrollbar-hide"),
+    require("@tailwindcss/line-clamp"),
+  ],
 };

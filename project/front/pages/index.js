@@ -2,6 +2,8 @@ import {
   BoltIcon,
   ChatBubbleOvalLeftIcon,
   ShieldCheckIcon,
+  TrophyIcon,
+  UserCircleIcon,
 } from "@heroicons/react/20/solid";
 
 import React, { Fragment } from "react";
@@ -22,7 +24,7 @@ const Home = () => {
   return (
     <AppLayout>
       <div className="flex h-full">
-        <div className="w-2/12 hidden lg:block">
+        {/* <div className="w-2/12 hidden lg:block">
           <div className="pt-10 fixed left-0 w-2/12 h-full">
             <div className=" pt-6  h-full w-full bg-slate-50  ">
               <div className="pr-1 py-4 w-full h-full flex flex-col justify-between">
@@ -31,7 +33,6 @@ const Home = () => {
                     <span>Relation</span>
                   </h1>
 
-                  {/* 이부분은 나중에 스크롤->버튼로드로 바꾸기 */}
                   <div className="bg-white rounded-r overflow-y-auto shadow-md p-2 relative w-full h-full flex flex-col">
                     {me?.Tracings?.map((tracing) => (
                       <li
@@ -86,19 +87,23 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="mt-20 px-0 md:px-5 md:w-9/12 lg:px-3 w-full lg:w-7/12 h-full mx-4 md:mx-0 relative ">
+        <div className="mt-20 px-0 md:px-5  lg:px-3 w-full  h-full mx-4 md:mx-0 relative ">
           <div className="font-bold text-slate-600 text-2xl mb-8 flex items-center">
             <span>Square</span>
           </div>
+
           {me && <PostForm />}
-          {mainPosts.map((post) => (
-            <PostSection key={post.id} post={post} />
-          ))}
+
+          <div className="grid auto-cols-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {mainPosts.map((post) => (
+              <PostSection key={post.id} post={post} />
+            ))}
+          </div>
         </div>
 
-        <div className="w-3/12 hidden  md:block">
+        {/* <div className="w-3/12 hidden  md:block">
           <div className="pt-10 fixed right-0  h-full  w-3/12  ">
             <div className=" pt-6  h-full w-full bg-slate-50  ">
               <div className="pl-0 lg:pl-1 py-4 w-full h-full flex flex-col justify-between">
@@ -170,7 +175,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </AppLayout>
   );
