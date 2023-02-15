@@ -39,24 +39,30 @@ const PostSection = ({ post }) => {
   return (
     <>
       {/* 개별카드 */}
-      <div class=" bg-white  rounded-lg shadow relative overflow-hidden">
+      <div className=" bg-white  rounded-lg shadow relative overflow-hidden pb-4">
         {toggleCommentSection && (
           <div className="w-full h-full p-3 absolute top-0 left-0 bg-white z-10">
             <CommentSection />
           </div>
         )}
+        <div className="flex rounded-t-lg gap-1 h-52">
+          <img
+            className="object-cover w-1/2"
+            src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
+            alt=""
+          />
+          <img
+            className="object-cover w-1/2"
+            src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
+            alt=""
+          />
+        </div>
+        <div className="p-5 pt-3">
+          <small>2020.00.22</small>
+          <h5 className="mb-2 break-words line-clamp-2 text-2xl font-bold leading-tight tracking-tight text-slate-700">
+            Noteworthy techn acquisitions 2021
+          </h5>
 
-        <img
-          class="rounded-t-lg"
-          src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
-          alt=""
-        />
-        <div class="p-5 ">
-          <a href="#">
-            <h5 class="mb-2 break-words line-clamp-2 text-2xl font-bold leading-tight tracking-tight text-slate-900">
-              Noteworthy techn acquisitions 2021
-            </h5>
-          </a>
           <div className="mb-3 flex items-center">
             <img
               src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
@@ -69,8 +75,82 @@ const PostSection = ({ post }) => {
               </h1>
               <h1 className="text-xs relative bottom-0.5">직업</h1>
             </div>
+
+            <Menu as="div" className="relative bottom-2 inline-block text-left">
+              <div>
+                <Menu.Button className="rounded px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
+                  <svg
+                    className="w-5 h-5"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                  </svg>
+                </Menu.Button>
+              </div>
+
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="py-1">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          className={classNames(
+                            active
+                              ? "bg-slate-100 text-slate-600"
+                              : "text-slate-600",
+                            "block px-4 py-2 text-sm text-left w-full"
+                          )}
+                        >
+                          Edit
+                        </button>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          onClick={onRemovePost}
+                          className={classNames(
+                            active
+                              ? "bg-slate-100 text-slate-600"
+                              : "text-slate-600",
+                            "block px-4 py-2 text-sm text-left w-full"
+                          )}
+                        >
+                          Delete
+                        </button>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          className={classNames(
+                            active
+                              ? "bg-slate-100 text-slate-600"
+                              : "text-slate-600",
+                            "block px-4 py-2 text-sm text-left w-full"
+                          )}
+                        >
+                          Report
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </div>
+                </Menu.Items>
+              </Transition>
+            </Menu>
           </div>
-          <p class="mb-3 text-sm break-words line-clamp-5 md:line-clamp-6  font-normal text-slate-700">
+          <p className="mb-3 text-sm break-words line-clamp-5 md:line-clamp-8  font-normal text-slate-700">
             중앙선거관리위원회는 법령의 범위안에서 선거관리·국민투표관리 또는
             정당사무에 관한 규칙을 제정할 수 있으며, 법률에 저촉되지 아니하는
             범위안에서 내부규율에 관한 규칙을 제정할 수 있다. 국가는 모성의
@@ -79,18 +159,18 @@ const PostSection = ({ post }) => {
             양성의 평등을 기초로 성립되고 유지되어야 하며, 국가는 이를 보장한다.
           </p>
 
-          <div className="flex gap-1 text-sm">
-            <button className="flex items-center gap-1 w-10">
-              <TrophyIcon className="w-4" />
+          <div className="flex gap-2 absolute bottom-3 text-sm text-slate-700">
+            <button className="flex items-center gap-1 hover:text-indigo-500">
+              <BoltIcon className="w-5 " />
               12
             </button>
-            <button className="flex items-center gap-1 w-10">
-              <TrophyIcon className="w-4" />
+            <button className="flex items-center gap-1 hover:text-indigo-500">
+              <ChatBubbleOvalLeftEllipsisIcon className="w-5" />
               12
             </button>
-            <button className="flex items-center gap-1 w-10">
-              <TrophyIcon className="w-4" />
-              12
+            <button className="flex items-center gap-1 hover:text-indigo-500">
+              <UserPlusIcon className="w-5" />
+              Trace
             </button>
           </div>
         </div>
