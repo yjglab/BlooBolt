@@ -33,7 +33,7 @@ const Home = () => {
           {me && <PostForm onTogglePostForm={onTogglePostForm} />}
         </div>
       )}
-      <div className="flex h-full">
+      <div className="flex h-full pb-10">
         {/* <div className="w-2/12 hidden lg:block">
           <div className="pt-10 fixed left-0 w-2/12 h-full">
             <div className=" pt-6  h-full w-full bg-slate-50  ">

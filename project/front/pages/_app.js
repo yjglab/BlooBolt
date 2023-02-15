@@ -5,6 +5,7 @@ import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import wrapper from "../store/configureStore";
 import Navigation from "../components/Navigation";
+import Footer from "../components/Footer";
 
 const BlooBolt = ({ Component }) => {
   return (
@@ -15,6 +16,7 @@ const BlooBolt = ({ Component }) => {
       </Head>
       <Navigation />
       <Component />
+      <Footer />
     </>
   );
 };
