@@ -46,7 +46,8 @@ const PostSection = ({ post }) => {
           </div>
         )}
         <div className="flex rounded-t-lg gap-1 h-52">
-          <img
+          <PostImages postImages={post.PostImages} />
+          {/* <img
             className="object-cover w-1/2"
             src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
             alt=""
@@ -55,10 +56,10 @@ const PostSection = ({ post }) => {
             className="object-cover w-1/2"
             src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
             alt=""
-          />
+          /> */}
         </div>
         <div className="p-5 pt-3">
-          <small>2020.00.22</small>
+          <small className="text-slate-400">2020.00.22</small>
           <h5 className="mb-2 break-words line-clamp-2 text-2xl font-bold leading-tight tracking-tight text-slate-700">
             Noteworthy techn acquisitions 2021
           </h5>

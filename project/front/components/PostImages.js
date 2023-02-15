@@ -17,169 +17,300 @@ const PostImages = ({ postImages }) => {
 
   if (postImages.length === 1) {
     return (
-      <div className="my-7 pr-2 w-full flex justify-between ">
-        <button onClick={onOpenCarousel} className="w-5/11 mx-0.5">
-          <img
-            className="rounded aspect-square object-cover"
-            src={
-              process.env.NODE_ENV === "production"
-                ? `${postImages[0].src}`
-                : `${backUrl}/${postImages[0].src}`
-            }
-            role="presentation"
-            alt=""
-          />
-        </button>
-
-        {openCarousel && (
-          <PostImagesCarousel
-            postImages={postImages}
-            onCloseCarousel={onCloseCarousel}
-          />
-        )}
-      </div>
-    );
-  }
-  if (postImages.length === 2) {
-    return (
-      <div className="my-7 pr-2 w-full flex justify-between ">
-        <button onClick={onOpenCarousel} className="w-5/11 mx-0.5">
-          <img
-            className="rounded aspect-square object-cover"
-            src={
-              process.env.NODE_ENV === "production"
-                ? `${postImages[0].src}`
-                : `${backUrl}/${postImages[0].src}`
-            }
-            role="presentation"
-            alt=""
-          />
-        </button>
-        <button onClick={onOpenCarousel} className="w-5/11 mx-0.5">
-          <img
-            className="rounded aspect-square object-cover"
-            src={
-              process.env.NODE_ENV === "production"
-                ? `${postImages[1].src}`
-                : `${backUrl}/${postImages[1].src}`
-            }
-            role="presentation"
-            alt=""
-          />
-        </button>
-        {openCarousel && (
-          <PostImagesCarousel
-            postImages={postImages}
-            onCloseCarousel={onCloseCarousel}
-          />
-        )}
-      </div>
-    );
-  }
-  if (postImages.length === 3) {
-    return (
-      <div className="my-7 pr-2 w-full flex justify-between ">
-        <button onClick={onOpenCarousel} className="w-4/12 mx-0.5">
-          <img
-            className="rounded aspect-square object-cover"
-            src={
-              process.env.NODE_ENV === "production"
-                ? `${postImages[0].src}`
-                : `${backUrl}/${postImages[0].src}`
-            }
-            role="presentation"
-            alt=""
-          />
-        </button>
-        <button onClick={onOpenCarousel} className="w-4/12 mx-0.5">
-          <img
-            className="rounded aspect-square object-cover"
-            src={
-              process.env.NODE_ENV === "production"
-                ? `${postImages[1].src}`
-                : `${backUrl}/${postImages[1].src}`
-            }
-            role="presentation"
-            alt=""
-          />
-        </button>
-        <button onClick={onOpenCarousel} className="w-4/12 mx-0.5 relative">
-          <img
-            className="rounded aspect-square object-cover"
-            src={
-              process.env.NODE_ENV === "production"
-                ? `${postImages[2].src}`
-                : `${backUrl}/${postImages[2].src}`
-            }
-            role="presentation"
-            alt=""
-          />
-        </button>
-        {openCarousel && (
-          <PostImagesCarousel
-            postImages={postImages}
-            onCloseCarousel={onCloseCarousel}
-          />
-        )}
-      </div>
-    );
-  }
-  return (
-    <div className="my-7 pr-2 w-full flex justify-between ">
-      <button onClick={onOpenCarousel} className="w-4/12 mx-0.5 relative">
+      <>
         <img
-          className="rounded aspect-square object-cover"
+          onClick={onOpenCarousel}
+          className="object-cover w-full cursor-pointer"
           src={
             process.env.NODE_ENV === "production"
               ? `${postImages[0].src}`
               : `${backUrl}/${postImages[0].src}`
           }
-          role="presentation"
-          alt=""
+          alt={postImages[0].src}
         />
-      </button>
-
-      <button onClick={onOpenCarousel} className="w-4/12 mx-0.5 relative">
+        {openCarousel && (
+          <PostImagesCarousel
+            postImages={postImages}
+            onCloseCarousel={onCloseCarousel}
+          />
+        )}
+      </>
+    );
+  }
+  if (postImages.length === 2) {
+    return (
+      <>
         <img
-          className="rounded aspect-square object-cover"
+          onClick={onOpenCarousel}
+          className="object-cover w-1/2 cursor-pointer"
+          src={
+            process.env.NODE_ENV === "production"
+              ? `${postImages[0].src}`
+              : `${backUrl}/${postImages[0].src}`
+          }
+          alt={postImages[0].src}
+        />
+        <img
+          onClick={onOpenCarousel}
+          className="object-cover w-1/2 cursor-pointer"
           src={
             process.env.NODE_ENV === "production"
               ? `${postImages[1].src}`
               : `${backUrl}/${postImages[1].src}`
           }
-          role="presentation"
-          alt=""
+          alt={postImages[1].src}
         />
-      </button>
-
-      <button onClick={onOpenCarousel} className="w-4/12 mx-0.5 relative">
-        <button
-          onClick={onOpenCarousel}
-          className="hover:text-white border border-slate-200 hover:bg-slate-700 text-xs font-semibold py-0.5 absolute rounded bg-white px-1.5 right-2 top-2 flex justify-between items-center"
-        >
-          MORE +{postImages.length - 3}
-        </button>
-
+        {openCarousel && (
+          <PostImagesCarousel
+            postImages={postImages}
+            onCloseCarousel={onCloseCarousel}
+          />
+        )}
+      </>
+    );
+  }
+  if (postImages.length === 3) {
+    return (
+      <>
         <img
-          className="rounded aspect-square object-cover"
+          onClick={onOpenCarousel}
+          className="object-cover w-1/2 cursor-pointer"
           src={
             process.env.NODE_ENV === "production"
-              ? `${postImages[2].src}`
-              : `${backUrl}/${postImages[2].src}`
+              ? `${postImages[0].src}`
+              : `${backUrl}/${postImages[0].src}`
           }
-          role="presentation"
-          alt=""
+          alt={postImages[0].src}
         />
-      </button>
-
-      {openCarousel && (
-        <PostImagesCarousel
-          postImages={postImages}
-          onCloseCarousel={onCloseCarousel}
-        />
-      )}
-    </div>
-  );
+        <div className="w-1/2 flex flex-col gap-1  relative bottom-1">
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover h-1/2 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[1].src}`
+                : `${backUrl}/${postImages[1].src}`
+            }
+            alt={postImages[1].src}
+          />
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover h-1/2 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[2].src}`
+                : `${backUrl}/${postImages[2].src}`
+            }
+            alt={postImages[2].src}
+          />
+        </div>
+        {openCarousel && (
+          <PostImagesCarousel
+            postImages={postImages}
+            onCloseCarousel={onCloseCarousel}
+          />
+        )}
+      </>
+    );
+  }
+  if (postImages.length === 4) {
+    return (
+      <>
+        <div className="w-1/2 flex flex-col gap-1  relative bottom-1">
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover h-1/2 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[0].src}`
+                : `${backUrl}/${postImages[0].src}`
+            }
+            alt={postImages[0].src}
+          />
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover h-1/2 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[1].src}`
+                : `${backUrl}/${postImages[1].src}`
+            }
+            alt={postImages[1].src}
+          />
+        </div>
+        <div className="w-1/2 flex flex-col gap-1  relative bottom-1">
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover h-1/2 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[2].src}`
+                : `${backUrl}/${postImages[2].src}`
+            }
+            alt={postImages[2].src}
+          />
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover h-1/2 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[3].src}`
+                : `${backUrl}/${postImages[3].src}`
+            }
+            alt={postImages[3].src}
+          />
+        </div>
+        {openCarousel && (
+          <PostImagesCarousel
+            postImages={postImages}
+            onCloseCarousel={onCloseCarousel}
+          />
+        )}
+      </>
+    );
+  }
+  if (postImages.length === 5) {
+    return (
+      <div className="flex flex-col w-full gap-1">
+        <div className="w-full h-1/2 flex  gap-1 ">
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover w-1/2 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[0].src}`
+                : `${backUrl}/${postImages[0].src}`
+            }
+            alt={postImages[0].src}
+          />
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover w-1/2 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[1].src}`
+                : `${backUrl}/${postImages[1].src}`
+            }
+            alt={postImages[1].src}
+          />
+        </div>
+        <div className="w-full h-1/2 flex  gap-1  ">
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover w-1/3 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[2].src}`
+                : `${backUrl}/${postImages[2].src}`
+            }
+            alt={postImages[2].src}
+          />
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover w-1/3 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[3].src}`
+                : `${backUrl}/${postImages[3].src}`
+            }
+            alt={postImages[3].src}
+          />
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover w-1/3 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[4].src}`
+                : `${backUrl}/${postImages[4].src}`
+            }
+            alt={postImages[4].src}
+          />
+        </div>
+        {openCarousel && (
+          <PostImagesCarousel
+            postImages={postImages}
+            onCloseCarousel={onCloseCarousel}
+          />
+        )}
+      </div>
+    );
+  }
+  if (postImages.length === 6) {
+    return (
+      <div className="flex flex-col w-full gap-1">
+        <div className="w-full h-1/2 flex  gap-1 ">
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover w-1/3 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[0].src}`
+                : `${backUrl}/${postImages[0].src}`
+            }
+            alt={postImages[0].src}
+          />
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover w-1/3 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[1].src}`
+                : `${backUrl}/${postImages[1].src}`
+            }
+            alt={postImages[1].src}
+          />
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover w-1/3 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[2].src}`
+                : `${backUrl}/${postImages[2].src}`
+            }
+            alt={postImages[2].src}
+          />
+        </div>
+        <div className="w-full h-1/2 flex  gap-1  ">
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover w-1/3 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[3].src}`
+                : `${backUrl}/${postImages[3].src}`
+            }
+            alt={postImages[3].src}
+          />
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover w-1/3 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[4].src}`
+                : `${backUrl}/${postImages[4].src}`
+            }
+            alt={postImages[4].src}
+          />
+          <img
+            onClick={onOpenCarousel}
+            className="object-cover w-1/3 cursor-pointer"
+            src={
+              process.env.NODE_ENV === "production"
+                ? `${postImages[5].src}`
+                : `${backUrl}/${postImages[5].src}`
+            }
+            alt={postImages[5].src}
+          />
+        </div>
+        {openCarousel && (
+          <PostImagesCarousel
+            postImages={postImages}
+            onCloseCarousel={onCloseCarousel}
+          />
+        )}
+      </div>
+    );
+  }
 };
 
 PostImages.propTypes = {
