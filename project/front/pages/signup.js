@@ -7,7 +7,7 @@ const Signup = () => {
   const { me } = useSelector((state) => state.user);
   useEffect(() => {
     if (me && me.id) {
-      Router.replace("/");
+      Router.replace("/square");
     }
   }, [me && me.id]);
 

@@ -95,6 +95,12 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
         {
           model: User,
           attributes: ["id", "username", "status"],
+          include: [
+            {
+              model: Userboard,
+              attributes: ["rank"],
+            },
+          ],
         },
         {
           model: PostImage,

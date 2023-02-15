@@ -77,6 +77,7 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
         include: [
           {
             model: Userboard,
+            attributes: ["rank"],
           },
           {
             model: Post,

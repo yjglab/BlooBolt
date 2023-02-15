@@ -3,6 +3,10 @@ import produce from "immer";
 export const initialState = {
   mainPosts: [],
   postImagePaths: [],
+  loadMorePosts: true,
+  loadPostsLoading: false,
+  loadPostsDone: false,
+  loadPostsError: null,
 
   uploadPostLoading: false,
   uploadPostDone: false,
@@ -17,6 +21,10 @@ export const initialState = {
   addCommentDone: false,
   addCommentError: null,
 };
+
+export const LOAD_POSTS_REQUEST = "LOAD_POSTS_REQUEST";
+export const LOAD_POSTS_SUCCESS = "LOAD_POSTS_SUCCESS";
+export const LOAD_POSTS_FAILURE = "LOAD_POSTS_FAILURE";
 
 export const UPLOAD_POST_REQUEST = "UPLOAD_POST_REQUEST";
 export const UPLOAD_POST_SUCCESS = "UPLOAD_POST_SUCCESS";
@@ -60,6 +68,21 @@ const reducer = (state = initialState, action) => {
         });
         break;
       }
+      case LOAD_POSTS_REQUEST:
+        draft.loadPostsLoading = true;
+        draft.loadPostsDone = false;
+        draft.loadPostsError = null;
+        break;
+      case LOAD_POSTS_SUCCESS:
+        draft.loadPostsLoading = false;
+        draft.loadPostsDone = true;
+        draft.mainPosts = draft.mainPosts.concat(action.data);
+        draft.loadMorePosts = draft.mainPosts.length === 12;
+        break;
+      case LOAD_POSTS_FAILURE:
+        draft.loadPostsLoading = false;
+        draft.loadPostsError = action.error;
+        break;
       case UPLOAD_POST_REQUEST:
         draft.uploadPostLoading = true;
         draft.uploadPostDone = false;

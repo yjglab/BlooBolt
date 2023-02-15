@@ -29,7 +29,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (!(me && me.id)) {
-      Router.replace("/");
+      Router.replace("/square");
     }
   }, [me && me.id]);
 
