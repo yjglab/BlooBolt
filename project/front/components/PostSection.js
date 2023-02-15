@@ -39,8 +39,8 @@ const PostSection = ({ post }) => {
   return (
     <>
       {/* 개별카드 */}
-      <div className=" p-1 bg-slate-50  overflow-hidden ">
-        <div className="shadow rounded-lg bg-white relative">
+      <div className=" p-1 bg-white relative rounded-lg shadow overflow-hidden ">
+        <div className="">
           {toggleCommentSection && (
             <div className="w-full h-full p-3 absolute top-0 left-0 bg-white/90 backdrop-blur-sm z-10">
               <CommentSection onToggleCommentSection={onToggleCommentSection} />

@@ -33,7 +33,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
           <div className="mb-1.5 flex items-center">
             <img
               src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
-              className="h-10 w-10 border-2 p-1 rounded-full object-cover"
+              className={`h-[42px] w-[42px] border-[2.5px] p-0.5 rounded-full object-cover`}
             />
             <div className="ml-2 w-full flex flex-col">
               <h1 className="text-sm font-bold flex items-center">
