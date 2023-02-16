@@ -27,6 +27,8 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
 
   const id = useSelector((state) => state.user.me?.id);
   const onUploadComment = (formData) => {
+    if (!id) return alert("로그인이 필요합니다.");
+
     const { content } = formData;
     if (!content.trim()) {
       return setError("content", {
@@ -67,7 +69,7 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
         <button type="button" className=" rounded-full flex items-center">
           <XMarkIcon
             onClick={onToggleCommentSection}
-            className="w-7 text-slate-700 "
+            className="w-7 text-slate-600 "
           />
         </button>
         <button

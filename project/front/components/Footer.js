@@ -21,22 +21,22 @@ const Footer = () => {
         </a>
         <ul className="flex flex-wrap items-center mb-6 text-sm text-slate-400 sm:mb-0 ">
           <li>
-            <a href="#" className="mr-4  md:mr-6  hover:text-slate-700">
+            <a href="#" className="mr-4  md:mr-6  hover:text-slate-600">
               About
             </a>
           </li>
           <li>
-            <a href="#" className="mr-4  md:mr-6 hover:text-slate-700">
+            <a href="#" className="mr-4  md:mr-6 hover:text-slate-600">
               Privacy Policy
             </a>
           </li>
           <li>
-            <a href="#" className="mr-4  md:mr-6 hover:text-slate-700">
+            <a href="#" className="mr-4  md:mr-6 hover:text-slate-600">
               Licensing
             </a>
           </li>
           <li>
-            <a href="#" className=" hover:text-slate-700">
+            <a href="#" className=" hover:text-slate-600">
               Contact
             </a>
           </li>
@@ -51,7 +51,7 @@ const Footer = () => {
         <div className="flex  space-x-6 sm:justify-center ">
           <a
             href="#"
-            className="sm:flex text-sm items-center text-gray-400 hover:text-slate-700 "
+            className="sm:flex text-sm items-center text-gray-400 hover:text-slate-600 "
           >
             <div>Powered by yjglab</div>
 

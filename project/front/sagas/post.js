@@ -66,7 +66,7 @@ function* uploadPostImages(action) {
 }
 
 function prodPostAPI(data) {
-  return axios.patch(`/post/${data}/prod`, data);
+  return axios.patch(`/post/${data.postId}/prod`, data);
 }
 function* prodPost(action) {
   try {
@@ -85,7 +85,7 @@ function* prodPost(action) {
 }
 
 function unprodPostAPI(data) {
-  return axios.delete(`/post/${data}/prod`, data);
+  return axios.delete(`/post/${data.postId}/prod`, data);
 }
 function* unprodPost(action) {
   try {

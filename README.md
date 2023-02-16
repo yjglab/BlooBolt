@@ -22,7 +22,7 @@
 - 최근추가된트레이서.
 
 - 유료기능추가?뱃지,로얄유저.
-- login 100, post 5, comment 5
+- post upload 10 rankpoint, prodded 100 rankpoint, prod는 자신에게 금지
 - report 10 -> auto blind
 - 사용자생성일
 - scrap 기능

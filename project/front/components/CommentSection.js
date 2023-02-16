@@ -136,7 +136,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
                 </Transition>
               </Menu>
             </div>
-            <div className="mb-2 text-sm break-words font-normal text-slate-700">
+            <div className="mb-2 text-sm break-words font-normal text-slate-600">
               <p>{comment.content}</p>
             </div>
             <div className="flex relative gap-2 text-sm items-center">

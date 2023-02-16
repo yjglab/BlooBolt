@@ -49,9 +49,9 @@ const Square = () => {
           {me && <PostForm onTogglePostForm={onTogglePostForm} />}
         </div>
       )}
-      <div className="flex pb-20">
+      <div className=" flex pb-20">
         <div className="mt-16 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
-          <div className=" text-slate-600 text-2xl mb-8 flex justify-between items-center">
+          <div className="text-2xl mb-8 flex justify-between items-center">
             <span className="relative font-bold left-1">Square</span>
 
             <div className="flex items-center">
@@ -82,7 +82,7 @@ const Square = () => {
             </div>
           </div>
 
-          <div className="grid auto-cols-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
             {mainPosts.map((post) => (
               <PostSection key={post.id} post={post} />
             ))}

@@ -45,22 +45,25 @@ const PostSection = ({ post }) => {
   }, [toggleCommentSection]);
   const onProdPost = useCallback(() => {
     if (!id) return alert("로그인이 필요합니다.");
+    if (post.User.id === id) {
+      return alert("자신의 포스트를 프로드할 수 없습니다");
+    }
     dispatch({
       type: PROD_POST_REQUEST,
-      data: post.id,
+      data: { postId: post.id, postUserId: post.User.id },
     });
   });
   const onUnprodPost = useCallback(() => {
     if (!id) return alert("로그인이 필요합니다.");
     dispatch({
       type: UNPROD_POST_REQUEST,
-      data: post.id,
+      data: { postId: post.id, postUserId: post.User.id },
     });
   });
   return (
     <>
       {/* 개별카드 */}
-      <div className="mb-6 p-1 h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
+      <div className="mb-6 p-1  h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
         <div className="">
           {toggleCommentSection && (
             <div className="w-full h-full p-3 absolute top-0 left-0 bg-white/90 backdrop-blur-sm z-10">
@@ -81,7 +84,7 @@ const PostSection = ({ post }) => {
             </small>
             <h5
               className={`mb-3 break-words line-clamp-2 text-2xl font-bold leading-tight tracking-tight ${
-                post.topic === "토픽 없음" ? "text-slate-300" : "text-slate-700"
+                post.topic === "토픽 없음" ? "text-slate-300" : "text-slate-600"
               }`}
             >
               {post.topic}
@@ -200,7 +203,7 @@ const PostSection = ({ post }) => {
                 </Transition>
               </Menu>
             </div>
-            <p className="mb-8 h-24 text-sm break-words line-clamp-5 font-normal text-slate-700">
+            <p className="mb-8 h-24 text-sm break-words line-clamp-5 font-normal text-slate-600">
               {
                 <>
                   {post.content.split(/(#[^\s#]+)/g).map((v, i) => {
@@ -223,7 +226,7 @@ const PostSection = ({ post }) => {
               }
             </p>
 
-            <div className="flex gap-2 absolute bottom-4 text-sm text-slate-700">
+            <div className="flex gap-2 absolute bottom-4 text-sm text-slate-600">
               {isProdded ? (
                 <button
                   onClick={onUnprodPost}
@@ -239,8 +242,8 @@ const PostSection = ({ post }) => {
                   onClick={onProdPost}
                   className="flex items-center gap-1 hover:text-indigo-500"
                 >
-                  <BoltIcon className="w-5 text-slate-700" />
-                  <span className="text-slate-700">{post.Prodders.length}</span>
+                  <BoltIcon className="w-5 text-slate-600" />
+                  <span className="text-slate-600">{post.Prodders.length}</span>
                 </button>
               )}
 

@@ -67,6 +67,15 @@ router.patch("/:postId/prod", isLoggedIn, async (req, res, next) => {
     if (!post) {
       return res.status(403).send("존재하지 않는 포스트입니다");
     }
+
+    await Userboard.increment(
+      {
+        rankPoint: 100,
+      },
+      {
+        where: { UserId: req.body.postUserId },
+      }
+    );
     await post.addProdders(req.user.id);
     res.json({ PostId: post.id, UserId: req.user.id });
   } catch (error) {
