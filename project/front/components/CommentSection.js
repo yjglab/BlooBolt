@@ -1,10 +1,12 @@
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment, useCallback, useState } from "react";
+import React, { Fragment, useCallback, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 import CommentForm from "./CommentForm";
 import {
+  ArrowsPointingOutIcon,
   BoltIcon,
+  ChevronDownIcon,
   MinusIcon,
   PlusIcon,
   ShieldCheckIcon,
@@ -17,16 +19,11 @@ function classNames(...classes) {
 }
 
 const CommentSection = ({ post, onToggleCommentSection }) => {
-  const [extendComment, setExtendComment] = useState(false);
-  const onExtendComment = useCallback(() => {
-    setExtendComment(!extendComment);
-  }, [extendComment]);
-
   return (
     <>
       <div className="w-full h-[75%] overflow-y-auto ">
         {post.Comments?.map((comment) => (
-          <div className="  p-3 hover:bg-slate-50 rounded-xl">
+          <div key={comment.id} className="p-3 hover:bg-slate-50 rounded-xl">
             <div className="mb-1.5 flex items-center">
               <img
                 src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
@@ -139,15 +136,10 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
                 </Transition>
               </Menu>
             </div>
-            <p
-              className={`mb-2 text-sm break-words ${
-                extendComment || "line-clamp-4"
-              } font-normal text-slate-700`}
-            >
-              {comment.content}
-            </p>
-
-            <div className="flex relative gap-2 text-sm">
+            <div className="mb-2 text-sm break-words font-normal text-slate-700">
+              <p>{comment.content}</p>
+            </div>
+            <div className="flex relative gap-2 text-sm items-center">
               <button className="flex items-center gap-0.5 hover:text-indigo-500 text-slate-600 ">
                 <BoltIcon className="w-4" />
                 <span>12</span>
@@ -157,20 +149,10 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
                 <span>Trace</span>
               </button>
               <button
-                onClick={onExtendComment}
-                className="flex absolute right-0 items-center gap-0.5 hover:text-indigo-500 text-slate-600 "
+                // onClick={onExtendComment}
+                className="flex absolute right-2 items-center hover:text-indigo-500 text-slate-600 "
               >
-                {extendComment ? (
-                  <>
-                    <MinusIcon className="w-5" />
-                    <span>Close</span>
-                  </>
-                ) : (
-                  <>
-                    <PlusIcon className="w-5" />
-                    <span>More</span>
-                  </>
-                )}
+                {/* <ChevronDownIcon className="w-7" /> */}
               </button>
             </div>
           </div>

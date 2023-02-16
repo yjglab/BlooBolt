@@ -116,7 +116,7 @@ const PostImages = ({ postImages }) => {
   if (postImages.length === 4) {
     return (
       <>
-        <div className="w-1/2 flex flex-col gap-1  relative bottom-1">
+        <div className="w-1/2 flex flex-col gap-1  relative ">
           <img
             onClick={onOpenCarousel}
             className="object-cover h-1/2 cursor-pointer"
@@ -138,7 +138,7 @@ const PostImages = ({ postImages }) => {
             alt={postImages[1].src}
           />
         </div>
-        <div className="w-1/2 flex flex-col gap-1  relative bottom-1">
+        <div className="w-1/2 flex flex-col gap-1  relative ">
           <img
             onClick={onOpenCarousel}
             className="object-cover h-1/2 cursor-pointer"
@@ -172,7 +172,7 @@ const PostImages = ({ postImages }) => {
   if (postImages.length === 5) {
     return (
       <div className="flex flex-col w-full gap-1">
-        <div className="w-full h-1/2 flex  gap-1 ">
+        <div className="w-full h-1/2 flex justify-center gap-1 ">
           <img
             onClick={onOpenCarousel}
             className="object-cover w-1/2 cursor-pointer"
@@ -194,7 +194,7 @@ const PostImages = ({ postImages }) => {
             alt={postImages[1].src}
           />
         </div>
-        <div className="w-full h-1/2 flex  gap-1  ">
+        <div className="w-full h-1/2 flex justify-center gap-1  ">
           <img
             onClick={onOpenCarousel}
             className="object-cover w-1/3 cursor-pointer"
@@ -238,7 +238,7 @@ const PostImages = ({ postImages }) => {
   if (postImages.length === 6) {
     return (
       <div className="flex flex-col w-full gap-1">
-        <div className="w-full h-1/2 flex  gap-1 ">
+        <div className="w-full h-1/2 justify-center flex  gap-1 ">
           <img
             onClick={onOpenCarousel}
             className="object-cover w-1/3 cursor-pointer"
@@ -270,7 +270,7 @@ const PostImages = ({ postImages }) => {
             alt={postImages[2].src}
           />
         </div>
-        <div className="w-full h-1/2 flex  gap-1  ">
+        <div className="w-full h-1/2 justify-center flex  gap-1  ">
           <img
             onClick={onOpenCarousel}
             className="object-cover w-1/3 cursor-pointer"
