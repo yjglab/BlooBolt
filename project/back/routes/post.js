@@ -52,6 +52,38 @@ router.post(
   }
 );
 
+router.patch("/:postId/prod", isLoggedIn, async (req, res, next) => {
+  try {
+    const post = await Post.findOne({
+      where: { id: req.params.postId },
+    });
+    if (!post) {
+      return res.status(403).send("존재하지 않는 포스트입니다");
+    }
+    await post.addProdders(req.user.id);
+    res.json({ PostId: post.id, UserId: req.user.id });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.delete("/:postId/prod", isLoggedIn, async (req, res, next) => {
+  try {
+    const post = await Post.findOne({
+      where: { id: req.params.postId },
+    });
+    if (!post) {
+      return res.status(403).send("존재하지 않는 포스트입니다");
+    }
+    await post.removeProdders(req.user.id);
+    res.json({ PostId: post.id, UserId: req.user.id });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 router.delete("/:postId", isLoggedIn, async (req, res, next) => {
   try {
     await Post.destroy({
@@ -114,6 +146,11 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
               attributes: ["rank"],
             },
           ],
+        },
+        {
+          model: User,
+          as: "Prodders",
+          attributes: ["id"],
         },
         {
           model: PostImage,

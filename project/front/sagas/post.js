@@ -1,9 +1,15 @@
 import axios from "axios";
 import { all, call, fork, put, takeLatest } from "redux-saga/effects";
 import {
+  PROD_POST_FAILURE,
+  PROD_POST_REQUEST,
+  PROD_POST_SUCCESS,
   REMOVE_POST_FAILURE,
   REMOVE_POST_REQUEST,
   REMOVE_POST_SUCCESS,
+  UNPROD_POST_FAILURE,
+  UNPROD_POST_REQUEST,
+  UNPROD_POST_SUCCESS,
   UPLOAD_POST_FAILURE,
   UPLOAD_POST_IMAGES_FAILURE,
   UPLOAD_POST_IMAGES_REQUEST,
@@ -56,6 +62,44 @@ function* uploadPostImages(action) {
   }
 }
 
+function prodPostAPI(data) {
+  return axios.patch(`/post/${data}/prod`, data);
+}
+function* prodPost(action) {
+  try {
+    const result = yield call(prodPostAPI, action.data);
+    yield put({
+      type: PROD_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: PROD_POST_FAILURE,
+      error: error.response.data,
+    });
+  }
+}
+
+function unprodPostAPI(data) {
+  return axios.delete(`/post/${data}/prod`, data);
+}
+function* unprodPost(action) {
+  try {
+    const result = yield call(unprodPostAPI, action.data);
+    yield put({
+      type: UNPROD_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: UNPROD_POST_FAILURE,
+      error: error.response.data,
+    });
+  }
+}
+
 function removePostAPI(data) {
   return axios.delete(`/post/${data}`);
 }
@@ -84,11 +128,19 @@ function* watchUploadPostImages() {
 function* watchRemovePost() {
   yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
+function* watchProdPost() {
+  yield takeLatest(PROD_POST_REQUEST, prodPost);
+}
+function* watchUnprodPost() {
+  yield takeLatest(UNPROD_POST_REQUEST, unprodPost);
+}
 
 export default function* postSaga() {
   yield all([
     fork(watchUploadPost),
     fork(watchUploadPostImages),
+    fork(watchProdPost),
+    fork(watchUnprodPost),
     fork(watchRemovePost),
   ]);
 }

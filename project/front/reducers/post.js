@@ -20,6 +20,12 @@ export const initialState = {
   uploadPostImagesLoading: false,
   uploadPostImagesDone: false,
   uploadPostImagesError: null,
+  prodPostLoading: false,
+  prodPostDone: false,
+  prodPostError: null,
+  unprodPostLoading: false,
+  unprodPostDone: false,
+  unprodPostError: null,
   addCommentLoading: false,
   addCommentDone: false,
   addCommentError: null,
@@ -46,6 +52,14 @@ export const UPLOAD_POST_IMAGES_SUCCESS = "UPLOAD_POST_IMAGES_SUCCESS";
 export const UPLOAD_POST_IMAGES_FAILURE = "UPLOAD_POST_IMAGES_FAILURE";
 export const CANCEL_POST_IMAGE = "CANCEL_POST_IMAGE";
 export const CANCEL_ALL_POST_IMAGES = "CANCEL_ALL_POST_IMAGES";
+
+export const PROD_POST_REQUEST = "PROD_POST_REQUEST";
+export const PROD_POST_SUCCESS = "PROD_POST_SUCCESS";
+export const PROD_POST_FAILURE = "PROD_POST_FAILURE";
+
+export const UNPROD_POST_REQUEST = "UNPROD_POST_REQUEST";
+export const UNPROD_POST_SUCCESS = "UNPROD_POST_SUCCESS";
+export const UNPROD_POST_FAILURE = "UNPROD_POST_FAILURE";
 
 export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
 export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
@@ -145,6 +159,40 @@ const reducer = (state = initialState, action) => {
         break;
       case CANCEL_ALL_POST_IMAGES:
         draft.postImagePaths = [];
+        break;
+      case PROD_POST_REQUEST:
+        draft.prodPostLoading = true;
+        draft.prodPostDone = false;
+        draft.prodPostError = null;
+        break;
+      case PROD_POST_SUCCESS: {
+        const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
+        post.Prodders.push({ id: action.data.UserId });
+        draft.prodPostLoading = false;
+        draft.prodPostDone = true;
+        break;
+      }
+      case PROD_POST_FAILURE:
+        draft.prodPostLoading = false;
+        draft.prodPostError = action.error;
+        break;
+      case UNPROD_POST_REQUEST:
+        draft.unprodPostLoading = true;
+        draft.unprodPostDone = false;
+        draft.unprodPostError = null;
+        break;
+      case UNPROD_POST_SUCCESS: {
+        const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
+        post.Prodders = post.Prodders.filter(
+          (v) => v.id !== action.data.UserId
+        );
+        draft.unprodPostLoading = false;
+        draft.unprodPostDone = true;
+        break;
+      }
+      case UNPROD_POST_FAILURE:
+        draft.unprodPostLoading = false;
+        draft.unprodPostError = action.error;
         break;
       case ADD_COMMENT_REQUEST:
         draft.addCommentLoading = true;

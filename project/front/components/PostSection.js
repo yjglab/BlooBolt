@@ -3,7 +3,11 @@ import React, { Fragment, useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import CommentSection from "./CommentSection";
-import { REMOVE_POST_REQUEST } from "../reducers/post";
+import {
+  PROD_POST_REQUEST,
+  REMOVE_POST_REQUEST,
+  UNPROD_POST_REQUEST,
+} from "../reducers/post";
 
 import {
   BoltIcon,
@@ -24,19 +28,35 @@ function classNames(...classes) {
 
 const PostSection = ({ post }) => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const id = useSelector((state) => state.user.me?.id);
   const [toggleCommentSection, setToggleCommentSection] = useState(false);
 
   const onRemovePost = useCallback(() => {
+    if (!id) return alert("로그인이 필요합니다.");
     dispatch({
       type: REMOVE_POST_REQUEST,
       data: post.id,
     });
-  }, []);
+  }, [id]);
+  const isProdded = post.Prodders.find((v) => v.id === id);
+
   const onToggleCommentSection = useCallback(() => {
     setToggleCommentSection(!toggleCommentSection);
   }, [toggleCommentSection]);
-
+  const onProdPost = useCallback(() => {
+    if (!id) return alert("로그인이 필요합니다.");
+    dispatch({
+      type: PROD_POST_REQUEST,
+      data: post.id,
+    });
+  });
+  const onUnprodPost = useCallback(() => {
+    if (!id) return alert("로그인이 필요합니다.");
+    dispatch({
+      type: UNPROD_POST_REQUEST,
+      data: post.id,
+    });
+  });
   return (
     <>
       {/* 개별카드 */}
@@ -201,10 +221,26 @@ const PostSection = ({ post }) => {
             </p>
 
             <div className="flex gap-2 absolute bottom-3 text-sm text-slate-700">
-              <button className="flex items-center gap-1 hover:text-indigo-500">
-                <BoltIcon className="w-5 " />
-                12
-              </button>
+              {isProdded ? (
+                <button
+                  onClick={onUnprodPost}
+                  className="flex items-center gap-1 "
+                >
+                  <BoltIcon className="w-5 text-indigo-500" />
+                  <span className="text-indigo-500">
+                    {post.Prodders.length}
+                  </span>
+                </button>
+              ) : (
+                <button
+                  onClick={onProdPost}
+                  className="flex items-center gap-1 hover:text-indigo-500"
+                >
+                  <BoltIcon className="w-5 text-slate-700" />
+                  <span className="text-slate-700">{post.Prodders.length}</span>
+                </button>
+              )}
+
               <button
                 onClick={onToggleCommentSection}
                 className="flex items-center gap-1 hover:text-indigo-500"
