@@ -47,7 +47,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
               className="relative bottom-2 inline-block text-left "
             >
               <div>
-                <Menu.Button className="rounded px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
+                <Menu.Button className="rounded-xl px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
                   <svg
                     className="w-5 h-5"
                     aria-hidden="true"
@@ -69,7 +69,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-1 z-10 mt-2 w-32 origin-top-right rounded bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="absolute right-1 z-10 mt-2 w-32 origin-top-right rounded-xl bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
                     <Menu.Item>
                       {({ active }) => (
@@ -162,7 +162,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
       </div>
       <CommentForm onToggleCommentSection={onToggleCommentSection} />
       {/* <div className="w-full flex justify-end">
-        <div className="px-4 pt-4 bg-white w-5/6 sm:w-4/5 my-2 shadow rounded ">
+        <div className="px-4 pt-4 bg-white w-5/6 sm:w-4/5 my-2 shadow rounded-xl ">
           {post?.Comments?.map((comment) => (
             <div
               key={comment.id}
@@ -213,7 +213,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
 
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
-                    <Menu.Button className="rounded px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
+                    <Menu.Button className="rounded-xl px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
                       <svg
                         className="w-5 h-5"
                         aria-hidden="true"
@@ -235,7 +235,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-xl bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="py-1">
                         <Menu.Item>
                           {({ active }) => (

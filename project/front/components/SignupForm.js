@@ -78,7 +78,7 @@ const SignupForm = () => {
             </div>
             <form className="mt-8 space-y-3" onSubmit={handleSubmit(onSignUp)}>
               <input type="hidden" name="remember" defaultValue="true" />
-              <div className="-space-y-px rounded ">
+              <div className="-space-y-px rounded-xl ">
                 <div>
                   <label htmlFor="email" className="sr-only">
                     Email address
@@ -162,7 +162,7 @@ const SignupForm = () => {
                   <input
                     id="term"
                     type="checkbox"
-                    className="h-4 w-4 rounded border-slate-300 text-indigo-500 focus:ring-indigo-500"
+                    className="h-4 w-4 rounded-xl border-slate-300 text-indigo-500 focus:ring-indigo-500"
                     {...register("term", {
                       required: "서비스 약관에 동의해주세요",
                     })}
@@ -211,7 +211,7 @@ const SignupForm = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group relative flex w-full justify-center rounded border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="group relative flex w-full justify-center rounded-xl border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                     <UserPlusIcon

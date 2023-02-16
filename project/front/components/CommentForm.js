@@ -46,7 +46,7 @@ const CommentForm = ({ onToggleCommentSection }) => {
           rows="3"
           onChange={onChangeText}
           value={text}
-          className="px-2  border border-slate-200 rounded w-full text-sm sm:text-sm md:text-md  focus:ring-0 focus:outline-none placeholder:text-slate-300"
+          className="px-2  border border-slate-200 rounded-xl w-full text-sm sm:text-sm md:text-md  focus:ring-0 focus:outline-none placeholder:text-slate-300"
           placeholder={`${me?.username}님의 의견을 들려주세요.`}
           required
         ></textarea>

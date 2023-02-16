@@ -40,7 +40,7 @@ const UserInformation = () => {
                         name="first-name"
                         id="first-name"
                         autoComplete="given-name"
-                        className="mt-1 block w-full rounded border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-xl border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-3">
@@ -56,7 +56,7 @@ const UserInformation = () => {
                         id="first-name"
                         autoComplete="given-name"
                         placeholder="Web Developer"
-                        className="placeholder:text-slate-300 mt-1 block w-full rounded border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="placeholder:text-slate-300 mt-1 block w-full rounded-xl border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
                     <div className="grid grid-cols-3 gap-6">
@@ -67,7 +67,7 @@ const UserInformation = () => {
                         >
                           Website
                         </label>
-                        <div className="mt-1 flex rounded shadow-sm">
+                        <div className="mt-1 flex rounded-xl shadow-sm">
                           <span className="inline-flex items-center rounded-l border border-r-0 border-slate-300 bg-slate-50 px-3 text-sm text-slate-500">
                             http://
                           </span>
@@ -94,7 +94,7 @@ const UserInformation = () => {
                           id="about"
                           name="about"
                           rows="3"
-                          className="mt-1 placeholder:text-slate-300 block w-full rounded border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="mt-1 placeholder:text-slate-300 block w-full rounded-xl border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder="안녕하세요."
                         ></textarea>
                       </div>
@@ -116,7 +116,7 @@ const UserInformation = () => {
                         </span>
                         <button
                           type="button"
-                          className="ml-5 rounded border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                          className="ml-5 rounded-xl border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         >
                           Change
                         </button>
@@ -129,7 +129,7 @@ const UserInformation = () => {
                   <div className="bg-slate-50 px-4 py-3 text-right sm:px-6">
                     <button
                       type="submit"
-                      className="inline-flex justify-center rounded border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="inline-flex justify-center rounded-xl border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       Save
                     </button>
@@ -175,7 +175,7 @@ const UserInformation = () => {
                           name="first-name"
                           id="first-name"
                           autoComplete="given-name"
-                          className="mt-1 block w-full rounded border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="mt-1 block w-full rounded-xl border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
 
@@ -191,7 +191,7 @@ const UserInformation = () => {
                           name="email-address"
                           id="email-address"
                           autoComplete="email"
-                          className="mt-1 block w-full rounded border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="mt-1 block w-full rounded-xl border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
 
@@ -206,7 +206,7 @@ const UserInformation = () => {
                           id="country"
                           name="country"
                           autoComplete="country-name"
-                          className="mt-1 block w-full rounded border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                          className="mt-1 block w-full rounded-xl border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         >
                           <option>Korea</option>
                           <option>Canada</option>
@@ -226,7 +226,7 @@ const UserInformation = () => {
                           name="street-address"
                           id="street-address"
                           autoComplete="street-address"
-                          className="mt-1 block w-full rounded border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="mt-1 block w-full rounded-xl border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
                     </div>
@@ -234,7 +234,7 @@ const UserInformation = () => {
                   <div className="bg-slate-50 px-4 py-3 text-right sm:px-6">
                     <button
                       type="submit"
-                      className="inline-flex justify-center rounded border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="inline-flex justify-center rounded-xl border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       Save
                     </button>
@@ -347,7 +347,7 @@ const UserInformation = () => {
                   <div className="bg-slate-50 px-4 py-3 text-right sm:px-6">
                     <button
                       type="submit"
-                      className="inline-flex justify-center rounded border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="inline-flex justify-center rounded-xl border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       Save
                     </button>

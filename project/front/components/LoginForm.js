@@ -55,7 +55,7 @@ const LoginForm = () => {
           </div>
           <form className="mt-8 space-y-3" onSubmit={handleSubmit(onLogin)}>
             <input type="hidden" name="remember" defaultValue="true" />
-            <div className="-space-y-px rounded ">
+            <div className="-space-y-px rounded-xl ">
               <div>
                 <label htmlFor="email" className="sr-only">
                   Email address
@@ -64,7 +64,7 @@ const LoginForm = () => {
                   id="email"
                   type="text"
                   placeholder="Email address"
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-t-xl border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   {...register("email", {
                     required: "이메일은 필수 입력입니다",
                     pattern: {
@@ -82,7 +82,7 @@ const LoginForm = () => {
                   id="password"
                   type="password"
                   placeholder="Password"
-                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-b-xl border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   {...register("password", {
                     required: "비밀번호를 입력해주세요",
                   })}
@@ -95,7 +95,7 @@ const LoginForm = () => {
                 <input
                   id="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-slate-300 text-indigo-500 focus:ring-indigo-500"
+                  className="h-4 w-4 rounded-xl border-slate-300 text-indigo-500 focus:ring-indigo-500"
                 />
                 <label
                   htmlFor="remember-me"
@@ -133,7 +133,7 @@ const LoginForm = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group relative flex w-full justify-center rounded border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="group relative flex w-full justify-center rounded-xl border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                     <LockClosedIcon
