@@ -15,6 +15,7 @@ import {
 import PostImages from "./PostImages";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
+import Link from "next/link";
 dayjs.locale("ko");
 
 function classNames(...classes) {
@@ -173,7 +174,26 @@ const PostSection = ({ post }) => {
               </Menu>
             </div>
             <p className="mb-8 h-24 text-sm break-words line-clamp-5 font-normal text-slate-700">
-              {post.content}
+              {
+                <>
+                  {post.content.split(/(#[^\s#]+)/g).map((v, i) => {
+                    if (v.match(/(#[^\s#]+)/)) {
+                      return (
+                        <Link
+                          href={`/hashtag/${v.slice(1)}`}
+                          prefetch={false}
+                          key={i}
+                        >
+                          <span className="text-indigo-500 cursor-pointer font-medium hover:text-indigo-600">
+                            {v}
+                          </span>
+                        </Link>
+                      );
+                    }
+                    return v;
+                  })}
+                </>
+              }
             </p>
 
             <div className="flex gap-2 absolute bottom-3 text-sm text-slate-700">

@@ -59,7 +59,7 @@ const SignupForm = () => {
                   href="#"
                   className="font-medium text-indigo-500 hover:text-indigo-500"
                 >
-                  Make your BlooBolt account
+                  Make your free rank account
                 </span>
               </p>
             </div>

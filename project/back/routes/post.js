@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
 
-const { User, Post, Userboard, PostImage } = require("../models");
+const { User, Post, Userboard, PostImage, Hashtag } = require("../models");
 const { isLoggedIn } = require("./middlewares");
 const path = require("path");
 
@@ -71,9 +71,22 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
       content: req.body.content,
       UserId: req.user.id,
     });
+    const hashtags = req.body.content.match(/#[^/\s]+/g);
+    if (hashtags) {
+      const resultHashtags = await Promise.all(
+        hashtags.map((tag) =>
+          Hashtag.findOrCreate({
+            where: {
+              name: tag.slice(1).toLowerCase(),
+            },
+          })
+        )
+      );
+      await post.addHashtags(resultHashtags.map((v) => v[0]));
+    }
     await Userboard.increment(
       {
-        rankpoint: 10,
+        rankPoint: 10,
       },
       {
         where: {

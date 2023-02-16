@@ -9,7 +9,7 @@ module.exports = class Userboard extends Model {
           type: DataTypes.TINYINT,
           allowNull: false,
         },
-        rankpoint: {
+        rankPoint: {
           type: DataTypes.INTEGER,
           allowNull: false,
         },

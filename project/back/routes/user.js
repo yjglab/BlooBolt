@@ -37,7 +37,7 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
     await user.createUserboard({
       UserId: user.id,
       rank: 0,
-      rankpoint: 0,
+      rankPoint: 0,
       reported: 0,
     });
     res.status(201).send("ok");
@@ -77,7 +77,7 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
         include: [
           {
             model: Userboard,
-            attributes: ["rank"],
+            attributes: ["rank", "rankPoint"],
           },
           {
             model: Post,

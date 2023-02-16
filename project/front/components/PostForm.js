@@ -18,7 +18,6 @@ const PostForm = ({ onTogglePostForm }) => {
   const { postImagePaths, uploadPostImagesError } = useSelector(
     (state) => state.post
   );
-  const [uploadPostBlock, setUploadPostBlock] = useState(false);
 
   const {
     register,
@@ -148,7 +147,7 @@ const PostForm = ({ onTogglePostForm }) => {
           <div className="gap-1.5 absolute flex items-center right-0">
             <button
               type="submit"
-              disabled={uploadPostBlock || isSubmitting}
+              disabled={isSubmitting}
               className="text-center "
             >
               <XMarkIcon
@@ -175,7 +174,7 @@ const PostForm = ({ onTogglePostForm }) => {
             />
             <button
               type="submit"
-              disabled={uploadPostBlock || isSubmitting}
+              disabled={isSubmitting}
               className="text-center  "
             >
               <ArrowUpCircleIcon className="w-9 text-indigo-500 shadow bg-white rounded-full hover:bg-indigo-500 hover:text-white" />
