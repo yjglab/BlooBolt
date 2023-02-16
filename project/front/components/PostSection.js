@@ -56,7 +56,11 @@ const PostSection = ({ post }) => {
             <small className="text-slate-400">
               {dayjs(post.createdAt).format("YYYY.MM.DD | H:mm:ss")}
             </small>
-            <h5 className="mb-3 break-words line-clamp-2 text-2xl font-bold leading-tight tracking-tight text-slate-700">
+            <h5
+              className={`mb-3 break-words line-clamp-2 text-2xl font-bold leading-tight tracking-tight ${
+                post.topic === "토픽 없음" ? "text-slate-300" : "text-slate-700"
+              }`}
+            >
               {post.topic}
             </h5>
 

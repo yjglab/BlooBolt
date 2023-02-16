@@ -17,14 +17,27 @@ const SignupForm = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { isSubmitting, errors },
   } = useForm();
 
   const onSignUp = (formData) => {
     const { email, username, password, passwordCheck } = formData;
 
+    if (!username.trim()) {
+      return setError("username", {
+        message: "사용자명을 입력해주세요",
+      });
+    }
+    if (password.indexOf(" ") !== -1) {
+      return setError("password", {
+        message: "비밀번호에 빈칸을 넣을 수 없습니다",
+      });
+    }
     if (password !== passwordCheck) {
-      return alert("비밀번호 확인이 일치하지 않습니다.");
+      return setError("passwordCheck", {
+        message: "비밀번호 확인이 일치하지 않습니다",
+      });
     }
     dispatch({
       type: SIGN_UP_REQUEST,
@@ -138,7 +151,7 @@ const SignupForm = () => {
                     placeholder="Password Check"
                     className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("passwordCheck", {
-                      required: "비밀번호를 입력해주세요",
+                      required: "",
                     })}
                   />
                 </div>
@@ -185,6 +198,8 @@ const SignupForm = () => {
                     <>{errors.username.message}</>
                   ) : errors.password ? (
                     <>{errors.password.message}</>
+                  ) : errors.passwordCheck ? (
+                    <>{errors.passwordCheck.message}</>
                   ) : errors.term ? (
                     <>{errors.term.message}</>
                   ) : signUpError ? (

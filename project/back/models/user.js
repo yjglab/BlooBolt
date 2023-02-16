@@ -56,6 +56,7 @@ module.exports = class User extends Model {
   static associate(db) {
     db.User.belongsTo(db.Userboard);
     db.User.hasMany(db.Post);
+    db.User.belongsToMany(db.Post, { through: "Prod", as: "Prodded" });
   }
 };
 

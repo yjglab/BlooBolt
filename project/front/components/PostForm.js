@@ -36,6 +36,11 @@ const PostForm = ({ onTogglePostForm }) => {
 
   const onUploadPost = (formData) => {
     const { topic, content } = formData;
+    if (!content.trim()) {
+      return setError("content", {
+        message: "빈 내용을 업로드할 수 없습니다.",
+      });
+    }
     reset();
     onTogglePostForm(false);
 

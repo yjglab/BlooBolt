@@ -67,7 +67,7 @@ router.delete("/:postId", isLoggedIn, async (req, res, next) => {
 router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
   try {
     const post = await Post.create({
-      topic: req.body.topic || "토픽 없음",
+      topic: req.body.topic.trim() ? req.body.topic : "토픽 없음",
       content: req.body.content,
       UserId: req.user.id,
     });
