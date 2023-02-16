@@ -6,7 +6,7 @@ import { LOG_IN_REQUEST } from "../reducers/user";
 
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
-import bloobolt_logo from "../public/bloobolt_logo.png";
+import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 
 import Image from "next/image";
 
@@ -33,10 +33,10 @@ const LoginForm = () => {
       <div className="flex h-full  items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
-            <div className="mx-auto h-16 w-16  relative">
+            <div className="mx-auto h-20 w-20  relative">
               <Image
                 className=" cursor-pointer w-full h-full"
-                src={bloobolt_logo}
+                src={bloobolt_logo_nobg}
                 alt="logo-image"
               />
             </div>

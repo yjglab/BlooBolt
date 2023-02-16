@@ -49,6 +49,9 @@ const PostSection = ({ post }) => {
     if (post.User.id === id) {
       return alert("자신의 포스트를 프로드할 수 없습니다");
     }
+    if (post.blinded) {
+      return alert("삭제된 포스트를 프로드할 수 없습니다");
+    }
     dispatch({
       type: PROD_POST_REQUEST,
       data: { postId: post.id, postUserId: post.User.id },
@@ -70,7 +73,7 @@ const PostSection = ({ post }) => {
       {/* 개별카드 */}
       <div className="mb-6 p-1  h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
         {post.blinded && !toggleOpenBlindPost && (
-          <div className="flex backdrop-saturate-0 gap-2 justify-center items-center flex-col absolute top-0 left-0 w-full h-full bg-white-20 backdrop-blur z-10">
+          <div className="flex backdrop-saturate-0 gap-2 justify-center items-center flex-col absolute top-0 left-0 w-full h-full  backdrop-blur z-10">
             <span className="text-sm text-slate-400">
               작성자에 의해 삭제되었습니다
             </span>

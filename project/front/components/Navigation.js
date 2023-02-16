@@ -14,7 +14,7 @@ import {
   UserIcon,
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
-import bloobolt_logo from "../public/bloobolt_logo.png";
+import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 const solutions = [
   {
     name: "유저메뉴1",
@@ -61,7 +61,7 @@ const Navigation = () => {
                 <div className="h-8 w-8 relative mr-1.5">
                   <Image
                     className=" cursor-pointer w-full h-full"
-                    src={bloobolt_logo}
+                    src={bloobolt_logo_nobg}
                     alt="logo-image"
                   />
                 </div>
@@ -248,7 +248,7 @@ const Navigation = () => {
                     <div className="w-6 h-6 mr-1">
                       <Image
                         className=" cursor-pointer w-full h-full"
-                        src={bloobolt_logo}
+                        src={bloobolt_logo_nobg}
                         alt="logo-image"
                       />
                     </div>

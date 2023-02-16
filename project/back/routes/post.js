@@ -148,6 +148,16 @@ router.delete("/:postId", isLoggedIn, async (req, res, next) => {
         },
       }
     );
+    await Userboard.decrement(
+      {
+        rankPoint: 10,
+      },
+      {
+        where: {
+          UserId: req.user.id,
+        },
+      }
+    );
     res.status(200).json({ PostId: parseInt(req.params.postId, 10) });
   } catch (error) {
     console.error(error);

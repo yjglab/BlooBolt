@@ -62,7 +62,7 @@ const Support = () => {
                     placeholder="Email address"
                     className="relative block w-full appearance-none rounded-none rounded-t-xl border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("email", {
-                      required: "이메일은 필수 입력입니다",
+                      required: "이메일을 입력해주세요",
                       pattern: {
                         value: /\S+@\S+\.\S+/,
                         message: "이메일 형식에 맞지 않습니다",
@@ -92,15 +92,13 @@ const Support = () => {
                     className="h-6 flex justify-center text-orange-400 text-xs "
                     role="alert"
                   >
-                    {/* {errors.email ? (
+                    {errors.email ? (
                       <>{errors.email.message}</>
-                    ) : errors.password ? (
-                      <>{errors.password.message}</>
-                    ) : logInError ? (
-                      <>{logInError}</>
+                    ) : errors.username ? (
+                      <>{errors.username.message}</>
                     ) : (
                       ""
-                    )} */}
+                    )}
                   </div>
                   <button
                     type="submit"

@@ -1,5 +1,5 @@
 import React from "react";
-import bloobolt_logo from "../public/bloobolt_logo.png";
+import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="h-8 w-8 relative mr-1.5">
             <Image
               className="h-full w-full mr-3.5 cursor-pointer "
-              src={bloobolt_logo}
+              src={bloobolt_logo_nobg}
               alt="logo-image"
             />
           </div>
@@ -50,7 +50,9 @@ const Footer = () => {
         </span>
         <div className="flex  space-x-6 sm:justify-center ">
           <a
-            href="#"
+            href="https://github.com/yjglab"
+            target="_blank"
+            rel="noreferrer noopenner"
             className="sm:flex text-sm items-center text-slate-400 hover:text-slate-600 "
           >
             <div>Powered by yjglab</div>

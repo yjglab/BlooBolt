@@ -57,10 +57,13 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
           id="content"
           maxLength={800}
           rows="3"
+          disabled={post.blinded}
           className="px-2  border border-slate-200 rounded-xl w-full text-sm sm:text-sm md:text-md  focus:ring-0 focus:outline-none placeholder:text-slate-300"
           placeholder={
-            me
+            me && !post.blinded
               ? `${me?.username}님의 의견을 들려주세요.`
+              : post.blinded
+              ? "삭제된 포스트에는 코멘트를 작성할 수 없습니다."
               : "로그인이 필요합니다."
           }
           {...register("content", {
@@ -84,7 +87,7 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
         </div>
         <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitting || post.blinded}
           className=" rounded-full flex items-center"
         >
           <ArrowUpCircleIcon className="w-7 text-indigo-500 hover:text-indigo-600" />

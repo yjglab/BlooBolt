@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 
 import { SIGN_UP_REQUEST } from "../reducers/user";
-import bloobolt_logo from "../public/bloobolt_logo.png";
+import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -57,10 +57,10 @@ const SignupForm = () => {
         <div className="flex h-full  items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-md space-y-8">
             <div>
-              <div className="mx-auto h-16 w-16  relative">
+              <div className="mx-auto h-20 w-20  relative">
                 <Image
                   className=" cursor-pointer w-full h-full"
-                  src={bloobolt_logo}
+                  src={bloobolt_logo_nobg}
                   alt="logo-image"
                 />
               </div>
@@ -68,12 +68,14 @@ const SignupForm = () => {
                 Welcome BlooBolt
               </h2>
               <p className="mt-2 text-center text-sm text-slate-600">
-                <span
-                  href="#"
-                  className="font-medium text-indigo-500 hover:text-indigo-500"
-                >
-                  Make your free rank account
-                </span>
+                <Link href="/login">
+                  <span
+                    href="/login"
+                    className="font-medium text-indigo-500 hover:text-indigo-500"
+                  >
+                    Already have an account?
+                  </span>
+                </Link>
               </p>
             </div>
             <form className="mt-8 space-y-3" onSubmit={handleSubmit(onSignUp)}>
@@ -173,17 +175,6 @@ const SignupForm = () => {
                   >
                     Subscribe Terms of Service.
                   </label>
-                </div>
-
-                <div className="text-sm">
-                  <Link href="/login">
-                    <span
-                      href="#"
-                      className="font-medium text-indigo-500 hover:text-indigo-500"
-                    >
-                      Already have an account?
-                    </span>
-                  </Link>
                 </div>
               </div>
 
