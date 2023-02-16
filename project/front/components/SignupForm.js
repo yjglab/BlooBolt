@@ -189,7 +189,7 @@ const SignupForm = () => {
 
               <div>
                 <div
-                  className="h-6 flex justify-center text-amber-400 text-xs "
+                  className="h-6 flex justify-center text-orange-400 text-xs "
                   role="alert"
                 >
                   {errors.email ? (

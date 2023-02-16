@@ -134,9 +134,20 @@ router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
 });
 router.delete("/:postId", isLoggedIn, async (req, res, next) => {
   try {
-    await Post.destroy({
-      where: { id: req.params.postId, UserId: req.user.id },
-    });
+    // await Post.destroy({
+    //   where: { id: req.params.postId, UserId: req.user.id },
+    // });
+    await Post.update(
+      {
+        blinded: true,
+      },
+      {
+        where: {
+          id: req.params.postId,
+          UserId: req.user.id,
+        },
+      }
+    );
     res.status(200).json({ PostId: parseInt(req.params.postId, 10) });
   } catch (error) {
     console.error(error);
@@ -150,6 +161,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
       topic: req.body.topic.trim() ? req.body.topic : "토픽 없음",
       content: req.body.content,
       UserId: req.user.id,
+      blinded: false,
     });
     const hashtags = req.body.content.match(/#[^/\s]+/g);
     if (hashtags) {

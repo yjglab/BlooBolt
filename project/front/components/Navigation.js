@@ -52,7 +52,7 @@ const Navigation = () => {
   });
 
   return (
-    <Popover className="fixed top-0 w-full left-0 z-50 bg-white/90 shadow backdrop-blur">
+    <Popover className="fixed top-0 w-full left-0 z-50 bg-white shadow-xl shadow-slate-300/20">
       <div className="">
         <div className="px-6 flex  items-center justify-between  py-1.5 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1 ">

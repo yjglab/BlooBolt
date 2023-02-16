@@ -21,7 +21,7 @@ function classNames(...classes) {
 const CommentSection = ({ post, onToggleCommentSection }) => {
   return (
     <>
-      <div className="w-full h-[75%] overflow-y-auto ">
+      <div className="w-full h-[75%] pb-3 overflow-y-auto ">
         {post.Comments?.map((comment) => (
           <div key={comment.id} className="p-3 hover:bg-slate-50 rounded-xl">
             <div className="mb-1.5 flex items-center">
@@ -158,6 +158,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
           </div>
         ))}
       </div>
+
       <CommentForm
         post={post}
         onToggleCommentSection={onToggleCommentSection}

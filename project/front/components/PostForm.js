@@ -187,7 +187,7 @@ const PostForm = ({ onTogglePostForm }) => {
           </div>
         </form>
         <div
-          className="absolute bottom-2 left-1.5 flex text-amber-400 text-xs "
+          className="absolute bottom-2 left-1.5 flex text-orange-400 text-xs "
           role="alert"
         >
           {errors.content ? (

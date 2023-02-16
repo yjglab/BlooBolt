@@ -26,22 +26,25 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
   });
 
   const id = useSelector((state) => state.user.me?.id);
-  const onUploadComment = (formData) => {
-    if (!id) return alert("로그인이 필요합니다.");
+  const onUploadComment = useCallback(
+    (formData) => {
+      if (!id) return alert("로그인이 필요합니다.");
 
-    const { content } = formData;
-    if (!content.trim()) {
-      return setError("content", {
-        message: "빈 코멘트를 업로드할 수 없습니다",
+      const { content } = formData;
+      if (!content.trim()) {
+        return setError("content", {
+          message: "빈 코멘트를 업로드할 수 없습니다",
+        });
+      }
+      reset();
+
+      return dispatch({
+        type: UPLOAD_COMMENT_REQUEST,
+        data: { content, postId: post.id, userId: id },
       });
-    }
-    reset();
-
-    return dispatch({
-      type: UPLOAD_COMMENT_REQUEST,
-      data: { content, postId: post.id, userId: id },
-    });
-  };
+    },
+    [id]
+  );
 
   return (
     <form
@@ -55,9 +58,13 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
           maxLength={800}
           rows="3"
           className="px-2  border border-slate-200 rounded-xl w-full text-sm sm:text-sm md:text-md  focus:ring-0 focus:outline-none placeholder:text-slate-300"
-          placeholder={`${me?.username}님의 의견을 들려주세요.`}
+          placeholder={
+            me
+              ? `${me?.username}님의 의견을 들려주세요.`
+              : "로그인이 필요합니다."
+          }
           {...register("content", {
-            required: "내용을 입력해주세요",
+            required: "",
             maxLength: {
               value: 800,
               message: "800자 이내로 입력해주세요",
@@ -72,6 +79,9 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
             className="w-7 text-slate-600 "
           />
         </button>
+        <div className=" text-orange-400  text-xs " role="alert">
+          {errors.content && <>{errors.content.message}</>}
+        </div>
         <button
           type="submit"
           disabled={isSubmitting}

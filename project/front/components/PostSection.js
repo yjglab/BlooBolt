@@ -30,6 +30,7 @@ const PostSection = ({ post }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
   const [toggleCommentSection, setToggleCommentSection] = useState(false);
+  const [toggleOpenBlindPost, setToggleOpenBlindPost] = useState(false);
 
   const onRemovePost = useCallback(() => {
     if (!id) return alert("로그인이 필요합니다.");
@@ -52,18 +53,35 @@ const PostSection = ({ post }) => {
       type: PROD_POST_REQUEST,
       data: { postId: post.id, postUserId: post.User.id },
     });
-  });
+  }, [id]);
   const onUnprodPost = useCallback(() => {
     if (!id) return alert("로그인이 필요합니다.");
     dispatch({
       type: UNPROD_POST_REQUEST,
       data: { postId: post.id, postUserId: post.User.id },
     });
-  });
+  }, [id]);
+  const onUnblindPost = useCallback(() => {
+    if (!id) return alert("로그인이 필요합니다.");
+    setToggleOpenBlindPost(!toggleOpenBlindPost);
+  }, [toggleOpenBlindPost, id]);
   return (
     <>
       {/* 개별카드 */}
       <div className="mb-6 p-1  h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
+        {post.blinded && !toggleOpenBlindPost && (
+          <div className="flex backdrop-saturate-0 gap-2 justify-center items-center flex-col absolute top-0 left-0 w-full h-full bg-white-20 backdrop-blur z-10">
+            <span className="text-sm text-slate-400">
+              작성자에 의해 삭제되었습니다
+            </span>
+            <button
+              onClick={onUnblindPost}
+              className="py-1.5 px-2 bg-slate-400 rounded-xl text-xs text-white font-semibold hover:bg-slate-500"
+            >
+              포스트 확인
+            </button>
+          </div>
+        )}
         <div className="">
           {toggleCommentSection && (
             <div className="w-full h-full p-3 absolute top-0 left-0 bg-white/90 backdrop-blur-sm z-10">
