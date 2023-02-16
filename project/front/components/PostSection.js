@@ -64,7 +64,10 @@ const PostSection = ({ post }) => {
         <div className="">
           {toggleCommentSection && (
             <div className="w-full h-full p-3 absolute top-0 left-0 bg-white/90 backdrop-blur-sm z-10">
-              <CommentSection onToggleCommentSection={onToggleCommentSection} />
+              <CommentSection
+                post={post}
+                onToggleCommentSection={onToggleCommentSection}
+              />
             </div>
           )}
           {post.PostImages[0] && (
@@ -246,7 +249,7 @@ const PostSection = ({ post }) => {
                 className="flex items-center gap-1 hover:text-indigo-500"
               >
                 <ChatBubbleOvalLeftEllipsisIcon className="w-5" />
-                12
+                {post.Comments.length}
               </button>
               <button className="flex items-center gap-1 hover:text-indigo-500">
                 <UserPlusIcon className="w-5" />

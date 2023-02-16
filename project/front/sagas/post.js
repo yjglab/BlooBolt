@@ -10,6 +10,9 @@ import {
   UNPROD_POST_FAILURE,
   UNPROD_POST_REQUEST,
   UNPROD_POST_SUCCESS,
+  UPLOAD_COMMENT_FAILURE,
+  UPLOAD_COMMENT_REQUEST,
+  UPLOAD_COMMENT_SUCCESS,
   UPLOAD_POST_FAILURE,
   UPLOAD_POST_IMAGES_FAILURE,
   UPLOAD_POST_IMAGES_REQUEST,
@@ -100,6 +103,25 @@ function* unprodPost(action) {
   }
 }
 
+function uploadCommentAPI(data) {
+  return axios.post(`/post/${data.postId}/comment`, data);
+}
+function* uploadComment(action) {
+  try {
+    const result = yield call(uploadCommentAPI, action.data);
+    yield put({
+      type: UPLOAD_COMMENT_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: UPLOAD_COMMENT_FAILURE,
+      error: error.response.data,
+    });
+  }
+}
+
 function removePostAPI(data) {
   return axios.delete(`/post/${data}`);
 }
@@ -134,6 +156,9 @@ function* watchProdPost() {
 function* watchUnprodPost() {
   yield takeLatest(UNPROD_POST_REQUEST, unprodPost);
 }
+function* watchUploadComment() {
+  yield takeLatest(UPLOAD_COMMENT_REQUEST, uploadComment);
+}
 
 export default function* postSaga() {
   yield all([
@@ -142,5 +167,6 @@ export default function* postSaga() {
     fork(watchProdPost),
     fork(watchUnprodPost),
     fork(watchRemovePost),
+    fork(watchUploadComment),
   ]);
 }

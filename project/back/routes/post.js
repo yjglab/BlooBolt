@@ -2,7 +2,14 @@ const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
 
-const { User, Post, Userboard, PostImage, Hashtag } = require("../models");
+const {
+  User,
+  Post,
+  Userboard,
+  PostImage,
+  Hashtag,
+  Comment,
+} = require("../models");
 const { isLoggedIn } = require("./middlewares");
 const path = require("path");
 
@@ -84,6 +91,38 @@ router.delete("/:postId/prod", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
+  try {
+    const post = await Post.findOne({ where: { id: req.params.postId } });
+    if (!post) {
+      return res.status(403).send("존재하지 않는 포스트입니다");
+    }
+    const comment = await Comment.create({
+      content: req.body.content,
+      PostId: parseInt(req.params.postId, 10),
+      UserId: req.user.id,
+    });
+    const resultComment = await Comment.findOne({
+      where: { id: comment.id },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "username", "role", "status"],
+          include: [
+            {
+              model: Userboard,
+              attributes: ["rank"],
+            },
+          ],
+        },
+      ],
+    });
+    res.status(201).json(resultComment);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
 router.delete("/:postId", isLoggedIn, async (req, res, next) => {
   try {
     await Post.destroy({
@@ -139,7 +178,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username", "status"],
+          attributes: ["id", "username", "role", "status"],
           include: [
             {
               model: Userboard,
@@ -154,6 +193,15 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
         },
         {
           model: PostImage,
+        },
+        {
+          model: Comment,
+          include: [
+            {
+              model: User,
+              attributes: ["id", "username", "role", "status"],
+            },
+          ],
         },
       ],
     });

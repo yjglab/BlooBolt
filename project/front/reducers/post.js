@@ -26,9 +26,9 @@ export const initialState = {
   unprodPostLoading: false,
   unprodPostDone: false,
   unprodPostError: null,
-  addCommentLoading: false,
-  addCommentDone: false,
-  addCommentError: null,
+  uploadCommentLoading: false,
+  uploadCommentDone: false,
+  uploadCommentError: null,
 };
 
 export const LOAD_POSTS_REQUEST = "LOAD_POSTS_REQUEST";
@@ -61,9 +61,9 @@ export const UNPROD_POST_REQUEST = "UNPROD_POST_REQUEST";
 export const UNPROD_POST_SUCCESS = "UNPROD_POST_SUCCESS";
 export const UNPROD_POST_FAILURE = "UNPROD_POST_FAILURE";
 
-export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
-export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
-export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE";
+export const UPLOAD_COMMENT_REQUEST = "UPLOAD_COMMENT_REQUEST";
+export const UPLOAD_COMMENT_SUCCESS = "UPLOAD_COMMENT_SUCCESS";
+export const UPLOAD_COMMENT_FAILURE = "UPLOAD_COMMENT_FAILURE";
 
 export const STATUS_ON = "STATUS_ON";
 export const STATUS_OFF = "STATUS_OFF";
@@ -194,20 +194,20 @@ const reducer = (state = initialState, action) => {
         draft.unprodPostLoading = false;
         draft.unprodPostError = action.error;
         break;
-      case ADD_COMMENT_REQUEST:
-        draft.addCommentLoading = true;
-        draft.addCommentDone = false;
-        draft.addCommentError = null;
+      case UPLOAD_COMMENT_REQUEST:
+        draft.uploadCommentLoading = true;
+        draft.uploadCommentDone = false;
+        draft.uploadCommentError = null;
         break;
-      case ADD_COMMENT_SUCCESS:
+      case UPLOAD_COMMENT_SUCCESS:
         const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
-        post.Comments.unshift(action.data);
-        draft.addCommentLoading = false;
-        draft.addCommentDone = true;
+        post.Comments.push(action.data);
+        draft.uploadCommentLoading = false;
+        draft.uploadCommentDone = true;
         break;
-      case ADD_COMMENT_FAILURE:
-        draft.addCommentLoading = false;
-        draft.addCommentError = action.error;
+      case UPLOAD_COMMENT_FAILURE:
+        draft.uploadCommentLoading = false;
+        draft.uploadCommentError = action.error;
         break;
 
       default:

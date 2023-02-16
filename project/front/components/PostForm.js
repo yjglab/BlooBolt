@@ -38,7 +38,7 @@ const PostForm = ({ onTogglePostForm }) => {
     const { topic, content } = formData;
     if (!content.trim()) {
       return setError("content", {
-        message: "빈 내용을 업로드할 수 없습니다.",
+        message: "빈 포스트를 업로드할 수 없습니다",
       });
     }
     reset();
@@ -105,7 +105,7 @@ const PostForm = ({ onTogglePostForm }) => {
               {...register("content", {
                 required: "내용을 입력해주세요",
                 maxLength: {
-                  value: 1000,
+                  value: 1500,
                   message: "1000자 이내로 입력해주세요",
                 },
               })}

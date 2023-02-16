@@ -1,6 +1,13 @@
 const express = require("express");
 const { Op } = require("sequelize");
-const { Post, Hashtag, User, PostImage, Userboard } = require("../models");
+const {
+  Post,
+  Hashtag,
+  User,
+  PostImage,
+  Userboard,
+  Comment,
+} = require("../models");
 const router = express.Router();
 
 router.get("/:id", async (req, res, next) => {
@@ -14,7 +21,10 @@ router.get("/:id", async (req, res, next) => {
     const posts = await Post.findAll({
       where,
       limit: 12,
-      order: [["createdAt", "DESC"]],
+      order: [
+        ["createdAt", "DESC"],
+        [Comment, "createdAt", "DESC"],
+      ],
       include: [
         {
           model: Hashtag,
@@ -37,6 +47,15 @@ router.get("/:id", async (req, res, next) => {
         },
         {
           model: PostImage,
+        },
+        {
+          model: Comment,
+          include: [
+            {
+              model: User,
+              attributes: ["id", "username", "role", "status"],
+            },
+          ],
         },
       ],
     });

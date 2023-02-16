@@ -209,7 +209,7 @@ const UserActivity = () => {
                         "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
-                    <button class="absolute right-2 rounded-xl border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <button classname="absolute right-2 rounded-xl border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       Untrace
                     </button>
                   </li>
