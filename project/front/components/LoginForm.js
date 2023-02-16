@@ -48,7 +48,7 @@ const LoginForm = () => {
               Or{" "}
               <Link href="/signup">
                 <span className="font-medium text-indigo-500 hover:text-indigo-500">
-                  make your bloobolt account
+                  make your personal account
                 </span>
               </Link>
             </p>
@@ -106,10 +106,10 @@ const LoginForm = () => {
               </div>
 
               <div className="text-sm">
-                <Link href="/signup">
-                  <span className="cursor-pointer font-medium text-indigo-500 hover:text-indigo-600">
-                    Don't have an account?
-                  </span>
+                <Link href="/support">
+                  <button className="cursor-pointer font-medium text-indigo-500 hover:text-indigo-600">
+                    Forgot Password?
+                  </button>
                 </Link>
               </div>
             </div>

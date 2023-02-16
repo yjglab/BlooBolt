@@ -44,14 +44,14 @@ const Footer = () => {
       </div>
       <hr className="mb-5 mt-3 sm:mx-auto border-slate-400/60  lg:mt-5 lg:mb-7" />
       <div className="sm:flex sm:items-center sm:justify-between">
-        <span className="text-sm text-gray-400 sm:text-center ">
+        <span className="text-sm text-slate-400 sm:text-center ">
           © {new Date().getFullYear()} <Link href="/">BlooBolt</Link>. All
           Rights Reserved.
         </span>
         <div className="flex  space-x-6 sm:justify-center ">
           <a
             href="#"
-            className="sm:flex text-sm items-center text-gray-400 hover:text-slate-600 "
+            className="sm:flex text-sm items-center text-slate-400 hover:text-slate-600 "
           >
             <div>Powered by yjglab</div>
 
