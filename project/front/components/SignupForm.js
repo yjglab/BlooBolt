@@ -12,7 +12,7 @@ import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
-  const { me, signUpError, signUpDone } = useSelector((state) => state.user);
+  const { signUpError } = useSelector((state) => state.user);
 
   const {
     register,
@@ -47,8 +47,6 @@ const SignupForm = () => {
         password,
       },
     });
-
-    console.log(email, username, password, passwordCheck);
   };
 
   return (
@@ -92,6 +90,7 @@ const SignupForm = () => {
                     className="relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("email", {
                       required: "이메일은 필수 입력입니다",
+                      maxLength: 100,
                       pattern: {
                         value: /\S+@\S+\.\S+/,
                         message: "이메일 형식에 맞지 않습니다",

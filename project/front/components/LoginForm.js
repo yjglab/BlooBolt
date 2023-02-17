@@ -12,7 +12,7 @@ import Image from "next/image";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { logInError } = useSelector((state) => state.user);
+  const { logInError, loginDone } = useSelector((state) => state.user);
 
   const {
     register,
@@ -29,7 +29,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="h-screen bg-slate-50">
+    <div className="h-screen bg-slate-50 ">
       <div className="flex h-full  items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>

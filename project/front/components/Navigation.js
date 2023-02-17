@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import { Transition, Popover } from "@headlessui/react";
-import {} from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { LOG_OUT_REQUEST } from "../reducers/user";
 import Link from "next/link";
@@ -8,33 +7,13 @@ import { Fragment } from "react";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
-  HeartIcon,
   UserCircleIcon,
   UserGroupIcon,
   UserIcon,
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
-const solutions = [
-  {
-    name: "유저메뉴1",
-    description: "유저메뉴설명",
-    href: "#",
-    icon: HeartIcon,
-  },
-];
-const callsToAction = [
-  { name: "aa", href: "#", icon: HeartIcon },
-  { name: "bb", href: "#", icon: HeartIcon },
-];
-const resources = [
-  {
-    name: "Center",
-    description: "Center설명",
-    href: "#",
-    icon: HeartIcon,
-  },
-];
+
 const recentPosts = [{ id: 1, name: "최근포스트", href: "#" }];
 
 function classNames(...classes) {
@@ -52,7 +31,7 @@ const Navigation = () => {
   });
 
   return (
-    <Popover className="fixed top-0 w-full left-0 z-50 bg-white shadow-xl shadow-slate-300/20">
+    <Popover className="fixed top-0 w-[100vw] left-0 z-50 bg-white shadow-xl shadow-slate-300/20">
       <div className="">
         <div className="px-6 flex  items-center justify-between  py-1.5 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1 ">

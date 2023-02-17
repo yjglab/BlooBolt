@@ -6,7 +6,7 @@ module.exports = class User extends Model {
     return super.init(
       {
         email: {
-          type: DataTypes.STRING(20),
+          type: DataTypes.STRING(100),
           allowNull: false,
           unique: "email",
         },

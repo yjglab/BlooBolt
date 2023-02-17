@@ -73,7 +73,7 @@ const PostSection = ({ post }) => {
       {/* 개별카드 */}
       <div className="mb-6 p-1  h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
         {post.blinded && !toggleOpenBlindPost && (
-          <div className="flex backdrop-saturate-0 gap-2 justify-center items-center flex-col absolute top-0 left-0 w-full h-full  backdrop-blur z-10">
+          <div className="flex backdrop-saturate-0 gap-2 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur z-10">
             <span className="text-sm text-slate-400">
               작성자에 의해 삭제되었습니다
             </span>

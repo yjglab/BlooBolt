@@ -11,6 +11,7 @@ function classNames(...classes) {
 
 const Square = () => {
   const { me } = useSelector((state) => state.user);
+
   const { mainPosts, loadMorePosts, loadPostsLoading } = useSelector(
     (state) => state.post
   );
@@ -45,7 +46,7 @@ const Square = () => {
   return (
     <AppLayout>
       {me && togglePostForm && (
-        <div className="fixed flex justify-center items-center bg-white/30 backdrop-blur-md w-screen h-screen z-30">
+        <div className="fixed flex justify-center items-center bg-white/30 backdrop-blur-md w-full h-screen z-30">
           {me && <PostForm onTogglePostForm={onTogglePostForm} />}
         </div>
       )}

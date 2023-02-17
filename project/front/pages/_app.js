@@ -6,8 +6,11 @@ import "../styles/globals.css";
 import wrapper from "../store/configureStore";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
+import NoticeModal from "../components/NoticeModal";
+import { useSelector } from "react-redux";
 
 const BlooBolt = ({ Component }) => {
+  const { noticeCalled } = useSelector((state) => state.global);
   return (
     <>
       <Head>
@@ -15,6 +18,7 @@ const BlooBolt = ({ Component }) => {
         <title>BlooBolt</title>
       </Head>
       <Navigation />
+      {noticeCalled && <NoticeModal />}
       <Component />
       <Footer />
     </>
