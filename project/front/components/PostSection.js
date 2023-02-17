@@ -20,6 +20,7 @@ import PostImages from "./PostImages";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import Link from "next/link";
+import { SHOW_NOTICE } from "../reducers/global";
 dayjs.locale("ko");
 
 function classNames(...classes) {
@@ -33,10 +34,36 @@ const PostSection = ({ post }) => {
   const [toggleOpenBlindPost, setToggleOpenBlindPost] = useState(false);
 
   const onRemovePost = useCallback(() => {
-    if (!id) return alert("로그인이 필요합니다.");
+    if (!id) {
+      return dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Access Denied",
+          content: "로그인이 필요합니다.",
+        },
+      });
+    }
+    if (post.blinded) {
+      return dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Post Delete Failed",
+          content: "이미 블라인드 된 포스트입니다.",
+        },
+      });
+    }
     dispatch({
       type: REMOVE_POST_REQUEST,
       data: post.id,
+    });
+
+    dispatch({
+      type: SHOW_NOTICE,
+      data: {
+        title: "Post Delete Completed",
+        content:
+          "포스트가 블라인드되었습니다. 다른 사용자가 임의로 확인할 수 있습니다.",
+      },
     });
   }, [id]);
   const isProdded = post.Prodders.find((v) => v.id === id);
@@ -79,7 +106,7 @@ const PostSection = ({ post }) => {
             </span>
             <button
               onClick={onUnblindPost}
-              className="py-1.5 px-2 bg-slate-400 rounded-xl text-xs text-white font-semibold hover:bg-slate-500"
+              className="py-1.5 px-2 bg-slate-400 rounded-md text-xs text-white font-semibold hover:bg-slate-500"
             >
               포스트 확인
             </button>
@@ -152,7 +179,7 @@ const PostSection = ({ post }) => {
                 className="relative bottom-2 inline-block text-left"
               >
                 <div>
-                  <Menu.Button className="rounded-xl px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
+                  <Menu.Button className="rounded-md px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
                     <svg
                       className="w-5 h-5"
                       aria-hidden="true"
@@ -174,7 +201,7 @@ const PostSection = ({ post }) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-xl bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       <Menu.Item>
                         {({ active }) => (

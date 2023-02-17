@@ -23,7 +23,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
     <>
       <div className="w-full h-[75%] pb-3 overflow-y-auto ">
         {post.Comments?.map((comment) => (
-          <div key={comment.id} className="p-3 hover:bg-slate-50 rounded-xl">
+          <div key={comment.id} className="p-3 hover:bg-slate-50 rounded-md">
             <div className="mb-1.5 flex items-center">
               <img
                 src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
@@ -64,7 +64,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
                 className="relative bottom-2 inline-block text-left "
               >
                 <div>
-                  <Menu.Button className="rounded-xl px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
+                  <Menu.Button className="rounded-md px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
                     <svg
                       className="w-5 h-5"
                       aria-hidden="true"
@@ -86,7 +86,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-1 z-10 mt-2 w-32 origin-top-right rounded-xl bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute right-1 z-10 mt-2 w-32 origin-top-right rounded-md bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       <Menu.Item>
                         {({ active }) => (

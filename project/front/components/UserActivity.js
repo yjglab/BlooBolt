@@ -16,11 +16,11 @@ const UserActivity = () => {
       <div className="text-2xl font-semibold text-slate-600">Activity</div>
       <div className="w-full  py-6 sm:px-0">
         <Tab.Group>
-          <Tab.List className="flex space-x-1 rounded-xl bg-white shadow p-1">
+          <Tab.List className="flex space-x-1 rounded-md bg-white shadow p-1">
             <Tab
               className={({ selected }) =>
                 classNames(
-                  "w-full rounded-xl py-2.5 text-sm font-medium leading-5 text-white",
+                  "w-full rounded-md py-2.5 text-sm font-medium leading-5 text-white",
                   selected
                     ? "bg-indigo-500 text-white"
                     : "text-slate-600 hover:bg-slate-200/50 hover:text-slate-800"
@@ -33,7 +33,7 @@ const UserActivity = () => {
             <Tab
               className={({ selected }) =>
                 classNames(
-                  "w-full rounded-xl py-2.5 text-sm font-medium leading-5 text-white",
+                  "w-full rounded-md py-2.5 text-sm font-medium leading-5 text-white",
                   selected
                     ? "bg-indigo-500 text-white"
                     : "text-slate-600 hover:bg-slate-200/50 hover:text-slate-800"
@@ -46,7 +46,7 @@ const UserActivity = () => {
             <Tab
               className={({ selected }) =>
                 classNames(
-                  "w-full rounded-xl py-2.5 text-sm font-medium leading-5 text-white",
+                  "w-full rounded-md py-2.5 text-sm font-medium leading-5 text-white",
                   selected
                     ? "bg-indigo-500 text-white"
                     : "text-slate-600 hover:bg-slate-200/50 hover:text-slate-800"
@@ -56,11 +56,11 @@ const UserActivity = () => {
               {`Tracings (${me.Tracings?.length})`}
             </Tab>
           </Tab.List>
-          <Tab.Panels className="mt-2 rounded-xl shadow">
+          <Tab.Panels className="mt-2 rounded-md shadow">
             <Tab.Panel
               key={"s"}
               className={classNames(
-                "rounded-xl bg-white p-3 h-3/5 ",
+                "rounded-md bg-white p-3 h-3/5 ",
                 "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500 focus:outline-none focus:ring-2"
               )}
             >
@@ -68,7 +68,7 @@ const UserActivity = () => {
                 {me.Posts.map((post) => (
                   <li
                     key={post.id}
-                    className="relative rounded-xl p-3  hover:bg-slate-100"
+                    className="relative rounded-md p-3  hover:bg-slate-100"
                   >
                     <h3 className="truncate  text-sm font-medium leading-5 ">
                       {post.content}
@@ -85,7 +85,7 @@ const UserActivity = () => {
                     <a
                       href="#"
                       className={classNames(
-                        "absolute inset-0 rounded-xl ",
+                        "absolute inset-0 rounded-md ",
                         "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
@@ -97,7 +97,7 @@ const UserActivity = () => {
             <Tab.Panel
               key={"s"}
               className={classNames(
-                "rounded-xl bg-white p-3 h-3/5 ",
+                "rounded-md bg-white p-3 h-3/5 ",
                 "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500 focus:outline-none focus:ring-2"
               )}
             >
@@ -105,7 +105,7 @@ const UserActivity = () => {
                 {me.Tracers?.map((tracer) => (
                   <li
                     key={tracer.id}
-                    className="relative rounded-xl p-3 flex items-center hover:bg-slate-100"
+                    className="relative rounded-md p-3 flex items-center hover:bg-slate-100"
                   >
                     <img
                       className="shadow border-2 p-0.5 border-indigo-400 rounded-full w-10 h-10 mr-3"
@@ -145,7 +145,7 @@ const UserActivity = () => {
                     <a
                       href="#"
                       className={classNames(
-                        "absolute inset-0 rounded-xl ",
+                        "absolute inset-0 rounded-md ",
                         "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
@@ -157,7 +157,7 @@ const UserActivity = () => {
             <Tab.Panel
               key={"s"}
               className={classNames(
-                "rounded-xl bg-white p-3 h-3/5 ",
+                "rounded-md bg-white p-3 h-3/5 ",
                 "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500 focus:outline-none focus:ring-2"
               )}
             >
@@ -165,7 +165,7 @@ const UserActivity = () => {
                 {me.Tracings?.map((tracing) => (
                   <li
                     key={tracing.id}
-                    className="relative rounded-xl p-3 flex items-center hover:bg-slate-100"
+                    className="relative rounded-md p-3 flex items-center hover:bg-slate-100"
                   >
                     <img
                       className="shadow border-2 p-0.5 border-indigo-400 rounded-full w-10 h-10 mr-3"
@@ -205,11 +205,11 @@ const UserActivity = () => {
                     <a
                       href="#"
                       className={classNames(
-                        "absolute inset-0 rounded-xl ",
+                        "absolute inset-0 rounded-md ",
                         "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
                       )}
                     />
-                    <button classname="absolute right-2 rounded-xl border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <button classname="absolute right-2 rounded-md border border-slate-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       Untrace
                     </button>
                   </li>

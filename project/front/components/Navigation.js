@@ -49,7 +49,7 @@ const Navigation = () => {
             </Link>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
-            <Popover.Button className="inline-flex items-center justify-center rounded-xl bg-white p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
               <span className="sr-only">Open menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
@@ -65,7 +65,7 @@ const Navigation = () => {
                   <Popover.Button
                     className={classNames(
                       open ? "text-slate-600" : "text-slate-500",
-                      "group inline-flex items-center rounded-xl bg-white text-base font-medium hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     )}
                   >
                     <span>User Section</span>
@@ -88,10 +88,10 @@ const Navigation = () => {
                     leaveTo="opacity-0 translate-y-1"
                   >
                     <Popover.Panel className="absolute ml-20 lg:ml-0 xs:ml-0 left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/3 lg:-translate-x-1/2 transform px-2 sm:px-0">
-                      <div className="overflow-hidden shadow-xl rounded-xl shadow-md-lg ring-1 ring-black ring-opacity-5">
+                      <div className="overflow-hidden shadow-xl rounded-md shadow-md-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           <Link href="/square">
-                            <button className="-m-3 flex items-start rounded-xl p-3 hover:bg-slate-50">
+                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
                               <UserGroupIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500"
                                 aria-hidden="true"
@@ -107,7 +107,7 @@ const Navigation = () => {
                             </button>
                           </Link>
                           <Link href={me ? "/profile" : "/login"}>
-                            <button className="-m-3 flex items-start rounded-xl p-3 hover:bg-slate-50">
+                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
                               <UserCircleIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500"
                                 aria-hidden="true"
@@ -196,7 +196,7 @@ const Navigation = () => {
                   </div>
                 </Link>
                 <Link href="/login">
-                  <div className="cursor-pointer ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-xl border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-600">
+                  <div className="cursor-pointer ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-600">
                     Login
                   </div>
                 </Link>
@@ -219,7 +219,7 @@ const Navigation = () => {
           focus
           className="absolute  inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
         >
-          <div className="shadow-xl divide-y-2 divide-slate-50 rounded-xl bg-white shadow-md-lg ring-1 ring-black ring-opacity-5">
+          <div className="shadow-xl divide-y-2 divide-slate-50 rounded-md bg-white shadow-md-lg ring-1 ring-black ring-opacity-5">
             <div className="px-5 pt-5 pb-6">
               <div className="flex items-center justify-between">
                 <Link href="/square">
@@ -235,7 +235,7 @@ const Navigation = () => {
                   </div>
                 </Link>
                 <div className="-mr-2">
-                  <Popover.Button className="inline-flex items-center justify-center rounded-xl bg-white p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                  <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                     <span className="sr-only">Close menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </Popover.Button>
@@ -244,7 +244,7 @@ const Navigation = () => {
               <div className="mt-6">
                 <nav className="grid gap-y-8">
                   <Link href="/square">
-                    <div className="-m-3 flex items-center rounded-xl p-3 hover:bg-slate-50">
+                    <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
                       <UserGroupIcon
                         className="h-6 w-6 flex-shrink-0 text-indigo-500"
                         aria-hidden="true"
@@ -256,7 +256,7 @@ const Navigation = () => {
                   </Link>
                   {me && (
                     <Link href="/profile">
-                      <div className="-m-3 flex items-center rounded-xl p-3 hover:bg-slate-50">
+                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
                         <UserIcon
                           className="h-6 w-6 flex-shrink-0 text-indigo-500"
                           aria-hidden="true"
@@ -283,14 +283,14 @@ const Navigation = () => {
                 {me ? (
                   <button
                     onClick={onLogout}
-                    className="flex w-full items-center justify-center rounded-xl border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500"
                   >
                     Logout
                   </button>
                 ) : (
                   <>
                     <Link href="/login">
-                      <div className="flex w-full items-center justify-center rounded-xl border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500">
+                      <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500">
                         Login
                       </div>
                     </Link>

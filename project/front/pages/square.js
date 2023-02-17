@@ -46,7 +46,7 @@ const Square = () => {
   return (
     <AppLayout>
       {me && togglePostForm && (
-        <div className="fixed flex justify-center items-center bg-white/30 backdrop-blur-md w-full h-screen z-30">
+        <div className="fixed inset-0 bg-black bg-opacity-25 flex justify-center items-center  backdrop-blur-md  z-30">
           {me && <PostForm onTogglePostForm={onTogglePostForm} />}
         </div>
       )}
@@ -60,7 +60,7 @@ const Square = () => {
                 <input
                   type="text"
                   id="company-website"
-                  className=" h-full border border-slate-400 outline-none bg-slate-50 placeholder:text-slate-300 w-28 flex-1 text-slate-600 focus:bg-slate-100 focus:ring-0 rounded-xl mr-3  sm:text-sm"
+                  className=" h-full border border-slate-400 outline-none bg-slate-50 placeholder:text-slate-300 w-28 flex-1 text-slate-600 focus:bg-slate-100 focus:ring-0 rounded-md mr-3  sm:text-sm"
                   placeholder="Search Post"
                 />
               </div>
@@ -68,14 +68,14 @@ const Square = () => {
                 <button
                   type="button"
                   onClick={onTogglePostForm}
-                  className="relative right-1 ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow bg-indigo-500 rounded-xl text-white hover:bg-indigo-600"
+                  className="relative right-1 ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow bg-indigo-500 rounded-md text-white hover:bg-indigo-600"
                 >
                   Share Your Topic
                 </button>
               ) : (
                 <a
                   href="/login"
-                  className="relative right-1 ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow bg-indigo-500 rounded-xl text-white hover:bg-indigo-600"
+                  className="relative right-1 ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow bg-indigo-500 rounded-md text-white hover:bg-indigo-600"
                 >
                   Share Your Topic
                 </a>
@@ -83,7 +83,7 @@ const Square = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3">
             {mainPosts.map((post) => (
               <PostSection key={post.id} post={post} />
             ))}

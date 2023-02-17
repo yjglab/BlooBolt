@@ -58,7 +58,7 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
           maxLength={800}
           rows="3"
           disabled={post.blinded}
-          className="px-2  border border-slate-200 rounded-xl w-full text-sm sm:text-sm md:text-md  focus:ring-0 focus:outline-none placeholder:text-slate-300"
+          className="px-2  border border-slate-200 rounded-md w-full text-sm sm:text-sm md:text-md  focus:ring-0 focus:outline-none placeholder:text-slate-300"
           placeholder={
             me && !post.blinded
               ? `${me?.username}님의 의견을 들려주세요.`

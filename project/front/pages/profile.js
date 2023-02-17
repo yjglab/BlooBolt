@@ -64,7 +64,7 @@ const Profile = () => {
               </Link>
             ) : (
               <Link href="#">
-                <span className="cursor-pointer ml-2.5 px-2 py-0.5 rounded-xl bg-slate-400 relative top-1 text-xs text-white">
+                <span className="cursor-pointer ml-2.5 px-2 py-0.5 rounded-md bg-slate-400 relative top-1 text-xs text-white">
                   Not Ranked
                 </span>
               </Link>
@@ -121,7 +121,7 @@ const Profile = () => {
           <span className="hidden sm:block">
             <button
               type="button"
-              className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               <PencilIcon
                 className="-ml-1 mr-2 h-5 w-5 text-slate-500"
@@ -134,7 +134,7 @@ const Profile = () => {
           <span className="sm:ml-3">
             <button
               type="button"
-              className="inline-flex items-center rounded-xl border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex items-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
               Trace
@@ -143,7 +143,7 @@ const Profile = () => {
 
           {/* 모바일 드롭다운 */}
           <Menu as="div" className="relative ml-3 sm:hidden">
-            <Menu.Button className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <Menu.Button className="inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
               More
               <ChevronDownIcon
                 className="-mr-1 ml-2 h-5 w-5 text-slate-500"
@@ -160,7 +160,7 @@ const Profile = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 z-10 mt-2 -mr-1 w-48 origin-top-right rounded-xl bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-0 z-10 mt-2 -mr-1 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <Menu.Item>
                   {({ active }) => (
                     <a

@@ -71,14 +71,14 @@ const PostForm = ({ onTogglePostForm }) => {
   };
 
   return (
-    <div className="flex md:w-2/3 sm:w-4/5  w-11/12 rounded-xl mb-10 relative top-8">
+    <div className="flex md:w-2/3 sm:w-4/5  w-11/12 rounded-md mb-10 relative top-8">
       <div className="flex relative flex-col w-full ">
         <form
           onSubmit={handleSubmit(onUploadPost)}
           encType="multipart/form-data"
           className="mb-8 w-full relative "
         >
-          <div className="pt-4 pb-4 px-4 mb-2  bg-white w-full shadow-xl rounded-xl   ">
+          <div className="pt-4 pb-4 px-4 mb-2  bg-white w-full shadow-xl rounded-md   ">
             <label
               htmlFor="topic"
               className="block text-sm font-medium text-slate-600"
@@ -87,7 +87,7 @@ const PostForm = ({ onTogglePostForm }) => {
               id="topic"
               type="text"
               placeholder="토픽 설정"
-              className="my-1 px-1.5 py-1.5 block w-full placeholder:text-slate-300 text-sm rounded-xl border-slate-300  focus:border-indigo-500 focus:ring-indigo-500 "
+              className="my-1 px-1.5 py-1.5 block w-full placeholder:text-slate-300 text-sm rounded-md border-slate-300  focus:border-indigo-500 focus:ring-indigo-500 "
               {...register("topic", {
                 maxLength: {
                   value: 30,
@@ -117,7 +117,7 @@ const PostForm = ({ onTogglePostForm }) => {
                     type="button"
                     key={v}
                     onClick={onCancelPostImage(i)}
-                    className="border border-slate-300 w-2/12 aspect-square lg:w-1/12 sm:w-2/12 mx-0.5 relative rounded-xl overflow-hidden  "
+                    className="border border-slate-300 w-2/12 aspect-square lg:w-1/12 sm:w-2/12 mx-0.5 relative rounded-md overflow-hidden  "
                   >
                     {
                       <img

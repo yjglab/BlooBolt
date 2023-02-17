@@ -60,7 +60,7 @@ const Hashtag = () => {
                 <input
                   type="text"
                   id="company-website"
-                  className=" h-full border border-slate-400 outline-none bg-slate-50 placeholder:text-slate-300 w-28 flex-1 text-slate-600 focus:bg-slate-100 focus:ring-0 rounded-xl mr-3  sm:text-sm"
+                  className=" h-full border border-slate-400 outline-none bg-slate-50 placeholder:text-slate-300 w-28 flex-1 text-slate-600 focus:bg-slate-100 focus:ring-0 rounded-md mr-3  sm:text-sm"
                   placeholder="Search Post"
                 />
               </div>
