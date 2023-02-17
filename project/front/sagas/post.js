@@ -107,7 +107,7 @@ function* unprodPost(action) {
 }
 
 function editPostAPI(data) {
-  return axios.patch(`/post/${data.PostId}/prod`, data);
+  return axios.patch(`/post/${data.PostId}`, data);
 }
 function* editPost(action) {
   try {

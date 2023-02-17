@@ -8,10 +8,12 @@ import {
   UPLOAD_POST_REQUEST,
   CANCEL_POST_IMAGE,
   LOAD_PREV_POST_IMAGES,
+  EDIT_POST_REQUEST,
 } from "../reducers/post";
 import { backUrl } from "../config/config";
 import { ArrowUpCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import PropTypes from "prop-types";
+import { SHOW_NOTICE } from "../reducers/global";
 
 const PostForm = ({
   onTogglePostForm,
@@ -62,6 +64,7 @@ const PostForm = ({
 
   const onEditPost = (editedFormData) => {
     const { topic, content } = editedFormData;
+
     if (!content.trim()) {
       return setError("content", {
         message: "빈 포스트를 업로드할 수 없습니다",
@@ -69,10 +72,16 @@ const PostForm = ({
     }
     reset();
     onTogglePostEditMode(false);
-
-    return dispatch({
+    dispatch({
       type: EDIT_POST_REQUEST,
       data: { PostId: postId, topic, content, postImagePaths },
+    });
+    dispatch({
+      type: SHOW_NOTICE,
+      data: {
+        title: "Post Edit Completed",
+        content: "포스트가 수정되었습니다.",
+      },
     });
   };
 
@@ -86,7 +95,7 @@ const PostForm = ({
   useEffect(() => {
     if (postEditMode) {
       onLoadPrevPostImages();
-      setValue("topic", prevTopic === "토픽 없음" ? "" : "");
+      setValue("topic", prevTopic ? prevTopic : "");
       setValue("content", prevContent);
     }
   }, []);

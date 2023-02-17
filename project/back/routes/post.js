@@ -100,6 +100,58 @@ router.delete("/:postId/prod", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.patch("/:postId", isLoggedIn, async (req, res, next) => {
+  try {
+    await Post.update(
+      {
+        topic: req.body.topic.trim(),
+        content: req.body.content,
+      },
+      {
+        where: {
+          id: req.params.postId,
+          UserId: req.user.id,
+        },
+      }
+    );
+    const post = await Post.findOne({
+      where: {
+        id: req.params.postId,
+      },
+    });
+    const hashtags = req.body.content.match(/#[^/\s]+/g);
+    if (hashtags) {
+      const resultHashtags = await Promise.all(
+        hashtags.map((tag) =>
+          Hashtag.findOrCreate({ where: { name: tag.slice(1).toLowerCase() } })
+        )
+      );
+      await post.setHashtags(resultHashtags.map((v) => v[0]));
+    }
+
+    await PostImage.destroy({
+      where: { PostId: req.params.postId },
+    });
+    let postImages = [];
+    if (req.body.postImagePaths && Array.isArray(req.body.postImagePaths)) {
+      postImages = await Promise.all(
+        req.body.postImagePaths.map((path) => PostImage.create({ src: path }))
+      );
+      await post.addPostImages(postImages);
+    }
+
+    res.status(200).json({
+      PostId: parseInt(req.params.postId, 10),
+      topic: req.body.topic,
+      content: req.body.content,
+      PostImages: postImages,
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
   try {
     const post = await Post.findOne({ where: { id: req.params.postId } });
@@ -168,7 +220,7 @@ router.delete("/:postId", isLoggedIn, async (req, res, next) => {
 router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
   try {
     const post = await Post.create({
-      topic: req.body.topic.trim() ? req.body.topic : "토픽 없음",
+      topic: req.body.topic.trim(),
       content: req.body.content,
       UserId: req.user.id,
       blinded: false,

@@ -214,7 +214,9 @@ const reducer = (state = initialState, action) => {
         draft.editPostLoading = false;
         draft.editPostDone = true;
         const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
+        post.topic = action.data.topic;
         post.content = action.data.content;
+        post.PostImages = action.data.PostImages;
         draft.postImagePaths = [];
         break;
       }

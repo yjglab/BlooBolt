@@ -227,10 +227,10 @@ const PostSection = ({ post }) => {
             </small>
             <h5
               className={`mb-3 break-words line-clamp-2 text-2xl font-bold leading-tight tracking-tight ${
-                post.topic === "토픽 없음" ? "text-slate-300" : "text-slate-600"
+                post.topic ? "text-slate-600" : "text-slate-300"
               }`}
             >
-              {post.topic}
+              {post.topic ? post.topic : "토픽 없음"}
             </h5>
 
             <div className="mb-3 flex items-center">
