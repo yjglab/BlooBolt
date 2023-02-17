@@ -23,6 +23,7 @@ import "dayjs/locale/ko";
 import Link from "next/link";
 import { SHOW_NOTICE } from "../reducers/global";
 import { TRACE_REQUEST, UNTRACE_REQUEST } from "../reducers/user";
+import PostForm from "./PostForm";
 dayjs.locale("ko");
 
 function classNames(...classes) {
@@ -35,6 +36,7 @@ const PostSection = ({ post }) => {
   const { me } = useSelector((state) => state.user);
   const [toggleCommentSection, setToggleCommentSection] = useState(false);
   const [toggleOpenBlindPost, setToggleOpenBlindPost] = useState(false);
+  const [postEditMode, setPostEditMode] = useState(false);
 
   const onRemovePost = useCallback(() => {
     if (post.User.id !== id) return;
@@ -155,8 +157,8 @@ const PostSection = ({ post }) => {
       dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Untrace Completed",
-          content: `${post.User.username}님을 Untrace 합니다.`,
+          title: "Mate Disconnected",
+          content: `${post.User.username}님을 블루메이트에서 제거합니다.`,
         },
       });
     } else {
@@ -167,16 +169,30 @@ const PostSection = ({ post }) => {
       dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Trace Completed",
-          content: `${post.User.username}님을 Trace 합니다.`,
+          title: "Mate Connected",
+          content: `${post.User.username}님을 블루메이트로 등록합니다.`,
         },
       });
     }
   }, [isTracing]);
 
+  const onTogglePostEditMode = useCallback(() => {
+    setPostEditMode(!postEditMode);
+  }, [postEditMode]);
+
   return (
     <>
       {/* 개별카드 */}
+      {postEditMode && (
+        <PostForm
+          postEditMode={postEditMode}
+          onTogglePostEditMode={onTogglePostEditMode}
+          postId={post.id}
+          prevTopic={post.topic}
+          prevContent={post.content}
+          prevPostImages={post.PostImages}
+        />
+      )}
       <div className="mb-6 p-1  h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
         {post.blinded && !toggleOpenBlindPost && (
           <div className="flex backdrop-saturate-0 gap-2 bg-slate-300/50 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur-md z-10">
@@ -287,6 +303,7 @@ const PostSection = ({ post }) => {
                           <Menu.Item>
                             {({ active }) => (
                               <button
+                                onClick={onTogglePostEditMode}
                                 className={classNames(
                                   active
                                     ? "bg-slate-100 text-slate-600"
@@ -394,13 +411,13 @@ const PostSection = ({ post }) => {
                   {isTracing ? (
                     <>
                       <UserMinusIcon className="w-5" />
-                      Untrace
+                      Unmate
                     </>
                   ) : (
                     <>
                       {" "}
                       <UserPlusIcon className="w-5" />
-                      Trace
+                      Mate
                     </>
                   )}
                 </button>

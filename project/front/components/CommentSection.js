@@ -23,7 +23,12 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
     <>
       <div className="w-full h-[75%] pb-3 overflow-y-auto ">
         {post.Comments?.map((comment) => (
-          <div key={comment.id} className="p-3 hover:bg-slate-50 rounded-md">
+          <div
+            key={comment.id}
+            className={`p-3 my-1 ${
+              post.User.id === comment.User.id ? "bg-slate-50" : null
+            } hover:border-slate-200 border-white border rounded-md`}
+          >
             <div className="mb-1.5 flex items-center">
               <img
                 src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
@@ -99,21 +104,6 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
                             )}
                           >
                             Edit
-                          </button>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <button
-                            onClick={null}
-                            className={classNames(
-                              active
-                                ? "bg-slate-100 text-slate-600"
-                                : "text-slate-600",
-                              "block px-4 py-2 text-sm text-left w-full"
-                            )}
-                          >
-                            Delete
                           </button>
                         )}
                       </Menu.Item>

@@ -35,6 +35,7 @@
 - remove action->blind
 - modal
 - 블라인드 취소
+- load posts 시 로딩문
 
 # 수정할거
 

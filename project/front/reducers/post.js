@@ -26,6 +26,9 @@ export const initialState = {
   unprodPostLoading: false,
   unprodPostDone: false,
   unprodPostError: null,
+  editPostLoading: false,
+  editPostDone: false,
+  editPostError: null,
   uploadCommentLoading: false,
   uploadCommentDone: false,
   uploadCommentError: null,
@@ -61,12 +64,17 @@ export const UNPROD_POST_REQUEST = "UNPROD_POST_REQUEST";
 export const UNPROD_POST_SUCCESS = "UNPROD_POST_SUCCESS";
 export const UNPROD_POST_FAILURE = "UNPROD_POST_FAILURE";
 
+export const EDIT_POST_REQUEST = "EDIT_POST_REQUEST";
+export const EDIT_POST_SUCCESS = "EDIT_POST_SUCCESS";
+export const EDIT_POST_FAILURE = "EDIT_POST_FAILURE";
+
 export const UPLOAD_COMMENT_REQUEST = "UPLOAD_COMMENT_REQUEST";
 export const UPLOAD_COMMENT_SUCCESS = "UPLOAD_COMMENT_SUCCESS";
 export const UPLOAD_COMMENT_FAILURE = "UPLOAD_COMMENT_FAILURE";
 
 export const STATUS_ON = "STATUS_ON";
 export const STATUS_OFF = "STATUS_OFF";
+export const LOAD_PREV_POST_IMAGES = "LOAD_PREV_POST_IMAGES";
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
@@ -89,6 +97,9 @@ const reducer = (state = initialState, action) => {
         });
         break;
       }
+      case LOAD_PREV_POST_IMAGES:
+        draft.postImagePaths = draft.postImagePaths.concat(action.data);
+        break;
       case LOAD_POSTS_REQUEST:
       case LOAD_HASHTAG_POSTS_REQUEST:
         draft.loadPostsLoading = true;
@@ -193,6 +204,23 @@ const reducer = (state = initialState, action) => {
       case UNPROD_POST_FAILURE:
         draft.unprodPostLoading = false;
         draft.unprodPostError = action.error;
+        break;
+      case EDIT_POST_REQUEST:
+        draft.editPostLoading = true;
+        draft.editPostDone = false;
+        draft.editPostError = null;
+        break;
+      case EDIT_POST_SUCCESS: {
+        draft.editPostLoading = false;
+        draft.editPostDone = true;
+        const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
+        post.content = action.data.content;
+        draft.postImagePaths = [];
+        break;
+      }
+      case EDIT_POST_FAILURE:
+        draft.editPostLoading = false;
+        draft.editPostError = action.error;
         break;
       case UPLOAD_COMMENT_REQUEST:
         draft.uploadCommentLoading = true;
