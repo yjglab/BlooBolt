@@ -46,7 +46,7 @@ const Square = () => {
   return (
     <AppLayout>
       {me && togglePostForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-25 flex justify-center items-center  backdrop-blur-md  z-30">
+        <div className="fixed inset-0 bg-slate-900 bg-opacity-25 flex justify-center items-center  backdrop-blur-md  z-30">
           {me && <PostForm onTogglePostForm={onTogglePostForm} />}
         </div>
       )}

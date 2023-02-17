@@ -6,6 +6,7 @@ import useInput from "../hooks/useInput";
 import { UPLOAD_COMMENT_REQUEST } from "../reducers/post";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
+import { SHOW_NOTICE } from "../reducers/global";
 
 const CommentForm = ({ post, onToggleCommentSection }) => {
   const dispatch = useDispatch();
@@ -28,8 +29,15 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
   const id = useSelector((state) => state.user.me?.id);
   const onUploadComment = useCallback(
     (formData) => {
-      if (!id) return alert("로그인이 필요합니다.");
-
+      if (!id) {
+        return dispatch({
+          type: SHOW_NOTICE,
+          data: {
+            title: "Access Denied",
+            content: "로그인이 필요합니다.",
+          },
+        });
+      }
       const { content } = formData;
       if (!content.trim()) {
         return setError("content", {

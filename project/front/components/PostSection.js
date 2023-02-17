@@ -72,12 +72,32 @@ const PostSection = ({ post }) => {
     setToggleCommentSection(!toggleCommentSection);
   }, [toggleCommentSection]);
   const onProdPost = useCallback(() => {
-    if (!id) return alert("로그인이 필요합니다.");
+    if (!id) {
+      return dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Access Denied",
+          content: "로그인이 필요합니다.",
+        },
+      });
+    }
     if (post.User.id === id) {
-      return alert("자신의 포스트를 프로드할 수 없습니다");
+      return dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Post Prod Failed",
+          content: "자신의 포스트를 프롯할 수 없습니다.",
+        },
+      });
     }
     if (post.blinded) {
-      return alert("삭제된 포스트를 프로드할 수 없습니다");
+      return dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Post Prod Failed",
+          content: "삭제된 포스트를 프롯할 수 없습니다.",
+        },
+      });
     }
     dispatch({
       type: PROD_POST_REQUEST,
@@ -85,14 +105,30 @@ const PostSection = ({ post }) => {
     });
   }, [id]);
   const onUnprodPost = useCallback(() => {
-    if (!id) return alert("로그인이 필요합니다.");
+    if (!id) {
+      return dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Access Denied",
+          content: "로그인이 필요합니다.",
+        },
+      });
+    }
     dispatch({
       type: UNPROD_POST_REQUEST,
       data: { postId: post.id, postUserId: post.User.id },
     });
   }, [id]);
   const onUnblindPost = useCallback(() => {
-    if (!id) return alert("로그인이 필요합니다.");
+    if (!id) {
+      return dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Access Denied",
+          content: "로그인이 필요합니다.",
+        },
+      });
+    }
     setToggleOpenBlindPost(!toggleOpenBlindPost);
   }, [toggleOpenBlindPost, id]);
   return (
@@ -274,13 +310,13 @@ const PostSection = ({ post }) => {
               }
             </p>
 
-            <div className="flex gap-2 absolute bottom-4 text-sm text-slate-600">
+            <div className="flex gap-2 absolute bottom-4 text-sm ">
               {isProdded ? (
                 <button
                   onClick={onUnprodPost}
-                  className="flex items-center gap-1 "
+                  className="flex items-center gap-1 hover:text-indigo-500"
                 >
-                  <BoltIcon className="w-5 text-indigo-500" />
+                  <BoltIcon className="w-5 " />
                   <span className="text-indigo-500">
                     {post.Prodders.length}
                   </span>
@@ -290,8 +326,8 @@ const PostSection = ({ post }) => {
                   onClick={onProdPost}
                   className="flex items-center gap-1 hover:text-indigo-500"
                 >
-                  <BoltIcon className="w-5 text-slate-600" />
-                  <span className="text-slate-600">{post.Prodders.length}</span>
+                  <BoltIcon className="w-5 " />
+                  <span className="">{post.Prodders.length}</span>
                 </button>
               )}
 
