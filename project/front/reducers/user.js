@@ -10,6 +10,14 @@ export const initialState = {
   logOutLoading: false,
   logOutDone: false,
   logOutError: null,
+
+  traceLoading: false,
+  traceDone: false,
+  traceError: null,
+  untraceLoading: false,
+  untraceDone: false,
+  untraceError: null,
+
   me: null,
 };
 
@@ -26,6 +34,14 @@ export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
 export const LOG_OUT_FAILURE = "LOG_OUT_FAILURE";
 
 export const ADD_POST_TO_ME = "ADD_POST_TO_ME";
+
+export const TRACE_REQUEST = "TRACE_REQUEST";
+export const TRACE_SUCCESS = "TRACE_SUCCESS";
+export const TRACE_FAILURE = "TRACE_FAILURE";
+
+export const UNTRACE_REQUEST = "UNTRACE_REQUEST";
+export const UNTRACE_SUCCESS = "UNTRACE_SUCCESS";
+export const UNTRACE_FAILURE = "UNTRACE_FAILURE";
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
@@ -76,6 +92,37 @@ const reducer = (state = initialState, action) => {
       case LOG_OUT_FAILURE:
         draft.logOutLoading = false;
         draft.logOutError = action.error;
+        break;
+
+      case TRACE_REQUEST:
+        draft.traceLoading = true;
+        draft.traceDone = false;
+        draft.traceError = null;
+        break;
+      case TRACE_SUCCESS:
+        draft.traceLoading = false;
+        draft.traceDone = true;
+        draft.me.Tracings.push(action.data);
+        break;
+      case TRACE_FAILURE:
+        draft.traceLoading = false;
+        draft.traceError = action.error;
+        break;
+      case UNTRACE_REQUEST:
+        draft.untraceLoading = true;
+        draft.untraceDone = false;
+        draft.untraceError = null;
+        break;
+      case UNTRACE_SUCCESS:
+        draft.untraceLoading = false;
+        draft.untraceDone = true;
+        draft.me.Tracings = draft.me.Tracings.filter(
+          (v) => v.id !== action.data.UserId
+        );
+        break;
+      case UNTRACE_FAILURE:
+        draft.untraceLoading = false;
+        draft.untraceError = action.error;
         break;
       default:
         break;

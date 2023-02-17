@@ -83,6 +83,28 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
             model: Post,
             attributes: ["id"],
           },
+          {
+            model: User,
+            as: "Tracings",
+            attributes: ["id", "username", "role"],
+            include: [
+              {
+                model: Userboard,
+                attributes: ["rank"],
+              },
+            ],
+          },
+          {
+            model: User,
+            as: "Tracers",
+            attributes: ["id", "username", "role"],
+            include: [
+              {
+                model: Userboard,
+                attributes: ["rank"],
+              },
+            ],
+          },
         ],
       });
       return res.status(200).json(resultUser);
@@ -106,4 +128,64 @@ router.post("/logout", isLoggedIn, async (req, res, next) => {
   req.session.destroy();
   res.send("ok");
 });
+
+router.patch("/:userId/trace", isLoggedIn, async (req, res, next) => {
+  try {
+    const targetUser = await User.findOne({
+      where: { id: req.params.userId },
+      attributes: ["id", "username", "status", "role"],
+      include: [
+        {
+          model: Userboard,
+          attributes: ["rank"],
+        },
+      ],
+    });
+    if (!targetUser) {
+      res.status(403).send("Trace Failed: 존재하지 않는 사용자입니다.");
+    }
+    const me = await User.findOne({
+      where: { id: req.user.id },
+      attributes: ["id", "username", "status", "role"],
+      include: [
+        {
+          model: Userboard,
+          attributes: ["rank"],
+        },
+      ],
+    });
+    await targetUser.addTracers(me);
+    res.status(200).json(targetUser);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.delete("/:userId/trace", isLoggedIn, async (req, res, next) => {
+  try {
+    const targetUser = await User.findOne({
+      where: { id: req.params.userId },
+      attributes: ["id", "username", "status", "role"],
+      include: [
+        {
+          model: Userboard,
+          attributes: ["rank"],
+        },
+      ],
+    });
+    if (!targetUser) {
+      res.status(403).send("Trace Failed: 존재하지 않는 사용자입니다.");
+    }
+    const me = await User.findOne({
+      where: { id: req.user.id },
+    });
+    await targetUser.removeTracers(me.id);
+    res.status(200).json({ UserId: targetUser.id });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 module.exports = router;

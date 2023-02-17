@@ -16,6 +16,12 @@ import {
   SIGN_UP_FAILURE,
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
+  TRACE_FAILURE,
+  TRACE_REQUEST,
+  TRACE_SUCCESS,
+  UNTRACE_FAILURE,
+  UNTRACE_REQUEST,
+  UNTRACE_SUCCESS,
 } from "../reducers/user";
 
 function signUpAPI(data) {
@@ -87,6 +93,46 @@ function* logOut(action) {
   }
 }
 
+function traceAPI(data) {
+  return axios.patch(`/user/${data}/trace`);
+}
+
+function* trace(action) {
+  try {
+    const result = yield call(traceAPI, action.data);
+    yield put({
+      type: TRACE_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: TRACE_FAILURE,
+      error: error.response.data,
+    });
+  }
+}
+
+function untraceAPI(data) {
+  return axios.delete(`/user/${data}/trace`);
+}
+
+function* untrace(action) {
+  try {
+    const result = yield call(untraceAPI, action.data);
+    yield put({
+      type: UNTRACE_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: UNTRACE_FAILURE,
+      error: error.response.data,
+    });
+  }
+}
+
 function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
@@ -96,7 +142,19 @@ function* watchLogIn() {
 function* watchLogOut() {
   yield takeLatest(LOG_OUT_REQUEST, logOut);
 }
+function* watchTrace() {
+  yield takeLatest(TRACE_REQUEST, trace);
+}
+function* watchUntrace() {
+  yield takeLatest(UNTRACE_REQUEST, untrace);
+}
 
 export default function* userSaga() {
-  yield all([fork(watchSignUp), fork(watchLogIn), fork(watchLogOut)]);
+  yield all([
+    fork(watchSignUp),
+    fork(watchLogIn),
+    fork(watchLogOut),
+    fork(watchTrace),
+    fork(watchUntrace),
+  ]);
 }

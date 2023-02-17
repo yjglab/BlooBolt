@@ -14,6 +14,7 @@ import {
   ChatBubbleOvalLeftEllipsisIcon,
   ShieldCheckIcon,
   TrophyIcon,
+  UserMinusIcon,
   UserPlusIcon,
 } from "@heroicons/react/20/solid";
 import PostImages from "./PostImages";
@@ -21,6 +22,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import Link from "next/link";
 import { SHOW_NOTICE } from "../reducers/global";
+import { TRACE_REQUEST, UNTRACE_REQUEST } from "../reducers/user";
 dayjs.locale("ko");
 
 function classNames(...classes) {
@@ -30,10 +32,12 @@ function classNames(...classes) {
 const PostSection = ({ post }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
+  const { me } = useSelector((state) => state.user);
   const [toggleCommentSection, setToggleCommentSection] = useState(false);
   const [toggleOpenBlindPost, setToggleOpenBlindPost] = useState(false);
 
   const onRemovePost = useCallback(() => {
+    if (post.User.id !== id) return;
     if (!id) {
       return dispatch({
         type: SHOW_NOTICE,
@@ -95,7 +99,7 @@ const PostSection = ({ post }) => {
         type: SHOW_NOTICE,
         data: {
           title: "Post Prod Failed",
-          content: "삭제된 포스트를 프롯할 수 없습니다.",
+          content: "블라인드된 포스트를 프롯할 수 없습니다.",
         },
       });
     }
@@ -131,12 +135,51 @@ const PostSection = ({ post }) => {
     }
     setToggleOpenBlindPost(!toggleOpenBlindPost);
   }, [toggleOpenBlindPost, id]);
+
+  const isTracing = me?.Tracings?.find((v) => v.id === post.User.id);
+  const onToggleTrace = useCallback(() => {
+    if (!id) {
+      return dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Access Denied",
+          content: "로그인이 필요합니다.",
+        },
+      });
+    }
+    if (isTracing) {
+      dispatch({
+        type: UNTRACE_REQUEST,
+        data: post.User.id,
+      });
+      dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Untrace Completed",
+          content: `${post.User.username}님을 Untrace 합니다.`,
+        },
+      });
+    } else {
+      dispatch({
+        type: TRACE_REQUEST,
+        data: post.User.id,
+      });
+      dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Trace Completed",
+          content: `${post.User.username}님을 Trace 합니다.`,
+        },
+      });
+    }
+  }, [isTracing]);
+
   return (
     <>
       {/* 개별카드 */}
       <div className="mb-6 p-1  h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
         {post.blinded && !toggleOpenBlindPost && (
-          <div className="flex backdrop-saturate-0 gap-2 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur z-10">
+          <div className="flex backdrop-saturate-0 gap-2 bg-slate-300/50 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur-md z-10">
             <span className="text-sm text-slate-400">
               작성자에 의해 삭제되었습니다
             </span>
@@ -239,35 +282,39 @@ const PostSection = ({ post }) => {
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <button
-                            className={classNames(
-                              active
-                                ? "bg-slate-100 text-slate-600"
-                                : "text-slate-600",
-                              "block px-4 py-2 text-sm text-left w-full"
+                      {post.User.id === id ? (
+                        <>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                className={classNames(
+                                  active
+                                    ? "bg-slate-100 text-slate-600"
+                                    : "text-slate-600",
+                                  "block px-4 py-2 text-sm text-left w-full"
+                                )}
+                              >
+                                Edit
+                              </button>
                             )}
-                          >
-                            Edit
-                          </button>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <button
-                            onClick={onRemovePost}
-                            className={classNames(
-                              active
-                                ? "bg-slate-100 text-slate-600"
-                                : "text-slate-600",
-                              "block px-4 py-2 text-sm text-left w-full"
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                onClick={onRemovePost}
+                                className={classNames(
+                                  active
+                                    ? "bg-slate-100 text-slate-600"
+                                    : "text-slate-600",
+                                  "block px-4 py-2 text-sm text-left w-full"
+                                )}
+                              >
+                                Delete
+                              </button>
                             )}
-                          >
-                            Delete
-                          </button>
-                        )}
-                      </Menu.Item>
+                          </Menu.Item>
+                        </>
+                      ) : null}
                       <Menu.Item>
                         {({ active }) => (
                           <button
@@ -316,7 +363,7 @@ const PostSection = ({ post }) => {
                   onClick={onUnprodPost}
                   className="flex items-center gap-1 hover:text-indigo-500"
                 >
-                  <BoltIcon className="w-5 " />
+                  <BoltIcon className="w-5 text-indigo-500" />
                   <span className="text-indigo-500">
                     {post.Prodders.length}
                   </span>
@@ -338,10 +385,26 @@ const PostSection = ({ post }) => {
                 <ChatBubbleOvalLeftEllipsisIcon className="w-5" />
                 {post.Comments.length}
               </button>
-              <button className="flex items-center gap-1 hover:text-indigo-500">
-                <UserPlusIcon className="w-5" />
-                Trace
-              </button>
+
+              {post.User.id !== me?.id ? (
+                <button
+                  onClick={onToggleTrace}
+                  className="flex items-center gap-1 hover:text-indigo-500"
+                >
+                  {isTracing ? (
+                    <>
+                      <UserMinusIcon className="w-5" />
+                      Untrace
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      <UserPlusIcon className="w-5" />
+                      Trace
+                    </>
+                  )}
+                </button>
+              ) : null}
             </div>
           </div>
         </div>

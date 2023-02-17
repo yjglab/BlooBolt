@@ -34,6 +34,7 @@
 - 신고를 많이받은 포스트는 영구삭제
 - remove action->blind
 - modal
+- 블라인드 취소
 
 # 수정할거
 
