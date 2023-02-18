@@ -47,6 +47,7 @@ const PostSection = ({ post }) => {
         data: {
           title: "Access denied",
           content: "로그인이 필요합니다.",
+          type: "error",
         },
       });
     }
@@ -56,6 +57,7 @@ const PostSection = ({ post }) => {
         data: {
           title: "Post Deletion failed",
           content: "이미 블라인드 된 포스트입니다.",
+          type: "error",
         },
       });
     }
@@ -69,7 +71,7 @@ const PostSection = ({ post }) => {
       data: {
         title: "Post deleted",
         content:
-          "포스트가 블라인드 되었습니다. 다른 사용자가 임의로 확인할 수 있습니다.",
+          "포스트가 블라인드 되었습니다. 다른 사용자가 작성자의 포스트를 확인할 수 있습니다.",
       },
     });
     setBlindPost(true);
@@ -83,6 +85,7 @@ const PostSection = ({ post }) => {
         data: {
           title: "Access denied",
           content: "로그인이 필요합니다.",
+          type: "error",
         },
       });
     }
@@ -95,7 +98,7 @@ const PostSection = ({ post }) => {
     dispatch({
       type: SHOW_NOTICE,
       data: {
-        title: "Post deleted",
+        title: "Post reverted",
         content: "포스트가 복구되었습니다.",
       },
     });
@@ -114,6 +117,7 @@ const PostSection = ({ post }) => {
         data: {
           title: "Access denied",
           content: "로그인이 필요합니다.",
+          type: "error",
         },
       });
     }
@@ -123,6 +127,7 @@ const PostSection = ({ post }) => {
         data: {
           title: "Prod failed",
           content: "자신의 포스트를 프롯할 수 없습니다.",
+          type: "error",
         },
       });
     }
@@ -132,6 +137,7 @@ const PostSection = ({ post }) => {
         data: {
           title: "Prod failed",
           content: "블라인드 된 포스트를 프롯할 수 없습니다.",
+          type: "error",
         },
       });
     }
@@ -147,6 +153,7 @@ const PostSection = ({ post }) => {
         data: {
           title: "Access denied",
           content: "로그인이 필요합니다.",
+          type: "error",
         },
       });
     }
@@ -162,6 +169,7 @@ const PostSection = ({ post }) => {
         data: {
           title: "Access denied",
           content: "로그인이 필요합니다.",
+          type: "error",
         },
       });
     }
@@ -176,6 +184,7 @@ const PostSection = ({ post }) => {
         data: {
           title: "Access denied",
           content: "로그인이 필요합니다.",
+          type: "error",
         },
       });
     }
@@ -211,8 +220,9 @@ const PostSection = ({ post }) => {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Post deletion failed",
+          title: "Post editing failed",
           content: "블라인드 된 포스트는 수정할 수 없습니다.",
+          type: "error",
         },
       });
     }
@@ -220,8 +230,9 @@ const PostSection = ({ post }) => {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Post reversion failed",
+          title: "Post editing failed",
           content: "복원된 포스트는 수정할 수 없습니다.",
+          type: "error",
         },
       });
     }

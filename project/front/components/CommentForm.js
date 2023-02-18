@@ -35,6 +35,7 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
           data: {
             title: "Access Denied",
             content: "로그인이 필요합니다.",
+            type: "error",
           },
         });
       }

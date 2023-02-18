@@ -79,7 +79,7 @@ const PostForm = ({
     dispatch({
       type: SHOW_NOTICE,
       data: {
-        title: "Post Edit Completed",
+        title: "Post edited",
         content: "포스트가 수정되었습니다.",
       },
     });

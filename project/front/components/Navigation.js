@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import {
+  ArrowPathIcon,
   ChevronDownIcon,
   UserCircleIcon,
   UserGroupIcon,
@@ -23,6 +24,7 @@ function classNames(...classes) {
 const Navigation = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
+  const { loadPostsLoading } = useSelector((state) => state.post);
   const onLogout = useCallback(() => {
     dispatch({
       type: LOG_OUT_REQUEST,
@@ -32,6 +34,9 @@ const Navigation = () => {
 
   return (
     <Popover className="fixed top-0 w-[100vw] left-0 z-50 bg-white shadow-xl shadow-slate-300/20">
+      {loadPostsLoading ? (
+        <ArrowPathIcon className="bg-indigo-500 animate-spin p-1.5 rounded-full fixed w-10 text-white mx-auto left-0 right-0 bottom-7" />
+      ) : null}
       <div className="">
         <div className="px-6 flex  items-center justify-between  py-1.5 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1 ">

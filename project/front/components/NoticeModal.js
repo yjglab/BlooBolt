@@ -7,7 +7,7 @@ import { CLOSE_NOTICE } from "../reducers/global";
 const NoticeModal = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(true);
-  const { title, content } = useSelector((state) => state.global.notice);
+  const { title, content, type } = useSelector((state) => state.global.notice);
   function onCloseModal() {
     dispatch({
       type: CLOSE_NOTICE,
@@ -49,7 +49,9 @@ const NoticeModal = () => {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-semibold leading-6 text-slate-600"
+                    className={`text-lg font-semibold leading-6 ${
+                      type === "error" ? "text-red-600" : "text-slate-700"
+                    }`}
                   >
                     {title}
                   </Dialog.Title>

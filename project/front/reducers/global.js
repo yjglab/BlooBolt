@@ -4,6 +4,7 @@ export const initialState = {
   notice: {
     title: "",
     content: "",
+    type: "",
   },
   noticeCalled: false,
 };
@@ -18,11 +19,13 @@ const reducer = (state = initialState, action) => {
         draft.noticeCalled = true;
         draft.notice.title = action.data.title;
         draft.notice.content = action.data.content;
+        draft.notice.type = action.data.type;
         break;
       case CLOSE_NOTICE:
         draft.noticeCalled = false;
         draft.notice.title = "";
         draft.notice.content = "";
+        draft.notice.null = "";
         break;
       default:
         break;
