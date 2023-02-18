@@ -18,7 +18,6 @@ const router = express.Router();
 try {
   fs.accessSync("uploads");
 } catch (error) {
-  console.log("uploads 폴더가 없으므로 새로 생성합니다");
   fs.mkdirSync("uploads");
 }
 const upload = multer({
@@ -92,6 +91,14 @@ router.delete("/:postId/prod", isLoggedIn, async (req, res, next) => {
     if (!post) {
       return res.status(403).send("존재하지 않는 포스트입니다");
     }
+    await Userboard.decrement(
+      {
+        rankPoint: 100,
+      },
+      {
+        where: { UserId: post.UserId },
+      }
+    );
     await post.removeProdders(req.user.id);
     res.json({ PostId: post.id, UserId: req.user.id });
   } catch (error) {
@@ -178,6 +185,16 @@ router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
         },
       ],
     });
+    if (post.UserId !== req.user.id) {
+      await Userboard.increment(
+        {
+          rankPoint: 10,
+        },
+        {
+          where: { UserId: req.user.id },
+        }
+      );
+    }
     res.status(201).json(resultComment);
   } catch (error) {
     console.error(error);

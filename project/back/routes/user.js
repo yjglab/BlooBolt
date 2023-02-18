@@ -142,8 +142,16 @@ router.patch("/:userId/trace", isLoggedIn, async (req, res, next) => {
       ],
     });
     if (!targetUser) {
-      res.status(403).send("Trace Failed: 존재하지 않는 사용자입니다.");
+      res.status(403).send("Mate Failed: 존재하지 않는 사용자입니다.");
     }
+    await Userboard.increment(
+      {
+        rankPoint: 100,
+      },
+      {
+        where: { UserId: req.params.userId },
+      }
+    );
     const me = await User.findOne({
       where: { id: req.user.id },
       attributes: ["id", "username", "status", "role"],
@@ -175,8 +183,16 @@ router.delete("/:userId/trace", isLoggedIn, async (req, res, next) => {
       ],
     });
     if (!targetUser) {
-      res.status(403).send("Trace Failed: 존재하지 않는 사용자입니다.");
+      res.status(403).send("Unmate Failed: 존재하지 않는 사용자입니다.");
     }
+    await Userboard.decrement(
+      {
+        rankPoint: 100,
+      },
+      {
+        where: { UserId: req.params.userId },
+      }
+    );
     const me = await User.findOne({
       where: { id: req.user.id },
     });

@@ -54,7 +54,6 @@ function uploadPostImagesAPI(data) {
 function* uploadPostImages(action) {
   try {
     const result = yield call(uploadPostImagesAPI, action.data);
-    console.log(result.data);
     yield put({
       type: UPLOAD_POST_IMAGES_SUCCESS,
       data: result.data,
@@ -88,7 +87,7 @@ function* prodPost(action) {
 }
 
 function unprodPostAPI(data) {
-  return axios.delete(`/post/${data.postId}/prod`, data);
+  return axios.delete(`/post/${data.postId}/prod`);
 }
 function* unprodPost(action) {
   try {
