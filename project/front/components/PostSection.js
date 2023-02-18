@@ -223,7 +223,8 @@ const PostSection = ({ post }) => {
           )}
           <div className="p-5 pt-3">
             <small className="text-slate-400">
-              {dayjs(post.createdAt).format("YYYY.MM.DD | H:mm:ss")}
+              {dayjs(post.updatedAt).format("YYYY.MM.DD | H:mm:ss")}
+              {post.edited && " (수정됨)"}
             </small>
             <h5
               className={`mb-3 break-words line-clamp-2 text-2xl font-bold leading-tight tracking-tight ${

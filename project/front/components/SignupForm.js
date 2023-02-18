@@ -9,6 +9,7 @@ import AppLayout from "../components/AppLayout";
 
 import { SIGN_UP_REQUEST } from "../reducers/user";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
+import { SHOW_NOTICE } from "../reducers/global";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,13 @@ const SignupForm = () => {
         email,
         username,
         password,
+      },
+    });
+    dispatch({
+      type: SHOW_NOTICE,
+      data: {
+        title: "Account created",
+        content: "새로운 계정이 생성되었습니다.",
       },
     });
   };

@@ -217,6 +217,7 @@ const reducer = (state = initialState, action) => {
         post.topic = action.data.topic;
         post.content = action.data.content;
         post.PostImages = action.data.PostImages;
+        post.edited = true;
         draft.postImagePaths = [];
         break;
       }

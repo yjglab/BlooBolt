@@ -13,6 +13,10 @@ module.exports = class Post extends Model {
           type: DataTypes.TEXT,
           allowNull: false,
         },
+        edited: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+        },
         blinded: {
           type: DataTypes.BOOLEAN,
           allowNull: false,

@@ -113,6 +113,7 @@ router.patch("/:postId", isLoggedIn, async (req, res, next) => {
       {
         topic: req.body.topic.trim(),
         content: req.body.content,
+        edited: true,
       },
       {
         where: {
@@ -239,6 +240,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
     const post = await Post.create({
       topic: req.body.topic.trim(),
       content: req.body.content,
+      edited: false,
       UserId: req.user.id,
       blinded: false,
     });
