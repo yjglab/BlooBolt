@@ -36,7 +36,7 @@ const PostSection = ({ post }) => {
   const id = useSelector((state) => state.user.me?.id);
   const { me } = useSelector((state) => state.user);
   const [toggleCommentSection, setToggleCommentSection] = useState(false);
-  const [toggleOpenBlindPost, setToggleOpenBlindPost] = useState(false);
+  const [blindPost, setBlindPost] = useState(false);
   const [postEditMode, setPostEditMode] = useState(false);
 
   const onRemovePost = useCallback(() => {
@@ -45,7 +45,7 @@ const PostSection = ({ post }) => {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Access Denied",
+          title: "Access denied",
           content: "로그인이 필요합니다.",
         },
       });
@@ -54,7 +54,7 @@ const PostSection = ({ post }) => {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Post Delete Failed",
+          title: "Post Deletion failed",
           content: "이미 블라인드 된 포스트입니다.",
         },
       });
@@ -67,11 +67,12 @@ const PostSection = ({ post }) => {
     dispatch({
       type: SHOW_NOTICE,
       data: {
-        title: "Post Deleted",
+        title: "Post deleted",
         content:
           "포스트가 블라인드 되었습니다. 다른 사용자가 임의로 확인할 수 있습니다.",
       },
     });
+    setBlindPost(true);
   }, [id]);
 
   const onRevertPost = useCallback(() => {
@@ -80,7 +81,7 @@ const PostSection = ({ post }) => {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Access Denied",
+          title: "Access denied",
           content: "로그인이 필요합니다.",
         },
       });
@@ -94,10 +95,11 @@ const PostSection = ({ post }) => {
     dispatch({
       type: SHOW_NOTICE,
       data: {
-        title: "Post Deleted",
+        title: "Post deleted",
         content: "포스트가 복구되었습니다.",
       },
     });
+    setBlindPost(false);
   }, [id]);
 
   const isProdded = post.Prodders.find((v) => v.id === id);
@@ -110,7 +112,7 @@ const PostSection = ({ post }) => {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Access Denied",
+          title: "Access denied",
           content: "로그인이 필요합니다.",
         },
       });
@@ -119,7 +121,7 @@ const PostSection = ({ post }) => {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Post Prod Failed",
+          title: "Prod failed",
           content: "자신의 포스트를 프롯할 수 없습니다.",
         },
       });
@@ -128,7 +130,7 @@ const PostSection = ({ post }) => {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Post Prod Failed",
+          title: "Prod failed",
           content: "블라인드 된 포스트를 프롯할 수 없습니다.",
         },
       });
@@ -137,13 +139,13 @@ const PostSection = ({ post }) => {
       type: PROD_POST_REQUEST,
       data: { postId: post.id, postUserId: post.User.id },
     });
-  }, [id]);
+  }, [id, post.blinded]);
   const onUnprodPost = useCallback(() => {
     if (!id) {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Access Denied",
+          title: "Access denied",
           content: "로그인이 필요합니다.",
         },
       });
@@ -158,13 +160,13 @@ const PostSection = ({ post }) => {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Access Denied",
+          title: "Access denied",
           content: "로그인이 필요합니다.",
         },
       });
     }
-    setToggleOpenBlindPost(!toggleOpenBlindPost);
-  }, [toggleOpenBlindPost, id]);
+    setBlindPost(false);
+  }, [id]);
 
   const isTracing = me?.Tracings?.find((v) => v.id === post.User.id);
   const onToggleTrace = useCallback(() => {
@@ -172,7 +174,7 @@ const PostSection = ({ post }) => {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Access Denied",
+          title: "Access denied",
           content: "로그인이 필요합니다.",
         },
       });
@@ -185,7 +187,7 @@ const PostSection = ({ post }) => {
       dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Mate Disconnected",
+          title: "Mate disconnected",
           content: `${post.User.username}님을 블루메이트에서 제거합니다.`,
         },
       });
@@ -197,26 +199,35 @@ const PostSection = ({ post }) => {
       dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Mate Connected",
+          title: "Mate connected",
           content: `${post.User.username}님을 블루메이트로 등록합니다.`,
         },
       });
     }
-  }, [isTracing]);
+  }, [id, isTracing]);
 
   const onTogglePostEditMode = useCallback(() => {
     if (post.blinded) {
       return dispatch({
         type: SHOW_NOTICE,
         data: {
-          title: "Post deletion failed.",
+          title: "Post deletion failed",
           content: "블라인드 된 포스트는 수정할 수 없습니다.",
+        },
+      });
+    }
+    if (post.reverted) {
+      return dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Post reversion failed",
+          content: "복원된 포스트는 수정할 수 없습니다.",
         },
       });
     }
 
     setPostEditMode(!postEditMode);
-  }, [postEditMode]);
+  }, [post.blinded, post.reverted, postEditMode]);
 
   return (
     <>
@@ -232,7 +243,7 @@ const PostSection = ({ post }) => {
         />
       )}
       <div className="mb-6 p-1  h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
-        {post.blinded && !toggleOpenBlindPost && (
+        {post.blinded && blindPost && (
           <div className="flex backdrop-saturate-0 gap-2 bg-slate-300/50 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur-md z-10">
             <span className="text-sm text-slate-400">
               작성자에 의해 삭제되었습니다
@@ -339,24 +350,21 @@ const PostSection = ({ post }) => {
                     <div className="py-1">
                       {post.User.id === id ? (
                         <>
-                          {!post.reverted ? (
-                            <Menu.Item>
-                              {({ active }) => (
-                                <button
-                                  onClick={onTogglePostEditMode}
-                                  className={classNames(
-                                    active
-                                      ? "bg-slate-100 text-slate-600"
-                                      : "text-slate-600",
-                                    "block px-4 py-2 text-sm text-left w-full"
-                                  )}
-                                >
-                                  Edit
-                                </button>
-                              )}
-                            </Menu.Item>
-                          ) : null}
-
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                onClick={onTogglePostEditMode}
+                                className={classNames(
+                                  active
+                                    ? "bg-slate-100 text-slate-600"
+                                    : "text-slate-600",
+                                  "block px-4 py-2 text-sm text-left w-full"
+                                )}
+                              >
+                                Edit
+                              </button>
+                            )}
+                          </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
                               <button
