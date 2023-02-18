@@ -18,7 +18,7 @@ import { SHOW_NOTICE } from "../reducers/global";
 const PostForm = ({
   onTogglePostForm,
   onTogglePostEditMode,
-  postId,
+  post,
   postEditMode,
   prevTopic,
   prevContent,
@@ -74,7 +74,7 @@ const PostForm = ({
     onTogglePostEditMode(false);
     dispatch({
       type: EDIT_POST_REQUEST,
-      data: { PostId: postId, topic, content, postImagePaths },
+      data: { PostId: post.id, topic, content, postImagePaths },
     });
     dispatch({
       type: SHOW_NOTICE,
@@ -268,7 +268,7 @@ const PostForm = ({
 PostForm.propTypes = {
   onTogglePostForm: PropTypes.func,
   onTogglePostEditMode: PropTypes.func,
-  postId: PropTypes.number,
+  post: PropTypes.object,
   postEditMode: PropTypes.bool,
   prevTopic: PropTypes.string,
   prevContent: PropTypes.string,

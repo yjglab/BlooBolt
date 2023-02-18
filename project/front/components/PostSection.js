@@ -68,7 +68,7 @@ const PostSection = ({ post }) => {
       data: {
         title: "Post Delete Completed",
         content:
-          "포스트가 블라인드되었습니다. 다른 사용자가 임의로 확인할 수 있습니다.",
+          "포스트가 블라인드 되었습니다. 다른 사용자가 임의로 확인할 수 있습니다.",
       },
     });
   }, [id]);
@@ -101,7 +101,7 @@ const PostSection = ({ post }) => {
         type: SHOW_NOTICE,
         data: {
           title: "Post Prod Failed",
-          content: "블라인드된 포스트를 프롯할 수 없습니다.",
+          content: "블라인드 된 포스트를 프롯할 수 없습니다.",
         },
       });
     }
@@ -177,6 +177,15 @@ const PostSection = ({ post }) => {
   }, [isTracing]);
 
   const onTogglePostEditMode = useCallback(() => {
+    if (post.blinded) {
+      return dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Post deletion failed.",
+          content: "블라인드 된 포스트는 수정할 수 없습니다.",
+        },
+      });
+    }
     setPostEditMode(!postEditMode);
   }, [postEditMode]);
 
@@ -187,7 +196,7 @@ const PostSection = ({ post }) => {
         <PostForm
           postEditMode={postEditMode}
           onTogglePostEditMode={onTogglePostEditMode}
-          postId={post.id}
+          post={post}
           prevTopic={post.topic}
           prevContent={post.content}
           prevPostImages={post.PostImages}
