@@ -72,7 +72,6 @@ export const vtlUser1 = {
   website: "demo.com",
   rank: 5, // 1 ~ 5, 기본 null, 어드민 9
   rankPoint: 0,
-  reported: 0, // 10 -> blind
   Posts: [
     {
       id: shortid.generate(),

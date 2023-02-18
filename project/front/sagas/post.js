@@ -10,6 +10,9 @@ import {
   REMOVE_POST_FAILURE,
   REMOVE_POST_REQUEST,
   REMOVE_POST_SUCCESS,
+  REVERT_POST_FAILURE,
+  REVERT_POST_REQUEST,
+  REVERT_POST_SUCCESS,
   UNPROD_POST_FAILURE,
   UNPROD_POST_REQUEST,
   UNPROD_POST_SUCCESS,
@@ -162,6 +165,25 @@ function* removePost(action) {
   }
 }
 
+function revertPostAPI(data) {
+  return axios.patch(`/post/${data}/revert`);
+}
+function* revertPost(action) {
+  try {
+    const result = yield call(revertPostAPI, action.data);
+    yield put({
+      type: REVERT_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: REVERT_POST_FAILURE,
+      error: error.response.data,
+    });
+  }
+}
+
 function* watchUploadPost() {
   yield takeLatest(UPLOAD_POST_REQUEST, uploadPost);
 }
@@ -170,6 +192,9 @@ function* watchUploadPostImages() {
 }
 function* watchRemovePost() {
   yield takeLatest(REMOVE_POST_REQUEST, removePost);
+}
+function* watchRevertPost() {
+  yield takeLatest(REVERT_POST_REQUEST, revertPost);
 }
 function* watchProdPost() {
   yield takeLatest(PROD_POST_REQUEST, prodPost);
@@ -192,6 +217,7 @@ export default function* postSaga() {
     fork(watchUnprodPost),
     fork(watchEditPost),
     fork(watchRemovePost),
+    fork(watchRevertPost),
     fork(watchUploadComment),
   ]);
 }

@@ -17,6 +17,9 @@ export const initialState = {
   removePostLoading: false,
   removePostDone: false,
   removePostError: null,
+  revertPostLoading: false,
+  revertPostDone: false,
+  revertPostError: null,
   uploadPostImagesLoading: false,
   uploadPostImagesDone: false,
   uploadPostImagesError: null,
@@ -49,6 +52,10 @@ export const UPLOAD_POST_FAILURE = "UPLOAD_POST_FAILURE";
 export const REMOVE_POST_REQUEST = "REMOVE_POST_REQUEST";
 export const REMOVE_POST_SUCCESS = "REMOVE_POST_SUCCESS";
 export const REMOVE_POST_FAILURE = "REMOVE_POST_FAILURE";
+
+export const REVERT_POST_REQUEST = "REVERT_POST_REQUEST";
+export const REVERT_POST_SUCCESS = "REVERT_POST_SUCCESS";
+export const REVERT_POST_FAILURE = "REVERT_POST_FAILURE";
 
 export const UPLOAD_POST_IMAGES_REQUEST = "UPLOAD_POST_IMAGES_REQUEST";
 export const UPLOAD_POST_IMAGES_SUCCESS = "UPLOAD_POST_IMAGES_SUCCESS";
@@ -146,6 +153,23 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case REMOVE_POST_FAILURE:
+        draft.removePostLoading = false;
+        draft.removePostError = action.error;
+        break;
+      case REVERT_POST_REQUEST:
+        draft.removePostLoading = true;
+        draft.removePostDone = false;
+        draft.removePostError = null;
+        break;
+      case REVERT_POST_SUCCESS: {
+        draft.removePostLoading = false;
+        draft.removePostDone = true;
+        const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
+        post.blinded = false;
+        post.reverted = true;
+        break;
+      }
+      case REVERT_POST_FAILURE:
         draft.removePostLoading = false;
         draft.removePostError = action.error;
         break;

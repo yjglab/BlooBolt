@@ -21,6 +21,10 @@ module.exports = class Post extends Model {
           type: DataTypes.BOOLEAN,
           allowNull: false,
         },
+        reverted: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+        },
       },
       {
         modelName: "Post",

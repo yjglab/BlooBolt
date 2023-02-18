@@ -38,7 +38,6 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
       UserId: user.id,
       rank: 0,
       rankPoint: 0,
-      reported: 0,
     });
     res.status(201).send("ok");
   } catch (error) {

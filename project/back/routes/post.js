@@ -202,6 +202,38 @@ router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
     next(error);
   }
 });
+
+router.patch("/:postId/revert", isLoggedIn, async (req, res, next) => {
+  try {
+    await Post.update(
+      {
+        blinded: false,
+        reverted: true,
+      },
+      {
+        where: {
+          id: req.params.postId,
+          UserId: req.user.id,
+        },
+      }
+    );
+    await Userboard.increment(
+      {
+        rankPoint: 10,
+      },
+      {
+        where: {
+          UserId: req.user.id,
+        },
+      }
+    );
+    res.status(200).json({ PostId: parseInt(req.params.postId, 10) });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 router.delete("/:postId", isLoggedIn, async (req, res, next) => {
   try {
     // await Post.destroy({
@@ -241,6 +273,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
       topic: req.body.topic.trim(),
       content: req.body.content,
       edited: false,
+      reverted: false,
       UserId: req.user.id,
       blinded: false,
     });

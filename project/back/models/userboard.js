@@ -13,10 +13,6 @@ module.exports = class Userboard extends Model {
           type: DataTypes.INTEGER,
           allowNull: false,
         },
-        reported: {
-          type: DataTypes.TINYINT,
-          allowNull: false,
-        },
       },
       {
         modelName: "Userboard",
@@ -46,4 +42,3 @@ module.exports = class Userboard extends Model {
 // 유저보드
 // rank: 5, // 1 ~ 5, 기본 0, 어드민 9
 // rankPoint: 0,
-// reported: 0, // 10 -> blind

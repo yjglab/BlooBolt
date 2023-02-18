@@ -6,6 +6,7 @@ import CommentSection from "./CommentSection";
 import {
   PROD_POST_REQUEST,
   REMOVE_POST_REQUEST,
+  REVERT_POST_REQUEST,
   UNPROD_POST_REQUEST,
 } from "../reducers/post";
 
@@ -66,12 +67,39 @@ const PostSection = ({ post }) => {
     dispatch({
       type: SHOW_NOTICE,
       data: {
-        title: "Post Delete Completed",
+        title: "Post Deleted",
         content:
           "포스트가 블라인드 되었습니다. 다른 사용자가 임의로 확인할 수 있습니다.",
       },
     });
   }, [id]);
+
+  const onRevertPost = useCallback(() => {
+    if (post.User.id !== id) return;
+    if (!id) {
+      return dispatch({
+        type: SHOW_NOTICE,
+        data: {
+          title: "Access Denied",
+          content: "로그인이 필요합니다.",
+        },
+      });
+    }
+
+    dispatch({
+      type: REVERT_POST_REQUEST,
+      data: post.id,
+    });
+
+    dispatch({
+      type: SHOW_NOTICE,
+      data: {
+        title: "Post Deleted",
+        content: "포스트가 복구되었습니다.",
+      },
+    });
+  }, [id]);
+
   const isProdded = post.Prodders.find((v) => v.id === id);
 
   const onToggleCommentSection = useCallback(() => {
@@ -186,6 +214,7 @@ const PostSection = ({ post }) => {
         },
       });
     }
+
     setPostEditMode(!postEditMode);
   }, [postEditMode]);
 
@@ -310,10 +339,34 @@ const PostSection = ({ post }) => {
                     <div className="py-1">
                       {post.User.id === id ? (
                         <>
+                          {!post.reverted ? (
+                            <Menu.Item>
+                              {({ active }) => (
+                                <button
+                                  onClick={onTogglePostEditMode}
+                                  className={classNames(
+                                    active
+                                      ? "bg-slate-100 text-slate-600"
+                                      : "text-slate-600",
+                                    "block px-4 py-2 text-sm text-left w-full"
+                                  )}
+                                >
+                                  Edit
+                                </button>
+                              )}
+                            </Menu.Item>
+                          ) : null}
+
                           <Menu.Item>
                             {({ active }) => (
                               <button
-                                onClick={onTogglePostEditMode}
+                                onClick={
+                                  post.blinded
+                                    ? onRevertPost
+                                    : post.reverted
+                                    ? onRemovePost
+                                    : onRemovePost
+                                }
                                 className={classNames(
                                   active
                                     ? "bg-slate-100 text-slate-600"
@@ -321,22 +374,11 @@ const PostSection = ({ post }) => {
                                   "block px-4 py-2 text-sm text-left w-full"
                                 )}
                               >
-                                Edit
-                              </button>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <button
-                                onClick={onRemovePost}
-                                className={classNames(
-                                  active
-                                    ? "bg-slate-100 text-slate-600"
-                                    : "text-slate-600",
-                                  "block px-4 py-2 text-sm text-left w-full"
-                                )}
-                              >
-                                Delete
+                                {post.blinded
+                                  ? "Revert"
+                                  : post.reverted
+                                  ? "Delete"
+                                  : "Delete"}
                               </button>
                             )}
                           </Menu.Item>

@@ -85,4 +85,3 @@ module.exports = class User extends Model {
 // 유저보드
 // rank: 5, // 1 ~ 5, 기본 0, 어드민 9
 // rankPoint: 0,
-// reported: 0, // 10 -> blind
