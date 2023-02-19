@@ -3,25 +3,22 @@ import PropTypes from "prop-types";
 import Head from "next/head";
 import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
-import wrapper from "../store/configureStore";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
-import NoticeModal from "../components/NoticeModal";
-import { useSelector } from "react-redux";
+import { Provider, useSelector } from "react-redux";
+import store from "../store/configureStore";
 
 const BlooBolt = ({ Component }) => {
-  const { noticeCalled } = useSelector((state) => state.global);
   return (
-    <>
+    <Provider store={store}>
       <Head>
         <meta charSet="utf-8" />
         <title>BlooBolt</title>
       </Head>
       <Navigation />
-      {noticeCalled && <NoticeModal />}
       <Component />
       <Footer />
-    </>
+    </Provider>
   );
 };
 
@@ -29,4 +26,4 @@ BlooBolt.propTypes = {
   Component: PropTypes.elementType.isRequired,
 };
 
-export default wrapper.withRedux(BlooBolt);
+export default BlooBolt;

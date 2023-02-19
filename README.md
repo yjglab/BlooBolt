@@ -2,7 +2,7 @@
 
 ### front
 
-- React, redux, Next, Tailwind
+- React, redux(toolkit), Next, Tailwind
 - 4040
 
 ### back
@@ -29,6 +29,9 @@
 - load posts 시 로딩문
 -
 - 수정시 수정됨 표시
+- saga->toolkit 변경 필요할듯
+- status는 전역 액션으로 실행해야 할듯
+- notice model 구분하기.
 
 ### 구현 예정 기능.
 
@@ -80,10 +83,10 @@
 
 - delete은 data를 못보냄. 쿼리로 보내야.
 
-### 기술 변경
+### 기술적 변경사항
 
--
+- redux 비동기액션 미들웨어 변경 : Saga 걷어내고 toolkit 적용. (saga가 익숙하지만 코드가 짧아서 더 좋을듯)
 
-### 문제
+### 기술적 문제
 
 - ALTER TABLE 명 CHANGE 반복현상

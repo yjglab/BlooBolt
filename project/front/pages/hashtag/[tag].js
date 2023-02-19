@@ -3,13 +3,9 @@ import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../../components/AppLayout";
 import PostSection from "../../components/PostSection";
-import PostForm from "../../components/PostForm";
-import { LOAD_HASHTAG_POSTS_REQUEST } from "../../reducers/post";
 import { useRouter } from "next/router";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { loadPostsByHashtag } from "../../reducers/postSlice";
 
 const Hashtag = () => {
   const dispatch = useDispatch();
@@ -19,7 +15,7 @@ const Hashtag = () => {
   const { mainPosts, loadMorePosts, loadPostsLoading } = useSelector(
     (state) => state.post
   );
-  const [togglePostForm, setTogglePostForm] = useState(false);
+  // const [togglePostForm, setTogglePostForm] = useState(false);
 
   useEffect(() => {
     function onScreenScroll() {
@@ -28,13 +24,12 @@ const Hashtag = () => {
         document.documentElement.scrollHeight - 300
       ) {
         if (loadMorePosts && !loadPostsLoading) {
-          dispatch({
-            type: LOAD_HASHTAG_POSTS_REQUEST,
-            data: {
+          dispatch(
+            loadPostsByHashtag({
               lastPostId: mainPosts[mainPosts.length - 1]?.id,
               tag,
-            },
-          });
+            })
+          );
         }
       }
     }
@@ -44,9 +39,9 @@ const Hashtag = () => {
     };
   }, [loadMorePosts, loadPostsLoading, mainPosts.length, tag]);
 
-  const onTogglePostForm = useCallback(() => {
-    setTogglePostForm(!togglePostForm);
-  }, [togglePostForm]);
+  // const onTogglePostForm = useCallback(() => {
+  //   setTogglePostForm(!togglePostForm);
+  // }, [togglePostForm]);
 
   return (
     <AppLayout>
@@ -68,9 +63,9 @@ const Hashtag = () => {
           </div>
 
           <div className="grid auto-cols-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
-            {mainPosts.map((post) => (
+            {/* {mainPosts.map((post) => (
               <PostSection key={post.id} post={post} />
-            ))}
+            ))} */}
           </div>
         </div>
       </div>

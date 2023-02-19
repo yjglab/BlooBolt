@@ -20,10 +20,7 @@ const Support = () => {
 
   const onFindPassword = (formData) => {
     const { email, username } = formData;
-    dispatch({
-      type: FIND_PASSWORD_REQUEST,
-      data: { email, username },
-    });
+    // dispatch(findPassword({ email, username }));
   };
 
   return (

@@ -4,17 +4,9 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import CommentSection from "./CommentSection";
 import {
-  PROD_POST_REQUEST,
-  REMOVE_POST_REQUEST,
-  REVERT_POST_REQUEST,
-  UNPROD_POST_REQUEST,
-} from "../reducers/post";
-
-import {
   BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   ShieldCheckIcon,
-  TrophyIcon,
   UserMinusIcon,
   UserPlusIcon,
 } from "@heroicons/react/20/solid";
@@ -22,9 +14,17 @@ import PostImages from "./PostImages";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import Link from "next/link";
-import { SHOW_NOTICE } from "../reducers/global";
-import { TRACE_REQUEST, UNTRACE_REQUEST } from "../reducers/user";
 import PostForm from "./PostForm";
+
+import { openNotice } from "../reducers/globalSlice";
+import {
+  prodPost,
+  removePost,
+  revertPost,
+  unprodPost,
+} from "../reducers/postSlice";
+import { trace, untrace } from "../reducers/userSlice";
+
 dayjs.locale("ko");
 
 function classNames(...classes) {
@@ -39,69 +39,62 @@ const PostSection = ({ post }) => {
   const [blindPost, setBlindPost] = useState(false);
   const [postEditMode, setPostEditMode] = useState(false);
 
+  useEffect(() => {
+    if (post.blinded) {
+      setBlindPost(true);
+    }
+  }, [post.blinded]);
   const onRemovePost = useCallback(() => {
     if (post.User.id !== id) return;
     if (!id) {
-      return dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      return dispatch(
+        openNotice({
           title: "Access denied",
           content: "로그인이 필요합니다.",
           type: "error",
-        },
-      });
+        })
+      );
     }
     if (post.blinded) {
-      return dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      return dispatch(
+        openNotice({
           title: "Post Deletion failed",
           content: "이미 블라인드 된 포스트입니다.",
           type: "error",
-        },
-      });
+        })
+      );
     }
-    dispatch({
-      type: REMOVE_POST_REQUEST,
-      data: post.id,
-    });
-
-    dispatch({
-      type: SHOW_NOTICE,
-      data: {
+    dispatch(removePost(post.id));
+    dispatch(
+      openNotice({
         title: "Post deleted",
         content:
           "포스트가 블라인드 되었습니다. 다른 사용자가 작성자의 포스트를 확인할 수 있습니다.",
-      },
-    });
+      })
+    );
     setBlindPost(true);
   }, [id]);
 
   const onRevertPost = useCallback(() => {
     if (post.User.id !== id) return;
     if (!id) {
-      return dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      return dispatch(
+        openNotice({
           title: "Access denied",
           content: "로그인이 필요합니다.",
           type: "error",
-        },
-      });
+        })
+      );
     }
 
-    dispatch({
-      type: REVERT_POST_REQUEST,
-      data: post.id,
-    });
+    dispatch(revertPost(post.id));
 
-    dispatch({
-      type: SHOW_NOTICE,
-      data: {
+    dispatch(
+      openNotice({
         title: "Post reverted",
         content: "포스트가 복구되었습니다.",
-      },
-    });
+      })
+    );
     setBlindPost(false);
   }, [id]);
 
@@ -112,66 +105,55 @@ const PostSection = ({ post }) => {
   }, [toggleCommentSection]);
   const onProdPost = useCallback(() => {
     if (!id) {
-      return dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      return dispatch(
+        openNotice({
           title: "Access denied",
           content: "로그인이 필요합니다.",
           type: "error",
-        },
-      });
+        })
+      );
     }
     if (post.User.id === id) {
-      return dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      return dispatch(
+        openNotice({
           title: "Prod failed",
           content: "자신의 포스트를 프롯할 수 없습니다.",
           type: "error",
-        },
-      });
+        })
+      );
     }
     if (post.blinded) {
-      return dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      return dispatch(
+        openNotice({
           title: "Prod failed",
           content: "블라인드 된 포스트를 프롯할 수 없습니다.",
           type: "error",
-        },
-      });
+        })
+      );
     }
-    dispatch({
-      type: PROD_POST_REQUEST,
-      data: { postId: post.id, postUserId: post.User.id },
-    });
+    dispatch(prodPost({ postId: post.id, postUserId: post.User.id }));
   }, [id, post.blinded]);
   const onUnprodPost = useCallback(() => {
     if (!id) {
-      return dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      return dispatch(
+        openNotice({
           title: "Access denied",
           content: "로그인이 필요합니다.",
           type: "error",
-        },
-      });
+        })
+      );
     }
-    dispatch({
-      type: UNPROD_POST_REQUEST,
-      data: { postId: post.id, postUserId: post.User.id },
-    });
+    dispatch(unprodPost({ postId: post.id, postUserId: post.User.id }));
   }, [id]);
   const onUnblindPost = useCallback(() => {
     if (!id) {
-      return dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      return dispatch(
+        openNotice({
           title: "Access denied",
           content: "로그인이 필요합니다.",
           type: "error",
-        },
-      });
+        })
+      );
     }
     setBlindPost(false);
   }, [id]);
@@ -179,62 +161,51 @@ const PostSection = ({ post }) => {
   const isTracing = me?.Tracings?.find((v) => v.id === post.User.id);
   const onToggleTrace = useCallback(() => {
     if (!id) {
-      return dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      return dispatch(
+        openNotice({
           title: "Access denied",
           content: "로그인이 필요합니다.",
           type: "error",
-        },
-      });
+        })
+      );
     }
     if (isTracing) {
-      dispatch({
-        type: UNTRACE_REQUEST,
-        data: post.User.id,
-      });
-      dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      dispatch(untrace(post.User.id));
+      dispatch(
+        openNotice({
           title: "Mate disconnected",
           content: `${post.User.username}님을 블루메이트에서 제거합니다.`,
-        },
-      });
+        })
+      );
     } else {
-      dispatch({
-        type: TRACE_REQUEST,
-        data: post.User.id,
-      });
-      dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      dispatch(trace(post.User.id));
+      dispatch(
+        openNotice({
           title: "Mate connected",
           content: `${post.User.username}님을 블루메이트로 등록합니다.`,
-        },
-      });
+        })
+      );
     }
   }, [id, isTracing]);
 
   const onTogglePostEditMode = useCallback(() => {
     if (post.blinded) {
-      return dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      return dispatch(
+        openNotice({
           title: "Post editing failed",
           content: "블라인드 된 포스트는 수정할 수 없습니다.",
           type: "error",
-        },
-      });
+        })
+      );
     }
     if (post.reverted) {
-      return dispatch({
-        type: SHOW_NOTICE,
-        data: {
+      return dispatch(
+        openNotice({
           title: "Post editing failed",
           content: "복원된 포스트는 수정할 수 없습니다.",
           type: "error",
-        },
-      });
+        })
+      );
     }
 
     setPostEditMode(!postEditMode);

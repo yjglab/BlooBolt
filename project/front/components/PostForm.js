@@ -1,19 +1,18 @@
 import { TrashIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import Image from "next/image";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  UPLOAD_POST_IMAGES_REQUEST,
-  UPLOAD_POST_REQUEST,
-  CANCEL_POST_IMAGE,
-  LOAD_PREV_POST_IMAGES,
-  EDIT_POST_REQUEST,
-} from "../reducers/post";
 import { backUrl } from "../config/config";
 import { ArrowUpCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import PropTypes from "prop-types";
-import { SHOW_NOTICE } from "../reducers/global";
+import {
+  editPost,
+  uploadPost,
+  loadPrevPostImages,
+  cancelPostImage,
+  uploadPostImages,
+} from "../reducers/postSlice";
+import { openNotice } from "../reducers/globalSlice";
 
 const PostForm = ({
   onTogglePostForm,
@@ -56,10 +55,7 @@ const PostForm = ({
     reset();
     onTogglePostForm(false);
 
-    return dispatch({
-      type: UPLOAD_POST_REQUEST,
-      data: { topic, content, postImagePaths },
-    });
+    return dispatch(uploadPost({ topic, content, postImagePaths }));
   };
 
   const onEditPost = (editedFormData) => {
@@ -72,24 +68,17 @@ const PostForm = ({
     }
     reset();
     onTogglePostEditMode(false);
-    dispatch({
-      type: EDIT_POST_REQUEST,
-      data: { PostId: post.id, topic, content, postImagePaths },
-    });
-    dispatch({
-      type: SHOW_NOTICE,
-      data: {
+    dispatch(editPost({ PostId: post.id, topic, content, postImagePaths }));
+    dispatch(
+      openNotice({
         title: "Post edited",
         content: "포스트가 수정되었습니다.",
-      },
-    });
+      })
+    );
   };
 
   const onLoadPrevPostImages = useCallback(() => {
-    dispatch({
-      type: LOAD_PREV_POST_IMAGES,
-      data: prevPostImages.map((v) => v.src),
-    });
+    dispatch(loadPrevPostImages(prevPostImages.map((v) => v.src)));
   });
 
   useEffect(() => {
@@ -101,10 +90,7 @@ const PostForm = ({
   }, []);
 
   const onCancelPostImage = useCallback((i) => () => {
-    dispatch({
-      type: CANCEL_POST_IMAGE,
-      data: i,
-    });
+    dispatch(cancelPostImage(i));
   });
 
   const onChangePostImages = () => {
@@ -114,10 +100,7 @@ const PostForm = ({
       postImagesFormData.append("postImages", file);
     });
 
-    dispatch({
-      type: UPLOAD_POST_IMAGES_REQUEST,
-      data: postImagesFormData,
-    });
+    dispatch(uploadPostImages(postImagesFormData));
   };
 
   return (

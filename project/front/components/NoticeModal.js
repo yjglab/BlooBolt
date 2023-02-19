@@ -1,17 +1,15 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { CLOSE_NOTICE } from "../reducers/global";
+
+import { closeNotice } from "../reducers/globalSlice";
 
 const NoticeModal = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(true);
   const { title, content, type } = useSelector((state) => state.global.notice);
   function onCloseModal() {
-    dispatch({
-      type: CLOSE_NOTICE,
-    });
+    dispatch(closeNotice());
     setIsOpen(false);
   }
 

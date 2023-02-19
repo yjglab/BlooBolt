@@ -1,9 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { useSelector } from "react-redux";
 
 const UserInformation = () => {
   const { me } = useSelector((state) => state.user);

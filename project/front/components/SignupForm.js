@@ -1,15 +1,15 @@
 import { UserPlusIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
-import Router from "next/router";
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
-
-import { SIGN_UP_REQUEST } from "../reducers/user";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
-import { SHOW_NOTICE } from "../reducers/global";
+
+import { signUp } from "../reducers/userSlice";
+import { openNotice } from "../reducers/globalSlice";
+import Router from "next/router";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -40,21 +40,20 @@ const SignupForm = () => {
         message: "비밀번호 확인이 일치하지 않습니다",
       });
     }
-    dispatch({
-      type: SIGN_UP_REQUEST,
-      data: {
+    dispatch(
+      signUp({
         email,
         username,
         password,
-      },
-    });
-    dispatch({
-      type: SHOW_NOTICE,
-      data: {
+      })
+    );
+    Router.push("/login");
+    dispatch(
+      openNotice({
         title: "Account created",
         content: "새로운 계정이 생성되었습니다.",
-      },
-    });
+      })
+    );
   };
 
   return (

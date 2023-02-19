@@ -1,12 +1,11 @@
 import { ArrowUpCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { genComment } from "../db";
-import useInput from "../hooks/useInput";
-import { UPLOAD_COMMENT_REQUEST } from "../reducers/post";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
-import { SHOW_NOTICE } from "../reducers/global";
+
+import { openNotice } from "../reducers/globalSlice";
+import { uploadComment } from "../reducers/postSlice";
 
 const CommentForm = ({ post, onToggleCommentSection }) => {
   const dispatch = useDispatch();
@@ -30,14 +29,13 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
   const onUploadComment = useCallback(
     (formData) => {
       if (!id) {
-        return dispatch({
-          type: SHOW_NOTICE,
-          data: {
+        return dispatch(
+          openNotice({
             title: "Access Denied",
             content: "로그인이 필요합니다.",
             type: "error",
-          },
-        });
+          })
+        );
       }
       const { content } = formData;
       if (!content.trim()) {
@@ -47,10 +45,7 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
       }
       reset();
 
-      return dispatch({
-        type: UPLOAD_COMMENT_REQUEST,
-        data: { content, postId: post.id, userId: id },
-      });
+      return dispatch(uploadComment({ content, postId: post.id, userId: id }));
     },
     [id]
   );

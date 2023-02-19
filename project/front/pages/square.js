@@ -1,13 +1,10 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 import PostSection from "../components/PostSection";
 import PostForm from "../components/PostForm";
-import { LOAD_POSTS_REQUEST } from "../reducers/post";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { loadPosts } from "../reducers/postSlice";
 
 const Square = () => {
   const { me } = useSelector((state) => state.user);
@@ -26,10 +23,7 @@ const Square = () => {
       ) {
         if (loadMorePosts && !loadPostsLoading) {
           const lastPostId = mainPosts[mainPosts.length - 1]?.id;
-          dispatch({
-            type: LOAD_POSTS_REQUEST,
-            data: lastPostId,
-          });
+          dispatch(loadPosts(lastPostId));
         }
       }
     }

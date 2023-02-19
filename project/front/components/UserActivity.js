@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 
-import { Menu, Transition, Tab } from "@headlessui/react";
+import { Tab } from "@headlessui/react";
 import { ShieldCheckIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes) {

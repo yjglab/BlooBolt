@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { Transition, Popover } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { LOG_OUT_REQUEST } from "../reducers/user";
 import Link from "next/link";
 import { Fragment } from "react";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
@@ -15,6 +14,9 @@ import {
 import Image from "next/image";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 
+import { logOut } from "../reducers/userSlice";
+import { cancelAllPostImages } from "../reducers/postSlice";
+
 const recentPosts = [{ id: 1, name: "최근포스트", href: "#" }];
 
 function classNames(...classes) {
@@ -25,11 +27,10 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
   const { loadPostsLoading } = useSelector((state) => state.post);
+
   const onLogout = useCallback(() => {
-    dispatch({
-      type: LOG_OUT_REQUEST,
-      data: me.id,
-    });
+    dispatch(logOut());
+    dispatch(cancelAllPostImages());
   });
 
   return (

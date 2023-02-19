@@ -1,18 +1,16 @@
 import Link from "next/link";
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { LOG_IN_REQUEST } from "../reducers/user";
-
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
-
 import Image from "next/image";
+
+import { logIn } from "../reducers/userSlice";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { logInError, loginDone } = useSelector((state) => state.user);
+  const { logInError } = useSelector((state) => state.user);
 
   const {
     register,
@@ -22,10 +20,7 @@ const LoginForm = () => {
 
   const onLogin = (formData) => {
     const { email, password } = formData;
-    dispatch({
-      type: LOG_IN_REQUEST,
-      data: { email, password },
-    });
+    dispatch(logIn({ email, password }));
   };
 
   return (

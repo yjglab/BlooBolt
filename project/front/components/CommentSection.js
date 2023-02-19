@@ -1,16 +1,10 @@
-import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment, useCallback, useRef, useState } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-
+import { Menu, Transition } from "@headlessui/react";
 import CommentForm from "./CommentForm";
 import {
-  ArrowsPointingOutIcon,
   BoltIcon,
-  ChevronDownIcon,
-  MinusIcon,
-  PlusIcon,
   ShieldCheckIcon,
-  TrophyIcon,
   UserPlusIcon,
 } from "@heroicons/react/20/solid";
 

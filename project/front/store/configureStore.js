@@ -1,27 +1,18 @@
-// OK
-import { createWrapper } from "next-redux-wrapper";
-import { applyMiddleware, compose, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import reducer from "../reducers";
-import rootSaga from "../sagas";
-import createSagaMiddleware from "redux-saga";
 
-const configureStore = () => {
-  const sagaMiddleware = createSagaMiddleware();
+function getServerState() {
+  return typeof document !== "undefined"
+    ? JSON.parse(document.querySelector("#__NEXT_DATA__").textContent)?.props
+        .pageProps.initialState
+    : undefined;
+}
+const serverState = getServerState();
+console.log("serverState", serverState);
 
-  const middlewares = [sagaMiddleware];
-  const enhancer =
-    process.env.NODE_ENV === "production"
-      ? compose(applyMiddleware(...middlewares))
-      : composeWithDevTools(applyMiddleware(...middlewares));
-  const store = createStore(reducer, enhancer); // state와 reducer를 포함한 것
-  store.sagaTask = sagaMiddleware.run(rootSaga);
-  return store;
-};
-
-const wrapper = createWrapper(configureStore, {
-  debug: process.env.NODE_ENV === "development",
+export default configureStore({
+  reducer,
+  middleware: [...getDefaultMiddleware()],
+  devTools: process.env.NODE_ENV !== "production",
+  // preloadedState: serverState, // ssr
 });
-
-export default wrapper;

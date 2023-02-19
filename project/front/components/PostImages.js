@@ -1,8 +1,6 @@
 import React, { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import PostImagesCarousel from "./PostImagesCarousel";
 import PropTypes from "prop-types";
-import Image from "next/image";
 import { backUrl } from "../config/config";
 
 const PostImages = ({ postImages }) => {
