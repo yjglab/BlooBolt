@@ -35,40 +35,62 @@ const Profile = () => {
 
   return (
     <AppLayout>
-      <div className="pt-24 px-6 pb-6 w-full bg-slate-100 md:flex md:items-center md:justify-between">
+      <div className="pt-24 px-6 pb-6 w-full bg-white md:flex md:items-center md:justify-between">
+        <div className="w-32 h-32 mr-5 mb-4 md:mb-0 rounded-full ">
+          <img
+            src={
+              "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" || ""
+            }
+            className="aspect-square object-cover"
+          />
+        </div>
         <div className="min-w-0 flex-1">
-          <div className="flex items-center mb-1">
+          <div className="flex flex-col  mb-1">
             <h2 className="text-2xl font-bold leading-7 text-slate-600 md:truncate md:text-3xl md:tracking-tight">
               {me?.username}
             </h2>
-            {me?.rank ? (
-              <Link href="#">
-                <ShieldCheckIcon
-                  className={`ml-1.5 relative top-0.5 h-5 w-5 flex-shrink-0 ${
-                    me?.rank === 1
-                      ? "text-cyan-400"
-                      : me?.rank === 2
-                      ? "text-amber-400"
-                      : me?.rank === 3
-                      ? "text-amber-700/70"
-                      : me?.rank === 4
-                      ? "text-indigo-500"
-                      : me?.rank === 5
-                      ? "text-slate-400"
-                      : me?.rank === 9
-                      ? "text-red-400"
-                      : null
-                  }`}
-                  aria-hidden="true"
-                />
-              </Link>
-            ) : (
-              <Link href="#">
-                <span className="cursor-pointer ml-2.5 px-2 py-0.5 rounded-md bg-slate-400 relative top-1 text-xs text-white">
-                  Not Ranked
+            <div className="flex items-center mt-1 mb-2">
+              {me?.Userboard.rank !== 0 ? (
+                <>
+                  <Link href="#">
+                    <ShieldCheckIcon
+                      className={`  h-5 w-5 flex-shrink-0 ${
+                        me?.Userboard.rank === 1
+                          ? "text-cyan-400"
+                          : me?.Userboard.rank === 2
+                          ? "text-amber-400"
+                          : me?.Userboard.rank === 3
+                          ? "text-amber-700/70"
+                          : me?.Userboard.rank === 4
+                          ? "text-indigo-500"
+                          : me?.Userboard.rank === 5
+                          ? "text-slate-400"
+                          : me?.Userboard.rank === 9
+                          ? "text-red-400"
+                          : null
+                      }`}
+                      aria-hidden="true"
+                    />
+                  </Link>{" "}
+                  <span className="text-sm ml-1">Rank</span>
+                  <span className="text-sm ml-1 font-bold">
+                    {me.Userboard.rank}
+                  </span>
+                </>
+              ) : (
+                <Link href="#">
+                  <span className="cursor-pointer  px-2 py-0.5 rounded-md bg-slate-400 relative  text-xs text-white">
+                    Not Ranked
+                  </span>
+                </Link>
+              )}
+              <span className="ml-2 text-xs bg-slate-400 px-2 py-0.5 text-white rounded-md">
+                Rank Point{" "}
+                <span className="ml-1 font-bold ">
+                  {me.Userboard.rankPoint}
                 </span>
-              </Link>
-            )}
+              </span>
+            </div>
           </div>
           <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
             <div className="mt-2 flex items-center text-sm text-slate-500">
@@ -117,7 +139,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="mt-5 flex lg:mt-0 lg:ml-4">
+        <div className="mt-5 md:mt-0 flex ">
           <span className="hidden sm:block">
             <button
               type="button"
@@ -179,7 +201,7 @@ const Profile = () => {
           </Menu>
         </div>
       </div>
-      <div className="w-full flex-col justify-between flex sm:flex-row p-6  ">
+      <div className="w-full flex-col bg-slate-50  justify-between flex sm:flex-row p-6  ">
         {/* 좌측 */}
         <UserInformation />
         {/* 우측 */}

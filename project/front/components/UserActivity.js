@@ -4,6 +4,7 @@ import { Tab } from "@headlessui/react";
 import {
   BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
+  FaceFrownIcon,
   ShieldCheckIcon,
   UserMinusIcon,
 } from "@heroicons/react/20/solid";
@@ -84,7 +85,7 @@ const UserActivity = () => {
           <Tab.Panels className="mt-2 rounded-md shadow">
             <Tab.Panel
               className={classNames(
-                "rounded-md bg-white p-3 h-3/5 ",
+                "rounded-md bg-white p-3  ",
                 "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500 focus:outline-none focus:ring-2"
               )}
             >
@@ -135,100 +136,46 @@ const UserActivity = () => {
 
             <Tab.Panel
               className={classNames(
-                "rounded-md bg-white p-3 h-3/5 ",
+                "rounded-md bg-white p-3",
                 "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500 focus:outline-none focus:ring-2"
               )}
             >
               <ul>
-                {me?.Tracers?.map((tracer) => (
-                  <li
-                    key={tracer.id}
-                    className="rounded-md p-3  hover:bg-slate-100"
-                  >
-                    <div className=" flex items-center">
-                      <img
-                        src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
-                        className={`h-[50px] w-[50px] border-[3px] ${
-                          tracer.status ? "border-indigo-500" : ""
-                        } p-0.5 rounded-full object-cover`}
-                      />
-                      <div className="ml-2 w-full flex flex-col">
-                        <h1 className="text-md font-bold flex items-center">
-                          {tracer.username}
-                          {tracer.Userboard.rank !== 0 ? (
-                            <ShieldCheckIcon
-                              className={`ml-1 relative h-4 w-4 flex-shrink-0 ${
-                                tracer.Userboard.rank === 1
-                                  ? "text-cyan-400"
-                                  : tracer.Userboard.rank === 2
-                                  ? "text-amber-400"
-                                  : tracer.Userboard.rank === 3
-                                  ? "text-amber-700/70"
-                                  : tracer.Userboard.rank === 4
-                                  ? "text-indigo-500"
-                                  : tracer.Userboard.rank === 5
-                                  ? "text-slate-400"
-                                  : tracer.Userboard.rank === 9
-                                  ? "text-red-400"
-                                  : null
-                              }`}
-                              aria-hidden="true"
-                            />
-                          ) : null}
-                        </h1>
-                        <div className="flex items-center justify-between">
-                          <h1 className="text-xs relative bottom-0.5">
-                            {tracer.role || "No role"}
-                          </h1>
-                          <h1 className="text-xs relative bottom-0.5">
-                            {dayjs(tracer.Trace.createdAt).format("YYYY.MM.DD")}{" "}
-                            나를 등록함
-                          </h1>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </Tab.Panel>
-
-            <Tab.Panel
-              className={classNames(
-                "rounded-md bg-white p-3 h-3/5 ",
-                "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500 focus:outline-none focus:ring-2"
-              )}
-            >
-              <ul>
-                {me?.Tracings?.map((tracing) => (
-                  <li
-                    key={tracing.id}
-                    className="rounded-md p-3  hover:bg-slate-100"
-                  >
-                    <div className=" flex items-center">
-                      <img
-                        src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
-                        className={`h-[50px] w-[50px] border-[3px] ${
-                          tracing.status ? "border-indigo-500" : ""
-                        } p-0.5 rounded-full object-cover`}
-                      />
-                      <div className="ml-2 w-full flex flex-col">
-                        <div className="flex items-center justify-between">
+                {me?.Tracers.length === 0 ? (
+                  <div className="rounded-md text-sm text-slate-300 p-3 h-20 flex justify-center items-center hover:bg-slate-100">
+                    <span>No Tracers</span>
+                    <FaceFrownIcon className="w-4 ml-1" />
+                  </div>
+                ) : (
+                  me?.Tracers?.map((tracer) => (
+                    <li
+                      key={tracer.id}
+                      className="rounded-md p-3  hover:bg-slate-100"
+                    >
+                      <div className=" flex items-center">
+                        <img
+                          src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
+                          className={`h-[50px] w-[50px] border-[3px] ${
+                            tracer.status ? "border-indigo-500" : ""
+                          } p-0.5 rounded-full object-cover`}
+                        />
+                        <div className="ml-2 w-full flex flex-col">
                           <h1 className="text-md font-bold flex items-center">
-                            {tracing.username}
-                            {tracing.Userboard.rank !== 0 ? (
+                            {tracer.username}
+                            {tracer.Userboard.rank !== 0 ? (
                               <ShieldCheckIcon
                                 className={`ml-1 relative h-4 w-4 flex-shrink-0 ${
-                                  tracing.Userboard.rank === 1
+                                  tracer.Userboard.rank === 1
                                     ? "text-cyan-400"
-                                    : tracing.Userboard.rank === 2
+                                    : tracer.Userboard.rank === 2
                                     ? "text-amber-400"
-                                    : tracing.Userboard.rank === 3
+                                    : tracer.Userboard.rank === 3
                                     ? "text-amber-700/70"
-                                    : tracing.Userboard.rank === 4
+                                    : tracer.Userboard.rank === 4
                                     ? "text-indigo-500"
-                                    : tracing.Userboard.rank === 5
+                                    : tracer.Userboard.rank === 5
                                     ? "text-slate-400"
-                                    : tracing.Userboard.rank === 9
+                                    : tracer.Userboard.rank === 9
                                     ? "text-red-400"
                                     : null
                                 }`}
@@ -236,30 +183,100 @@ const UserActivity = () => {
                               />
                             ) : null}
                           </h1>
-                          <h1 className="text-sm  flex items-center">
-                            <button
-                              onClick={onUntrace(tracing)}
-                              className="flex items-center gap-1 hover:text-indigo-500"
-                            >
-                              <UserMinusIcon className="w-5" />
-                            </button>
-                          </h1>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <h1 className="text-xs relative bottom-0.5">
-                            {tracing.role || "No role"}
-                          </h1>
-                          <h1 className="text-xs relative bottom-0.5">
-                            {dayjs(tracing.Trace.createdAt).format(
-                              "YYYY.MM.DD"
-                            )}{" "}
-                            내가 등록함
-                          </h1>
+                          <div className="flex items-center justify-between">
+                            <h1 className="text-xs relative bottom-0.5">
+                              {tracer.role || "No role"}
+                            </h1>
+                            <h1 className="text-xs relative bottom-0.5">
+                              {dayjs(tracer.Trace.createdAt).format(
+                                "YYYY.MM.DD"
+                              )}{" "}
+                              나를 등록함
+                            </h1>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  ))
+                )}
+              </ul>
+            </Tab.Panel>
+
+            <Tab.Panel
+              className={classNames(
+                "rounded-md bg-white p-3 ",
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-indigo-500 focus:outline-none focus:ring-2"
+              )}
+            >
+              <ul>
+                {me?.Tracings.length === 0 ? (
+                  <div className="rounded-md text-sm text-slate-300 p-3 h-20 flex justify-center items-center hover:bg-slate-100">
+                    <span>No Tracings</span>
+                    <FaceFrownIcon className="w-4 ml-1" />
+                  </div>
+                ) : (
+                  me?.Tracings?.map((tracing) => (
+                    <li
+                      key={tracing.id}
+                      className="rounded-md p-3  hover:bg-slate-100"
+                    >
+                      <div className=" flex items-center">
+                        <img
+                          src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
+                          className={`h-[50px] w-[50px] border-[3px] ${
+                            tracing.status ? "border-indigo-500" : ""
+                          } p-0.5 rounded-full object-cover`}
+                        />
+                        <div className="ml-2 w-full flex flex-col">
+                          <div className="flex items-center justify-between">
+                            <h1 className="text-md font-bold flex items-center">
+                              {tracing.username}
+                              {tracing.Userboard.rank !== 0 ? (
+                                <ShieldCheckIcon
+                                  className={`ml-1 relative h-4 w-4 flex-shrink-0 ${
+                                    tracing.Userboard.rank === 1
+                                      ? "text-cyan-400"
+                                      : tracing.Userboard.rank === 2
+                                      ? "text-amber-400"
+                                      : tracing.Userboard.rank === 3
+                                      ? "text-amber-700/70"
+                                      : tracing.Userboard.rank === 4
+                                      ? "text-indigo-500"
+                                      : tracing.Userboard.rank === 5
+                                      ? "text-slate-400"
+                                      : tracing.Userboard.rank === 9
+                                      ? "text-red-400"
+                                      : null
+                                  }`}
+                                  aria-hidden="true"
+                                />
+                              ) : null}
+                            </h1>
+                            <h1 className="text-sm  flex items-center">
+                              <button
+                                onClick={onUntrace(tracing)}
+                                className="flex items-center gap-1 hover:text-indigo-500"
+                              >
+                                <UserMinusIcon className="w-5" />
+                              </button>
+                            </h1>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <h1 className="text-xs relative bottom-0.5">
+                              {tracing.role || "No role"}
+                            </h1>
+                            <h1 className="text-xs relative bottom-0.5">
+                              {dayjs(tracing.Trace.createdAt).format(
+                                "YYYY.MM.DD"
+                              )}{" "}
+                              내가 등록함
+                            </h1>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  ))
+                )}
               </ul>
             </Tab.Panel>
           </Tab.Panels>
