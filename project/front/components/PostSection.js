@@ -2,7 +2,7 @@ import { Menu, Transition } from "@headlessui/react";
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import CommentSection from "./CommentSection";
+import CommentArea from "./CommentArea";
 import {
   BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
@@ -35,7 +35,7 @@ const PostSection = ({ post }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
   const { me } = useSelector((state) => state.user);
-  const [toggleCommentSection, setToggleCommentSection] = useState(false);
+  const [toggleCommentArea, setToggleCommentArea] = useState(false);
   const [blindPost, setBlindPost] = useState(false);
   const [postEditMode, setPostEditMode] = useState(false);
 
@@ -100,9 +100,9 @@ const PostSection = ({ post }) => {
 
   const isProdded = post.Prodders.find((v) => v.id === id);
 
-  const onToggleCommentSection = useCallback(() => {
-    setToggleCommentSection(!toggleCommentSection);
-  }, [toggleCommentSection]);
+  const onToggleCommentArea = useCallback(() => {
+    setToggleCommentArea(!toggleCommentArea);
+  }, [toggleCommentArea]);
   const onProdPost = useCallback(() => {
     if (!id) {
       return dispatch(
@@ -239,11 +239,11 @@ const PostSection = ({ post }) => {
           </div>
         )}
         <div className="">
-          {toggleCommentSection && (
+          {toggleCommentArea && (
             <div className="w-full h-full p-3 absolute top-0 left-0 bg-white/90 backdrop-blur-sm z-10">
-              <CommentSection
+              <CommentArea
                 post={post}
-                onToggleCommentSection={onToggleCommentSection}
+                onToggleCommentArea={onToggleCommentArea}
               />
             </div>
           )}
@@ -438,7 +438,7 @@ const PostSection = ({ post }) => {
               )}
 
               <button
-                onClick={onToggleCommentSection}
+                onClick={onToggleCommentArea}
                 className="flex items-center gap-1 hover:text-indigo-500"
               >
                 <ChatBubbleOvalLeftEllipsisIcon className="w-5" />

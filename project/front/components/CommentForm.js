@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { openNotice } from "../reducers/globalSlice";
 import { uploadComment } from "../reducers/postSlice";
 
-const CommentForm = ({ post, onToggleCommentSection }) => {
+const CommentForm = ({ post, onToggleCommentArea }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
 
@@ -82,7 +82,7 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
       <div className="flex items-center mt-1 justify-between">
         <button type="button" className=" rounded-full flex items-center">
           <XMarkIcon
-            onClick={onToggleCommentSection}
+            onClick={onToggleCommentArea}
             className="w-7 text-slate-600 "
           />
         </button>
@@ -103,6 +103,6 @@ const CommentForm = ({ post, onToggleCommentSection }) => {
 
 CommentForm.propTypes = {
   post: PropTypes.object.isRequired,
-  onToggleCommentSection: PropTypes.func.isRequired,
+  onToggleCommentArea: PropTypes.func.isRequired,
 };
 export default CommentForm;

@@ -242,6 +242,38 @@ router.delete(
   }
 );
 
+// 코멘트 수정
+router.patch(
+  "/:postId/comment/:commentId",
+  isLoggedIn,
+  async (req, res, next) => {
+    try {
+      await Comment.update(
+        {
+          content: req.body.content,
+        },
+        {
+          where: {
+            id: req.params.commentId,
+            PostId: req.params.postId,
+            UserId: req.user.id,
+          },
+        }
+      );
+
+      res.status(200).json({
+        content: req.body.content,
+        PostId: parseInt(req.params.postId, 10),
+        CommentId: parseInt(req.params.commentId, 10),
+      });
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+);
+
+// 포스트 복구
 router.patch("/:postId/revert", isLoggedIn, async (req, res, next) => {
   try {
     await Post.update(

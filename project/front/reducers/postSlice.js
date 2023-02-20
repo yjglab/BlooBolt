@@ -37,6 +37,9 @@ export const initialState = {
   uploadCommentLoading: false,
   uploadCommentDone: false,
   uploadCommentError: null,
+  editCommentLoading: false,
+  editCommentDone: false,
+  editCommentError: null,
   removeCommentLoading: false,
   removeCommentDone: false,
   removeCommentError: null,
@@ -165,6 +168,21 @@ export const uploadComment = createAsyncThunk(
     }
   }
 );
+export const editComment = createAsyncThunk(
+  "post/editComment",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.patch(
+        `/post/${info.postId}/comment/${info.commentId}`,
+        info
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 export const removeComment = createAsyncThunk(
   "post/removeComment",
   async (info, thunkAPI) => {
@@ -206,7 +224,6 @@ export const postSlice = createSlice({
         state.loadPostsLoading = false;
         state.loadPostsDone = true;
         state.mainPosts = state.mainPosts.concat(payload);
-        console.log(payload, payload.length);
         state.loadMorePosts = payload.length !== 0;
       })
       .addCase(loadPosts.rejected, (state, { payload }) => {
@@ -346,12 +363,27 @@ export const postSlice = createSlice({
         state.removeCommentLoading = false;
         state.removeCommentDone = true;
         const post = state.mainPosts.find((v) => v.id === payload.PostId);
-        console.log(payload.CommentId);
         post.Comments = post.Comments.filter((v) => v.id !== payload.CommentId);
       })
       .addCase(removeComment.rejected, (state, { payload }) => {
         state.removeCommentLoading = false;
         state.removeCommentError = payload;
+      });
+    builder
+      .addCase(editComment.pending, (state) => {
+        state.editCommentLoading = true;
+        state.editCommentError = null;
+      })
+      .addCase(editComment.fulfilled, (state, { payload }) => {
+        state.editCommentLoading = false;
+        state.editCommentDone = true;
+        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const comment = post.Comments.find((v) => v.id === payload.CommentId);
+        comment.content = payload.content;
+      })
+      .addCase(editComment.rejected, (state, { payload }) => {
+        state.editCommentLoading = false;
+        state.editCommentError = payload;
       });
   },
 });
