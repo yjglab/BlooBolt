@@ -13,6 +13,7 @@ import {
   uploadPostImages,
 } from "../reducers/postSlice";
 import { openNotice } from "../reducers/globalSlice";
+import { addPostToMe } from "../reducers/userSlice";
 
 const PostForm = ({
   onTogglePostForm,
@@ -55,7 +56,7 @@ const PostForm = ({
     reset();
     onTogglePostForm(false);
 
-    return dispatch(uploadPost({ topic, content, postImagePaths }));
+    dispatch(uploadPost({ topic, content, postImagePaths }));
   };
 
   const onEditPost = (editedFormData) => {

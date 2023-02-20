@@ -123,26 +123,26 @@ const CommentSection = ({ post, comment }) => {
         <div className="ml-2 w-full flex flex-col">
           <h1 className="text-sm font-bold flex items-center">
             {comment.User.username}
-            {post.User.rank && (
+            {comment.User.Userboard.rank !== 0 ? (
               <ShieldCheckIcon
                 className={`w-3.5 ml-0.5 ${
-                  post.User.rank === 1
+                  comment.User.Userboard.rank === 1
                     ? "text-cyan-400"
-                    : post.User.rank === 2
+                    : comment.User.Userboard.rank === 2
                     ? "text-amber-400"
-                    : post.User.rank === 3
+                    : comment.User.Userboard.rank === 3
                     ? "text-amber-700/70"
-                    : post.User.rank === 4
+                    : comment.User.Userboard.rank === 4
                     ? "text-indigo-500"
-                    : post.User.rank === 5
+                    : comment.User.Userboard.rank === 5
                     ? "text-slate-400"
-                    : post.User.rank === 9
+                    : comment.User.Userboard.rank === 9
                     ? "text-red-400"
                     : null
                 }`}
                 aria-hidden="true"
               />
-            )}
+            ) : null}
           </h1>
           <h1 className="text-xs relative bottom-0.5">
             {comment.User.role || "No role"}
@@ -240,7 +240,7 @@ const CommentSection = ({ post, comment }) => {
               ></textarea>
             </>
           ) : (
-            <p className={!extendComment && "line-clamp-3"}>
+            <p className={extendComment ? "" : "line-clamp-3"}>
               {comment.content}
             </p>
           )}

@@ -173,16 +173,16 @@ const PostSection = ({ post }) => {
       dispatch(untrace(post.User.id));
       dispatch(
         openNotice({
-          title: "Mate disconnected",
-          content: `${post.User.username}님을 블루메이트에서 제거합니다.`,
+          title: "Trace disconnected",
+          content: `${post.User.username}님을 트레이스 리스트에서 제거합니다.`,
         })
       );
     } else {
       dispatch(trace(post.User.id));
       dispatch(
         openNotice({
-          title: "Mate connected",
-          content: `${post.User.username}님을 블루메이트로 등록합니다.`,
+          title: "Trace connected",
+          content: `${post.User.username}님을 트레이스 리스트로 등록합니다.`,
         })
       );
     }
@@ -275,26 +275,26 @@ const PostSection = ({ post }) => {
               <div className="ml-2 w-full flex flex-col">
                 <h1 className="text-md font-bold flex items-center">
                   {post.User.username}
-                  {post.User.rank && (
+                  {post.User.Userboard.rank !== 0 ? (
                     <ShieldCheckIcon
                       className={`ml-1 relative h-4 w-4 flex-shrink-0 ${
-                        post.User.rank === 1
+                        post.User.Userboard.rank === 1
                           ? "text-cyan-400"
-                          : post.User.rank === 2
+                          : post.User.Userboard.rank === 2
                           ? "text-amber-400"
-                          : post.User.rank === 3
+                          : post.User.Userboard.rank === 3
                           ? "text-amber-700/70"
-                          : post.User.rank === 4
+                          : post.User.Userboard.rank === 4
                           ? "text-indigo-500"
-                          : post.User.rank === 5
+                          : post.User.Userboard.rank === 5
                           ? "text-slate-400"
-                          : post.User.rank === 9
+                          : post.User.Userboard.rank === 9
                           ? "text-red-400"
                           : null
                       }`}
                       aria-hidden="true"
                     />
-                  )}
+                  ) : null}
                 </h1>
                 <h1 className="text-xs relative bottom-0.5">
                   {post.User.role || "No role"}
@@ -453,13 +453,13 @@ const PostSection = ({ post }) => {
                   {isTracing ? (
                     <>
                       <UserMinusIcon className="w-5" />
-                      Unmate
+                      Untrace
                     </>
                   ) : (
                     <>
                       {" "}
                       <UserPlusIcon className="w-5" />
-                      Mate
+                      Trace
                     </>
                   )}
                 </button>

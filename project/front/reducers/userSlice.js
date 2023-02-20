@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { uploadPost } from "./postSlice";
 
 export const initialState = {
   signUpLoading: false,
@@ -81,10 +82,30 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addPostToMe(state, { payload }) {
-      state.me.Posts.unshift({ id: payload });
+      state.me.Posts.unshift({
+        id: payload.id,
+        content: payload.content,
+        prodded: payload.prodded,
+        comments: payload.comments,
+      });
     },
   },
   extraReducers: (builder) => {
+    builder
+      .addCase(uploadPost.pending, (state) => {
+        state.uploadPostLoading = true;
+        state.uploadPostError = null;
+      })
+      .addCase(uploadPost.fulfilled, (state, { payload }) => {
+        state.uploadPostLoading = false;
+        state.uploadPostDone = true;
+        state.me.Posts.push(payload);
+      })
+      .addCase(uploadPost.rejected, (state, { payload }) => {
+        state.uploadPostLoading = false;
+        state.uploadPostError = payload;
+      });
+
     builder
       .addCase(signUp.pending, (state) => {
         state.signUpLoading = true;

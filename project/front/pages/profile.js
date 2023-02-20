@@ -28,14 +28,14 @@ const Profile = () => {
   const { me } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (!(me && me.id)) {
+    if (!(me && me?.id)) {
       Router.replace("/square");
     }
-  }, [me && me.id]);
+  }, [me && me?.id]);
 
   return (
     <AppLayout>
-      <div className="pt-24 px-6 pb-6 w-full bg-slate-100 lg:flex lg:items-center lg:justify-between">
+      <div className="pt-24 px-6 pb-6 w-full bg-slate-100 md:flex md:items-center md:justify-between">
         <div className="min-w-0 flex-1">
           <div className="flex items-center mb-1">
             <h2 className="text-2xl font-bold leading-7 text-slate-600 md:truncate md:text-3xl md:tracking-tight">
@@ -45,17 +45,17 @@ const Profile = () => {
               <Link href="#">
                 <ShieldCheckIcon
                   className={`ml-1.5 relative top-0.5 h-5 w-5 flex-shrink-0 ${
-                    me.rank === 1
+                    me?.rank === 1
                       ? "text-cyan-400"
-                      : me.rank === 2
+                      : me?.rank === 2
                       ? "text-amber-400"
-                      : me.rank === 3
+                      : me?.rank === 3
                       ? "text-amber-700/70"
-                      : me.rank === 4
+                      : me?.rank === 4
                       ? "text-indigo-500"
-                      : me.rank === 5
+                      : me?.rank === 5
                       ? "text-slate-400"
-                      : me.rank === 9
+                      : me?.rank === 9
                       ? "text-red-400"
                       : null
                   }`}
@@ -70,9 +70,9 @@ const Profile = () => {
               </Link>
             )}
           </div>
-          <div className="mt-1 flex flex-col md:mt-0 md:flex-row md:flex-wrap md:space-x-6">
+          <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
             <div className="mt-2 flex items-center text-sm text-slate-500">
-              {me.status ? (
+              {me?.status ? (
                 <>
                   <PlayCircleIcon
                     className="mr-1.5 h-5 w-5 flex-shrink-0 text-indigo-500"
@@ -96,7 +96,7 @@ const Profile = () => {
                 className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
                 aria-hidden="true"
               />
-              {me.role}
+              {me?.role || "No role"}
             </div>
 
             <div className="mt-2 flex items-center text-sm text-slate-500">
@@ -104,8 +104,8 @@ const Profile = () => {
                 className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
                 aria-hidden="true"
               />
-              <a href={me.website} target="_blank" rel="noreferrer noopenner">
-                {me.website}
+              <a href={me?.website} target="_blank" rel="noreferrer noopenner">
+                {me?.website || "No website"}
               </a>
             </div>
             <div className="mt-2 flex items-center text-sm text-slate-500">
@@ -113,7 +113,7 @@ const Profile = () => {
                 className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
                 aria-hidden="true"
               />
-              {me.country}
+              {me?.country || "No country"}
             </div>
           </div>
         </div>

@@ -80,7 +80,13 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
           },
           {
             model: Post,
-            attributes: ["id"],
+            include: [
+              {
+                model: User,
+                as: "Prodders",
+                attributes: ["id"],
+              },
+            ],
           },
           {
             model: User,
@@ -141,7 +147,7 @@ router.patch("/:userId/trace", isLoggedIn, async (req, res, next) => {
       ],
     });
     if (!targetUser) {
-      res.status(403).send("Mate failed: 존재하지 않는 사용자입니다.");
+      res.status(403).send("Trace failed: 존재하지 않는 사용자입니다.");
     }
     await Userboard.increment(
       {
@@ -182,7 +188,7 @@ router.delete("/:userId/trace", isLoggedIn, async (req, res, next) => {
       ],
     });
     if (!targetUser) {
-      res.status(403).send("Unmate failed: 존재하지 않는 사용자입니다.");
+      res.status(403).send("Untrace failed: 존재하지 않는 사용자입니다.");
     }
     await Userboard.decrement(
       {

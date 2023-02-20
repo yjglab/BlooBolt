@@ -20,9 +20,9 @@ const UserInformation = () => {
                 </p>
               </div>
             </div>
-            <div className="mt-5 lg:col-span-2 lg:mt-0">
+            <div className="mt-3 lg:col-span-2 lg:mt-0">
               <form action="submit">
-                <div className="shadow sm:overflow-hidden sm:rounded">
+                <div className="shadow sm:overflow-hidden sm:rounded-md">
                   <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                     <div className="col-span-6 sm:col-span-3">
                       <label
@@ -64,14 +64,14 @@ const UserInformation = () => {
                           Website
                         </label>
                         <div className="mt-1 flex rounded-md shadow-sm">
-                          <span className="inline-flex items-center rounded-l border border-r-0 border-slate-300 bg-slate-50 px-3 text-sm text-slate-500">
+                          <span className="inline-flex items-center rounded-l-md border border-r-0 border-slate-300 bg-slate-50 px-3 text-sm text-slate-500">
                             http://
                           </span>
                           <input
                             type="text"
                             name="company-website"
                             id="company-website"
-                            className="block placeholder:text-slate-300 w-full flex-1 rounded-none rounded-r border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            className="block placeholder:text-slate-300 w-full flex-1 rounded-none rounded-r-md border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             placeholder="www.mywebsite.com"
                           />
                         </div>
@@ -156,7 +156,7 @@ const UserInformation = () => {
             </div>
             <div className="mt-5 lg:col-span-2 lg:mt-0">
               <form action="#" method="POST">
-                <div className="overflow-hidden shadow sm:rounded">
+                <div className="overflow-hidden shadow sm:rounded-md">
                   <div className="bg-white px-4 py-5 sm:p-6">
                     <div className="grid grid-cols-6 gap-6">
                       <div className="col-span-6 ">
@@ -261,7 +261,7 @@ const UserInformation = () => {
             </div>
             <div className="mt-5 lg:col-span-2 lg:mt-0">
               <form action="#" method="POST">
-                <div className="overflow-hidden shadow sm:rounded">
+                <div className="overflow-hidden shadow sm:rounded-md">
                   <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                     <fieldset>
                       <legend className="contents text-base font-medium text-slate-600">
