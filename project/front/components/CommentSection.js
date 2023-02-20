@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Menu, Transition } from "@headlessui/react";
 import CommentForm from "./CommentForm";
@@ -7,12 +7,46 @@ import {
   ShieldCheckIcon,
   UserPlusIcon,
 } from "@heroicons/react/20/solid";
+import { useDispatch, useSelector } from "react-redux";
+
+import { openNotice } from "../reducers/globalSlice";
+import { removeComment } from "../reducers/postSlice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const CommentSection = ({ post, onToggleCommentSection }) => {
+  const dispatch = useDispatch();
+  const id = useSelector((state) => state.user.me?.id);
+
+  const onEditComment = useCallback(() => {}, []);
+  const onRemoveComment = useCallback(
+    (commentId) => () => {
+      if (!id) {
+        return dispatch(
+          openNotice({
+            title: "Access denied",
+            content: "로그인이 필요합니다.",
+          })
+        );
+      }
+      dispatch(
+        removeComment({
+          postId: post.id,
+          commentId,
+        })
+      );
+      dispatch(
+        openNotice({
+          title: "Comment Deleted",
+          content: "코멘트가 삭제되었습니다.",
+        })
+      );
+    },
+    []
+  );
+
   return (
     <>
       <div className="w-full h-[75%] pb-3 overflow-y-auto ">
@@ -90,6 +124,7 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
                       <Menu.Item>
                         {({ active }) => (
                           <button
+                            onClick={onEditComment}
                             className={classNames(
                               active
                                 ? "bg-slate-100 text-slate-600"
@@ -101,6 +136,23 @@ const CommentSection = ({ post, onToggleCommentSection }) => {
                           </button>
                         )}
                       </Menu.Item>
+                      {comment.UserId === id ? (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={onRemoveComment(comment.id)}
+                              className={classNames(
+                                active
+                                  ? "bg-slate-100 text-slate-600"
+                                  : "text-slate-600",
+                                "block px-4 py-2 text-sm text-left w-full"
+                              )}
+                            >
+                              Delete
+                            </button>
+                          )}
+                        </Menu.Item>
+                      ) : null}
                       <Menu.Item>
                         {({ active }) => (
                           <button

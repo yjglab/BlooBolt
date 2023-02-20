@@ -224,7 +224,7 @@ const PostSection = ({ post }) => {
           prevPostImages={post.PostImages}
         />
       )}
-      <div className="mb-6 p-1  h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
+      <div className=" p-1  h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
         {post.blinded && blindPost && (
           <div className="flex backdrop-saturate-0 gap-2 bg-slate-300/50 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur-md z-10">
             <span className="text-sm text-slate-400">

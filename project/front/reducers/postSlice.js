@@ -37,6 +37,9 @@ export const initialState = {
   uploadCommentLoading: false,
   uploadCommentDone: false,
   uploadCommentError: null,
+  removeCommentLoading: false,
+  removeCommentDone: false,
+  removeCommentError: null,
 };
 
 const loadPostsHandler = async (info, thunkAPI) => {
@@ -155,6 +158,20 @@ export const uploadComment = createAsyncThunk(
   async (info, thunkAPI) => {
     try {
       const { data } = await axios.post(`/post/${info.postId}/comment`, info);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+export const removeComment = createAsyncThunk(
+  "post/removeComment",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.delete(
+        `/post/${info.postId}/comment/${info.commentId}`
+      );
       return data;
     } catch (error) {
       console.error(error);
@@ -319,6 +336,22 @@ export const postSlice = createSlice({
       .addCase(uploadComment.rejected, (state, { payload }) => {
         state.uploadCommentLoading = false;
         state.uploadCommentError = payload;
+      });
+    builder
+      .addCase(removeComment.pending, (state) => {
+        state.removeCommentLoading = true;
+        state.removeCommentError = null;
+      })
+      .addCase(removeComment.fulfilled, (state, { payload }) => {
+        state.removeCommentLoading = false;
+        state.removeCommentDone = true;
+        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        console.log(payload.CommentId);
+        post.Comments = post.Comments.filter((v) => v.id !== payload.CommentId);
+      })
+      .addCase(removeComment.rejected, (state, { payload }) => {
+        state.removeCommentLoading = false;
+        state.removeCommentError = payload;
       });
   },
 });

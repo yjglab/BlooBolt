@@ -160,6 +160,7 @@ router.patch("/:postId", isLoggedIn, async (req, res, next) => {
   }
 });
 
+// 코멘트 생성
 router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
   try {
     const post = await Post.findOne({ where: { id: req.params.postId } });
@@ -192,7 +193,9 @@ router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
           rankPoint: 10,
         },
         {
-          where: { UserId: req.user.id },
+          where: {
+            UserId: req.user.id,
+          },
         }
       );
     }
@@ -202,6 +205,42 @@ router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
     next(error);
   }
 });
+
+// 코멘트 삭제
+router.delete(
+  "/:postId/comment/:commentId",
+  isLoggedIn,
+  async (req, res, next) => {
+    try {
+      await Comment.destroy({
+        where: {
+          id: req.params.commentId,
+          PostId: req.params.postId,
+          UserId: req.user.id,
+        },
+      });
+      if (parseInt(req.params.postId) !== req.user.id) {
+        await Userboard.decrement(
+          {
+            rankPoint: 10,
+          },
+          {
+            where: {
+              UserId: req.user.id,
+            },
+          }
+        );
+      }
+      res.status(200).json({
+        PostId: parseInt(req.params.postId, 10),
+        CommentId: parseInt(req.params.commentId, 10),
+      });
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+);
 
 router.patch("/:postId/revert", isLoggedIn, async (req, res, next) => {
   try {
@@ -234,6 +273,7 @@ router.patch("/:postId/revert", isLoggedIn, async (req, res, next) => {
   }
 });
 
+// 포스트 삭제
 router.delete("/:postId", isLoggedIn, async (req, res, next) => {
   try {
     // await Post.destroy({
@@ -267,6 +307,7 @@ router.delete("/:postId", isLoggedIn, async (req, res, next) => {
   }
 });
 
+// 포스트 생성
 router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
   try {
     const post = await Post.create({
