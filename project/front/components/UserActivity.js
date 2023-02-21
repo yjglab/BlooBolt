@@ -28,8 +28,8 @@ const UserActivity = () => {
     dispatch(untrace(tracing.id));
     dispatch(
       openNotice({
-        title: "Trace disconnected",
         content: `${tracing.username}님을 트레이스 리스트에서 제거합니다.`,
+        type: 1,
       })
     );
   };

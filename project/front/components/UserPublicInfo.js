@@ -43,8 +43,8 @@ const UserPublicInfo = ({ me }) => {
     );
     dispatch(
       openNotice({
-        title: "Public information changed",
         content: "사용자 정보가 변경되었습니다.",
+        type: 1,
       })
     );
   };

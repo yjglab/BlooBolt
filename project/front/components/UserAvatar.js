@@ -23,8 +23,8 @@ const UserAvatar = ({ me }) => {
     if (userAvatarImage[0].size > 10 * 1024 * 1024) {
       return dispatch(
         openNotice({
-          title: "Avatar upload failed",
           content: "10MB 이하의 이미지 파일만 업로드 가능합니다.",
+          type: 2,
         })
       );
     } else {
@@ -34,8 +34,8 @@ const UserAvatar = ({ me }) => {
     dispatch(uploadUserAvatar(userAvatarFormData));
     dispatch(
       openNotice({
-        title: "Avatar changed",
         content: "사용자 이미지가 변경되었습니다.",
+        type: 1,
       })
     );
   };

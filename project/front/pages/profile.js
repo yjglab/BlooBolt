@@ -4,6 +4,7 @@ import Router from "next/router";
 
 import { Fragment } from "react";
 import {
+  BriefcaseIcon,
   CameraIcon,
   CheckIcon,
   ChevronDownIcon,
@@ -15,6 +16,7 @@ import {
   PlayCircleIcon,
   ShieldCheckIcon,
   UserCircleIcon,
+  WindowIcon,
 } from "@heroicons/react/20/solid";
 import { Menu, Transition, Tab } from "@headlessui/react";
 import AppLayout from "../components/AppLayout";
@@ -113,7 +115,7 @@ const Profile = () => {
               </div>
 
               <div className="mt-2 flex items-center text-sm text-slate-500">
-                <UserCircleIcon
+                <BriefcaseIcon
                   className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
                   aria-hidden="true"
                 />
@@ -122,7 +124,7 @@ const Profile = () => {
             </div>
             <div className="md:flex md:gap-3">
               <div className="mt-2 flex items-center text-sm text-slate-500">
-                <CursorArrowRippleIcon
+                <WindowIcon
                   className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
                   aria-hidden="true"
                 />

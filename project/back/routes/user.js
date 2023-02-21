@@ -4,7 +4,7 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
-const { User, Userboard, Post } = require("../models");
+const { User, Userboard, Post, Comment } = require("../models");
 const { isNotLoggedIn, isLoggedIn } = require("./middlewares");
 const passport = require("passport");
 
@@ -122,6 +122,15 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
                 model: User,
                 as: "PostProdders",
                 attributes: ["id"],
+              },
+              {
+                model: Comment,
+                include: [
+                  {
+                    model: User,
+                    attributes: ["id"],
+                  },
+                ],
               },
             ],
           },

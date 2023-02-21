@@ -65,8 +65,8 @@ const CommentSection = ({ post, comment }) => {
       if (!id) {
         return dispatch(
           openNotice({
-            title: "Access denied",
             content: "로그인이 필요합니다.",
+            type: 2,
           })
         );
       }
@@ -83,8 +83,8 @@ const CommentSection = ({ post, comment }) => {
       );
       dispatch(
         openNotice({
-          title: "Comment Edited",
           content: "코멘트가 수정되었습니다.",
+          type: 1,
         })
       );
       reset();
@@ -97,8 +97,8 @@ const CommentSection = ({ post, comment }) => {
     if (!id) {
       return dispatch(
         openNotice({
-          title: "Access denied",
           content: "로그인이 필요합니다.",
+          type: 2,
         })
       );
     }
@@ -110,8 +110,8 @@ const CommentSection = ({ post, comment }) => {
     );
     dispatch(
       openNotice({
-        title: "Comment Deleted",
         content: "코멘트가 삭제되었습니다.",
+        type: 1,
       })
     );
   }, [id]);
@@ -121,18 +121,16 @@ const CommentSection = ({ post, comment }) => {
     if (!id) {
       return dispatch(
         openNotice({
-          title: "Access denied",
           content: "로그인이 필요합니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
     if (comment.User.id === id) {
       return dispatch(
         openNotice({
-          title: "Prod failed",
           content: "자신의 코멘트를 프롯할 수 없습니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
@@ -148,9 +146,8 @@ const CommentSection = ({ post, comment }) => {
     if (!id) {
       return dispatch(
         openNotice({
-          title: "Access denied",
           content: "로그인이 필요합니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
@@ -167,9 +164,8 @@ const CommentSection = ({ post, comment }) => {
     if (!id) {
       return dispatch(
         openNotice({
-          title: "Access denied",
           content: "로그인이 필요합니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
@@ -177,16 +173,16 @@ const CommentSection = ({ post, comment }) => {
       dispatch(untrace(comment.User.id));
       dispatch(
         openNotice({
-          title: "Trace disconnected",
           content: `${comment.User.username}님을 트레이스 리스트에서 제거합니다.`,
+          type: 1,
         })
       );
     } else {
       dispatch(trace(comment.User.id));
       dispatch(
         openNotice({
-          title: "Trace connected",
           content: `${comment.User.username}님을 트레이스 리스트에 등록합니다.`,
+          type: 1,
         })
       );
     }

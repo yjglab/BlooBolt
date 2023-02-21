@@ -72,8 +72,8 @@ const PostForm = ({
     dispatch(editPost({ PostId: post.id, topic, content, postImagePaths }));
     dispatch(
       openNotice({
-        title: "Post Edited",
         content: "포스트가 수정되었습니다.",
+        type: 1,
       })
     );
   };

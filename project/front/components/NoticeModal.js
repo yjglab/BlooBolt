@@ -7,15 +7,12 @@ import { closeNotice } from "../reducers/globalSlice";
 const NoticeModal = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(true);
-  const { title, content, type } = useSelector((state) => state.global.notice);
-  function onCloseModal() {
+  const { content, type } = useSelector((state) => state.global.notice);
+
+  const onCloseModal = () => {
     dispatch(closeNotice());
     setIsOpen(false);
-  }
-
-  function onOpenModal() {
-    setIsOpen(true);
-  }
+  };
 
   return (
     <>
@@ -48,10 +45,14 @@ const NoticeModal = () => {
                   <Dialog.Title
                     as="h3"
                     className={`text-lg font-semibold leading-6 ${
-                      type === "error" ? "text-red-600" : "text-slate-700"
+                      type === 1
+                        ? "text-indigo-500"
+                        : type === 2
+                        ? "text-red-600"
+                        : "text-slate-700"
                     }`}
                   >
-                    {title}
+                    {type === 1 ? "Success" : type === 2 ? "Failed" : "Notice"}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-slate-500">{content}</p>

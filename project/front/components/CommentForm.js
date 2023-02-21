@@ -31,9 +31,8 @@ const CommentForm = ({ post, onToggleCommentArea }) => {
       if (!id) {
         return dispatch(
           openNotice({
-            title: "Access Denied",
             content: "로그인이 필요합니다.",
-            type: "error",
+            type: 2,
           })
         );
       }

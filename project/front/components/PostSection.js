@@ -53,27 +53,25 @@ const PostSection = ({ post }) => {
     if (!id) {
       return dispatch(
         openNotice({
-          title: "Access denied",
           content: "로그인이 필요합니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
     if (post.blinded) {
       return dispatch(
         openNotice({
-          title: "Post Deletion failed",
           content: "이미 블라인드 된 포스트입니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
     dispatch(removePost(post.id));
     dispatch(
       openNotice({
-        title: "Post deleted",
         content:
           "포스트가 블라인드 되었습니다. 다른 사용자가 작성자의 포스트를 확인할 수 있습니다.",
+        type: 1,
       })
     );
     setBlindPost(true);
@@ -84,9 +82,8 @@ const PostSection = ({ post }) => {
     if (!id) {
       return dispatch(
         openNotice({
-          title: "Access denied",
           content: "로그인이 필요합니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
@@ -94,8 +91,8 @@ const PostSection = ({ post }) => {
     dispatch(revertPost(post.id));
     dispatch(
       openNotice({
-        title: "Post reverted",
         content: "포스트가 복구되었습니다.",
+        type: 1,
       })
     );
     setBlindPost(false);
@@ -110,27 +107,24 @@ const PostSection = ({ post }) => {
     if (!id) {
       return dispatch(
         openNotice({
-          title: "Access denied",
           content: "로그인이 필요합니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
     if (post.User.id === id) {
       return dispatch(
         openNotice({
-          title: "Prod failed",
           content: "자신의 포스트를 프롯할 수 없습니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
     if (post.blinded) {
       return dispatch(
         openNotice({
-          title: "Prod failed",
           content: "블라인드 된 포스트를 프롯할 수 없습니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
@@ -140,9 +134,8 @@ const PostSection = ({ post }) => {
     if (!id) {
       return dispatch(
         openNotice({
-          title: "Access denied",
           content: "로그인이 필요합니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
@@ -152,9 +145,8 @@ const PostSection = ({ post }) => {
     if (!id) {
       return dispatch(
         openNotice({
-          title: "Access denied",
           content: "로그인이 필요합니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
@@ -166,9 +158,8 @@ const PostSection = ({ post }) => {
     if (!id) {
       return dispatch(
         openNotice({
-          title: "Access denied",
           content: "로그인이 필요합니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
@@ -176,16 +167,16 @@ const PostSection = ({ post }) => {
       dispatch(untrace(post.User.id));
       dispatch(
         openNotice({
-          title: "Trace disconnected",
           content: `${post.User.username}님을 트레이스 리스트에서 제거합니다.`,
+          type: 1,
         })
       );
     } else {
       dispatch(trace(post.User.id));
       dispatch(
         openNotice({
-          title: "Trace connected",
           content: `${post.User.username}님을 트레이스 리스트에 등록합니다.`,
+          type: 1,
         })
       );
     }
@@ -195,18 +186,16 @@ const PostSection = ({ post }) => {
     if (post.blinded) {
       return dispatch(
         openNotice({
-          title: "Post editing failed",
           content: "블라인드 된 포스트는 수정할 수 없습니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
     if (post.reverted) {
       return dispatch(
         openNotice({
-          title: "Post editing failed",
           content: "복원된 포스트는 수정할 수 없습니다.",
-          type: "error",
+          type: 2,
         })
       );
     }
