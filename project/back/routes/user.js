@@ -273,7 +273,7 @@ router.patch("/:userId/trace", isLoggedIn, async (req, res, next) => {
       include: [
         {
           model: Userboard,
-          attributes: ["rank"],
+          attributes: ["rank", "avatar"],
         },
       ],
     });
@@ -294,7 +294,7 @@ router.patch("/:userId/trace", isLoggedIn, async (req, res, next) => {
       include: [
         {
           model: Userboard,
-          attributes: ["rank"],
+          attributes: ["rank", "avatar"],
         },
       ],
     });
@@ -310,13 +310,13 @@ router.delete("/:userId/trace", isLoggedIn, async (req, res, next) => {
   try {
     const targetUser = await User.findOne({
       where: { id: req.params.userId },
-      attributes: ["id", "username", "status", "role"],
-      include: [
-        {
-          model: Userboard,
-          attributes: ["rank"],
-        },
-      ],
+      // attributes: ["id", "username", "status", "role"],
+      // include: [
+      //   {
+      //     model: Userboard,
+      //     attributes: ["rank", "avatar"],
+      //   },
+      // ],
     });
     if (!targetUser) {
       res.status(403).send("Untrace failed: 존재하지 않는 사용자입니다.");

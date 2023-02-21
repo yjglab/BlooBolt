@@ -8,6 +8,7 @@ import {
   MinusIcon,
   PlusIcon,
   ShieldCheckIcon,
+  UserMinusIcon,
   UserPlusIcon,
 } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +22,7 @@ import {
 } from "../reducers/postSlice";
 import { useForm } from "react-hook-form";
 import { backUrl } from "../config/config";
+import { trace, untrace } from "../reducers/userSlice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -29,11 +31,10 @@ function classNames(...classes) {
 const CommentSection = ({ post, comment }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
+  const { me } = useSelector((state) => state.user);
+
   const [extendComment, setExtendComment] = useState(false);
   const [editCommentMode, setEditCommentMode] = useState(false);
-  const { editCommentDone, removeCommentDone } = useSelector(
-    (state) => state.post
-  );
 
   const onCancelEditCommentMode = useCallback(() => {
     setEditCommentMode(false);
@@ -160,6 +161,36 @@ const CommentSection = ({ post, comment }) => {
       })
     );
   }, [id, comment.User.id]);
+
+  const isTracing = me?.Tracings?.find((v) => v.id === comment.User.id);
+  const onToggleTrace = () => {
+    if (!id) {
+      return dispatch(
+        openNotice({
+          title: "Access denied",
+          content: "로그인이 필요합니다.",
+          type: "error",
+        })
+      );
+    }
+    if (isTracing) {
+      dispatch(untrace(comment.User.id));
+      dispatch(
+        openNotice({
+          title: "Trace disconnected",
+          content: `${comment.User.username}님을 트레이스 리스트에서 제거합니다.`,
+        })
+      );
+    } else {
+      dispatch(trace(comment.User.id));
+      dispatch(
+        openNotice({
+          title: "Trace connected",
+          content: `${comment.User.username}님을 트레이스 리스트에 등록합니다.`,
+        })
+      );
+    }
+  };
 
   return (
     <div
@@ -321,13 +352,26 @@ const CommentSection = ({ post, comment }) => {
                 <span>{comment.CommentProdders.length}</span>
               </button>
             )}
-            <button
-              type="button"
-              className="mx-1 flex items-center gap-0.5 hover:text-indigo-500 "
-            >
-              <UserPlusIcon className="w-4" />
-              <span>Trace</span>
-            </button>
+
+            {comment.User.id !== me?.id ? (
+              <button
+                onClick={onToggleTrace}
+                className="mx-1 flex items-center gap-0.5 hover:text-indigo-500 "
+              >
+                {isTracing ? (
+                  <>
+                    <UserMinusIcon className="w-4" />
+                    Untrace
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <UserPlusIcon className="w-4" />
+                    Trace
+                  </>
+                )}
+              </button>
+            ) : null}
           </div>
           <div className="flex">
             {editCommentMode ? (

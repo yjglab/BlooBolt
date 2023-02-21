@@ -193,9 +193,9 @@ const UserActivity = () => {
                               {tracer.role}
                             </h1>
                             <h1 className="text-xs relative bottom-0.5">
-                              {dayjs(tracer.Trace.createdAt).format(
+                              {/* {dayjs(tracer.Trace.createdAt).format(
                                 "YYYY.MM.DD"
-                              )}{" "}
+                              )}{" "} */}
                               나를 등록함
                             </h1>
                           </div>
@@ -271,9 +271,9 @@ const UserActivity = () => {
                               {tracing.role}
                             </h1>
                             <h1 className="text-xs relative bottom-0.5">
-                              {dayjs(tracing.Trace.createdAt).format(
+                              {/* {dayjs(tracing.Trace.createdAt).format(
                                 "YYYY.MM.DD"
-                              )}{" "}
+                              )}{" "} */}
                               내가 등록함
                             </h1>
                           </div>
