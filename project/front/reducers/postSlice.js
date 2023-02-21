@@ -43,6 +43,12 @@ export const initialState = {
   removeCommentLoading: false,
   removeCommentDone: false,
   removeCommentError: null,
+  prodCommentLoading: false,
+  prodCommentDone: false,
+  prodCommentError: null,
+  unprodCommentLoading: false,
+  unprodCommentDone: false,
+  unprodCommentError: null,
 };
 
 const loadPostsHandler = async (info, thunkAPI) => {
@@ -197,6 +203,35 @@ export const removeComment = createAsyncThunk(
     }
   }
 );
+export const prodComment = createAsyncThunk(
+  "post/prodComment",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.patch(
+        `/post/${info.postId}/comment/${info.commentId}/prod`,
+        info
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+export const unprodComment = createAsyncThunk(
+  "post/unprodComment",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.delete(
+        `/post/${info.postId}/comment/${info.commentId}/prod`
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const postSlice = createSlice({
   name: "post",
@@ -299,7 +334,7 @@ export const postSlice = createSlice({
         state.prodPostLoading = false;
         state.prodPostDone = true;
         const post = state.mainPosts.find((v) => v.id === payload.PostId);
-        post.Prodders.push({ id: payload.UserId });
+        post.PostProdders.push({ id: payload.UserId });
       })
       .addCase(prodPost.rejected, (state, { payload }) => {
         state.prodPostLoading = false;
@@ -314,7 +349,9 @@ export const postSlice = createSlice({
         state.unprodPostLoading = false;
         state.unprodPostDone = true;
         const post = state.mainPosts.find((v) => v.id === payload.PostId);
-        post.Prodders = post.Prodders.filter((v) => v.id !== payload.UserId);
+        post.PostProdders = post.PostProdders.filter(
+          (v) => v.id !== payload.UserId
+        );
       })
       .addCase(unprodPost.rejected, (state, { payload }) => {
         state.unprodPostLoading = false;
@@ -384,6 +421,40 @@ export const postSlice = createSlice({
       .addCase(editComment.rejected, (state, { payload }) => {
         state.editCommentLoading = false;
         state.editCommentError = payload;
+      });
+    builder
+      .addCase(prodComment.pending, (state) => {
+        state.prodCommentLoading = true;
+        state.prodCommentError = null;
+      })
+      .addCase(prodComment.fulfilled, (state, { payload }) => {
+        state.prodCommentLoading = false;
+        state.prodCommentDone = true;
+        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const comment = post.Comments.find((v) => v.id === payload.CommentId);
+        comment.CommentProdders.push({ id: payload.UserId });
+      })
+      .addCase(prodComment.rejected, (state, { payload }) => {
+        state.prodCommentLoading = false;
+        state.prodCommentError = payload;
+      });
+    builder
+      .addCase(unprodComment.pending, (state) => {
+        state.unprodCommentLoading = true;
+        state.unprodCommentError = null;
+      })
+      .addCase(unprodComment.fulfilled, (state, { payload }) => {
+        state.unprodCommentLoading = false;
+        state.unprodCommentDone = true;
+        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const comment = post.Comments.find((v) => v.id === payload.CommentId);
+        comment.CommentProdders = comment.CommentProdders.filter(
+          (v) => v.id !== payload.UserId
+        );
+      })
+      .addCase(unprodComment.rejected, (state, { payload }) => {
+        state.unprodCommentLoading = false;
+        state.unprodCommentError = payload;
       });
   },
 });

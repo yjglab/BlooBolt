@@ -120,7 +120,7 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
             include: [
               {
                 model: User,
-                as: "Prodders",
+                as: "PostProdders",
                 attributes: ["id"],
               },
             ],
@@ -201,14 +201,21 @@ router.patch("/:userId/info/public", isLoggedIn, async (req, res, next) => {
     if (parseInt(req.params.userId, 10) !== req.user.id) {
       return res.status(403).send("다른 사용자의 정보를 수정할 수 없습니다.");
     }
-    const existedUsername = await User.findOne({
-      where: {
-        username: req.body.username,
-      },
+
+    const me = await User.findOne({
+      where: { id: req.params.userId },
     });
-    if (existedUsername) {
-      return res.status(403).send("이미 존재하는 사용자명입니다.");
+    if (me.username !== req.body.username) {
+      const existedUsername = await User.findOne({
+        where: {
+          username: req.body.username,
+        },
+      });
+      if (existedUsername) {
+        return res.status(403).send("이미 존재하는 사용자명입니다.");
+      }
     }
+
     await User.update(
       {
         username: req.body.username,

@@ -7,7 +7,9 @@ import { openNotice } from "../reducers/globalSlice";
 
 const UserPersonalInfo = ({ me }) => {
   const dispatch = useDispatch();
-  const { changeMyPersonalInfoError } = useSelector((state) => state.user);
+  const { changeMyPersonalInfoDone, changeMyPersonalInfoError } = useSelector(
+    (state) => state.user
+  );
 
   const {
     register,
@@ -36,11 +38,10 @@ const UserPersonalInfo = ({ me }) => {
     );
     dispatch(
       openNotice({
-        title: "Personal information changed",
-        content: "개인정보가 변경되었습니다.",
+        title: "Public information changed",
+        content: "사용자 정보가 변경되었습니다.",
       })
     );
-    return;
   };
   return (
     <div className="mt-10 sm:mt-0">
@@ -111,8 +112,7 @@ const UserPersonalInfo = ({ me }) => {
                     className="placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     {...register("address", {
                       maxLength: {
-                        value: 10,
-                        message: "10자리 이하의 실명을 입력해주세요",
+                        value: 50,
                       },
                     })}
                   />

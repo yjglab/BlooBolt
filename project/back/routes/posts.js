@@ -37,7 +37,7 @@ router.get("/", async (req, res, next) => {
         },
         {
           model: User,
-          as: "Prodders",
+          as: "PostProdders",
           attributes: ["id"],
         },
         {
@@ -55,6 +55,11 @@ router.get("/", async (req, res, next) => {
                   attributes: ["avatar", "rank"],
                 },
               ],
+            },
+            {
+              model: User,
+              as: "CommentProdders",
+              attributes: ["id"],
             },
           ],
         },

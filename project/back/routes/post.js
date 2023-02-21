@@ -58,6 +58,7 @@ router.post(
   }
 );
 
+// 포스트 프롯
 router.patch("/:postId/prod", isLoggedIn, async (req, res, next) => {
   try {
     const post = await Post.findOne({
@@ -75,7 +76,7 @@ router.patch("/:postId/prod", isLoggedIn, async (req, res, next) => {
         where: { UserId: req.body.postUserId },
       }
     );
-    await post.addProdders(req.user.id);
+    await post.addPostProdders(req.user.id);
     res.json({ PostId: post.id, UserId: req.user.id });
   } catch (error) {
     console.error(error);
@@ -83,6 +84,7 @@ router.patch("/:postId/prod", isLoggedIn, async (req, res, next) => {
   }
 });
 
+// 포스트 프롯 삭제
 router.delete("/:postId/prod", isLoggedIn, async (req, res, next) => {
   try {
     const post = await Post.findOne({
@@ -99,7 +101,7 @@ router.delete("/:postId/prod", isLoggedIn, async (req, res, next) => {
         where: { UserId: post.UserId },
       }
     );
-    await post.removeProdders(req.user.id);
+    await post.removePostProdders(req.user.id);
     res.json({ PostId: post.id, UserId: req.user.id });
   } catch (error) {
     console.error(error);
@@ -107,6 +109,7 @@ router.delete("/:postId/prod", isLoggedIn, async (req, res, next) => {
   }
 });
 
+// 포스트 수정
 router.patch("/:postId", isLoggedIn, async (req, res, next) => {
   try {
     await Post.update(
@@ -184,6 +187,11 @@ router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
               attributes: ["avatar", "rank"],
             },
           ],
+        },
+        {
+          model: User,
+          as: "CommentProdders",
+          attributes: ["id"],
         },
       ],
     });
@@ -265,6 +273,80 @@ router.patch(
         content: req.body.content,
         PostId: parseInt(req.params.postId, 10),
         CommentId: parseInt(req.params.commentId, 10),
+      });
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+);
+
+// 코멘트 프롯
+router.patch(
+  "/:postId/comment/:commentId/prod",
+  isLoggedIn,
+  async (req, res, next) => {
+    try {
+      const comment = await Comment.findOne({
+        where: {
+          id: req.params.commentId,
+          PostId: req.params.postId,
+          UserId: req.body.commentUserId,
+        },
+      });
+      if (!comment) {
+        return res.status(403).send("존재하지 않는 코멘트입니다");
+      }
+
+      await Userboard.increment(
+        {
+          rankPoint: 100,
+        },
+        {
+          where: { UserId: req.body.commentUserId },
+        }
+      );
+      await comment.addCommentProdders(req.user.id);
+      res.json({
+        PostId: parseInt(req.params.postId, 10),
+        CommentId: parseInt(req.params.commentId, 10),
+        UserId: req.user.id,
+      });
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+);
+
+// 코멘트 프롯 삭제
+router.delete(
+  "/:postId/comment/:commentId/prod",
+  isLoggedIn,
+  async (req, res, next) => {
+    try {
+      const comment = await Comment.findOne({
+        where: {
+          id: req.params.commentId,
+          PostId: req.params.postId,
+        },
+      });
+      if (!comment) {
+        return res.status(403).send("존재하지 않는 코멘트입니다");
+      }
+      await Userboard.decrement(
+        {
+          rankPoint: 100,
+        },
+        {
+          where: { UserId: comment.UserId },
+        }
+      );
+      await comment.removeCommentProdders(req.user.id);
+      res.json({
+        PostId: parseInt(req.params.postId, 10),
+        CommentId: parseInt(req.params.commentId, 10),
+        UserId: req.user.id,
       });
     } catch (error) {
       console.error(error);
@@ -396,7 +478,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
         },
         {
           model: User,
-          as: "Prodders",
+          as: "PostProdders",
           attributes: ["id"],
         },
         {
@@ -414,6 +496,11 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
                   attributes: ["avatar", "rank"],
                 },
               ],
+            },
+            {
+              model: User,
+              as: "CommentProdders",
+              attributes: ["id"],
             },
           ],
         },

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Menu, Transition } from "@headlessui/react";
 import {
@@ -13,7 +13,12 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import { openNotice } from "../reducers/globalSlice";
-import { removeComment, editComment } from "../reducers/postSlice";
+import {
+  removeComment,
+  editComment,
+  prodComment,
+  unprodComment,
+} from "../reducers/postSlice";
 import { useForm } from "react-hook-form";
 import { backUrl } from "../config/config";
 
@@ -26,6 +31,9 @@ const CommentSection = ({ post, comment }) => {
   const id = useSelector((state) => state.user.me?.id);
   const [extendComment, setExtendComment] = useState(false);
   const [editCommentMode, setEditCommentMode] = useState(false);
+  const { editCommentDone, removeCommentDone } = useSelector(
+    (state) => state.post
+  );
 
   const onCancelEditCommentMode = useCallback(() => {
     setEditCommentMode(false);
@@ -106,6 +114,52 @@ const CommentSection = ({ post, comment }) => {
       })
     );
   }, [id]);
+
+  const isProdded = comment.CommentProdders.find((v) => v.id === id);
+  const onProdComment = useCallback(() => {
+    if (!id) {
+      return dispatch(
+        openNotice({
+          title: "Access denied",
+          content: "로그인이 필요합니다.",
+          type: "error",
+        })
+      );
+    }
+    if (comment.User.id === id) {
+      return dispatch(
+        openNotice({
+          title: "Prod failed",
+          content: "자신의 코멘트를 프롯할 수 없습니다.",
+          type: "error",
+        })
+      );
+    }
+    dispatch(
+      prodComment({
+        postId: post.id,
+        commentId: comment.id,
+        commentUserId: comment.User.id,
+      })
+    );
+  }, [id, comment.User.id]);
+  const onUnprodComment = useCallback(() => {
+    if (!id) {
+      return dispatch(
+        openNotice({
+          title: "Access denied",
+          content: "로그인이 필요합니다.",
+          type: "error",
+        })
+      );
+    }
+    dispatch(
+      unprodComment({
+        postId: post.id,
+        commentId: comment.id,
+      })
+    );
+  }, [id, comment.User.id]);
 
   return (
     <div
@@ -250,16 +304,26 @@ const CommentSection = ({ post, comment }) => {
         </div>
         <div className="flex justify-between  gap-2 text-sm items-center">
           <div className="flex">
+            {isProdded ? (
+              <button
+                onClick={onUnprodComment}
+                className="mx-1 flex items-center gap-0.5"
+              >
+                <BoltIcon className="w-4 text-indigo-500" />
+                <span>{comment.CommentProdders.length}</span>
+              </button>
+            ) : (
+              <button
+                onClick={onProdComment}
+                className="mx-1 flex items-center gap-0.5 hover:text-indigo-500 "
+              >
+                <BoltIcon className="w-4" />
+                <span>{comment.CommentProdders.length}</span>
+              </button>
+            )}
             <button
               type="button"
-              className="mx-1 flex items-center gap-0.5 hover:text-indigo-500 text-slate-600 "
-            >
-              <BoltIcon className="w-4" />
-              <span>12</span>
-            </button>
-            <button
-              type="button"
-              className="mx-1 flex items-center gap-0.5 hover:text-indigo-500 text-slate-600 "
+              className="mx-1 flex items-center gap-0.5 hover:text-indigo-500 "
             >
               <UserPlusIcon className="w-4" />
               <span>Trace</span>
@@ -271,13 +335,13 @@ const CommentSection = ({ post, comment }) => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="mx-1 text-slate-600  hover:text-indigo-500"
+                  className="mx-1  hover:text-indigo-500"
                 >
                   <CheckIcon className="w-5" />
                 </button>
                 <button
                   type="button"
-                  className="mx-1 flex items-center gap-0.5 hover:text-indigo-500 text-slate-600 "
+                  className="mx-1 flex items-center gap-0.5 hover:text-indigo-500"
                 >
                   <ArrowUturnLeftIcon
                     onClick={onCancelEditCommentMode}

@@ -36,7 +36,8 @@ function classNames(...classes) {
 const PostSection = ({ post }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
-  const { me } = useSelector((state) => state.user);
+  const { me, traceDone, untraceDone } = useSelector((state) => state.user);
+  const { removePostDone, revertPostDone } = useSelector((state) => state.post);
   const [toggleCommentArea, setToggleCommentArea] = useState(false);
   const [blindPost, setBlindPost] = useState(false);
   const [postEditMode, setPostEditMode] = useState(false);
@@ -46,7 +47,8 @@ const PostSection = ({ post }) => {
       setBlindPost(true);
     }
   }, [post.blinded]);
-  const onRemovePost = useCallback(() => {
+
+  const onRemovePost = () => {
     if (post.User.id !== id) return;
     if (!id) {
       return dispatch(
@@ -75,9 +77,9 @@ const PostSection = ({ post }) => {
       })
     );
     setBlindPost(true);
-  }, [id]);
+  };
 
-  const onRevertPost = useCallback(() => {
+  const onRevertPost = () => {
     if (post.User.id !== id) return;
     if (!id) {
       return dispatch(
@@ -90,7 +92,6 @@ const PostSection = ({ post }) => {
     }
 
     dispatch(revertPost(post.id));
-
     dispatch(
       openNotice({
         title: "Post reverted",
@@ -98,9 +99,9 @@ const PostSection = ({ post }) => {
       })
     );
     setBlindPost(false);
-  }, [id]);
+  };
 
-  const isProdded = post.Prodders.find((v) => v.id === id);
+  const isProdded = post.PostProdders.find((v) => v.id === id);
 
   const onToggleCommentArea = useCallback(() => {
     setToggleCommentArea(!toggleCommentArea);
@@ -161,7 +162,7 @@ const PostSection = ({ post }) => {
   }, [id]);
 
   const isTracing = me?.Tracings?.find((v) => v.id === post.User.id);
-  const onToggleTrace = useCallback(() => {
+  const onToggleTrace = () => {
     if (!id) {
       return dispatch(
         openNotice({
@@ -184,11 +185,11 @@ const PostSection = ({ post }) => {
       dispatch(
         openNotice({
           title: "Trace connected",
-          content: `${post.User.username}님을 트레이스 리스트로 등록합니다.`,
+          content: `${post.User.username}님을 트레이스 리스트에 등록합니다.`,
         })
       );
     }
-  }, [id, isTracing]);
+  };
 
   const onTogglePostEditMode = useCallback(() => {
     if (post.blinded) {
@@ -433,7 +434,7 @@ const PostSection = ({ post }) => {
                 >
                   <BoltIcon className="w-5 text-indigo-500" />
                   <span className="text-indigo-500">
-                    {post.Prodders.length}
+                    {post.PostProdders.length}
                   </span>
                 </button>
               ) : (
@@ -442,7 +443,7 @@ const PostSection = ({ post }) => {
                   className="flex items-center gap-1 hover:text-indigo-500"
                 >
                   <BoltIcon className="w-5 " />
-                  <span className="">{post.Prodders.length}</span>
+                  <span className="">{post.PostProdders.length}</span>
                 </button>
               )}
 

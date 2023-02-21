@@ -26,7 +26,7 @@ const PostForm = ({
 }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { postImagePaths, uploadPostImagesError } = useSelector(
+  const { postImagePaths, editPostDone, uploadPostImagesError } = useSelector(
     (state) => state.post
   );
 
@@ -72,7 +72,7 @@ const PostForm = ({
     dispatch(editPost({ PostId: post.id, topic, content, postImagePaths }));
     dispatch(
       openNotice({
-        title: "Post edited",
+        title: "Post Edited",
         content: "포스트가 수정되었습니다.",
       })
     );

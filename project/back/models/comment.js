@@ -22,6 +22,10 @@ module.exports = class Comment extends Model {
 
   static associate(db) {
     db.Comment.belongsTo(db.User);
+    db.Comment.belongsToMany(db.User, {
+      through: "CommentProd",
+      as: "CommentProdders",
+    });
     db.Comment.belongsTo(db.Post);
   }
 };

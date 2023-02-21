@@ -8,7 +8,9 @@ import { openNotice } from "../reducers/globalSlice";
 
 const UserPublicInfo = ({ me }) => {
   const dispatch = useDispatch();
-  const { changeMyPublicInfoError } = useSelector((state) => state.user);
+  const { changeMyPublicInfoDone, changeMyPublicInfoError } = useSelector(
+    (state) => state.user
+  );
   const {
     register,
     handleSubmit,
@@ -25,9 +27,9 @@ const UserPublicInfo = ({ me }) => {
     setValue("website", `${me.website}`);
     setValue("about", `${me.about}`);
   }, [me.username, me.role, me.website, me.about]);
+
   const onEditPublicInfo = (formData) => {
     const { username, role, country, website, about } = formData;
-    console.log(username, role, website, about, country);
 
     dispatch(
       changeMyPublicInfo({
@@ -45,7 +47,6 @@ const UserPublicInfo = ({ me }) => {
         content: "사용자 정보가 변경되었습니다.",
       })
     );
-    return;
   };
 
   return (

@@ -39,6 +39,10 @@ module.exports = class User extends Model {
           type: DataTypes.STRING(30),
           allowNull: false,
         },
+        address: {
+          type: DataTypes.STRING(50),
+          allowNull: false,
+        },
         website: {
           type: DataTypes.STRING(200),
           allowNull: false,
@@ -56,7 +60,11 @@ module.exports = class User extends Model {
   static associate(db) {
     db.User.belongsTo(db.Userboard);
     db.User.hasMany(db.Post);
-    db.User.belongsToMany(db.Post, { through: "Prod", as: "Prodded" });
+    db.User.belongsToMany(db.Post, { through: "PostProd", as: "PostProdded" });
+    db.User.belongsToMany(db.Comment, {
+      through: "CommentProd",
+      as: "CommentProdded",
+    });
     db.User.hasMany(db.Comment);
     db.User.belongsToMany(db.User, {
       through: "Trace",

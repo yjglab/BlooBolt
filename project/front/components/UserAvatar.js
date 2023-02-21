@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { CameraIcon } from "@heroicons/react/20/solid";
@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 
 const UserAvatar = ({ me }) => {
   const dispatch = useDispatch();
+  const { uploadUserAvatarDone } = useSelector((state) => state.user);
   const {
     register,
     watch,

@@ -13,10 +13,11 @@ import {
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
+import Router from "next/router";
+import { backUrl } from "../config/config";
 
 import { logOut } from "../reducers/userSlice";
 import { cancelAllPostImages } from "../reducers/postSlice";
-import { backUrl } from "../config/config";
 
 const recentPosts = [{ id: 1, name: "최근포스트", href: "#" }];
 
@@ -32,6 +33,7 @@ const Navigation = () => {
   const onLogout = useCallback(() => {
     dispatch(logOut());
     dispatch(cancelAllPostImages());
+    Router.push("/square");
   });
 
   return (

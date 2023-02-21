@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Tab } from "@headlessui/react";
 import {
@@ -19,22 +19,20 @@ function classNames(...classes) {
 }
 
 const UserActivity = () => {
-  const { me } = useSelector((state) => state.user);
+  const { me, untraceDone } = useSelector((state) => state.user);
+
   const id = useSelector((state) => state.user.me?.id);
   const dispatch = useDispatch();
 
-  const onUntrace = useCallback(
-    (tracing) => () => {
-      dispatch(untrace(tracing.id));
-      dispatch(
-        openNotice({
-          title: "Trace disconnected",
-          content: `${tracing.username}님을 트레이스 리스트에서 제거합니다.`,
-        })
-      );
-    },
-    []
-  );
+  const onUntrace = (tracing) => () => {
+    dispatch(untrace(tracing.id));
+    dispatch(
+      openNotice({
+        title: "Trace disconnected",
+        content: `${tracing.username}님을 트레이스 리스트에서 제거합니다.`,
+      })
+    );
+  };
 
   return (
     <div className="w-full px-3">
@@ -118,7 +116,7 @@ const UserActivity = () => {
                         </li>
                         <li>&middot;</li>
                         <li className="flex">
-                          {post.Prodders.length || 0}{" "}
+                          {post.PostProdders.length || 0}{" "}
                           <BoltIcon className="w-3 ml-0.5" />
                         </li>
                         <li>&middot;</li>

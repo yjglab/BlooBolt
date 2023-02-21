@@ -48,12 +48,6 @@ const SignupForm = () => {
       })
     );
     Router.push("/login");
-    // dispatch(
-    //   openNotice({
-    //     title: "Account created",
-    //     content: "새로운 계정이 생성되었습니다.",
-    //   })
-    // );
   };
 
   return (
