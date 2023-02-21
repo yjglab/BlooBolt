@@ -8,11 +8,10 @@ import { openNotice } from "../reducers/globalSlice";
 
 const UserPublicInfo = ({ me }) => {
   const dispatch = useDispatch();
+  const { changeMyPublicInfoError } = useSelector((state) => state.user);
   const {
     register,
-    reset,
     handleSubmit,
-    setError,
     setValue,
     formState: { isSubmitting, errors },
   } = useForm({
@@ -26,7 +25,7 @@ const UserPublicInfo = ({ me }) => {
     setValue("website", `${me.website}`);
     setValue("about", `${me.about}`);
   }, [me.username, me.role, me.website, me.about]);
-  const onEditPublicInfo = useCallback((formData) => {
+  const onEditPublicInfo = (formData) => {
     const { username, role, country, website, about } = formData;
     console.log(username, role, website, about, country);
 
@@ -47,7 +46,7 @@ const UserPublicInfo = ({ me }) => {
       })
     );
     return;
-  }, []);
+  };
 
   return (
     <div>
@@ -64,7 +63,7 @@ const UserPublicInfo = ({ me }) => {
         </div>
         <div className="mt-3 lg:col-span-2 lg:mt-0">
           <form onSubmit={handleSubmit(onEditPublicInfo)}>
-            <div className="shadow sm:overflow-hidden sm:rounded-md">
+            <div className="shadow sm:overflow-hidden rounded-md">
               <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                 <div className="col-span-6 sm:col-span-3">
                   <label
@@ -233,6 +232,8 @@ const UserPublicInfo = ({ me }) => {
                     <>{errors.website.message}</>
                   ) : errors.about ? (
                     <>{errors.about.message}</>
+                  ) : changeMyPublicInfoError ? (
+                    <>{changeMyPublicInfoError}</>
                   ) : (
                     ""
                   )}

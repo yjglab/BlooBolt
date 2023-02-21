@@ -1,23 +1,47 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { changeMyPersonalInfo } from "../reducers/userSlice";
+import { openNotice } from "../reducers/globalSlice";
 
 const UserPersonalInfo = ({ me }) => {
+  const dispatch = useDispatch();
+  const { changeMyPersonalInfoError } = useSelector((state) => state.user);
+
   const {
     register,
-    reset,
     handleSubmit,
-    watch,
-    setError,
     setValue,
     formState: { isSubmitting, errors },
   } = useForm({
     mode: "onSubmit",
   });
 
-  const onEditPersonalInfo = useCallback(() => {}, []);
+  useEffect(() => {
+    setValue("email", `${me.email}`);
+    setValue("realname", `${me.realname}`);
+    setValue("address", `${me.address}`);
+  }, [me.email, me.realname, me.address]);
 
+  const onEditPersonalInfo = (formData) => {
+    const { realname, address } = formData;
+
+    dispatch(
+      changeMyPersonalInfo({
+        userId: me.id,
+        realname,
+        address,
+      })
+    );
+    dispatch(
+      openNotice({
+        title: "Personal information changed",
+        content: "개인정보가 변경되었습니다.",
+      })
+    );
+    return;
+  };
   return (
     <div className="mt-10 sm:mt-0">
       <div className="lg:grid lg:grid-cols-3 lg:gap-6">
@@ -31,63 +55,80 @@ const UserPersonalInfo = ({ me }) => {
             </p>
           </div>
         </div>
-        <div className="mt-5 lg:col-span-2 lg:mt-0">
-          <form action="#" method="POST">
-            <div className="overflow-hidden shadow sm:rounded-md">
-              <div className="bg-white px-4 py-5 sm:p-6">
-                <div className="grid grid-cols-6 gap-6">
-                  <div className="col-span-6 ">
-                    <label
-                      htmlFor="first-name"
-                      className="block text-sm font-medium text-slate-600"
-                    >
-                      Real name
-                    </label>
-                    <input
-                      type="text"
-                      name="first-name"
-                      id="first-name"
-                      autoComplete="given-name"
-                      className="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-
-                  <div className="col-span-6 ">
-                    <label
-                      htmlFor="email-address"
-                      className="block text-sm font-medium text-slate-600"
-                    >
-                      Email address
-                    </label>
-                    <input
-                      type="text"
-                      name="email-address"
-                      id="email-address"
-                      autoComplete="email"
-                      className="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-
-                  <div className="col-span-6">
-                    <label
-                      htmlFor="street-address"
-                      className="block text-sm font-medium text-slate-600"
-                    >
-                      Address
-                    </label>
-                    <input
-                      type="text"
-                      name="street-address"
-                      id="street-address"
-                      autoComplete="street-address"
-                      className="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
+        <div className="mt-3 lg:col-span-2 lg:mt-0">
+          <form onSubmit={handleSubmit(onEditPersonalInfo)}>
+            <div className="shadow sm:overflow-hidden rounded-md">
+              <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+                <div className="col-span-6 sm:col-span-3">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-slate-600"
+                  >
+                    Email ID
+                  </label>
+                  <input
+                    id="email"
+                    type="text"
+                    name="email"
+                    placeholder={me.email}
+                    className=" cursor-not-allowed placeholder:text-slate-400 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    disabled={true}
+                  />
+                </div>
+                <div className="col-span-6 sm:col-span-3">
+                  <label
+                    htmlFor="realname"
+                    className="block text-sm font-medium text-slate-600"
+                  >
+                    Real Name
+                  </label>
+                  <input
+                    type="text"
+                    name="realname"
+                    id="realname"
+                    placeholder="Web Developer"
+                    className="placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    {...register("realname", {
+                      maxLength: {
+                        value: 10,
+                        message: "10자리 이하의 실명을 입력해주세요",
+                      },
+                    })}
+                  />
+                </div>
+                <div className="col-span-6 sm:col-span-3">
+                  <label
+                    htmlFor="address"
+                    className="block text-sm font-medium text-slate-600"
+                  >
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    id="address"
+                    placeholder="Web Developer"
+                    className="placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    {...register("address", {
+                      maxLength: {
+                        value: 10,
+                        message: "10자리 이하의 실명을 입력해주세요",
+                      },
+                    })}
+                  />
                 </div>
               </div>
               <div className="flex justify-between items-center bg-slate-50 px-4 py-3 text-right sm:px-6">
                 <div className=" flex text-orange-400 text-xs " role="alert">
-                  {errors.realname ? <>{errors.realname.message}</> : ""}
+                  {errors.username ? (
+                    <>{errors.username.message}</>
+                  ) : errors.realname ? (
+                    <>{errors.realname.message}</>
+                  ) : changeMyPersonalInfoError ? (
+                    <>{changeMyPersonalInfoError}</>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <button
                   type="submit"

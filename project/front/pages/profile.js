@@ -206,10 +206,8 @@ const Profile = () => {
         </div> */}
       </div>
       <div className="w-full flex-col bg-slate-50  justify-between flex sm:flex-row p-6  ">
-        {/* 좌측 */}
-        <UserInformation />
-        {/* 우측 */}
         <UserActivity />
+        <UserInformation />
       </div>
     </AppLayout>
   );

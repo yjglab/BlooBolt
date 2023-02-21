@@ -60,11 +60,13 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
       password: hashedPassword,
       status: false,
 
-      realname: "",
       role: "None",
       country: "None",
-      about: "",
       website: "None",
+      about: "",
+
+      realname: "",
+      address: "",
     });
 
     await user.createUserboard({
@@ -199,7 +201,14 @@ router.patch("/:userId/info/public", isLoggedIn, async (req, res, next) => {
     if (parseInt(req.params.userId, 10) !== req.user.id) {
       return res.status(403).send("다른 사용자의 정보를 수정할 수 없습니다.");
     }
-
+    const existedUsername = await User.findOne({
+      where: {
+        username: req.body.username,
+      },
+    });
+    if (existedUsername) {
+      return res.status(403).send("이미 존재하는 사용자명입니다.");
+    }
     await User.update(
       {
         username: req.body.username,
@@ -218,6 +227,30 @@ router.patch("/:userId/info/public", isLoggedIn, async (req, res, next) => {
       country: req.body.country,
       website: req.body.website,
       about: req.body.about,
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.patch("/:userId/info/personal", isLoggedIn, async (req, res, next) => {
+  try {
+    if (parseInt(req.params.userId, 10) !== req.user.id) {
+      return res.status(403).send("다른 사용자의 정보를 수정할 수 없습니다.");
+    }
+    await User.update(
+      {
+        realname: req.body.realname,
+        address: req.body.address,
+      },
+      {
+        where: { id: req.params.userId },
+      }
+    );
+    res.status(200).json({
+      realname: req.body.realname,
+      address: req.body.address,
     });
   } catch (error) {
     console.error(error);

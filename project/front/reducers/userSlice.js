@@ -82,6 +82,21 @@ export const changeMyPublicInfo = createAsyncThunk(
     }
   }
 );
+export const changeMyPersonalInfo = createAsyncThunk(
+  "user/changeMyPersonalInfo",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.patch(
+        `/user/${info.userId}/info/personal`,
+        info
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 export const trace = createAsyncThunk("user/trace", async (info, thunkAPI) => {
   try {
     const { data } = await axios.patch(`/user/${info}/trace`);
@@ -197,7 +212,6 @@ export const userSlice = createSlice({
       .addCase(changeMyPublicInfo.fulfilled, (state, { payload }) => {
         state.changeMyPublicInfoLoading = false;
         state.changeMyPublicInfoDone = true;
-        console.log(payload);
         state.me.username = payload.username;
         state.me.role = payload.role;
         state.me.country = payload.country;
@@ -207,6 +221,21 @@ export const userSlice = createSlice({
       .addCase(changeMyPublicInfo.rejected, (state, { payload }) => {
         state.changeMyPublicInfoLoading = false;
         state.changeMyPublicInfoError = payload;
+      });
+    builder
+      .addCase(changeMyPersonalInfo.pending, (state) => {
+        state.changeMyPersonalInfoLoading = true;
+        state.changeMyPersonalInfoError = null;
+      })
+      .addCase(changeMyPersonalInfo.fulfilled, (state, { payload }) => {
+        state.changeMyPersonalInfoLoading = false;
+        state.changeMyPersonalInfoDone = true;
+        state.me.realname = payload.realname;
+        state.me.address = payload.address;
+      })
+      .addCase(changeMyPersonalInfo.rejected, (state, { payload }) => {
+        state.changeMyPersonalInfoLoading = false;
+        state.changeMyPersonalInfoError = payload;
       });
     builder
       .addCase(trace.pending, (state) => {
