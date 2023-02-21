@@ -95,12 +95,18 @@ const PostForm = ({
   });
 
   const onChangePostImages = () => {
-    const postImages = watch("image");
+    const postImages = watch("postImages");
     const postImagesFormData = new FormData();
     [].forEach.call(postImages, (file) => {
-      postImagesFormData.append("postImages", file);
+      if (file.size > 10 * 1024 * 1024) {
+        setError("postImages", {
+          message: "10MB 이하의 이미지 파일만 업로드 가능합니다.",
+        });
+        return;
+      } else {
+        postImagesFormData.append("postImages", file);
+      }
     });
-
     dispatch(uploadPostImages(postImagesFormData));
   };
 
@@ -214,7 +220,7 @@ const PostForm = ({
                 multiple
                 accept="image/*"
                 className="hidden"
-                {...register("image", {
+                {...register("postImages", {
                   onChange: onChangePostImages,
                 })}
               />

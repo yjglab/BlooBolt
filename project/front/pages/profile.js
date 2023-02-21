@@ -4,12 +4,14 @@ import Router from "next/router";
 
 import { Fragment } from "react";
 import {
+  CameraIcon,
   CheckIcon,
   ChevronDownIcon,
   CursorArrowRippleIcon,
   GlobeAsiaAustraliaIcon,
   PauseCircleIcon,
   PencilIcon,
+  PhotoIcon,
   PlayCircleIcon,
   ShieldCheckIcon,
   UserCircleIcon,
@@ -19,6 +21,7 @@ import AppLayout from "../components/AppLayout";
 import UserActivity from "../components/UserActivity";
 import UserInformation from "../components/UserInformation";
 import Link from "next/link";
+import UserAvatar from "../components/UserAvatar";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -36,14 +39,7 @@ const Profile = () => {
   return (
     <AppLayout>
       <div className="pt-24 px-6 pb-6 w-full bg-white md:flex md:items-center md:justify-between">
-        <div className="w-32 h-32 mr-5 mb-4 md:mb-0 rounded-full ">
-          <img
-            src={
-              "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" || ""
-            }
-            className="aspect-square object-cover"
-          />
-        </div>
+        <UserAvatar />
         <div className="min-w-0 flex-1">
           <div className="flex flex-col  mb-1">
             <h2 className="text-2xl font-bold leading-7 text-slate-600 md:truncate md:text-3xl md:tracking-tight">

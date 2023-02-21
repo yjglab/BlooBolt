@@ -19,6 +19,7 @@ export const initialState = {
   untraceDone: false,
   untraceError: null,
 
+  avatarPath: "",
   me: null,
 };
 

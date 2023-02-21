@@ -18,6 +18,7 @@ import PostForm from "./PostForm";
 
 import { openNotice } from "../reducers/globalSlice";
 import {
+  cancelAllPostImages,
   prodPost,
   removePost,
   revertPost,
@@ -208,6 +209,9 @@ const PostSection = ({ post }) => {
       );
     }
 
+    if (onTogglePostEditMode) {
+      dispatch(cancelAllPostImages());
+    }
     setPostEditMode(!postEditMode);
   }, [post.blinded, post.reverted, postEditMode]);
 

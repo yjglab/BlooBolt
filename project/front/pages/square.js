@@ -4,7 +4,7 @@ import AppLayout from "../components/AppLayout";
 import PostSection from "../components/PostSection";
 import PostForm from "../components/PostForm";
 
-import { loadPosts } from "../reducers/postSlice";
+import { cancelAllPostImages, loadPosts } from "../reducers/postSlice";
 
 const Square = () => {
   const { me } = useSelector((state) => state.user);
@@ -34,6 +34,9 @@ const Square = () => {
   }, [loadMorePosts, loadPostsLoading, mainPosts]);
 
   const onTogglePostForm = useCallback(() => {
+    if (togglePostForm) {
+      dispatch(cancelAllPostImages());
+    }
     setTogglePostForm(!togglePostForm);
   }, [togglePostForm]);
 
