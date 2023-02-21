@@ -149,9 +149,7 @@ const CommentSection = ({ post, comment }) => {
               />
             ) : null}
           </h1>
-          <h1 className="text-xs relative bottom-0.5">
-            {comment.User.role || "No role"}
-          </h1>
+          <h1 className="text-xs relative bottom-0.5">{comment.User.role}</h1>
         </div>
         <Menu as="div" className="relative bottom-2 inline-block text-left ">
           <div>

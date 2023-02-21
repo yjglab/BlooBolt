@@ -59,11 +59,18 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
       username: req.body.username,
       password: hashedPassword,
       status: false,
+
+      realname: "",
+      role: "None",
+      country: "None",
+      about: "",
+      website: "None",
     });
 
     await user.createUserboard({
       UserId: user.id,
-      avatar: "",
+      avatar:
+        "" || process.env.NODE_ENV === "production" ? "" : "base_avatar.png",
       rank: 0,
       rankPoint: 0,
     });
@@ -186,6 +193,37 @@ router.post(
     }
   }
 );
+
+router.patch("/:userId/info/public", isLoggedIn, async (req, res, next) => {
+  try {
+    if (parseInt(req.params.userId, 10) !== req.user.id) {
+      return res.status(403).send("다른 사용자의 정보를 수정할 수 없습니다.");
+    }
+
+    await User.update(
+      {
+        username: req.body.username,
+        role: req.body.role || "None",
+        country: req.body.country || "None",
+        website: req.body.website || "None",
+        about: req.body.about,
+      },
+      {
+        where: { id: req.params.userId },
+      }
+    );
+    res.status(200).json({
+      username: req.body.username,
+      role: req.body.role,
+      country: req.body.country,
+      website: req.body.website,
+      about: req.body.about,
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
 
 router.patch("/:userId/trace", isLoggedIn, async (req, res, next) => {
   try {

@@ -306,7 +306,7 @@ const PostSection = ({ post }) => {
                   ) : null}
                 </h1>
                 <h1 className="text-xs relative bottom-0.5">
-                  {post.User.role || "No role"}
+                  {post.User.role}
                 </h1>
               </div>
 

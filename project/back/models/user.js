@@ -17,7 +17,7 @@ module.exports = class User extends Model {
         },
         realname: {
           type: DataTypes.STRING(10),
-          allowNull: true,
+          allowNull: false,
         },
         password: {
           type: DataTypes.STRING(100),
@@ -29,19 +29,19 @@ module.exports = class User extends Model {
         },
         about: {
           type: DataTypes.STRING(50),
-          allowNull: true,
+          allowNull: false,
         },
         role: {
           type: DataTypes.STRING(20),
-          allowNull: true,
+          allowNull: false,
         },
         country: {
           type: DataTypes.STRING(30),
-          allowNull: true,
+          allowNull: false,
         },
         website: {
           type: DataTypes.STRING(200),
-          allowNull: true,
+          allowNull: false,
         },
       },
       {

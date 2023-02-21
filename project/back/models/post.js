@@ -43,27 +43,3 @@ module.exports = class Post extends Model {
     db.Post.hasMany(db.Comment);
   }
 };
-/*
-    id: 33,
-    content: text, // 제힌 800
-    topic: "JavaScript", // 제한 10
-    createdAt: "1999.99.99",
-    UserId: 101,
-    User: {
-      id: user.id,
-      username: user.username,
-      status: user.status,
-      role: user.role,
-      rank: user.rank,
-    },
-    Images: [
-      {
-        id: shortid.generate(),
-        src: "https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg",
-        PostId: 33,
-      },
-    ],
-    Comments: [],
-    Grokkers: [{ id: 101 }, { id: 102 }],
-  };
-*/

@@ -192,7 +192,7 @@ const UserActivity = () => {
                           </h1>
                           <div className="flex items-center justify-between">
                             <h1 className="text-xs relative bottom-0.5">
-                              {tracer.role || "No role"}
+                              {tracer.role}
                             </h1>
                             <h1 className="text-xs relative bottom-0.5">
                               {dayjs(tracer.Trace.createdAt).format(
@@ -270,7 +270,7 @@ const UserActivity = () => {
                           </div>
                           <div className="flex items-center justify-between">
                             <h1 className="text-xs relative bottom-0.5">
-                              {tracing.role || "No role"}
+                              {tracing.role}
                             </h1>
                             <h1 className="text-xs relative bottom-0.5">
                               {dayjs(tracing.Trace.createdAt).format(

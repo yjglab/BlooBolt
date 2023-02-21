@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { CameraIcon } from "@heroicons/react/20/solid";
 import { uploadUserAvatar } from "../reducers/userSlice";
@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 
 const UserAvatar = ({ me }) => {
   const dispatch = useDispatch();
-
   const {
     register,
     watch,
@@ -21,7 +20,6 @@ const UserAvatar = ({ me }) => {
     const userAvatarFormData = new FormData();
 
     if (userAvatarImage[0].size > 10 * 1024 * 1024) {
-      console.log("ss");
       return dispatch(
         openNotice({
           title: "Avatar upload failed",
@@ -33,6 +31,12 @@ const UserAvatar = ({ me }) => {
     }
 
     dispatch(uploadUserAvatar(userAvatarFormData));
+    dispatch(
+      openNotice({
+        title: "Avatar changed",
+        content: "사용자 이미지가 변경되었습니다.",
+      })
+    );
   };
 
   return (

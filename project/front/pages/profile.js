@@ -117,7 +117,7 @@ const Profile = () => {
                   className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
                   aria-hidden="true"
                 />
-                {me?.role || "No role"}
+                {me?.role}
               </div>
             </div>
             <div className="md:flex md:gap-3">
@@ -131,7 +131,7 @@ const Profile = () => {
                   target="_blank"
                   rel="noreferrer noopenner"
                 >
-                  {me?.website || "No website"}
+                  {me?.website}
                 </a>
               </div>
               <div className="mt-2 flex items-center text-sm text-slate-500">
@@ -139,7 +139,7 @@ const Profile = () => {
                   className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
                   aria-hidden="true"
                 />
-                {me?.country || "No country"}
+                {me?.country}
               </div>
             </div>
           </div>
