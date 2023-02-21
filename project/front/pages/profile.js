@@ -9,6 +9,7 @@ import {
   CheckIcon,
   ChevronDownIcon,
   CursorArrowRippleIcon,
+  FaceSmileIcon,
   GlobeAsiaAustraliaIcon,
   PauseCircleIcon,
   PencilIcon,
@@ -49,12 +50,21 @@ const Profile = () => {
             <h2 className="text-2xl font-bold leading-7 text-slate-600 md:truncate md:text-3xl md:tracking-tight">
               {me?.username}
             </h2>
-            <div className="flex items-center mt-1 mb-2">
-              {me?.Userboard.rank !== 0 ? (
-                <>
-                  <Link href="#">
+            <div className="flex items-center mt-4 md:mt-1 mb-2">
+              <>
+                <Link href="#">
+                  {me?.Userboard.rank === 6 ? (
+                    <FaceSmileIcon
+                      className="w-5 ml-0.5 text-slate-400"
+                      aria-hidden="true"
+                    />
+                  ) : me?.Userboard.rank === 0 ? (
+                    <span className="cursor-pointer  px-2 py-0.5 rounded-md bg-slate-400 relative  text-xs text-white">
+                      Not Ranked
+                    </span>
+                  ) : (
                     <ShieldCheckIcon
-                      className={`  h-5 w-5 flex-shrink-0 ${
+                      className={`w-5 flex-shrink-0 ${
                         me?.Userboard.rank === 1
                           ? "text-cyan-400"
                           : me?.Userboard.rank === 2
@@ -71,19 +81,14 @@ const Profile = () => {
                       }`}
                       aria-hidden="true"
                     />
-                  </Link>{" "}
-                  <span className="text-sm ml-1">Rank</span>
-                  <span className="text-sm ml-1 font-bold">
-                    {me.Userboard.rank}
-                  </span>
-                </>
-              ) : (
-                <Link href="#">
-                  <span className="cursor-pointer  px-2 py-0.5 rounded-md bg-slate-400 relative  text-xs text-white">
-                    Not Ranked
-                  </span>
-                </Link>
-              )}
+                  )}
+                </Link>{" "}
+                <span className="text-sm ml-1">Rank</span>
+                <span className="text-sm ml-1 font-bold">
+                  {me.Userboard.rank}
+                </span>
+              </>
+
               <span className="ml-2 text-xs bg-slate-400 px-2 py-0.5 text-white rounded-md">
                 Rank Point{" "}
                 <span className="ml-1 font-bold ">

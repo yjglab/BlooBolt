@@ -6,6 +6,7 @@ import CommentArea from "./CommentArea";
 import {
   BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
+  FaceSmileIcon,
   ShieldCheckIcon,
   UserMinusIcon,
   UserPlusIcon,
@@ -274,26 +275,35 @@ const PostSection = ({ post }) => {
               <div className="ml-2 w-full flex flex-col">
                 <h1 className="text-md font-bold flex items-center">
                   {post.User.username}
-                  {post.User.Userboard.rank !== 0 ? (
-                    <ShieldCheckIcon
-                      className={`ml-1 relative h-4 w-4 flex-shrink-0 ${
-                        post.User.Userboard.rank === 1
-                          ? "text-cyan-400"
-                          : post.User.Userboard.rank === 2
-                          ? "text-amber-400"
-                          : post.User.Userboard.rank === 3
-                          ? "text-amber-700/70"
-                          : post.User.Userboard.rank === 4
-                          ? "text-indigo-500"
-                          : post.User.Userboard.rank === 5
-                          ? "text-slate-400"
-                          : post.User.Userboard.rank === 9
-                          ? "text-red-400"
-                          : null
-                      }`}
-                      aria-hidden="true"
-                    />
-                  ) : null}
+                  <>
+                    <Link href="#">
+                      {post.User.Userboard.rank === 6 ? (
+                        <FaceSmileIcon
+                          className="w-3.5 ml-0.5 text-slate-400"
+                          aria-hidden="true"
+                        />
+                      ) : post.User.Userboard.rank === 0 ? null : (
+                        <ShieldCheckIcon
+                          className={`w-3.5 flex-shrink-0 ${
+                            post.User.Userboard.rank === 1
+                              ? "text-cyan-400"
+                              : post.User.Userboard.rank === 2
+                              ? "text-amber-400"
+                              : post.User.Userboard.rank === 3
+                              ? "text-amber-700/70"
+                              : post.User.Userboard.rank === 4
+                              ? "text-indigo-500"
+                              : post.User.Userboard.rank === 5
+                              ? "text-slate-400"
+                              : post.User.Userboard.rank === 9
+                              ? "text-red-400"
+                              : null
+                          }`}
+                          aria-hidden="true"
+                        />
+                      )}
+                    </Link>{" "}
+                  </>
                 </h1>
                 <h1 className="text-xs relative bottom-0.5">
                   {post.User.role}

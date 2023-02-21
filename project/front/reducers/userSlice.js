@@ -142,6 +142,7 @@ export const userSlice = createSlice({
         state.uploadPostLoading = false;
         state.uploadPostDone = true;
         state.me.Posts.push(payload);
+        if (state.me.Userboard.rank === 0) state.me.Userboard.rank = 6;
       })
       .addCase(uploadPost.rejected, (state, { payload }) => {
         state.uploadPostLoading = false;

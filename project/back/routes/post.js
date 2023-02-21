@@ -455,7 +455,16 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
         },
       }
     );
-
+    const myUserboard = await Userboard.findOne({
+      where: {
+        UserId: req.user.id,
+      },
+    });
+    if (myUserboard.rank === 0) {
+      await myUserboard.update({
+        rank: 6,
+      });
+    }
     if (req.body.postImagePaths && Array.isArray(req.body.postImagePaths)) {
       const postImages = await Promise.all(
         req.body.postImagePaths.map((path) => PostImage.create({ src: path }))

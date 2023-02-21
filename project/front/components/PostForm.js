@@ -57,6 +57,16 @@ const PostForm = ({
     onTogglePostForm(false);
 
     dispatch(uploadPost({ topic, content, postImagePaths }));
+    if (me.Userboard.rank === 0) {
+      dispatch(
+        openNotice({
+          content: "첫 포스트를 업로드 했습니다. 새로운 랭크로 등록되었습니다.",
+          type: 1,
+        })
+      );
+    } else {
+      dispatch(openNotice({ content: "포스트가 업로드 되었습니다.", type: 1 }));
+    }
   };
 
   const onEditPost = (editedFormData) => {

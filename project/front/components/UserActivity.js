@@ -5,6 +5,7 @@ import {
   BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   FaceFrownIcon,
+  FaceSmileIcon,
   ShieldCheckIcon,
   UserMinusIcon,
 } from "@heroicons/react/20/solid";
@@ -12,6 +13,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import { untrace } from "../reducers/userSlice";
 import { openNotice } from "../reducers/globalSlice";
+import Link from "next/link";
 dayjs.locale("ko");
 
 function classNames(...classes) {
@@ -167,26 +169,35 @@ const UserActivity = () => {
                         <div className="ml-2 w-full flex flex-col">
                           <h1 className="text-md font-bold flex items-center">
                             {tracer.username}
-                            {tracer.Userboard.rank !== 0 ? (
-                              <ShieldCheckIcon
-                                className={`ml-1 relative h-4 w-4 flex-shrink-0 ${
-                                  tracer.Userboard.rank === 1
-                                    ? "text-cyan-400"
-                                    : tracer.Userboard.rank === 2
-                                    ? "text-amber-400"
-                                    : tracer.Userboard.rank === 3
-                                    ? "text-amber-700/70"
-                                    : tracer.Userboard.rank === 4
-                                    ? "text-indigo-500"
-                                    : tracer.Userboard.rank === 5
-                                    ? "text-slate-400"
-                                    : tracer.Userboard.rank === 9
-                                    ? "text-red-400"
-                                    : null
-                                }`}
-                                aria-hidden="true"
-                              />
-                            ) : null}
+                            <>
+                              <Link href="#">
+                                {tracer.Userboard.rank === 6 ? (
+                                  <FaceSmileIcon
+                                    className="w-4 ml-0.5 text-slate-400"
+                                    aria-hidden="true"
+                                  />
+                                ) : tracer.Userboard.rank === 0 ? null : (
+                                  <ShieldCheckIcon
+                                    className={`w-4 flex-shrink-0 ${
+                                      tracer.Userboard.rank === 1
+                                        ? "text-cyan-400"
+                                        : tracer.Userboard.rank === 2
+                                        ? "text-amber-400"
+                                        : tracer.Userboard.rank === 3
+                                        ? "text-amber-700/70"
+                                        : tracer.Userboard.rank === 4
+                                        ? "text-indigo-500"
+                                        : tracer.Userboard.rank === 5
+                                        ? "text-slate-400"
+                                        : tracer.Userboard.rank === 9
+                                        ? "text-red-400"
+                                        : null
+                                    }`}
+                                    aria-hidden="true"
+                                  />
+                                )}
+                              </Link>{" "}
+                            </>
                           </h1>
                           <div className="flex items-center justify-between">
                             <h1 className="text-xs relative bottom-0.5">
@@ -236,26 +247,35 @@ const UserActivity = () => {
                           <div className="flex items-center justify-between">
                             <h1 className="text-md font-bold flex items-center">
                               {tracing.username}
-                              {tracing.Userboard.rank !== 0 ? (
-                                <ShieldCheckIcon
-                                  className={`ml-1 relative h-4 w-4 flex-shrink-0 ${
-                                    tracing.Userboard.rank === 1
-                                      ? "text-cyan-400"
-                                      : tracing.Userboard.rank === 2
-                                      ? "text-amber-400"
-                                      : tracing.Userboard.rank === 3
-                                      ? "text-amber-700/70"
-                                      : tracing.Userboard.rank === 4
-                                      ? "text-indigo-500"
-                                      : tracing.Userboard.rank === 5
-                                      ? "text-slate-400"
-                                      : tracing.Userboard.rank === 9
-                                      ? "text-red-400"
-                                      : null
-                                  }`}
-                                  aria-hidden="true"
-                                />
-                              ) : null}
+                              <>
+                                <Link href="#">
+                                  {tracing.Userboard.rank === 6 ? (
+                                    <FaceSmileIcon
+                                      className="w-4 ml-0.5 text-slate-400"
+                                      aria-hidden="true"
+                                    />
+                                  ) : tracing.Userboard.rank === 0 ? null : (
+                                    <ShieldCheckIcon
+                                      className={`w-4 flex-shrink-0 ${
+                                        tracing.Userboard.rank === 1
+                                          ? "text-cyan-400"
+                                          : tracing.Userboard.rank === 2
+                                          ? "text-amber-400"
+                                          : tracing.Userboard.rank === 3
+                                          ? "text-amber-700/70"
+                                          : tracing.Userboard.rank === 4
+                                          ? "text-indigo-500"
+                                          : tracing.Userboard.rank === 5
+                                          ? "text-slate-400"
+                                          : tracing.Userboard.rank === 9
+                                          ? "text-red-400"
+                                          : null
+                                      }`}
+                                      aria-hidden="true"
+                                    />
+                                  )}
+                                </Link>{" "}
+                              </>
                             </h1>
                             <h1 className="text-sm  flex items-center">
                               <button
