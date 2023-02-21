@@ -32,16 +32,18 @@ const Profile = () => {
 
   useEffect(() => {
     if (!(me && me?.id)) {
-      Router.replace("/square");
+      Router.push("/square");
     }
   }, [me && me?.id]);
 
   return (
     <AppLayout>
-      <div className="pt-24 px-6 pb-6 w-full bg-white md:flex md:items-center md:justify-between">
-        <UserAvatar />
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-col  mb-1">
+      <div className="pt-20 px-6 pb-6 w-full bg-white md:flex md:items-center md:justify-between">
+        <div className="flex justify-center md:block">
+          <UserAvatar me={me} />
+        </div>
+        <div className="flex items-center flex-col md:flex-1 md:block ">
+          <div className="flex flex-col  mb-1 items-center md:items-start">
             <h2 className="text-2xl font-bold leading-7 text-slate-600 md:truncate md:text-3xl md:tracking-tight">
               {me?.username}
             </h2>
@@ -88,54 +90,61 @@ const Profile = () => {
               </span>
             </div>
           </div>
-          <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-            <div className="mt-2 flex items-center text-sm text-slate-500">
-              {me?.status ? (
-                <>
-                  <PlayCircleIcon
-                    className="mr-1.5 h-5 w-5 flex-shrink-0 text-indigo-500"
-                    aria-hidden="true"
-                  />
-                  Active
-                </>
-              ) : (
-                <>
-                  <PauseCircleIcon
-                    className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
-                    aria-hidden="true"
-                  />
-                  Offline
-                </>
-              )}
-            </div>
+          <div className="mt-1 flex gap-0 sm:gap-3 flex-col sm:flex-row sm:flex-wrap ">
+            <div className="md:flex md:gap-3">
+              <div className="mt-2 flex items-center text-sm text-slate-500">
+                {me?.status ? (
+                  <>
+                    <PlayCircleIcon
+                      className="mr-1.5 h-5 w-5 flex-shrink-0 text-indigo-500"
+                      aria-hidden="true"
+                    />
+                    Active
+                  </>
+                ) : (
+                  <>
+                    <PauseCircleIcon
+                      className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
+                      aria-hidden="true"
+                    />
+                    Offline
+                  </>
+                )}
+              </div>
 
-            <div className="mt-2 flex items-center text-sm text-slate-500">
-              <UserCircleIcon
-                className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
-                aria-hidden="true"
-              />
-              {me?.role || "No role"}
+              <div className="mt-2 flex items-center text-sm text-slate-500">
+                <UserCircleIcon
+                  className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
+                  aria-hidden="true"
+                />
+                {me?.role || "No role"}
+              </div>
             </div>
-
-            <div className="mt-2 flex items-center text-sm text-slate-500">
-              <CursorArrowRippleIcon
-                className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
-                aria-hidden="true"
-              />
-              <a href={me?.website} target="_blank" rel="noreferrer noopenner">
-                {me?.website || "No website"}
-              </a>
-            </div>
-            <div className="mt-2 flex items-center text-sm text-slate-500">
-              <GlobeAsiaAustraliaIcon
-                className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
-                aria-hidden="true"
-              />
-              {me?.country || "No country"}
+            <div className="md:flex md:gap-3">
+              <div className="mt-2 flex items-center text-sm text-slate-500">
+                <CursorArrowRippleIcon
+                  className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
+                  aria-hidden="true"
+                />
+                <a
+                  href={me?.website}
+                  target="_blank"
+                  rel="noreferrer noopenner"
+                >
+                  {me?.website || "No website"}
+                </a>
+              </div>
+              <div className="mt-2 flex items-center text-sm text-slate-500">
+                <GlobeAsiaAustraliaIcon
+                  className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
+                  aria-hidden="true"
+                />
+                {me?.country || "No country"}
+              </div>
             </div>
           </div>
         </div>
-        <div className="mt-5 md:mt-0 flex ">
+        {/* <div className="mt-5 md:mt-0 flex ">
           <span className="hidden sm:block">
             <button
               type="button"
@@ -159,7 +168,6 @@ const Profile = () => {
             </button>
           </span>
 
-          {/* 모바일 드롭다운 */}
           <Menu as="div" className="relative ml-3 sm:hidden">
             <Menu.Button className="inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
               More
@@ -195,7 +203,7 @@ const Profile = () => {
               </Menu.Items>
             </Transition>
           </Menu>
-        </div>
+        </div> */}
       </div>
       <div className="w-full flex-col bg-slate-50  justify-between flex sm:flex-row p-6  ">
         {/* 좌측 */}

@@ -25,6 +25,7 @@ import {
   unprodPost,
 } from "../reducers/postSlice";
 import { trace, untrace } from "../reducers/userSlice";
+import { backUrl } from "../config/config";
 
 dayjs.locale("ko");
 
@@ -271,7 +272,11 @@ const PostSection = ({ post }) => {
 
             <div className="mb-3 flex items-center">
               <img
-                src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
+                src={
+                  process.env.NODE_ENV === "production"
+                    ? ``
+                    : `${backUrl}/${post.User.Userboard.avatar}`
+                }
                 className={`h-[50px] w-[50px] border-[3px] ${
                   post.User.status ? "border-indigo-500" : ""
                 } p-0.5 rounded-full object-cover`}

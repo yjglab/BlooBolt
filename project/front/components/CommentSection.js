@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openNotice } from "../reducers/globalSlice";
 import { removeComment, editComment } from "../reducers/postSlice";
 import { useForm } from "react-hook-form";
+import { backUrl } from "../config/config";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -115,7 +116,11 @@ const CommentSection = ({ post, comment }) => {
     >
       <div className="mb-1.5 flex items-center">
         <img
-          src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
+          src={
+            process.env.NODE_ENV === "production"
+              ? ``
+              : `${backUrl}/${comment.User.Userboard.avatar}`
+          }
           className={`h-[42px] w-[42px] ${
             post.User.status ? "border-indigo-500" : ""
           } border-[2.5px] p-0.5 rounded-full object-cover`}

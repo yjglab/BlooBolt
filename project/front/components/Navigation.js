@@ -16,6 +16,7 @@ import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 
 import { logOut } from "../reducers/userSlice";
 import { cancelAllPostImages } from "../reducers/postSlice";
+import { backUrl } from "../config/config";
 
 const recentPosts = [{ id: 1, name: "최근포스트", href: "#" }];
 
@@ -189,7 +190,11 @@ const Navigation = () => {
                 <Link href="/profile">
                   <img
                     className="cursor-pointer ml-6 h-10 w-10 rounded-full object-cover"
-                    src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                    src={
+                      process.env.NODE_ENV === "production"
+                        ? ``
+                        : `${backUrl}/${me.Userboard.avatar}`
+                    }
                     alt="avatar-image"
                   />
                 </Link>

@@ -90,47 +90,54 @@ const UserActivity = () => {
               )}
             >
               <ul>
-                {me?.Posts.map((post) => (
-                  <li
-                    key={post.id}
-                    className="relative rounded-md p-3  hover:bg-slate-100"
-                  >
-                    <h3
-                      className={`truncate line-clamp-1 ${
-                        post.topic ? "text-slate-600" : "text-slate-300"
-                      } text-md font-bold leading-5 `}
+                {me?.Posts.length === 0 ? (
+                  <div className="rounded-md text-sm text-slate-300 p-3 h-20 flex justify-center items-center hover:bg-slate-100">
+                    <span>No Posts</span>
+                    <FaceFrownIcon className="w-4 ml-1" />
+                  </div>
+                ) : (
+                  me?.Posts.map((post) => (
+                    <li
+                      key={post.id}
+                      className="relative rounded-md p-3  hover:bg-slate-100"
                     >
-                      {post.topic || "토픽 없음"}
-                    </h3>
-                    <h3 className="line-clamp-3  text-sm leading-5 ">
-                      {post.content}
-                    </h3>
+                      <h3
+                        className={`truncate line-clamp-1 ${
+                          post.topic ? "text-slate-600" : "text-slate-300"
+                        } text-md font-bold leading-5 `}
+                      >
+                        {post.topic || "토픽 없음"}
+                      </h3>
+                      <h3 className="line-clamp-3  text-sm leading-5 ">
+                        {post.content}
+                      </h3>
 
-                    <ul className="mt-3 flex space-x-1 text-xs font-normal leading-4 text-slate-500">
-                      <li>
-                        {dayjs(post.updatedAt).format("YYYY.MM.DD | H:mm:ss")}
-                      </li>
-                      <li>&middot;</li>
-                      <li className="flex">
-                        {post.Prodders.length || 0}{" "}
-                        <BoltIcon className="w-3 ml-0.5" />
-                      </li>
-                      <li>&middot;</li>
-                      <li className="flex">
-                        {post.Comments?.length || 0}{" "}
-                        <ChatBubbleOvalLeftEllipsisIcon className="w-3 ml-0.5" />
-                      </li>
-                    </ul>
+                      <ul className="mt-3 flex space-x-1 text-xs font-normal leading-4 text-slate-500">
+                        <li>
+                          {dayjs(post.updatedAt).format("YYYY.MM.DD | H:mm:ss")}
+                        </li>
+                        <li>&middot;</li>
+                        <li className="flex">
+                          {post.Prodders.length || 0}{" "}
+                          <BoltIcon className="w-3 ml-0.5" />
+                        </li>
+                        <li>&middot;</li>
+                        <li className="flex">
+                          {post.Comments?.length || 0}{" "}
+                          <ChatBubbleOvalLeftEllipsisIcon className="w-3 ml-0.5" />
+                        </li>
+                      </ul>
 
-                    <a
-                      href="#"
-                      className={classNames(
-                        "absolute inset-0 rounded-md ",
-                        "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
-                      )}
-                    />
-                  </li>
-                ))}
+                      <a
+                        href="#"
+                        className={classNames(
+                          "absolute inset-0 rounded-md ",
+                          "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
+                        )}
+                      />
+                    </li>
+                  ))
+                )}
               </ul>
             </Tab.Panel>
 

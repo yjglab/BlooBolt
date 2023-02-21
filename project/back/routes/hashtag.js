@@ -36,7 +36,7 @@ router.get("/:id", async (req, res, next) => {
           include: [
             {
               model: Userboard,
-              attributes: ["rank"],
+              attributes: ["avatar", "rank"],
             },
           ],
         },

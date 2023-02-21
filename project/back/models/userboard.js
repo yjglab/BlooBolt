@@ -5,6 +5,10 @@ module.exports = class Userboard extends Model {
   static init(sequelize) {
     return super.init(
       {
+        avatar: {
+          type: DataTypes.STRING(500),
+          allowNull: false,
+        },
         rank: {
           type: DataTypes.TINYINT,
           allowNull: false,

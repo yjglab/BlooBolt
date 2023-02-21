@@ -19,7 +19,6 @@ export const initialState = {
   untraceDone: false,
   untraceError: null,
 
-  avatarPath: "",
   me: null,
 };
 
@@ -49,6 +48,19 @@ export const logOut = createAsyncThunk(
   async (info, thunkAPI) => {
     try {
       const { data } = await axios.post("/user/logout");
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+export const uploadUserAvatar = createAsyncThunk(
+  "user/uploadUserAvatar",
+  async (info, thunkAPI) => {
+    console.log(info);
+    try {
+      const { data } = await axios.post(`/user/avatar`, info);
       return data;
     } catch (error) {
       console.error(error);
@@ -148,6 +160,20 @@ export const userSlice = createSlice({
       .addCase(logOut.rejected, (state, { payload }) => {
         state.logOutLoading = false;
         state.logOutError = payload;
+      });
+    builder
+      .addCase(uploadUserAvatar.pending, (state) => {
+        state.uploadUserAvatarLoading = true;
+        state.uploadUserAvatarError = null;
+      })
+      .addCase(uploadUserAvatar.fulfilled, (state, { payload }) => {
+        state.uploadUserAvatarLoading = false;
+        state.uploadUserAvatarDone = true;
+        state.me.Userboard.avatar = payload;
+      })
+      .addCase(uploadUserAvatar.rejected, (state, { payload }) => {
+        state.uploadUserAvatarLoading = false;
+        state.uploadUserAvatarError = payload;
       });
     builder
       .addCase(trace.pending, (state) => {

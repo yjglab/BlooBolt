@@ -1,11 +1,38 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 const { User, Userboard, Post } = require("../models");
 const { isNotLoggedIn, isLoggedIn } = require("./middlewares");
 const passport = require("passport");
 
 const router = express.Router();
+
+try {
+  fs.accessSync("uploads");
+} catch (error) {
+  fs.mkdirSync("uploads");
+}
+
+const upload = multer({
+  storage:
+    process.env.NODE_ENV === "production"
+      ? ""
+      : multer.diskStorage({
+          destination(req, file, done) {
+            done(null, "uploads");
+          },
+          filename(req, file, done) {
+            const ext = path.extname(file.originalname);
+            const basename = path.basename(file.originalname, ext);
+
+            done(null, basename + "_" + new Date().getTime() + ext); // 덮어쓰기 방지
+          },
+        }),
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10mb
+});
 
 router.post("/signup", isNotLoggedIn, async (req, res, next) => {
   try {
@@ -36,6 +63,7 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
 
     await user.createUserboard({
       UserId: user.id,
+      avatar: "",
       rank: 0,
       rankPoint: 0,
     });
@@ -76,7 +104,7 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
         include: [
           {
             model: Userboard,
-            attributes: ["rank", "rankPoint"],
+            attributes: ["avatar", "rank", "rankPoint"],
           },
           {
             model: Post,
@@ -95,7 +123,7 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
             include: [
               {
                 model: Userboard,
-                attributes: ["rank"],
+                attributes: ["avatar", "rank"],
               },
             ],
           },
@@ -106,7 +134,7 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
             include: [
               {
                 model: Userboard,
-                attributes: ["rank"],
+                attributes: ["avatar", "rank"],
               },
             ],
           },
@@ -133,6 +161,31 @@ router.post("/logout", isLoggedIn, async (req, res, next) => {
   req.session.destroy();
   res.send("ok");
 });
+
+router.post(
+  "/avatar",
+  isLoggedIn,
+  upload.single("userAvatar"),
+  async (req, res, next) => {
+    try {
+      Userboard.update(
+        {
+          avatar: req.file.filename,
+        },
+        {
+          where: {
+            UserId: req.user.id,
+          },
+        }
+      );
+
+      res.json(process.env.NODE_ENV === "production" ? "" : req.file.filename);
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+);
 
 router.patch("/:userId/trace", isLoggedIn, async (req, res, next) => {
   try {

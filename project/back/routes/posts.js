@@ -31,7 +31,7 @@ router.get("/", async (req, res, next) => {
           include: [
             {
               model: Userboard,
-              attributes: ["rank"],
+              attributes: ["avatar", "rank"],
             },
           ],
         },
@@ -49,6 +49,12 @@ router.get("/", async (req, res, next) => {
             {
               model: User,
               attributes: ["id", "username", "role", "status"],
+              include: [
+                {
+                  model: Userboard,
+                  attributes: ["avatar", "rank"],
+                },
+              ],
             },
           ],
         },
