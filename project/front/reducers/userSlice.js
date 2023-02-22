@@ -3,19 +3,14 @@ import axios from "axios";
 import { uploadPost } from "./postSlice";
 
 export const initialState = {
-  signUpLoading: false,
   signUpDone: false,
   signUpError: null,
-  logInLoading: false,
   logInDone: false,
   logInError: null,
-  logOutLoading: false,
   logOutDone: false,
   logOutError: null,
-  traceLoading: false,
   traceDone: false,
   traceError: null,
-  untraceLoading: false,
   untraceDone: false,
   untraceError: null,
 
@@ -145,85 +140,45 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(uploadPost.pending, (state) => {
-        state.uploadPostLoading = true;
-        state.uploadPostError = null;
-      })
-      .addCase(uploadPost.fulfilled, (state, { payload }) => {
-        state.uploadPostLoading = false;
-        state.uploadPostDone = true;
-        state.me.Posts.push(payload);
-        if (state.me.rank === 0) state.me.rank = 6;
-      })
-      .addCase(uploadPost.rejected, (state, { payload }) => {
-        state.uploadPostLoading = false;
-        state.uploadPostError = payload;
-      });
+    builder.addCase(uploadPost.fulfilled, (state, { payload }) => {
+      state.me.Posts.push(payload);
+      if (state.me.rank === 0) state.me.rank = 6;
+    }); // 나중에 제거
 
     builder
-      .addCase(signUp.pending, (state) => {
-        state.signUpLoading = true;
-        state.signUpError = null;
-      })
       .addCase(signUp.fulfilled, (state) => {
-        state.signUpLoading = false;
         state.signUpDone = true;
       })
       .addCase(signUp.rejected, (state, { payload }) => {
-        state.signUpLoading = false;
         state.signUpDone = false;
         state.signUpError = payload;
       });
     builder
-      .addCase(logIn.pending, (state) => {
-        state.logInLoading = true;
-        state.logInError = null;
-      })
       .addCase(logIn.fulfilled, (state, { payload }) => {
-        state.logInLoading = false;
         state.logInDone = true;
         state.me = payload;
       })
       .addCase(logIn.rejected, (state, { payload }) => {
-        state.logInLoading = false;
         state.logInError = payload;
       });
     builder
-      .addCase(logOut.pending, (state) => {
-        state.logOutLoading = true;
-        state.logOutError = null;
-      })
       .addCase(logOut.fulfilled, (state) => {
-        state.logOutLoading = false;
         state.logOutDone = true;
         state.me = null;
       })
       .addCase(logOut.rejected, (state, { payload }) => {
-        state.logOutLoading = false;
         state.logOutError = payload;
       });
     builder
-      .addCase(uploadUserAvatar.pending, (state) => {
-        state.uploadUserAvatarLoading = true;
-        state.uploadUserAvatarError = null;
-      })
       .addCase(uploadUserAvatar.fulfilled, (state, { payload }) => {
-        state.uploadUserAvatarLoading = false;
         state.uploadUserAvatarDone = true;
         state.me.avatar = payload;
       })
       .addCase(uploadUserAvatar.rejected, (state, { payload }) => {
-        state.uploadUserAvatarLoading = false;
         state.uploadUserAvatarError = payload;
       });
     builder
-      .addCase(changeMyPublicInfo.pending, (state) => {
-        state.changeMyPublicInfoLoading = true;
-        state.changeMyPublicInfoError = null;
-      })
       .addCase(changeMyPublicInfo.fulfilled, (state, { payload }) => {
-        state.changeMyPublicInfoLoading = false;
         state.changeMyPublicInfoDone = true;
         state.me.username = payload.username;
         state.me.role = payload.role;
@@ -232,29 +187,18 @@ export const userSlice = createSlice({
         state.me.about = payload.about;
       })
       .addCase(changeMyPublicInfo.rejected, (state, { payload }) => {
-        state.changeMyPublicInfoLoading = false;
         state.changeMyPublicInfoError = payload;
       });
     builder
-      .addCase(changeMyPersonalInfo.pending, (state) => {
-        state.changeMyPersonalInfoLoading = true;
-        state.changeMyPersonalInfoError = null;
-      })
       .addCase(changeMyPersonalInfo.fulfilled, (state, { payload }) => {
-        state.changeMyPersonalInfoLoading = false;
         state.changeMyPersonalInfoDone = true;
         state.me.realname = payload.realname;
         state.me.address = payload.address;
       })
       .addCase(changeMyPersonalInfo.rejected, (state, { payload }) => {
-        state.changeMyPersonalInfoLoading = false;
         state.changeMyPersonalInfoError = payload;
       });
     builder
-      .addCase(trace.pending, (state) => {
-        state.traceLoading = true;
-        state.traceError = null;
-      })
       .addCase(trace.fulfilled, (state, { payload }) => {
         state.traceLoading = false;
         state.traceDone = true;
@@ -265,10 +209,6 @@ export const userSlice = createSlice({
         state.traceError = payload;
       });
     builder
-      .addCase(untrace.pending, (state) => {
-        state.untraceLoading = true;
-        state.untraceError = null;
-      })
       .addCase(untrace.fulfilled, (state, { payload }) => {
         state.untraceLoading = false;
         state.untraceDone = true;
@@ -281,10 +221,6 @@ export const userSlice = createSlice({
         state.untraceError = payload;
       });
     builder
-      .addCase(reportUser.pending, (state) => {
-        state.reportUserLoading = true;
-        state.reportUserError = null;
-      })
       .addCase(reportUser.fulfilled, (state, { payload }) => {
         state.reportUserLoading = false;
         state.reportUserDone = true;
@@ -296,5 +232,6 @@ export const userSlice = createSlice({
   },
 });
 
+const { actions, reducer } = userSlice;
 export const { addPostToMe } = userSlice.actions;
 export default userSlice;

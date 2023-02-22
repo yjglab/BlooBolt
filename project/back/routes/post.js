@@ -2,7 +2,14 @@ const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
 
-const { User, Post, PostImage, Hashtag, Comment } = require("../models");
+const {
+  User,
+  Post,
+  PostImage,
+  Hashtag,
+  Comment,
+  UserReport,
+} = require("../models");
 const { isLoggedIn } = require("./middlewares");
 const path = require("path");
 
@@ -465,7 +472,14 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
         {
           model: User,
           attributes: ["id", "username", "role", "status", "avatar", "rank"],
+          include: [
+            {
+              model: UserReport,
+              attributes: ["reporterId"],
+            },
+          ],
         },
+
         {
           model: User,
           as: "PostProdders",

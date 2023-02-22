@@ -22,12 +22,6 @@ const PostUserReport = ({ post, onToggleCheckReport }) => {
     mode: "onSubmit",
   });
 
-  useEffect(() => {
-    if (reportUserError) {
-      setError("reportContent", { message: "이미 신고한 사용자입니다." });
-    }
-  }, []);
-
   const onReportUser = useCallback((formData) => {
     if (!id) {
       return dispatch(
@@ -37,6 +31,18 @@ const PostUserReport = ({ post, onToggleCheckReport }) => {
         })
       );
     }
+    const alredyReported = post.User.UserReports.find(
+      (v) => v.reporterId === id
+    );
+    if (alredyReported) {
+      return dispatch(
+        openNotice({
+          content: `이미 신고 접수된 사용자입니다.`,
+          type: 2,
+        })
+      );
+    }
+
     const { reportContent } = formData;
     dispatch(
       reportUser({ userId: post.User.id, reportContent, postId: post.id })
@@ -65,7 +71,6 @@ const PostUserReport = ({ post, onToggleCheckReport }) => {
           id="reportContent"
           maxLength={100}
           rows="3"
-          disabled={reportUserError}
           className="px-2 tracking-tight mb-3  border border-slate-200 rounded-md w-full text-sm sm:text-sm md:text-md  focus:ring-0 focus:outline-none placeholder:text-slate-300"
           placeholder="신고할 내용을 작성해주세요. 허위 내용을 전송할 경우 서비스 이용에 불이익을 받을 수 있습니다."
           {...register("reportContent", {
@@ -82,7 +87,6 @@ const PostUserReport = ({ post, onToggleCheckReport }) => {
         <div className="mt-2 flex gap-2">
           <button
             type="submit"
-            disabled={isSubmitting || reportUserError}
             className="py-1.5 px-3 bg-slate-500 rounded-md text-xs text-white font-semibold hover:bg-slate-500"
           >
             전송

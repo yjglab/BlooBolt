@@ -8,7 +8,6 @@ module.exports = class UserReport extends Model {
         targetPostId: {
           type: DataTypes.TINYINT,
           allowNull: true,
-          defaultValue: 0,
         },
         reporterId: {
           type: DataTypes.TINYINT,
