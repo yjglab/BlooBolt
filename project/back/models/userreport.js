@@ -5,6 +5,11 @@ module.exports = class UserReport extends Model {
   static init(sequelize) {
     return super.init(
       {
+        targetPostId: {
+          type: DataTypes.TINYINT,
+          allowNull: true,
+          defaultValue: 0,
+        },
         reporterId: {
           type: DataTypes.TINYINT,
           allowNull: false,

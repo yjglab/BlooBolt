@@ -345,6 +345,7 @@ router.post("/:userId/report", isLoggedIn, async (req, res, next) => {
     });
     await UserReport.create({
       UserId: req.params.userId,
+      targetPostId: req.body.postId,
       reporterId: req.user.id,
       reporterEmail: reporter.email,
       reporterUsername: reporter.username,
