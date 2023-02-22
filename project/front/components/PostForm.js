@@ -13,7 +13,6 @@ import {
   uploadPostImages,
 } from "../reducers/postSlice";
 import { openNotice } from "../reducers/globalSlice";
-import { addPostToMe } from "../reducers/userSlice";
 
 const PostForm = ({
   onTogglePostForm,

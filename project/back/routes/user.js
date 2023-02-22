@@ -34,6 +34,24 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }, // 10mb
 });
 
+router.get("/", async (req, res, next) => {
+  // console.log(req.headers)
+  try {
+    if (req.user) {
+      const resultUser = await User.findOne({
+        where: { id: req.user.id },
+        attributes: { exclude: ["password"] },
+      });
+      res.status(200).json(resultUser);
+    } else {
+      res.status(200).json(null);
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 router.post("/signup", isNotLoggedIn, async (req, res, next) => {
   try {
     const existedEmail = await User.findOne({

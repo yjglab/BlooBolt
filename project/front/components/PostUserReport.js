@@ -92,6 +92,7 @@ const PostUserReport = ({ post, onToggleCheckReport }) => {
             전송
           </button>
           <button
+            type="button"
             onClick={onToggleCheckReport}
             className="py-1.5 px-3 bg-slate-500 rounded-md text-xs text-white font-semibold hover:bg-slate-500"
           >

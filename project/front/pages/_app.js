@@ -6,19 +6,20 @@ import "../styles/globals.css";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { Provider, useSelector } from "react-redux";
-import store from "../store/configureStore";
+// import store from "../store/configureStore";
+import wrapper from "../store/configureStore";
 
-const BlooBolt = ({ Component }) => {
+const BlooBolt = ({ Component, pageProps }) => {
   return (
-    <Provider store={store}>
+    <>
       <Head>
         <meta charSet="utf-8" />
         <title>BlooBolt</title>
       </Head>
       <Navigation />
-      <Component />
+      <Component {...pageProps} />
       <Footer />
-    </Provider>
+    </>
   );
 };
 
@@ -26,4 +27,4 @@ BlooBolt.propTypes = {
   Component: PropTypes.elementType.isRequired,
 };
 
-export default BlooBolt;
+export default wrapper.withRedux(BlooBolt);

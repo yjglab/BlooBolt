@@ -336,7 +336,22 @@ const CommentSection = ({ post, comment }) => {
             </>
           ) : (
             <p className={extendComment ? "" : "line-clamp-3"}>
-              {comment.content}
+              {comment.content.split(/(#[^\s#]+)/g).map((v, i) => {
+                if (v.match(/(#[^\s#]+)/)) {
+                  return (
+                    <Link
+                      href={`/hashtag/${v.slice(1)}`}
+                      prefetch={false}
+                      key={i}
+                    >
+                      <span className="text-indigo-500 cursor-pointer font-medium hover:text-indigo-600">
+                        {v}
+                      </span>
+                    </Link>
+                  );
+                }
+                return v;
+              })}
             </p>
           )}
         </div>

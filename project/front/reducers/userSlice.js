@@ -15,8 +15,21 @@ export const initialState = {
   untraceError: null,
 
   me: null,
+  user: null,
 };
 
+export const loadMe = createAsyncThunk(
+  "user/loadMe",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.get("/user");
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 export const signUp = createAsyncThunk(
   "user/signUp",
   async (info, thunkAPI) => {
@@ -125,6 +138,18 @@ export const reportUser = createAsyncThunk(
     }
   }
 );
+export const loadUser = createAsyncThunk(
+  "user/loadUser",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`/user/${info.userId}`, info);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -140,44 +165,53 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(uploadPost.fulfilled, (state, { payload }) => {
-      state.me.Posts.push(payload);
-      if (state.me.rank === 0) state.me.rank = 6;
-    }); // 나중에 제거
-
     builder
+      .addCase(uploadPost.fulfilled, (state, { payload }) => {
+        state.me.Posts.push(payload);
+        if (state.me.rank === 0) state.me.rank = 6;
+      }) // 나중에 제거
+
+      .addCase(loadMe.fulfilled, (state, { payload }) => {
+        state.loadMeDone = true;
+        state.me = payload;
+      })
+      .addCase(loadMe.rejected, (state, { payload }) => {
+        state.loadMeDone = false;
+        state.loadMeError = payload;
+      })
+
       .addCase(signUp.fulfilled, (state) => {
         state.signUpDone = true;
       })
       .addCase(signUp.rejected, (state, { payload }) => {
         state.signUpDone = false;
         state.signUpError = payload;
-      });
-    builder
+      })
+
       .addCase(logIn.fulfilled, (state, { payload }) => {
         state.logInDone = true;
         state.me = payload;
       })
       .addCase(logIn.rejected, (state, { payload }) => {
         state.logInError = payload;
-      });
-    builder
+      })
+
       .addCase(logOut.fulfilled, (state) => {
         state.logOutDone = true;
         state.me = null;
       })
       .addCase(logOut.rejected, (state, { payload }) => {
         state.logOutError = payload;
-      });
-    builder
+      })
+
       .addCase(uploadUserAvatar.fulfilled, (state, { payload }) => {
         state.uploadUserAvatarDone = true;
         state.me.avatar = payload;
       })
       .addCase(uploadUserAvatar.rejected, (state, { payload }) => {
         state.uploadUserAvatarError = payload;
-      });
-    builder
+      })
+
       .addCase(changeMyPublicInfo.fulfilled, (state, { payload }) => {
         state.changeMyPublicInfoDone = true;
         state.me.username = payload.username;
@@ -188,8 +222,8 @@ export const userSlice = createSlice({
       })
       .addCase(changeMyPublicInfo.rejected, (state, { payload }) => {
         state.changeMyPublicInfoError = payload;
-      });
-    builder
+      })
+
       .addCase(changeMyPersonalInfo.fulfilled, (state, { payload }) => {
         state.changeMyPersonalInfoDone = true;
         state.me.realname = payload.realname;
@@ -197,8 +231,8 @@ export const userSlice = createSlice({
       })
       .addCase(changeMyPersonalInfo.rejected, (state, { payload }) => {
         state.changeMyPersonalInfoError = payload;
-      });
-    builder
+      })
+
       .addCase(trace.fulfilled, (state, { payload }) => {
         state.traceLoading = false;
         state.traceDone = true;
@@ -207,8 +241,8 @@ export const userSlice = createSlice({
       .addCase(trace.rejected, (state, { payload }) => {
         state.traceLoading = false;
         state.traceError = payload;
-      });
-    builder
+      })
+
       .addCase(untrace.fulfilled, (state, { payload }) => {
         state.untraceLoading = false;
         state.untraceDone = true;
@@ -219,19 +253,19 @@ export const userSlice = createSlice({
       .addCase(untrace.rejected, (state, { payload }) => {
         state.untraceLoading = false;
         state.untraceError = payload;
-      });
-    builder
-      .addCase(reportUser.fulfilled, (state, { payload }) => {
+      })
+
+      .addCase(reportUser.fulfilled, (state) => {
         state.reportUserLoading = false;
         state.reportUserDone = true;
       })
       .addCase(reportUser.rejected, (state, { payload }) => {
         state.reportUserLoading = false;
         state.reportUserError = payload;
-      });
+      })
+      .addDefaultCase((state) => state);
   },
 });
 
-const { actions, reducer } = userSlice;
 export const { addPostToMe } = userSlice.actions;
 export default userSlice;

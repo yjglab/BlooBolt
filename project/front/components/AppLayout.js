@@ -8,7 +8,7 @@ const AppLayout = ({ children }) => {
   return (
     <>
       {children}
-      {noticeCalled && <NoticeModal />}
+      {noticeCalled ? <NoticeModal /> : null}
     </>
   );
 };

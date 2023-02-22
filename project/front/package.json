@@ -22,6 +22,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.1",
     "react-redux": "^8.0.5",
+    "redux-logger": "^3.0.6",
     "shortid": "^2.2.16",
     "tailwind-scrollbar-hide": "^1.1.7"
   },

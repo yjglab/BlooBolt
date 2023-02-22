@@ -103,3 +103,8 @@
 ### 문제
 
 - ALTER TABLE 명 CHANGE 반복현상
+
+### 기록
+
+reducers는 단순히 동기적으로 자기자신의 state를 바꾸는 action들.
+extraReducers는 외부로부터 state가 바뀌는 경우를 처리하기 위함. login이나 logout 등은 createAsyncThunk를 통해 만든 액션. userSlice에서 이렇게 외부에서 생성한 createAsyncThunk같은 것을 대응하려면 extraReducers에 등록해야함. 비슷한 이유로 다른 슬라이스의 액션에서 내 슬라이스의 state를 바꾸려고 한다면 extraReducers에서 다른 슬라이스의 액션을 등록해야함.

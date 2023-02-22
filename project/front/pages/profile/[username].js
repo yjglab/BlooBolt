@@ -32,12 +32,11 @@ function classNames(...classes) {
 
 const Profile = () => {
   const { me } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    if (!(me && me?.id)) {
-      Router.push("/square");
-    }
-  }, [me && me?.id]);
+  // useEffect(() => {
+  // dispatch(loadUser())
+  // }, [user])
 
   return (
     <AppLayout>

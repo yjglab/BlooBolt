@@ -5,6 +5,9 @@ import PostSection from "../components/PostSection";
 import PostForm from "../components/PostForm";
 
 import { cancelAllPostImages, loadPosts } from "../reducers/postSlice";
+import wrapper from "../store/configureStore";
+import { loadMe } from "../reducers/userSlice";
+import axios from "axios";
 
 const Square = () => {
   const { me } = useSelector((state) => state.user);
@@ -90,5 +93,20 @@ const Square = () => {
     </AppLayout>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const cookie = context.req ? context.req.headers.cookie : "";
+    axios.defaults.headers.Cookie = "";
+    if (context.req && cookie) {
+      axios.defaults.headers.Cookie = cookie;
+    }
+    await context.store.dispatch(loadMe());
+
+    return {
+      props: { message: "Message from SSR" },
+    };
+  }
+);
 
 export default Square;

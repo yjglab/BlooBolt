@@ -115,7 +115,9 @@ const Navigation = () => {
                               </div>
                             </button>
                           </Link>
-                          <Link href={me ? `/profile/${me.id}` : "/login"}>
+                          <Link
+                            href={me ? `/profile/${me.username}` : "/login"}
+                          >
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
                               <UserCircleIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500"
@@ -189,7 +191,7 @@ const Navigation = () => {
                 >
                   Logout
                 </button>
-                <Link href={`/profile/${me.id}`}>
+                <Link href={`/profile/${me.username}`}>
                   <img
                     className="cursor-pointer ml-6 h-10 w-10 rounded-full object-cover"
                     src={
@@ -268,7 +270,7 @@ const Navigation = () => {
                     </div>
                   </Link>
                   {me && (
-                    <Link href={`/profile/${me.id}`}>
+                    <Link href={`/profile/${me.username}`}>
                       <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
                         <UserIcon
                           className="h-6 w-6 flex-shrink-0 text-indigo-500"

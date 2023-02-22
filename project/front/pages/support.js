@@ -1,13 +1,12 @@
 import AppLayout from "../components/AppLayout";
-
 import React from "react";
 import { useDispatch } from "react-redux";
-
 import {
   EnvelopeIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Support = () => {
   const dispatch = useDispatch();
