@@ -15,6 +15,7 @@ const UserPublicInfo = ({ me }) => {
     register,
     handleSubmit,
     setValue,
+    setError,
     formState: { isSubmitting, errors },
   } = useForm({
     mode: "onSubmit",
@@ -30,6 +31,12 @@ const UserPublicInfo = ({ me }) => {
 
   const onEditPublicInfo = (formData) => {
     const { username, role, country, website, about } = formData;
+
+    if (username.search(/\s/) !== -1 || slCheck.test(username)) {
+      return setError("username", {
+        message: "사용자명에 공백 또는 특수문자가 들어갈 수 없습니다.",
+      });
+    }
 
     dispatch(
       changeMyPublicInfo({

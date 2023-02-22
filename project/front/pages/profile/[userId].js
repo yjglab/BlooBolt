@@ -20,11 +20,11 @@ import {
   WindowIcon,
 } from "@heroicons/react/20/solid";
 import { Menu, Transition, Tab } from "@headlessui/react";
-import AppLayout from "../components/AppLayout";
-import UserActivity from "../components/UserActivity";
-import UserInformation from "../components/UserInformation";
+import AppLayout from "../../components/AppLayout";
+import UserActivity from "../../components/UserActivity";
+import UserInformation from "../../components/UserInformation";
 import Link from "next/link";
-import UserAvatar from "../components/UserAvatar";
+import UserAvatar from "../../components/UserAvatar";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
