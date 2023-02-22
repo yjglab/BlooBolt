@@ -35,6 +35,18 @@ module.exports = class User extends Model {
           type: DataTypes.STRING(20),
           allowNull: false,
         },
+        avatar: {
+          type: DataTypes.STRING(500),
+          allowNull: false,
+        },
+        rank: {
+          type: DataTypes.TINYINT,
+          allowNull: false,
+        },
+        rankPoint: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+        },
         country: {
           type: DataTypes.STRING(30),
           allowNull: false,
@@ -45,6 +57,10 @@ module.exports = class User extends Model {
         },
         website: {
           type: DataTypes.STRING(200),
+          allowNull: false,
+        },
+        reported: {
+          type: DataTypes.TINYINT,
           allowNull: false,
         },
       },
@@ -58,14 +74,14 @@ module.exports = class User extends Model {
     );
   }
   static associate(db) {
-    db.User.belongsTo(db.Userboard);
     db.User.hasMany(db.Post);
+    db.User.hasMany(db.UserReport);
+    db.User.hasMany(db.Comment);
     db.User.belongsToMany(db.Post, { through: "PostProd", as: "PostProdded" });
     db.User.belongsToMany(db.Comment, {
       through: "CommentProd",
       as: "CommentProdded",
     });
-    db.User.hasMany(db.Comment);
     db.User.belongsToMany(db.User, {
       through: "Trace",
       as: "Tracers",
@@ -78,18 +94,3 @@ module.exports = class User extends Model {
     });
   }
 };
-
-// id: 101,
-// email: "yjg@bloobolt.com",
-// username: "yjg",
-// realname: "realyjg",
-// status: true, // add
-// about: "안녕하세요", // add string (30제한)
-// avatar: "", // add string src
-// role: "Web Developer", // add string(18)
-// country: "Korea",
-// website: "demo.com",
-
-// 유저보드
-// rank: 5, // 1 ~ 5, 기본 0, 어드민 9
-// rankPoint: 0,

@@ -202,7 +202,7 @@ const CommentSection = ({ post, comment }) => {
           src={
             process.env.NODE_ENV === "production"
               ? ``
-              : `${backUrl}/${comment.User.Userboard.avatar}`
+              : `${backUrl}/${comment.User.avatar}`
           }
           className={`h-[42px] w-[42px] ${
             post.User.status ? "border-indigo-500" : ""
@@ -213,25 +213,25 @@ const CommentSection = ({ post, comment }) => {
             {comment.User.username}
             <>
               <Link href="#">
-                {comment.User.Userboard.rank === 6 ? (
+                {comment.User.rank === 6 ? (
                   <FaceSmileIcon
                     className="w-3.5 ml-0.5 text-slate-400"
                     aria-hidden="true"
                   />
-                ) : comment.User.Userboard.rank === 0 ? null : (
+                ) : comment.User.rank === 0 ? null : (
                   <ShieldCheckIcon
                     className={`w-3.5 flex-shrink-0 ${
-                      comment.User.Userboard.rank === 1
+                      comment.User.rank === 1
                         ? "text-cyan-400"
-                        : comment.User.Userboard.rank === 2
+                        : comment.User.rank === 2
                         ? "text-amber-400"
-                        : comment.User.Userboard.rank === 3
+                        : comment.User.rank === 3
                         ? "text-amber-700/70"
-                        : comment.User.Userboard.rank === 4
+                        : comment.User.rank === 4
                         ? "text-indigo-500"
-                        : comment.User.Userboard.rank === 5
+                        : comment.User.rank === 5
                         ? "text-slate-400"
-                        : comment.User.Userboard.rank === 9
+                        : comment.User.rank === 9
                         ? "text-red-400"
                         : null
                     }`}

@@ -53,29 +53,29 @@ const Profile = () => {
             <div className="flex items-center mt-4 md:mt-1 mb-2">
               <>
                 <Link href="#">
-                  {me?.Userboard.rank === 6 ? (
+                  {me?.rank === 6 ? (
                     <FaceSmileIcon
                       className="w-5 ml-0.5 text-slate-400"
                       aria-hidden="true"
                     />
-                  ) : me?.Userboard.rank === 0 ? (
+                  ) : me?.rank === 0 ? (
                     <span className="cursor-pointer  px-2 py-0.5 rounded-md bg-slate-400 relative  text-xs text-white">
                       Not Ranked
                     </span>
                   ) : (
                     <ShieldCheckIcon
                       className={`w-5 flex-shrink-0 ${
-                        me?.Userboard.rank === 1
+                        me?.rank === 1
                           ? "text-cyan-400"
-                          : me?.Userboard.rank === 2
+                          : me?.rank === 2
                           ? "text-amber-400"
-                          : me?.Userboard.rank === 3
+                          : me?.rank === 3
                           ? "text-amber-700/70"
-                          : me?.Userboard.rank === 4
+                          : me?.rank === 4
                           ? "text-indigo-500"
-                          : me?.Userboard.rank === 5
+                          : me?.rank === 5
                           ? "text-slate-400"
-                          : me?.Userboard.rank === 9
+                          : me?.rank === 9
                           ? "text-red-400"
                           : null
                       }`}
@@ -84,16 +84,12 @@ const Profile = () => {
                   )}
                 </Link>{" "}
                 <span className="text-sm ml-1">Rank</span>
-                <span className="text-sm ml-1 font-bold">
-                  {me.Userboard.rank}
-                </span>
+                <span className="text-sm ml-1 font-bold">{me.rank}</span>
               </>
 
               <span className="ml-2 text-xs bg-slate-400 px-2 py-0.5 text-white rounded-md">
                 Rank Point{" "}
-                <span className="ml-1 font-bold ">
-                  {me.Userboard.rankPoint}
-                </span>
+                <span className="ml-1 font-bold ">{me.rankPoint}</span>
               </span>
             </div>
           </div>

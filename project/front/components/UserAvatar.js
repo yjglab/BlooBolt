@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 
 const UserAvatar = ({ me }) => {
   const dispatch = useDispatch();
-  const { uploadUserAvatarDone } = useSelector((state) => state.user);
   const {
     register,
     watch,
@@ -61,9 +60,7 @@ const UserAvatar = ({ me }) => {
       />
       <img
         src={
-          process.env.NODE_ENV === "production"
-            ? ``
-            : `${backUrl}/${me.Userboard.avatar}`
+          process.env.NODE_ENV === "production" ? `` : `${backUrl}/${me.avatar}`
         }
         className="aspect-square object-cover"
       />

@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const user = require("./user");
-const userboard = require("./userboard");
+const userreport = require("./userreport");
 const post = require("./post");
 const postImage = require("./postimage");
 const hashtag = require("./hashtag");
@@ -17,7 +17,7 @@ const sequelize = new Sequelize(
 );
 
 db.User = user;
-db.Userboard = userboard;
+db.UserReport = userreport;
 db.Post = post;
 db.PostImage = postImage;
 db.Hashtag = hashtag;

@@ -118,6 +118,18 @@ export const untrace = createAsyncThunk(
     }
   }
 );
+export const reportUser = createAsyncThunk(
+  "user/reportUser",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.post(`/user/${info.userId}/report`, info);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -142,7 +154,7 @@ export const userSlice = createSlice({
         state.uploadPostLoading = false;
         state.uploadPostDone = true;
         state.me.Posts.push(payload);
-        if (state.me.Userboard.rank === 0) state.me.Userboard.rank = 6;
+        if (state.me.rank === 0) state.me.rank = 6;
       })
       .addCase(uploadPost.rejected, (state, { payload }) => {
         state.uploadPostLoading = false;
@@ -199,7 +211,7 @@ export const userSlice = createSlice({
       .addCase(uploadUserAvatar.fulfilled, (state, { payload }) => {
         state.uploadUserAvatarLoading = false;
         state.uploadUserAvatarDone = true;
-        state.me.Userboard.avatar = payload;
+        state.me.avatar = payload;
       })
       .addCase(uploadUserAvatar.rejected, (state, { payload }) => {
         state.uploadUserAvatarLoading = false;
@@ -267,6 +279,19 @@ export const userSlice = createSlice({
       .addCase(untrace.rejected, (state, { payload }) => {
         state.untraceLoading = false;
         state.untraceError = payload;
+      });
+    builder
+      .addCase(reportUser.pending, (state) => {
+        state.reportUserLoading = true;
+        state.reportUserError = null;
+      })
+      .addCase(reportUser.fulfilled, (state, { payload }) => {
+        state.reportUserLoading = false;
+        state.reportUserDone = true;
+      })
+      .addCase(reportUser.rejected, (state, { payload }) => {
+        state.reportUserLoading = false;
+        state.reportUserError = payload;
       });
   },
 });

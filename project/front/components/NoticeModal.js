@@ -2,14 +2,15 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { closeNotice } from "../reducers/globalSlice";
+import { closeNotice, confirmNotice } from "../reducers/globalSlice";
 
 const NoticeModal = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(true);
   const { content, type } = useSelector((state) => state.global.notice);
+  // type 1: success / 2: failed
 
-  const onCloseModal = () => {
+  const onClose = () => {
     dispatch(closeNotice());
     setIsOpen(false);
   };
@@ -17,7 +18,7 @@ const NoticeModal = () => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10 " onClose={onCloseModal}>
+        <Dialog as="div" className="relative z-10 " onClose={onClose}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -58,13 +59,13 @@ const NoticeModal = () => {
                     <p className="text-sm text-slate-500">{content}</p>
                   </div>
 
-                  <div className="mt-4 flex justify-end md:justify-center ">
+                  <div className="mt-4 flex justify-end gap-2 md:justify-center ">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
-                      onClick={onCloseModal}
+                      onClick={onClose}
                     >
-                      Confirm
+                      Close
                     </button>
                   </div>
                 </Dialog.Panel>

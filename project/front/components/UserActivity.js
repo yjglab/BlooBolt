@@ -171,25 +171,25 @@ const UserActivity = () => {
                             {tracer.username}
                             <>
                               <Link href="#">
-                                {tracer.Userboard.rank === 6 ? (
+                                {tracer.rank === 6 ? (
                                   <FaceSmileIcon
                                     className="w-4 ml-0.5 text-slate-400"
                                     aria-hidden="true"
                                   />
-                                ) : tracer.Userboard.rank === 0 ? null : (
+                                ) : tracer.rank === 0 ? null : (
                                   <ShieldCheckIcon
                                     className={`w-4 flex-shrink-0 ${
-                                      tracer.Userboard.rank === 1
+                                      tracer.rank === 1
                                         ? "text-cyan-400"
-                                        : tracer.Userboard.rank === 2
+                                        : tracer.rank === 2
                                         ? "text-amber-400"
-                                        : tracer.Userboard.rank === 3
+                                        : tracer.rank === 3
                                         ? "text-amber-700/70"
-                                        : tracer.Userboard.rank === 4
+                                        : tracer.rank === 4
                                         ? "text-indigo-500"
-                                        : tracer.Userboard.rank === 5
+                                        : tracer.rank === 5
                                         ? "text-slate-400"
-                                        : tracer.Userboard.rank === 9
+                                        : tracer.rank === 9
                                         ? "text-red-400"
                                         : null
                                     }`}
@@ -249,25 +249,25 @@ const UserActivity = () => {
                               {tracing.username}
                               <>
                                 <Link href="#">
-                                  {tracing.Userboard.rank === 6 ? (
+                                  {tracing.rank === 6 ? (
                                     <FaceSmileIcon
                                       className="w-4 ml-0.5 text-slate-400"
                                       aria-hidden="true"
                                     />
-                                  ) : tracing.Userboard.rank === 0 ? null : (
+                                  ) : tracing.rank === 0 ? null : (
                                     <ShieldCheckIcon
                                       className={`w-4 flex-shrink-0 ${
-                                        tracing.Userboard.rank === 1
+                                        tracing.rank === 1
                                           ? "text-cyan-400"
-                                          : tracing.Userboard.rank === 2
+                                          : tracing.rank === 2
                                           ? "text-amber-400"
-                                          : tracing.Userboard.rank === 3
+                                          : tracing.rank === 3
                                           ? "text-amber-700/70"
-                                          : tracing.Userboard.rank === 4
+                                          : tracing.rank === 4
                                           ? "text-indigo-500"
-                                          : tracing.Userboard.rank === 5
+                                          : tracing.rank === 5
                                           ? "text-slate-400"
-                                          : tracing.Userboard.rank === 9
+                                          : tracing.rank === 9
                                           ? "text-red-400"
                                           : null
                                       }`}

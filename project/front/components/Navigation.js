@@ -195,7 +195,7 @@ const Navigation = () => {
                     src={
                       process.env.NODE_ENV === "production"
                         ? ``
-                        : `${backUrl}/${me.Userboard.avatar}`
+                        : `${backUrl}/${me.avatar}`
                     }
                     alt="avatar-image"
                   />

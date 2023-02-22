@@ -25,8 +25,9 @@ import {
   revertPost,
   unprodPost,
 } from "../reducers/postSlice";
-import { trace, untrace } from "../reducers/userSlice";
+import { trace, untrace, reportUser } from "../reducers/userSlice";
 import { backUrl } from "../config/config";
+import { useForm } from "react-hook-form";
 
 dayjs.locale("ko");
 
@@ -37,10 +38,11 @@ function classNames(...classes) {
 const PostSection = ({ post }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
-  const { me, traceDone, untraceDone } = useSelector((state) => state.user);
-  const { removePostDone, revertPostDone } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.user);
   const [toggleCommentArea, setToggleCommentArea] = useState(false);
   const [blindPost, setBlindPost] = useState(false);
+  const [blindCheck, setBlindCheck] = useState(false);
+  const [reportCheck, setReportCheck] = useState(false);
   const [postEditMode, setPostEditMode] = useState(false);
 
   useEffect(() => {
@@ -48,6 +50,44 @@ const PostSection = ({ post }) => {
       setBlindPost(true);
     }
   }, [post.blinded]);
+
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm({
+    mode: "onSubmit",
+  });
+
+  const onToggleCheckReport = useCallback(() => {
+    setReportCheck(!reportCheck);
+  }, [reportCheck]);
+
+  const onReportUser = useCallback((formData) => {
+    if (!id) {
+      return dispatch(
+        openNotice({
+          content: "로그인이 필요합니다.",
+          type: 2,
+        })
+      );
+    }
+    const { reportContent } = formData;
+    dispatch(reportUser({ userId: post.User.id, reportContent }));
+    dispatch(
+      openNotice({
+        content: `신고 내용이 관리자에게 전송되었습니다.`,
+        type: 1,
+      })
+    );
+    reset();
+    onToggleCheckReport();
+  });
+
+  const onToggleCheckRemovePost = useCallback(() => {
+    setBlindCheck(!blindCheck);
+  }, [blindCheck]);
 
   const onRemovePost = () => {
     if (post.User.id !== id) return;
@@ -67,12 +107,14 @@ const PostSection = ({ post }) => {
         })
       );
     }
+
+    setBlindCheck(false);
     dispatch(removePost(post.id));
     dispatch(
       openNotice({
+        type: 1,
         content:
           "포스트가 블라인드 되었습니다. 다른 사용자가 작성자의 포스트를 확인할 수 있습니다.",
-        type: 1,
       })
     );
     setBlindPost(true);
@@ -221,6 +263,75 @@ const PostSection = ({ post }) => {
         />
       )}
       <div className=" p-1  h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
+        {reportCheck && (
+          <div className=" backdrop-saturate-0 gap-2 bg-white/50  flex justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur-md z-10">
+            <form
+              onSubmit={handleSubmit(onReportUser)}
+              className="w-full px-6 flex flex-col items-center  "
+            >
+              <span className="text-sm mb-3 font-semibold text-slate-500 text-center px-5">
+                부적절한 사용자 신고
+              </span>
+              <label htmlFor="reportContent" className="sr-only"></label>
+              <textarea
+                id="reportContent"
+                maxLength={100}
+                rows="3"
+                className="px-2 tracking-tight mb-3  border border-slate-200 rounded-md w-full text-sm sm:text-sm md:text-md  focus:ring-0 focus:outline-none placeholder:text-slate-300"
+                placeholder="신고할 내용을 작성해주세요. 허위 내용을 전송할 경우 서비스 이용에 불이익을 받을 수 있습니다."
+                {...register("reportContent", {
+                  required: "",
+                  maxLength: {
+                    value: 100,
+                    message: "100자 이내로 입력해주세요",
+                  },
+                })}
+              ></textarea>
+              <small>
+                {errors.reportContent ? (
+                  <>{errors.reportContent.message}</>
+                ) : null}
+              </small>
+              <div className="mt-2 flex gap-2">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="py-1.5 px-3 bg-slate-500 rounded-md text-xs text-white font-semibold hover:bg-slate-500"
+                >
+                  전송
+                </button>
+                <button
+                  onClick={onToggleCheckReport}
+                  className="py-1.5 px-3 bg-slate-500 rounded-md text-xs text-white font-semibold hover:bg-slate-500"
+                >
+                  취소
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+        {blindCheck && (
+          <div className="flex backdrop-saturate-0 gap-2 bg-white/50 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur-md z-10">
+            <span className="text-sm text-slate-500 text-center px-5">
+              삭제 요청된 포스트는 블라인드 처리되며 수정이 불가능합니다. 또한
+              여전히 다른 사용자에 의해 확인될 수 있으며 복원이 가능합니다.
+            </span>
+            <div className="mt-2 flex gap-2">
+              <button
+                onClick={onRemovePost}
+                className="py-1.5 px-3 bg-slate-500 rounded-md text-xs text-white font-semibold hover:bg-slate-500"
+              >
+                삭제 확인
+              </button>
+              <button
+                onClick={onToggleCheckRemovePost}
+                className="py-1.5 px-3 bg-slate-500 rounded-md text-xs text-white font-semibold hover:bg-slate-500"
+              >
+                취소
+              </button>
+            </div>
+          </div>
+        )}
         {post.blinded && blindPost && (
           <div className="flex backdrop-saturate-0 gap-2 bg-slate-300/50 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur-md z-10">
             <span className="text-sm text-slate-400">
@@ -266,9 +377,9 @@ const PostSection = ({ post }) => {
                 src={
                   process.env.NODE_ENV === "production"
                     ? ``
-                    : `${backUrl}/${post.User.Userboard.avatar}`
+                    : `${backUrl}/${post.User.avatar}`
                 }
-                className={`h-[50px] w-[50px] border-[3px] ${
+                className={`h-[50px] w-[50px] aspect-square border-[3px] ${
                   post.User.status ? "border-indigo-500" : ""
                 } p-0.5 rounded-full object-cover`}
               />
@@ -277,25 +388,25 @@ const PostSection = ({ post }) => {
                   {post.User.username}
                   <>
                     <Link href="#">
-                      {post.User.Userboard.rank === 6 ? (
+                      {post.User.rank === 6 ? (
                         <FaceSmileIcon
                           className="w-3.5 ml-0.5 text-slate-400"
                           aria-hidden="true"
                         />
-                      ) : post.User.Userboard.rank === 0 ? null : (
+                      ) : post.User.rank === 0 ? null : (
                         <ShieldCheckIcon
                           className={`w-3.5 flex-shrink-0 ${
-                            post.User.Userboard.rank === 1
+                            post.User.rank === 1
                               ? "text-cyan-400"
-                              : post.User.Userboard.rank === 2
+                              : post.User.rank === 2
                               ? "text-amber-400"
-                              : post.User.Userboard.rank === 3
+                              : post.User.rank === 3
                               ? "text-amber-700/70"
-                              : post.User.Userboard.rank === 4
+                              : post.User.rank === 4
                               ? "text-indigo-500"
-                              : post.User.Userboard.rank === 5
+                              : post.User.rank === 5
                               ? "text-slate-400"
-                              : post.User.Userboard.rank === 9
+                              : post.User.rank === 9
                               ? "text-red-400"
                               : null
                           }`}
@@ -364,7 +475,7 @@ const PostSection = ({ post }) => {
                                     ? onRevertPost
                                     : post.reverted
                                     ? onRemovePost
-                                    : onRemovePost
+                                    : onToggleCheckRemovePost
                                 }
                                 className={classNames(
                                   active
@@ -386,6 +497,7 @@ const PostSection = ({ post }) => {
                       <Menu.Item>
                         {({ active }) => (
                           <button
+                            onClick={onToggleCheckReport}
                             className={classNames(
                               active
                                 ? "bg-slate-100 text-slate-600"

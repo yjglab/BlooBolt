@@ -87,7 +87,6 @@ const UserPersonalInfo = ({ me }) => {
                     type="text"
                     name="realname"
                     id="realname"
-                    placeholder="Web Developer"
                     className="placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     {...register("realname", {
                       maxLength: {
@@ -108,7 +107,6 @@ const UserPersonalInfo = ({ me }) => {
                     type="text"
                     name="address"
                     id="address"
-                    placeholder="Web Developer"
                     className="placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     {...register("address", {
                       maxLength: {

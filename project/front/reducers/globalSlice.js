@@ -18,7 +18,7 @@ export const globalSlice = createSlice({
       state.notice.content = payload.content;
       state.notice.type = payload.type;
     },
-    closeNotice(state, { payload }) {
+    closeNotice(state) {
       state.noticeCalled = false;
       state.notice.content = null;
       state.notice.null = null;

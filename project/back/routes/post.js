@@ -2,14 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
 
-const {
-  User,
-  Post,
-  Userboard,
-  PostImage,
-  Hashtag,
-  Comment,
-} = require("../models");
+const { User, Post, PostImage, Hashtag, Comment } = require("../models");
 const { isLoggedIn } = require("./middlewares");
 const path = require("path");
 
@@ -68,12 +61,12 @@ router.patch("/:postId/prod", isLoggedIn, async (req, res, next) => {
       return res.status(403).send("존재하지 않는 포스트입니다");
     }
 
-    await Userboard.increment(
+    await User.increment(
       {
         rankPoint: 100,
       },
       {
-        where: { UserId: req.body.postUserId },
+        where: { id: req.body.postUserId },
       }
     );
     await post.addPostProdders(req.user.id);
@@ -93,12 +86,12 @@ router.delete("/:postId/prod", isLoggedIn, async (req, res, next) => {
     if (!post) {
       return res.status(403).send("존재하지 않는 포스트입니다");
     }
-    await Userboard.decrement(
+    await User.decrement(
       {
         rankPoint: 100,
       },
       {
-        where: { UserId: post.UserId },
+        where: { id: post.UserId },
       }
     );
     await post.removePostProdders(req.user.id);
@@ -180,13 +173,7 @@ router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username", "role", "status"],
-          include: [
-            {
-              model: Userboard,
-              attributes: ["avatar", "rank"],
-            },
-          ],
+          attributes: ["id", "username", "role", "status", "avatar", "rank"],
         },
         {
           model: User,
@@ -196,13 +183,13 @@ router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
       ],
     });
     if (post.UserId !== req.user.id) {
-      await Userboard.increment(
+      await User.increment(
         {
           rankPoint: 10,
         },
         {
           where: {
-            UserId: req.user.id,
+            id: req.user.id,
           },
         }
       );
@@ -228,13 +215,13 @@ router.delete(
         },
       });
       if (parseInt(req.params.postId) !== req.user.id) {
-        await Userboard.decrement(
+        await User.decrement(
           {
             rankPoint: 10,
           },
           {
             where: {
-              UserId: req.user.id,
+              id: req.user.id,
             },
           }
         );
@@ -298,12 +285,12 @@ router.patch(
         return res.status(403).send("존재하지 않는 코멘트입니다");
       }
 
-      await Userboard.increment(
+      await User.increment(
         {
           rankPoint: 100,
         },
         {
-          where: { UserId: req.body.commentUserId },
+          where: { id: req.body.commentUserId },
         }
       );
       await comment.addCommentProdders(req.user.id);
@@ -334,12 +321,12 @@ router.delete(
       if (!comment) {
         return res.status(403).send("존재하지 않는 코멘트입니다");
       }
-      await Userboard.decrement(
+      await User.decrement(
         {
           rankPoint: 100,
         },
         {
-          where: { UserId: comment.UserId },
+          where: { id: comment.UserId },
         }
       );
       await comment.removeCommentProdders(req.user.id);
@@ -370,13 +357,13 @@ router.patch("/:postId/revert", isLoggedIn, async (req, res, next) => {
         },
       }
     );
-    await Userboard.increment(
+    await User.increment(
       {
         rankPoint: 10,
       },
       {
         where: {
-          UserId: req.user.id,
+          id: req.user.id,
         },
       }
     );
@@ -404,13 +391,13 @@ router.delete("/:postId", isLoggedIn, async (req, res, next) => {
         },
       }
     );
-    await Userboard.decrement(
+    await User.decrement(
       {
         rankPoint: 10,
       },
       {
         where: {
-          UserId: req.user.id,
+          id: req.user.id,
         },
       }
     );
@@ -445,23 +432,23 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
       );
       await post.addHashtags(resultHashtags.map((v) => v[0]));
     }
-    await Userboard.increment(
+    await User.increment(
       {
         rankPoint: 10,
       },
       {
         where: {
-          UserId: req.user.id,
+          id: req.user.id,
         },
       }
     );
-    const myUserboard = await Userboard.findOne({
+    const me = await User.findOne({
       where: {
-        UserId: req.user.id,
+        id: req.user.id,
       },
     });
-    if (myUserboard.rank === 0) {
-      await myUserboard.update({
+    if (me.rank === 0) {
+      await me.update({
         rank: 6,
       });
     }
@@ -477,13 +464,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username", "role", "status"],
-          include: [
-            {
-              model: Userboard,
-              attributes: ["avatar", "rank"],
-            },
-          ],
+          attributes: ["id", "username", "role", "status", "avatar", "rank"],
         },
         {
           model: User,
@@ -498,12 +479,13 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
           include: [
             {
               model: User,
-              attributes: ["id", "username", "role", "status"],
-              include: [
-                {
-                  model: Userboard,
-                  attributes: ["avatar", "rank"],
-                },
+              attributes: [
+                "id",
+                "username",
+                "role",
+                "status",
+                "avatar",
+                "rank",
               ],
             },
             {

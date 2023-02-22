@@ -4,7 +4,7 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
-const { User, Userboard, Post, Comment } = require("../models");
+const { User, Post, Comment, UserReport } = require("../models");
 const { isNotLoggedIn, isLoggedIn } = require("./middlewares");
 const passport = require("passport");
 
@@ -54,11 +54,15 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = await User.create({
+    await User.create({
       email: req.body.email,
       username: req.body.username,
       password: hashedPassword,
       status: false,
+      avatar:
+        "" || process.env.NODE_ENV === "production" ? "" : "base_avatar.png",
+      rank: 0,
+      rankPoint: 0,
 
       role: "None",
       country: "None",
@@ -67,15 +71,10 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
 
       realname: "",
       address: "",
+
+      reported: 0,
     });
 
-    await user.createUserboard({
-      UserId: user.id,
-      avatar:
-        "" || process.env.NODE_ENV === "production" ? "" : "base_avatar.png",
-      rank: 0,
-      rankPoint: 0,
-    });
     res.status(201).send("ok");
   } catch (error) {
     console.error(error);
@@ -112,10 +111,6 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
         attributes: { exclude: ["password"] },
         include: [
           {
-            model: Userboard,
-            attributes: ["avatar", "rank", "rankPoint"],
-          },
-          {
             model: Post,
             include: [
               {
@@ -137,24 +132,12 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
           {
             model: User,
             as: "Tracings",
-            attributes: ["id", "username", "role"],
-            include: [
-              {
-                model: Userboard,
-                attributes: ["avatar", "rank"],
-              },
-            ],
+            attributes: ["id", "username", "role", "avatar", "rank"],
           },
           {
             model: User,
             as: "Tracers",
-            attributes: ["id", "username", "role"],
-            include: [
-              {
-                model: Userboard,
-                attributes: ["avatar", "rank"],
-              },
-            ],
+            attributes: ["id", "username", "role", "avatar", "rank"],
           },
         ],
       });
@@ -186,13 +169,13 @@ router.post(
   upload.single("userAvatar"),
   async (req, res, next) => {
     try {
-      Userboard.update(
+      User.update(
         {
           avatar: req.file.filename,
         },
         {
           where: {
-            UserId: req.user.id,
+            id: req.user.id,
           },
         }
       );
@@ -278,34 +261,22 @@ router.patch("/:userId/trace", isLoggedIn, async (req, res, next) => {
   try {
     const targetUser = await User.findOne({
       where: { id: req.params.userId },
-      attributes: ["id", "username", "status", "role"],
-      include: [
-        {
-          model: Userboard,
-          attributes: ["rank", "avatar"],
-        },
-      ],
+      attributes: ["id", "username", "status", "role", "rank", "avatar"],
     });
     if (!targetUser) {
       res.status(403).send("Trace failed: 존재하지 않는 사용자입니다.");
     }
-    await Userboard.increment(
+    await User.increment(
       {
         rankPoint: 100,
       },
       {
-        where: { UserId: req.params.userId },
+        where: { id: req.params.userId },
       }
     );
     const me = await User.findOne({
       where: { id: req.user.id },
-      attributes: ["id", "username", "status", "role"],
-      include: [
-        {
-          model: Userboard,
-          attributes: ["rank", "avatar"],
-        },
-      ],
+      attributes: ["id", "username", "status", "role", "rank", "avatar"],
     });
     await targetUser.addTracers(me);
     res.status(200).json(targetUser);
@@ -319,23 +290,16 @@ router.delete("/:userId/trace", isLoggedIn, async (req, res, next) => {
   try {
     const targetUser = await User.findOne({
       where: { id: req.params.userId },
-      // attributes: ["id", "username", "status", "role"],
-      // include: [
-      //   {
-      //     model: Userboard,
-      //     attributes: ["rank", "avatar"],
-      //   },
-      // ],
     });
     if (!targetUser) {
       res.status(403).send("Untrace failed: 존재하지 않는 사용자입니다.");
     }
-    await Userboard.decrement(
+    await User.decrement(
       {
         rankPoint: 100,
       },
       {
-        where: { UserId: req.params.userId },
+        where: { id: req.params.userId },
       }
     );
     const me = await User.findOne({
@@ -343,6 +307,51 @@ router.delete("/:userId/trace", isLoggedIn, async (req, res, next) => {
     });
     await targetUser.removeTracers(me.id);
     res.status(200).json({ UserId: targetUser.id });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+// 사용자 신고 접수
+router.post("/:userId/report", isLoggedIn, async (req, res, next) => {
+  try {
+    const targetUser = await User.findOne({
+      where: { id: req.params.userId },
+    });
+    if (!targetUser) {
+      return res.status(403).send("Report failed: 존재하지 않는 사용자입니다.");
+    }
+    const alreadyReported = await UserReport.findOne({
+      where: {
+        reporterId: req.user.id,
+      },
+    });
+    if (alreadyReported) {
+      return res.status(403).send("이미 신고한 사용자입니다.");
+    }
+
+    await User.increment(
+      {
+        reported: 1,
+      },
+      {
+        where: { id: req.params.userId },
+      }
+    );
+
+    const reporter = await User.findOne({
+      where: { id: req.user.id },
+    });
+    await UserReport.create({
+      UserId: req.params.userId,
+      reporterId: req.user.id,
+      reporterEmail: reporter.email,
+      reporterUsername: reporter.username,
+      content: req.body.reportContent,
+    });
+
+    res.status(200).end();
   } catch (error) {
     console.error(error);
     next(error);
