@@ -39,7 +39,7 @@ function classNames(...classes) {
 const PostSection = ({ post }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
-  const { me } = useSelector((state) => state.user);
+  const { me, activeUsers } = useSelector((state) => state.user);
   const [toggleCommentArea, setToggleCommentArea] = useState(false);
   const [blindPost, setBlindPost] = useState(false);
   const [blindCheck, setBlindCheck] = useState(false);
@@ -320,7 +320,9 @@ const PostSection = ({ post }) => {
                       : `${backUrl}/${post.User.avatar}`
                   }
                   className={`h-[50px] w-[50px] aspect-square border-[3px] ${
-                    post.User.status ? "border-indigo-500" : ""
+                    activeUsers.includes(post.User.id)
+                      ? "border-indigo-500"
+                      : ""
                   } p-0.5 rounded-full object-cover`}
                 />
               </Link>

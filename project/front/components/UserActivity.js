@@ -23,6 +23,7 @@ function classNames(...classes) {
 
 const UserActivity = ({ owner, me, user }) => {
   const dispatch = useDispatch();
+  const { activeUsers } = useSelector((state) => state.user);
 
   const onUntrace = (tracing) => () => {
     dispatch(untrace(tracing.id));
@@ -161,7 +162,9 @@ const UserActivity = ({ owner, me, user }) => {
                         <img
                           src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
                           className={`h-[50px] w-[50px] border-[3px] ${
-                            tracer.status ? "border-indigo-500" : ""
+                            activeUsers.includes(tracer.id)
+                              ? "border-indigo-500"
+                              : ""
                           } p-0.5 rounded-full object-cover`}
                         />
                         <div className="ml-2 w-full flex flex-col">
@@ -238,7 +241,9 @@ const UserActivity = ({ owner, me, user }) => {
                         <img
                           src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
                           className={`h-[50px] w-[50px] border-[3px] ${
-                            tracing.status ? "border-indigo-500" : ""
+                            activeUsers.includes(tracing.id)
+                              ? "border-indigo-500"
+                              : ""
                           } p-0.5 rounded-full object-cover`}
                         />
                         <div className="ml-2 w-full flex flex-col">

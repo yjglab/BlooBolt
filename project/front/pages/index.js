@@ -2,7 +2,7 @@ import React from "react";
 import AppLayout from "../components/AppLayout";
 import wrapper from "../store/configureStore";
 import axios from "axios";
-import { loadMe } from "../reducers/userSlice";
+import { loadMe, loadActiveUsers } from "../reducers/userSlice";
 
 const Landing = () => {
   return (

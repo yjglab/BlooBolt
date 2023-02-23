@@ -17,19 +17,21 @@ import Link from "next/link";
 import UserAvatar from "../../components/UserAvatar";
 import wrapper from "../../store/configureStore";
 import axios from "axios";
-import { loadMe, loadUser } from "../../reducers/userSlice";
+import { loadActiveUsers, loadMe, loadUser } from "../../reducers/userSlice";
 
 const Profile = () => {
-  const { me } = useSelector((state) => state.user);
-  const { user } = useSelector((state) => state.user);
+  const { me, user, activeUsers } = useSelector((state) => state.user);
 
   const owner = me.id === user.id && me.username === user.username;
-
+  console.log(user);
   return (
     <AppLayout>
       <div className="pt-20 px-6 pb-6 w-full bg-white md:flex md:items-center md:justify-between">
         <div className="flex justify-center md:block">
-          <UserAvatar user={user} owner={owner} />
+          <UserAvatar
+            avatarPath={owner ? me.avatar : user.avatar}
+            owner={owner}
+          />
         </div>
         <div className="flex items-center flex-col md:flex-1 md:block ">
           <div className="flex flex-col  mb-1 items-center md:items-start">
@@ -82,7 +84,7 @@ const Profile = () => {
           <div className="mt-1 flex gap-0 sm:gap-3 flex-col sm:flex-row sm:flex-wrap ">
             <div className="md:flex md:gap-3">
               <div className="mt-2 flex items-center text-sm text-slate-500">
-                {user.status ? (
+                {activeUsers.includes(user.id) ? (
                   <>
                     <PlayCircleIcon
                       className="mr-1.5 h-5 w-5 flex-shrink-0 text-indigo-500"
@@ -154,6 +156,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await context.store.dispatch(
       loadUser({ username: context.params.username })
     );
+    await context.store.dispatch(loadActiveUsers());
 
     return {
       props: { message: "" },

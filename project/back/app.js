@@ -11,6 +11,7 @@ const passportConfig = require("./passport");
 const passport = require("passport");
 
 const userRouter = require("./routes/user");
+const usersRouter = require("./routes/users");
 const postRouter = require("./routes/post");
 const postsRouter = require("./routes/posts");
 const hashtagRouter = require("./routes/hashtag");
@@ -59,6 +60,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/user", userRouter);
+app.use("/users", usersRouter);
 app.use("/post", postRouter);
 app.use("/posts", postsRouter);
 app.use("/hashtag", hashtagRouter);

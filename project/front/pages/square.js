@@ -6,7 +6,12 @@ import PostForm from "../components/PostForm";
 
 import { cancelAllPostImages, loadPosts } from "../reducers/postSlice";
 import wrapper from "../store/configureStore";
-import { loadMe, loadUser } from "../reducers/userSlice";
+import {
+  loadActiveUsers,
+  loadMe,
+  loadUser,
+  logOut,
+} from "../reducers/userSlice";
 import axios from "axios";
 
 const Square = () => {
@@ -105,6 +110,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await context.store.dispatch(loadMe());
     await context.store.dispatch(loadPosts());
     await context.store.dispatch(loadUser({ username: "" }));
+    await context.store.dispatch(loadActiveUsers());
+
     return {
       props: { message: "" },
     };

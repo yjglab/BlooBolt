@@ -7,7 +7,7 @@ import { openNotice } from "../reducers/globalSlice";
 import { backUrl } from "../config/config";
 import PropTypes from "prop-types";
 
-const UserAvatar = ({ user, owner }) => {
+const UserAvatar = ({ avatarPath, owner }) => {
   const dispatch = useDispatch();
   const {
     register,
@@ -33,7 +33,7 @@ const UserAvatar = ({ user, owner }) => {
     dispatch(uploadUserAvatar(userAvatarFormData));
     dispatch(
       openNotice({
-        content: "사용자 이미지가 변경되었습니다.",
+        content: "사용자 아바타가 변경되었습니다.",
         type: 1,
       })
     );
@@ -66,7 +66,7 @@ const UserAvatar = ({ user, owner }) => {
         src={
           process.env.NODE_ENV === "production"
             ? ``
-            : `${backUrl}/${user.avatar}`
+            : `${backUrl}/${avatarPath}`
         }
         className="aspect-square object-cover"
       />

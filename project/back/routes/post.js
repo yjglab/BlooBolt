@@ -180,7 +180,7 @@ router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username", "role", "status", "avatar", "rank"],
+          attributes: ["id", "username", "role", "avatar", "rank"],
         },
         {
           model: User,
@@ -471,7 +471,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username", "role", "status", "avatar", "rank"],
+          attributes: ["id", "username", "role", "avatar", "rank"],
           include: [
             {
               model: UserReport,
@@ -493,14 +493,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
           include: [
             {
               model: User,
-              attributes: [
-                "id",
-                "username",
-                "role",
-                "status",
-                "avatar",
-                "rank",
-              ],
+              attributes: ["id", "username", "role", "avatar", "rank"],
             },
             {
               model: User,
