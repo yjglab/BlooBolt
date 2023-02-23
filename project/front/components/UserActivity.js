@@ -37,7 +37,7 @@ const UserActivity = ({ owner, me, user }) => {
   };
 
   return (
-    <div className="w-full px-3">
+    <div className={`${owner ? "w-[50%]" : "w-full"} px-3`}>
       <div className="text-2xl font-semibold ">Activity</div>
 
       <div className="w-full  py-6 sm:px-0">

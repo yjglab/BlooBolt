@@ -20,6 +20,7 @@ import {
   MagnifyingGlassIcon,
   PaperAirplaneIcon,
 } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 const Square = () => {
   const { me } = useSelector((state) => state.user);

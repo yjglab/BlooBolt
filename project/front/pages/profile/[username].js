@@ -25,7 +25,7 @@ const Profile = () => {
     return;
   }
   const owner = me?.id === user.id && me?.username === user.username;
-
+  console.log(owner);
   return (
     <AppLayout>
       <div className="min-h-screen">
@@ -139,7 +139,11 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="w-full flex-col bg-slate-50  justify-between flex sm:flex-row p-6  ">
+        <div
+          className={`${
+            owner ? "justify-between" : "justify-center"
+          } w-full flex-col bg-slate-50 flex sm:flex-row p-6`}
+        >
           <UserActivity owner={owner} me={me} user={user} />
           {owner && <UserInformation />}
         </div>
