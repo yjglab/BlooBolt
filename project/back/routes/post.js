@@ -512,4 +512,62 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
   }
 });
 
+router.get("/:postId/detail", async (req, res, next) => {
+  try {
+    const targetPost = await Post.findOne({
+      where: {
+        id: req.params.postId,
+      },
+      // order: [
+      //   ["createdAt", "DESC"],
+      //   [Comment, "createdAt", "DESC"],
+      // ],
+      include: [
+        {
+          model: User,
+          attributes: ["id", "username", "role", "avatar", "rank"],
+          include: [
+            {
+              model: UserReport,
+              attributes: ["reporterId"],
+            },
+          ],
+        },
+
+        {
+          model: User,
+          as: "PostProdders",
+          attributes: ["id"],
+        },
+        {
+          model: PostImage,
+        },
+        {
+          model: Comment,
+          include: [
+            {
+              model: User,
+              attributes: ["id", "username", "role", "avatar", "rank"],
+            },
+            {
+              model: User,
+              as: "CommentProdders",
+              attributes: ["id"],
+            },
+          ],
+        },
+      ],
+    });
+    console.log(targetPost);
+    if (targetPost) {
+      res.status(201).json(targetPost);
+    } else {
+      res.status(403).send("존재하지 않는 포스트입니다.");
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 module.exports = router;

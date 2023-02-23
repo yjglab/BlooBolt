@@ -21,9 +21,11 @@ import { loadActiveUsers, loadMe, loadUser } from "../../reducers/userSlice";
 
 const Profile = () => {
   const { me, user, activeUsers } = useSelector((state) => state.user);
+  if (!user) {
+    return;
+  }
+  const owner = me?.id === user.id && me?.username === user.username;
 
-  const owner = me.id === user.id && me.username === user.username;
-  console.log(user);
   return (
     <AppLayout>
       <div className="pt-20 px-6 pb-6 w-full bg-white md:flex md:items-center md:justify-between">

@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import _ from "lodash";
-import { HYDRATE } from "next-redux-wrapper";
-import { reportUser } from "./userSlice";
 
 export const initialState = {
   mainPosts: [],
+  solePost: null,
   postImagePaths: [],
   loadMorePosts: true,
   loadPostsLoading: false,
@@ -15,6 +14,8 @@ export const initialState = {
   loadHashtagPostsDone: false,
   loadHashtagPostsError: null,
 
+  loadSolePostDone: false,
+  loadSolePostError: null,
   uploadPostDone: false,
   uploadPostError: null,
   removePostDone: false,
@@ -67,6 +68,18 @@ export const loadPosts = createAsyncThunk("posts/loadPosts", loadPostsHandler);
 export const loadPostsByHashtag = createAsyncThunk(
   "posts/loadPostsByHashtag",
   loadPostsByHashtagHandler
+);
+export const loadSolePost = createAsyncThunk(
+  "post/loadSolePost",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`/post/${info.postId}/detail`);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
 );
 export const uploadPostImages = createAsyncThunk(
   "post/uploadPostImages",
@@ -270,6 +283,13 @@ export const postSlice = createSlice({
         state.loadPostsByHashtagError = payload;
       })
 
+      .addCase(loadSolePost.fulfilled, (state, { payload }) => {
+        state.loadSolePostDone = true;
+        state.solePost = payload;
+      })
+      .addCase(loadSolePost.rejected, (state, { payload }) => {
+        state.loadSolePostError = payload;
+      })
       .addCase(uploadPostImages.fulfilled, (state, { payload }) => {
         state.uploadPostImagesDone = true;
         state.postImagePaths = state.postImagePaths.concat(payload);
@@ -289,7 +309,9 @@ export const postSlice = createSlice({
 
       .addCase(removePost.fulfilled, (state, { payload }) => {
         state.removePostDone = true;
-        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
         post.blinded = true;
       })
       .addCase(removePost.rejected, (state, { payload }) => {
@@ -298,7 +320,9 @@ export const postSlice = createSlice({
 
       .addCase(revertPost.fulfilled, (state, { payload }) => {
         state.revertPostDone = true;
-        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
         post.blinded = false;
         post.reverted = true;
       })
@@ -308,7 +332,9 @@ export const postSlice = createSlice({
 
       .addCase(prodPost.fulfilled, (state, { payload }) => {
         state.prodPostDone = true;
-        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
         post.PostProdders.push({ id: payload.UserId });
       })
       .addCase(prodPost.rejected, (state, { payload }) => {
@@ -317,7 +343,9 @@ export const postSlice = createSlice({
 
       .addCase(unprodPost.fulfilled, (state, { payload }) => {
         state.unprodPostDone = true;
-        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
         post.PostProdders = post.PostProdders.filter(
           (v) => v.id !== payload.UserId
         );
@@ -328,7 +356,9 @@ export const postSlice = createSlice({
 
       .addCase(editPost.fulfilled, (state, { payload }) => {
         state.editPostDone = true;
-        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
         post.topic = payload.topic;
         post.content = payload.content;
         post.PostImages = payload.PostImages;
@@ -341,7 +371,9 @@ export const postSlice = createSlice({
 
       .addCase(uploadComment.fulfilled, (state, { payload }) => {
         state.uploadCommentDone = true;
-        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
         post.Comments.push(payload);
       })
       .addCase(uploadComment.rejected, (state, { payload }) => {
@@ -350,7 +382,9 @@ export const postSlice = createSlice({
 
       .addCase(removeComment.fulfilled, (state, { payload }) => {
         state.removeCommentDone = true;
-        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
         post.Comments = post.Comments.filter((v) => v.id !== payload.CommentId);
       })
       .addCase(removeComment.rejected, (state, { payload }) => {
@@ -359,7 +393,9 @@ export const postSlice = createSlice({
 
       .addCase(editComment.fulfilled, (state, { payload }) => {
         state.editCommentDone = true;
-        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
         const comment = post.Comments.find((v) => v.id === payload.CommentId);
         comment.content = payload.content;
       })
@@ -369,7 +405,9 @@ export const postSlice = createSlice({
 
       .addCase(prodComment.fulfilled, (state, { payload }) => {
         state.prodCommentDone = true;
-        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
         const comment = post.Comments.find((v) => v.id === payload.CommentId);
         comment.CommentProdders.push({ id: payload.UserId });
       })
@@ -379,7 +417,9 @@ export const postSlice = createSlice({
 
       .addCase(unprodComment.fulfilled, (state, { payload }) => {
         state.unprodCommentDone = true;
-        const post = state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
         const comment = post.Comments.find((v) => v.id === payload.CommentId);
         comment.CommentProdders = comment.CommentProdders.filter(
           (v) => v.id !== payload.UserId

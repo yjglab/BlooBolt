@@ -15,6 +15,7 @@ import "dayjs/locale/ko";
 import { untrace } from "../reducers/userSlice";
 import { openNotice } from "../reducers/globalSlice";
 import Link from "next/link";
+import { backUrl } from "../config/config";
 dayjs.locale("ko");
 
 function classNames(...classes) {
@@ -156,22 +157,27 @@ const UserActivity = ({ owner, me, user }) => {
                   user.Tracers.map((tracer) => (
                     <li
                       key={tracer.id}
-                      className="rounded-md p-3  hover:bg-slate-100"
+                      className="cursor-pointer rounded-md p-3  hover:bg-slate-100"
                     >
-                      <div className=" flex items-center">
-                        <img
-                          src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
-                          className={`h-[50px] w-[50px] border-[3px] ${
-                            activeUsers.includes(tracer.id)
-                              ? "border-indigo-500"
-                              : ""
-                          } p-0.5 rounded-full object-cover`}
-                        />
-                        <div className="ml-2 w-full flex flex-col">
-                          <h1 className="text-md font-bold flex items-center">
-                            {tracer.username}
-                            <>
-                              <Link href="#">
+                      <Link href={`/profile/${tracer.username}`}>
+                        <div className=" flex items-center">
+                          <img
+                            src={
+                              process.env.NODE_ENV === "production"
+                                ? ``
+                                : `${backUrl}/${tracer.avatar}`
+                            }
+                            className={` h-[50px] w-[50px] border-[3px] ${
+                              activeUsers.includes(tracer.id)
+                                ? "border-indigo-500"
+                                : ""
+                            } p-0.5 rounded-full object-cover`}
+                          />
+
+                          <div className="ml-2 w-full flex flex-col">
+                            <h1 className="cursor-pointer text-md font-bold flex items-center">
+                              {tracer.username}
+                              <>
                                 {tracer.rank === 6 ? (
                                   <FaceSmileIcon
                                     className="w-4 ml-0.5 text-slate-400"
@@ -197,22 +203,23 @@ const UserActivity = ({ owner, me, user }) => {
                                     aria-hidden="true"
                                   />
                                 )}
-                              </Link>{" "}
-                            </>
-                          </h1>
-                          <div className="flex items-center justify-between">
-                            <h1 className="text-xs relative bottom-0.5">
-                              {tracer.role}
+                              </>
                             </h1>
-                            <h1 className="text-xs relative bottom-0.5">
-                              {/* {dayjs(tracer.Trace.createdAt).format(
-                                "YYYY.MM.DD"
-                              )}{" "} */}
-                              나를 등록함
-                            </h1>
+
+                            <div className="flex items-center justify-between">
+                              <h1 className="text-xs relative bottom-0.5">
+                                {tracer.role}
+                              </h1>
+                              <h1 className="text-xs relative bottom-0.5">
+                                {dayjs(tracer.Trace.createdAt).format(
+                                  "YYYY.MM.DD"
+                                )}{" "}
+                                {owner ? "나를 등록함" : "등록됨"}
+                              </h1>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     </li>
                   ))
                 )}
@@ -237,21 +244,26 @@ const UserActivity = ({ owner, me, user }) => {
                       key={tracing.id}
                       className="rounded-md p-3  hover:bg-slate-100"
                     >
-                      <div className=" flex items-center">
-                        <img
-                          src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
-                          className={`h-[50px] w-[50px] border-[3px] ${
-                            activeUsers.includes(tracing.id)
-                              ? "border-indigo-500"
-                              : ""
-                          } p-0.5 rounded-full object-cover`}
-                        />
-                        <div className="ml-2 w-full flex flex-col">
-                          <div className="flex items-center justify-between">
-                            <h1 className="text-md font-bold flex items-center">
-                              {tracing.username}
-                              <>
-                                <Link href="#">
+                      <Link href={`/profile/${tracing.username}`}>
+                        <div className="cursor-pointer flex items-center">
+                          <img
+                            src={
+                              process.env.NODE_ENV === "production"
+                                ? ``
+                                : `${backUrl}/${tracing.avatar}`
+                            }
+                            className={`h-[50px] w-[50px] border-[3px] ${
+                              activeUsers.includes(tracing.id)
+                                ? "border-indigo-500"
+                                : ""
+                            } p-0.5 rounded-full object-cover`}
+                          />
+
+                          <div className="ml-2 w-full flex flex-col">
+                            <div className="flex items-center justify-between">
+                              <h1 className="text-md font-bold flex items-center">
+                                {tracing.username}
+                                <>
                                   {tracing.rank === 6 ? (
                                     <FaceSmileIcon
                                       className="w-4 ml-0.5 text-slate-400"
@@ -277,31 +289,34 @@ const UserActivity = ({ owner, me, user }) => {
                                       aria-hidden="true"
                                     />
                                   )}
-                                </Link>{" "}
-                              </>
-                            </h1>
-                            <h1 className="text-sm  flex items-center">
-                              <button
-                                onClick={onUntrace(tracing)}
-                                className="flex items-center gap-1 hover:text-indigo-500"
-                              >
-                                <UserMinusIcon className="w-5" />
-                              </button>
-                            </h1>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <h1 className="text-xs relative bottom-0.5">
-                              {tracing.role}
-                            </h1>
-                            <h1 className="text-xs relative bottom-0.5">
-                              {/* {dayjs(tracing.Trace.createdAt).format(
-                                "YYYY.MM.DD"
-                              )}{" "} */}
-                              내가 등록함
-                            </h1>
+                                </>
+                              </h1>
+
+                              <h1 className="text-sm  flex items-center">
+                                {owner && (
+                                  <button
+                                    onClick={onUntrace(tracing)}
+                                    className="flex items-center gap-1 hover:text-indigo-500"
+                                  >
+                                    <UserMinusIcon className="w-5" />
+                                  </button>
+                                )}
+                              </h1>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <h1 className="text-xs relative bottom-0.5">
+                                {tracing.role}
+                              </h1>
+                              <h1 className="text-xs relative bottom-0.5">
+                                {dayjs(tracing.Trace.createdAt).format(
+                                  "YYYY.MM.DD"
+                                )}{" "}
+                                {owner ? "내가 등록함" : "등록됨"}
+                              </h1>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     </li>
                   ))
                 )}
@@ -316,7 +331,7 @@ const UserActivity = ({ owner, me, user }) => {
 
 UserActivity.propTypes = {
   owner: PropTypes.bool.isRequired,
-  me: PropTypes.object.isRequired,
+  me: PropTypes.object,
   user: PropTypes.object.isRequired,
 };
 

@@ -75,7 +75,7 @@ const UserAvatar = ({ avatarPath, owner }) => {
 };
 
 UserAvatar.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   owner: PropTypes.bool.isRequired,
 };
 

@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import CommentArea from "./CommentArea";
 import {
+  ArrowPathIcon,
+  ArrowsPointingInIcon,
+  ArrowsPointingOutIcon,
   BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   FaceSmileIcon,
@@ -36,7 +39,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const PostSection = ({ post }) => {
+const PostSection = ({ post, detailed }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
   const { me, activeUsers } = useSelector((state) => state.user);
@@ -242,7 +245,11 @@ const PostSection = ({ post }) => {
           prevPostImages={post.PostImages}
         />
       )}
-      <div className=" p-1  h-[31.5rem] bg-white relative rounded-2xl shadow overflow-hidden ">
+      <div
+        className={`${
+          detailed ? "col-span-4 row-span-4 h-[70vh]" : "h-[31.5rem]"
+        } p-1 bg-white relative rounded-2xl shadow overflow-hidden `}
+      >
         {reportCheck && (
           <PostUserReport
             post={post}
@@ -284,33 +291,37 @@ const PostSection = ({ post }) => {
             </button>
           </div>
         )}
-        <div className="">
-          {toggleCommentArea && (
-            <div className="w-full h-full p-3 absolute top-0 left-0 bg-white/90 backdrop-blur-sm z-10">
-              <CommentArea
-                post={post}
-                onToggleCommentArea={onToggleCommentArea}
-              />
-            </div>
-          )}
-          {post.PostImages[0] && (
-            <div className="flex rounded-t-xl gap-1 h-52 overflow-hidden">
-              <PostImages postImages={post.PostImages} />
-            </div>
-          )}
-          <div className="p-5 pt-3">
-            <small className="text-slate-400">
-              {dayjs(post.updatedAt).format("YYYY.MM.DD | H:mm:ss")}
-              {post.edited && " (수정됨)"}
-            </small>
-            <h5
-              className={`mb-3 break-words line-clamp-2 text-2xl font-bold leading-tight tracking-tight ${
-                post.topic ? "text-slate-600" : "text-slate-300"
-              }`}
-            >
-              {post.topic ? post.topic : "토픽 없음"}
-            </h5>
 
+        {toggleCommentArea && (
+          <div className="w-full h-full p-3 absolute top-0 left-0 bg-white/90 backdrop-blur-sm z-10">
+            <CommentArea
+              post={post}
+              onToggleCommentArea={onToggleCommentArea}
+            />
+          </div>
+        )}
+        {post.PostImages[0] && (
+          <div className="flex rounded-t-xl gap-1 h-52 overflow-hidden">
+            <PostImages postImages={post.PostImages} />
+          </div>
+        )}
+        <div className="p-5 pt-3 h-full flex flex-col justify-between">
+          <div>
+            <Link href={!detailed ? `post/${post.id}` : "#"}>
+              <div className="cursor-pointer">
+                <small className="text-slate-400">
+                  {dayjs(post.updatedAt).format("YYYY.MM.DD | H:mm:ss")}
+                  {post.edited && " (수정됨)"}
+                </small>
+                <h5
+                  className={`mb-3 break-words line-clamp-2 text-2xl font-bold leading-tight tracking-tight ${
+                    post.topic ? "text-slate-600" : "text-slate-300"
+                  }`}
+                >
+                  {post.topic ? post.topic : "토픽 없음"}
+                </h5>
+              </div>
+            </Link>
             <div className="mb-3 flex items-center">
               <Link href={`/profile/${post.User.username}`}>
                 <img
@@ -319,7 +330,7 @@ const PostSection = ({ post }) => {
                       ? ``
                       : `${backUrl}/${post.User.avatar}`
                   }
-                  className={`h-[50px] w-[50px] aspect-square border-[3px] ${
+                  className={`cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] ${
                     activeUsers.includes(post.User.id)
                       ? "border-indigo-500"
                       : ""
@@ -327,10 +338,10 @@ const PostSection = ({ post }) => {
                 />
               </Link>
               <div className="ml-2 w-full flex flex-col">
-                <h1 className="text-md font-bold flex items-center">
-                  {post.User.username}
-                  <>
-                    <Link href="#">
+                <Link href={`/profile/${post.User.username}`}>
+                  <h1 className="cursor-pointer text-md font-bold flex items-center">
+                    {post.User.username}
+                    <>
                       {post.User.rank === 6 ? (
                         <FaceSmileIcon
                           className="w-3.5 ml-0.5 text-slate-400"
@@ -356,9 +367,9 @@ const PostSection = ({ post }) => {
                           aria-hidden="true"
                         />
                       )}
-                    </Link>{" "}
-                  </>
-                </h1>
+                    </>
+                  </h1>
+                </Link>
                 <h1 className="text-xs relative bottom-0.5">
                   {post.User.role}
                 </h1>
@@ -457,26 +468,35 @@ const PostSection = ({ post }) => {
                 </Transition>
               </Menu>
             </div>
-            <p className="mb-8 h-24 text-sm break-words line-clamp-5 font-normal text-slate-600">
-              {post.content.split(/(#[^\s#]+)/g).map((v, i) => {
-                if (v.match(/(#[^\s#]+)/)) {
-                  return (
-                    <Link
-                      href={`/hashtag/${v.slice(1)}`}
-                      prefetch={false}
-                      key={i}
-                    >
-                      <span className="text-indigo-500 cursor-pointer font-medium hover:text-indigo-600">
-                        {v}
-                      </span>
-                    </Link>
-                  );
-                }
-                return v;
-              })}
-            </p>
-
-            <div className="flex gap-2 absolute bottom-4 text-sm ">
+            <Link href={!detailed ? `post/${post.id}` : "#"}>
+              <p
+                className={`cursor-pointer mb-8 ${
+                  post.PostImages[0] ? "max-h-[40%]" : "max-h-[80%]"
+                } text-sm break-words ${
+                  post.PostImages[0] ? "line-clamp-5" : "line-clamp-[15]"
+                } font-normal text-slate-600`}
+              >
+                {post.content.split(/(#[^\s#]+)/g).map((v, i) => {
+                  if (v.match(/(#[^\s#]+)/)) {
+                    return (
+                      <Link
+                        href={`/hashtag/${v.slice(1)}`}
+                        prefetch={false}
+                        key={i}
+                      >
+                        <span className="text-indigo-500 cursor-pointer font-medium hover:text-indigo-600">
+                          {v}
+                        </span>
+                      </Link>
+                    );
+                  }
+                  return v;
+                })}
+              </p>
+            </Link>
+          </div>
+          <div className="flex justify-between items-center  absolute bottom-4 text-sm ">
+            <div className="flex gap-2">
               {isProdded ? (
                 <button
                   onClick={onUnprodPost}
@@ -490,7 +510,7 @@ const PostSection = ({ post }) => {
               ) : (
                 <button
                   onClick={onProdPost}
-                  className="flex items-center gap-1 hover:text-indigo-500"
+                  className="flex hover:scale-105 items-center gap-1 hover:text-indigo-500"
                 >
                   <BoltIcon className="w-5 " />
                   <span className="">{post.PostProdders.length}</span>
@@ -499,7 +519,7 @@ const PostSection = ({ post }) => {
 
               <button
                 onClick={onToggleCommentArea}
-                className="flex items-center gap-1 hover:text-indigo-500"
+                className="flex hover:scale-105 items-center gap-1 hover:text-indigo-500"
               >
                 <ChatBubbleOvalLeftEllipsisIcon className="w-5" />
                 {post.Comments.length}
@@ -508,17 +528,17 @@ const PostSection = ({ post }) => {
               {post.User.id !== me?.id ? (
                 <button
                   onClick={onToggleTrace}
-                  className="flex items-center gap-1 hover:text-indigo-500"
+                  className="flex items-center gap-1 hover:text-indigo-500 hover:scale-105"
                 >
                   {isTracing ? (
                     <>
-                      <UserMinusIcon className="w-5" />
+                      <UserMinusIcon className="w-5 " />
                       Untrace
                     </>
                   ) : (
                     <>
                       {" "}
-                      <UserPlusIcon className="w-5" />
+                      <UserPlusIcon className="w-5 " />
                       Trace
                     </>
                   )}
@@ -527,6 +547,13 @@ const PostSection = ({ post }) => {
             </div>
           </div>
         </div>
+        {!detailed && (
+          <Link href={`/post/${post.id}`}>
+            <button className="absolute hover:text-indigo-500 bottom-4 right-6">
+              <ArrowsPointingOutIcon className="w-5 hover:scale-105" />
+            </button>
+          </Link>
+        )}
       </div>
     </>
   );
@@ -534,5 +561,6 @@ const PostSection = ({ post }) => {
 
 PostSection.propTypes = {
   post: PropTypes.object.isRequired,
+  detailed: PropTypes.bool.isRequired,
 };
 export default PostSection;

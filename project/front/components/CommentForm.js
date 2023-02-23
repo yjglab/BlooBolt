@@ -52,9 +52,9 @@ const CommentForm = ({ post, onToggleCommentArea }) => {
   return (
     <form
       onSubmit={handleSubmit(onUploadComment)}
-      className="mb-4 mt-4 bottom-1 relative"
+      className=" absolute w-full bottom-0 "
     >
-      <div className="w-full flex items-center">
+      <div className=" flex items-center">
         <label htmlFor="content" className="sr-only"></label>
         <textarea
           id="content"

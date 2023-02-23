@@ -198,21 +198,23 @@ const CommentSection = ({ post, comment }) => {
       } hover:border-slate-200 border-white border rounded-md`}
     >
       <div className="mb-1.5 flex items-center">
-        <img
-          src={
-            process.env.NODE_ENV === "production"
-              ? ``
-              : `${backUrl}/${comment.User.avatar}`
-          }
-          className={`h-[42px] w-[42px] ${
-            activeUsers.includes(post.User.id) ? "border-indigo-500" : ""
-          } border-[2.5px] p-0.5 rounded-full object-cover`}
-        />
+        <Link href={`/profile/${comment.User.username}`}>
+          <img
+            src={
+              process.env.NODE_ENV === "production"
+                ? ``
+                : `${backUrl}/${comment.User.avatar}`
+            }
+            className={`cursor-pointer h-[42px] w-[42px] ${
+              activeUsers.includes(post.User.id) ? "border-indigo-500" : ""
+            } border-[2.5px] p-0.5 rounded-full object-cover`}
+          />
+        </Link>
         <div className="ml-2 w-full flex flex-col">
-          <h1 className="text-sm font-bold flex items-center">
-            {comment.User.username}
-            <>
-              <Link href="#">
+          <Link href={`/profile/${comment.User.username}`}>
+            <h1 className="cursor-pointer text-sm font-bold flex items-center">
+              {comment.User.username}
+              <>
                 {comment.User.rank === 6 ? (
                   <FaceSmileIcon
                     className="w-3.5 ml-0.5 text-slate-400"
@@ -238,9 +240,9 @@ const CommentSection = ({ post, comment }) => {
                     aria-hidden="true"
                   />
                 )}
-              </Link>{" "}
-            </>
-          </h1>
+              </>
+            </h1>
+          </Link>
           <h1 className="text-xs relative bottom-0.5">{comment.User.role}</h1>
         </div>
         <Menu as="div" className="relative bottom-2 inline-block text-left ">

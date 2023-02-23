@@ -4,7 +4,11 @@ import AppLayout from "../components/AppLayout";
 import PostSection from "../components/PostSection";
 import PostForm from "../components/PostForm";
 
-import { cancelAllPostImages, loadPosts } from "../reducers/postSlice";
+import {
+  cancelAllPostImages,
+  loadPosts,
+  loadSolePost,
+} from "../reducers/postSlice";
 import wrapper from "../store/configureStore";
 import {
   loadActiveUsers,
@@ -89,6 +93,7 @@ const Square = () => {
               <PostSection
                 key={post.id}
                 post={post}
+                detailed={false}
                 onTogglePostForm={onTogglePostForm}
               />
             ))}
@@ -111,7 +116,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await context.store.dispatch(loadPosts());
     await context.store.dispatch(loadUser({ username: "" }));
     await context.store.dispatch(loadActiveUsers());
-
     return {
       props: { message: "" },
     };

@@ -5,46 +5,17 @@ import AppLayout from "../../components/AppLayout";
 import PostSection from "../../components/PostSection";
 import { useRouter } from "next/router";
 
-import { loadPostsByHashtag } from "../../reducers/postSlice";
+import { loadSolePost } from "../../reducers/postSlice";
 import wrapper from "../../store/configureStore";
 import axios from "axios";
 import { loadActiveUsers, loadMe } from "../../reducers/userSlice";
 
-const Hashtag = () => {
+const Post = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { tag } = router.query;
-  const { me } = useSelector((state) => state.user);
-  const { mainPosts, loadMorePosts, loadPostsLoading } = useSelector(
-    (state) => state.post
-  );
-  // const [togglePostForm, setTogglePostForm] = useState(false);
 
-  useEffect(() => {
-    function onScreenScroll() {
-      if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
-      ) {
-        if (loadMorePosts && !loadPostsLoading) {
-          dispatch(
-            loadPostsByHashtag({
-              lastPostId: mainPosts[mainPosts.length - 1]?.id,
-              tag,
-            })
-          );
-        }
-      }
-    }
-    window.addEventListener("scroll", onScreenScroll);
-    return () => {
-      window.removeEventListener("scroll", onScreenScroll);
-    };
-  }, [loadMorePosts, loadPostsLoading, mainPosts.length, tag]);
-
-  // const onTogglePostForm = useCallback(() => {
-  //   setTogglePostForm(!togglePostForm);
-  // }, [togglePostForm]);
+  const { solePost } = useSelector((state) => state.post);
+  if (!solePost) return;
 
   return (
     <AppLayout>
@@ -66,9 +37,7 @@ const Hashtag = () => {
           </div>
 
           <div className="grid auto-cols-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
-            {mainPosts.map((post) => (
-              <PostSection key={post.id} post={post} detailed={false} />
-            ))}
+            <PostSection post={solePost} detailed={true} />
           </div>
         </div>
       </div>
@@ -85,9 +54,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 
     await context.store.dispatch(loadMe());
-    await context.store.dispatch(
-      loadPostsByHashtag({ tag: context.params.tag })
-    );
+    await context.store.dispatch(loadSolePost({ postId: context.params.id }));
     await context.store.dispatch(loadActiveUsers());
 
     return {
@@ -96,4 +63,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-export default Hashtag;
+export default Post;

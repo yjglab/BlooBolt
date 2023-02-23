@@ -6,15 +6,14 @@ import CommentSection from "./CommentSection";
 
 const CommentArea = ({ post, onToggleCommentArea }) => {
   return (
-    <>
-      <div className="w-full h-[75%] pb-3 overflow-y-auto ">
+    <div className="h-full relative">
+      <div className="w-full h-[75%] pb-3 overflow-y-auto  ">
         {post.Comments?.map((comment) => (
           <CommentSection key={comment.id} post={post} comment={comment} />
         ))}
       </div>
-
       <CommentForm post={post} onToggleCommentArea={onToggleCommentArea} />
-    </>
+    </div>
   );
 };
 
