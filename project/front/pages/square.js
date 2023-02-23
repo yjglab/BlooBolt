@@ -114,6 +114,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     await context.store.dispatch(loadMe());
     await context.store.dispatch(loadPosts());
+
     await context.store.dispatch(loadUser({ username: "" }));
     await context.store.dispatch(loadActiveUsers());
     return {

@@ -10,13 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 const PostUserReport = ({ post, onToggleCheckReport }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
-  const { reportUserError } = useSelector((state) => state.user);
 
   const {
     register,
     reset,
     handleSubmit,
-    setError,
     formState: { isSubmitting, errors },
   } = useForm({
     mode: "onSubmit",

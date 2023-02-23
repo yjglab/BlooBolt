@@ -432,6 +432,7 @@ router.post("/:userId/report", isLoggedIn, async (req, res, next) => {
     }
     const alreadyReported = await UserReport.findOne({
       where: {
+        UserId: targetUser.id,
         reporterId: req.user.id,
       },
     });

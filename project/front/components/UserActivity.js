@@ -79,7 +79,7 @@ const UserActivity = ({ owner, me, user }) => {
                 )
               }
             >
-              {`Tracings (${user.Tracings.length})`}
+              {`Tracings (${(owner ? me.Tracings : user.Tracings).length})`}
             </Tab>
           </Tab.List>
           <Tab.Panels className="mt-2 rounded-md shadow">
@@ -96,47 +96,52 @@ const UserActivity = ({ owner, me, user }) => {
                     <FaceFrownIcon className="w-4 ml-1" />
                   </div>
                 ) : (
-                  user.Posts.map((post) => (
-                    <li
-                      key={post.id}
-                      className="relative rounded-md p-3  hover:bg-slate-100"
-                    >
-                      <h3
-                        className={`truncate line-clamp-1 ${
-                          post.topic ? "text-slate-600" : "text-slate-300"
-                        } text-md font-bold leading-5 `}
-                      >
-                        {post.topic || "토픽 없음"}
-                      </h3>
-                      <h3 className="line-clamp-3  text-sm leading-5 ">
-                        {post.content}
-                      </h3>
+                  user.Posts.map(
+                    (post) =>
+                      !post.blinded && (
+                        <li
+                          key={post.id}
+                          className="relative rounded-md p-3  hover:bg-slate-100"
+                        >
+                          <h3
+                            className={`truncate line-clamp-1 ${
+                              post.topic ? "text-slate-600" : "text-slate-300"
+                            } text-md font-bold leading-5 `}
+                          >
+                            {post.topic || "토픽 없음"}
+                          </h3>
+                          <h3 className="line-clamp-3  text-sm leading-5 ">
+                            {post.content}
+                          </h3>
 
-                      <ul className="mt-3 flex space-x-1 text-xs font-normal leading-4 text-slate-500">
-                        <li>
-                          {dayjs(post.updatedAt).format("YYYY.MM.DD | H:mm:ss")}
-                        </li>
-                        <li>&middot;</li>
-                        <li className="flex">
-                          {post.PostProdders.length || 0}{" "}
-                          <BoltIcon className="w-3 ml-0.5" />
-                        </li>
-                        <li>&middot;</li>
-                        <li className="flex">
-                          {post.Comments.length || 0}{" "}
-                          <ChatBubbleOvalLeftEllipsisIcon className="w-3 ml-0.5" />
-                        </li>
-                      </ul>
+                          <ul className="mt-3 flex space-x-1 text-xs font-normal leading-4 text-slate-500">
+                            <li>
+                              {dayjs(post.updatedAt).format(
+                                "YYYY.MM.DD | H:mm:ss"
+                              )}
+                            </li>
+                            <li>&middot;</li>
+                            <li className="flex">
+                              {post.PostProdders.length || 0}{" "}
+                              <BoltIcon className="w-3 ml-0.5" />
+                            </li>
+                            <li>&middot;</li>
+                            <li className="flex">
+                              {post.Comments.length || 0}{" "}
+                              <ChatBubbleOvalLeftEllipsisIcon className="w-3 ml-0.5" />
+                            </li>
+                          </ul>
 
-                      <a
-                        href="#"
-                        className={classNames(
-                          "absolute inset-0 rounded-md ",
-                          "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
-                        )}
-                      />
-                    </li>
-                  ))
+                          <a
+                            href="#"
+                            className={classNames(
+                              "absolute inset-0 rounded-md ",
+                              "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
+                            )}
+                          />
+                        </li>
+                      )
+                  )
                 )}
               </ul>
             </Tab.Panel>
@@ -159,8 +164,8 @@ const UserActivity = ({ owner, me, user }) => {
                       key={tracer.id}
                       className="cursor-pointer rounded-md p-3  hover:bg-slate-100"
                     >
-                      <Link href={`/profile/${tracer.username}`}>
-                        <div className=" flex items-center">
+                      <div className=" flex items-center">
+                        <Link href={`/profile/${tracer.username}`}>
                           <img
                             src={
                               process.env.NODE_ENV === "production"
@@ -173,8 +178,10 @@ const UserActivity = ({ owner, me, user }) => {
                                 : ""
                             } p-0.5 rounded-full object-cover`}
                           />
+                        </Link>
 
-                          <div className="ml-2 w-full flex flex-col">
+                        <div className="ml-2 w-full flex flex-col">
+                          <Link href={`/profile/${tracer.username}`}>
                             <h1 className="cursor-pointer text-md font-bold flex items-center">
                               {tracer.username}
                               <>
@@ -205,21 +212,21 @@ const UserActivity = ({ owner, me, user }) => {
                                 )}
                               </>
                             </h1>
+                          </Link>
 
-                            <div className="flex items-center justify-between">
-                              <h1 className="text-xs relative bottom-0.5">
-                                {tracer.role}
-                              </h1>
-                              <h1 className="text-xs relative bottom-0.5">
-                                {dayjs(tracer.Trace.createdAt).format(
-                                  "YYYY.MM.DD"
-                                )}{" "}
-                                {owner ? "나를 등록함" : "등록됨"}
-                              </h1>
-                            </div>
+                          <div className="flex items-center justify-between">
+                            <h1 className="text-xs relative bottom-0.5">
+                              {tracer.role}
+                            </h1>
+                            <h1 className="text-xs relative bottom-0.5">
+                              {/* {dayjs(tracer.Trace.createdAt).format(
+                                "YYYY.MM.DD"
+                              )}{" "} */}
+                              {owner ? "나를 등록함" : "등록됨"}
+                            </h1>
                           </div>
                         </div>
-                      </Link>
+                      </div>
                     </li>
                   ))
                 )}
@@ -233,19 +240,19 @@ const UserActivity = ({ owner, me, user }) => {
               )}
             >
               <ul>
-                {user.Tracings.length === 0 ? (
+                {(owner ? me.Tracings : user.Tracings).length === 0 ? (
                   <div className="rounded-md text-sm text-slate-300 p-3 h-20 flex justify-center items-center hover:bg-slate-100">
                     <span>No Tracings</span>
                     <FaceFrownIcon className="w-4 ml-1" />
                   </div>
                 ) : (
-                  user.Tracings.map((tracing) => (
+                  (owner ? me.Tracings : user.Tracings).map((tracing) => (
                     <li
                       key={tracing.id}
                       className="rounded-md p-3  hover:bg-slate-100"
                     >
-                      <Link href={`/profile/${tracing.username}`}>
-                        <div className="cursor-pointer flex items-center">
+                      <div className="cursor-pointer flex items-center">
+                        <Link href={`/profile/${tracing.username}`}>
                           <img
                             src={
                               process.env.NODE_ENV === "production"
@@ -258,9 +265,10 @@ const UserActivity = ({ owner, me, user }) => {
                                 : ""
                             } p-0.5 rounded-full object-cover`}
                           />
-
-                          <div className="ml-2 w-full flex flex-col">
-                            <div className="flex items-center justify-between">
+                        </Link>
+                        <div className="ml-2 w-full flex flex-col">
+                          <div className="flex items-center justify-between">
+                            <Link href={`/profile/${tracing.username}`}>
                               <h1 className="text-md font-bold flex items-center">
                                 {tracing.username}
                                 <>
@@ -291,32 +299,32 @@ const UserActivity = ({ owner, me, user }) => {
                                   )}
                                 </>
                               </h1>
+                            </Link>
 
-                              <h1 className="text-sm  flex items-center">
-                                {owner && (
-                                  <button
-                                    onClick={onUntrace(tracing)}
-                                    className="flex items-center gap-1 hover:text-indigo-500"
-                                  >
-                                    <UserMinusIcon className="w-5" />
-                                  </button>
-                                )}
-                              </h1>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <h1 className="text-xs relative bottom-0.5">
-                                {tracing.role}
-                              </h1>
-                              <h1 className="text-xs relative bottom-0.5">
-                                {dayjs(tracing.Trace.createdAt).format(
-                                  "YYYY.MM.DD"
-                                )}{" "}
-                                {owner ? "내가 등록함" : "등록됨"}
-                              </h1>
-                            </div>
+                            <h1 className="text-sm  flex items-center">
+                              {owner && (
+                                <button
+                                  onClick={onUntrace(tracing)}
+                                  className="flex items-center gap-1 hover:text-indigo-500"
+                                >
+                                  <UserMinusIcon className="w-5" />
+                                </button>
+                              )}
+                            </h1>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <h1 className="text-xs relative bottom-0.5">
+                              {tracing.role}
+                            </h1>
+                            <h1 className="text-xs relative bottom-0.5">
+                              {/* {dayjs(tracing.Trace.createdAt).format(
+                                "YYYY.MM.DD"
+                              )}{" "} */}
+                              {owner ? "내가 등록함" : "등록됨"}
+                            </h1>
                           </div>
                         </div>
-                      </Link>
+                      </div>
                     </li>
                   ))
                 )}
