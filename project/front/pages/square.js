@@ -6,17 +6,20 @@ import PostForm from "../components/PostForm";
 
 import {
   cancelAllPostImages,
+  flushMainPosts,
   loadPosts,
-  loadSolePost,
+  loadPostsByKeyword,
 } from "../reducers/postSlice";
 import wrapper from "../store/configureStore";
-import {
-  loadActiveUsers,
-  loadMe,
-  loadUser,
-  logOut,
-} from "../reducers/userSlice";
+import { loadActiveUsers, loadMe, loadUser } from "../reducers/userSlice";
 import axios from "axios";
+import { openNotice } from "../reducers/globalSlice";
+import { useForm } from "react-hook-form";
+import {
+  ArrowPathIcon,
+  MagnifyingGlassIcon,
+  PaperAirplaneIcon,
+} from "@heroicons/react/20/solid";
 
 const Square = () => {
   const { me } = useSelector((state) => state.user);
@@ -25,7 +28,19 @@ const Square = () => {
     (state) => state.post
   );
   const [togglePostForm, setTogglePostForm] = useState(false);
+  const [keywordSearching, setKeywordSearching] = useState(false);
+
   const dispatch = useDispatch();
+
+  const {
+    register,
+    reset,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({
+    mode: "onSubmit",
+  });
 
   useEffect(() => {
     function onScreenScroll() {
@@ -33,7 +48,7 @@ const Square = () => {
         window.scrollY + document.documentElement.clientHeight >
         document.documentElement.scrollHeight - 300
       ) {
-        if (loadMorePosts && !loadPostsLoading) {
+        if (!keywordSearching && loadMorePosts && !loadPostsLoading) {
           const lastPostId = mainPosts[mainPosts.length - 1]?.id;
           dispatch(loadPosts(lastPostId));
         }
@@ -43,7 +58,7 @@ const Square = () => {
     return () => {
       window.removeEventListener("scroll", onScreenScroll);
     };
-  }, [loadMorePosts, loadPostsLoading, mainPosts]);
+  }, [loadMorePosts, loadPostsLoading, mainPosts, keywordSearching]);
 
   const onTogglePostForm = useCallback(() => {
     if (togglePostForm) {
@@ -52,38 +67,77 @@ const Square = () => {
     setTogglePostForm(!togglePostForm);
   }, [togglePostForm]);
 
+  const onSearchPosts = useCallback((formData) => {
+    const { keyword } = formData;
+    if (!keyword || !keyword.trim() || keyword.length < 2) {
+      return dispatch(
+        openNotice({ type: 2, content: "2자리 이상의 검색어를 지정해주세요." })
+      );
+    }
+    setKeywordSearching(true);
+    dispatch(flushMainPosts());
+    dispatch(loadPostsByKeyword({ keyword }));
+    reset();
+  });
+
+  const onRefresh = useCallback(() => {
+    setKeywordSearching(false);
+    dispatch(flushMainPosts());
+    dispatch(loadPosts());
+  });
+
   return (
     <AppLayout>
       {me && togglePostForm && <PostForm onTogglePostForm={onTogglePostForm} />}
       <div className=" flex pb-20">
         <div className="mt-16 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
-          <div className="text-2xl mb-8 flex justify-between items-center">
-            <span className="relative font-bold left-1">Square</span>
+          <div className="px-3 text-2xl mb-8 flex justify-between items-center">
+            <div
+              onClick={onRefresh}
+              className="cursor-pointer relative flex items-center font-bold left-1"
+            >
+              <span>Square</span>
+              {keywordSearching && (
+                <ArrowPathIcon className="ml-2  w-6 hover:animate-spin" />
+              )}
+            </div>
 
             <div className="flex items-center">
-              <div className="flex h-7">
-                <input
-                  type="text"
-                  id="company-website"
-                  className=" h-full border border-slate-400 outline-none bg-slate-50 placeholder:text-slate-300 w-28 flex-1 text-slate-600 focus:bg-slate-100 focus:ring-0 rounded-md mr-3  sm:text-sm"
-                  placeholder="Search Post"
-                />
+              <div className="flex bg-white rounded-md mr-3 border-[1.5px]   ">
+                <form
+                  className="flex h-8 p-1"
+                  onSubmit={handleSubmit(onSearchPosts)}
+                >
+                  <label htmlFor="keyword"></label>
+                  <input
+                    id="keyword"
+                    name="keyword"
+                    className="p-2 w-24 md:w-36 text-sm h-full outline-none bg-white placeholder:text-sm placeholder:text-slate-300 flex-1 text-slate-600 focus:bg-white focus:ring-0 rounded-md  sm:text-sm"
+                    placeholder="Search Post"
+                    {...register("keyword", {})}
+                  />
+                  <button type="submit">
+                    <MagnifyingGlassIcon className="w-6 cursor-pointer hover:text-indigo-500 hover:scale-105 mr-2 ml-1" />
+                  </button>
+                </form>
               </div>
               {me ? (
                 <button
                   type="button"
                   onClick={onTogglePostForm}
-                  className="relative right-1 ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow bg-indigo-500 rounded-md text-white hover:bg-indigo-600"
+                  className="relative rounded-full hover:scale-105 p-3 right-1 ml-1.5 shadow bg-indigo-500 text-white hover:bg-indigo-600"
                 >
-                  Share Your Topic
+                  <PaperAirplaneIcon className="w-7" />
                 </button>
               ) : (
-                <a
-                  href="/login"
-                  className="relative right-1 ml-1.5 py-1.5 px-4 text-xs font-medium text-center shadow bg-indigo-500 rounded-md text-white hover:bg-indigo-600"
-                >
-                  Share Your Topic
-                </a>
+                <Link href="/login">
+                  <button
+                    type="button"
+                    className="relative rounded-full p-3 right-1 ml-1.5 shadow bg-indigo-500 text-white hover:bg-indigo-600"
+                  >
+                    <PaperAirplaneIcon className="w-7" />
+                  </button>
+                </Link>
               )}
             </div>
           </div>
@@ -114,7 +168,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     await context.store.dispatch(loadMe());
     await context.store.dispatch(loadPosts());
-
     await context.store.dispatch(loadUser({ username: "" }));
     await context.store.dispatch(loadActiveUsers());
     return {

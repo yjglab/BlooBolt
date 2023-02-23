@@ -10,9 +10,12 @@ export const initialState = {
   loadPostsLoading: false,
   loadPostsDone: false,
   loadPostsError: null,
-  loadHashtagPostsLoading: false,
-  loadHashtagPostsDone: false,
-  loadHashtagPostsError: null,
+  loadPostsByHashtagLoading: false,
+  loadPostsByHashtagDone: false,
+  loadPostsByHashtagError: null,
+  loadPostsByKeywordLoading: false,
+  loadPostsByKeywordDone: false,
+  loadPostsByKeywordError: null,
 
   loadSolePostDone: false,
   loadSolePostError: null,
@@ -64,10 +67,27 @@ const loadPostsByHashtagHandler = async (info, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 };
+const loadPostsByKeywordHandler = async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.get(
+      `/posts/keyword/${encodeURIComponent(info.keyword)}?lastPostId=${
+        info.lastPostId || 0
+      }`
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+};
 export const loadPosts = createAsyncThunk("posts/loadPosts", loadPostsHandler);
 export const loadPostsByHashtag = createAsyncThunk(
   "posts/loadPostsByHashtag",
   loadPostsByHashtagHandler
+);
+export const loadPostsByKeyword = createAsyncThunk(
+  "posts/loadPostsByKeyword",
+  loadPostsByKeywordHandler
 );
 export const loadSolePost = createAsyncThunk(
   "post/loadSolePost",
@@ -240,6 +260,9 @@ export const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
+    flushMainPosts(state, { payload }) {
+      state.mainPosts = [];
+    },
     loadPrevPostImages(state, { payload }) {
       state.postImagePaths = state.postImagePaths.concat(payload);
     },
@@ -281,6 +304,20 @@ export const postSlice = createSlice({
       .addCase(loadPostsByHashtag.rejected, (state, { payload }) => {
         state.loadPostsByHashtagLoading = false;
         state.loadPostsByHashtagError = payload;
+      })
+      .addCase(loadPostsByKeyword.pending, (state) => {
+        state.loadPostsByKeywordLoading = true;
+        state.loadPostsByKeywordError = null;
+      })
+      .addCase(loadPostsByKeyword.fulfilled, (state, { payload }) => {
+        state.loadPostsByKeywordLoading = false;
+        state.loadPostsByKeywordDone = true;
+        state.mainPosts = state.mainPosts.concat(payload);
+        state.loadMorePosts = payload.length !== 0;
+      })
+      .addCase(loadPostsByKeyword.rejected, (state, { payload }) => {
+        state.loadPostsByKeywordLoading = false;
+        state.loadPostsByKeywordError = payload;
       })
 
       .addCase(loadSolePost.fulfilled, (state, { payload }) => {
@@ -432,6 +469,10 @@ export const postSlice = createSlice({
   },
 });
 
-export const { loadPrevPostImages, cancelPostImage, cancelAllPostImages } =
-  postSlice.actions;
+export const {
+  loadPrevPostImages,
+  cancelPostImage,
+  cancelAllPostImages,
+  flushMainPosts,
+} = postSlice.actions;
 export default postSlice;
