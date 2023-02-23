@@ -174,10 +174,7 @@ const Navigation = () => {
             </Popover>
 
             <Link href="/about">
-              <div
-                href="#"
-                className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500"
-              >
+              <div className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500">
                 About
               </div>
             </Link>

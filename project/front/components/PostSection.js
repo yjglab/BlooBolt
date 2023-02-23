@@ -48,6 +48,14 @@ const PostSection = ({ post }) => {
   const [postEditMode, setPostEditMode] = useState(false);
 
   const onToggleCheckReport = useCallback(() => {
+    if (!id) {
+      return dispatch(
+        openNotice({
+          content: "로그인이 필요합니다.",
+          type: 2,
+        })
+      );
+    }
     setReportCheck(!reportCheck);
   }, [reportCheck]);
 
@@ -304,16 +312,18 @@ const PostSection = ({ post }) => {
             </h5>
 
             <div className="mb-3 flex items-center">
-              <img
-                src={
-                  process.env.NODE_ENV === "production"
-                    ? ``
-                    : `${backUrl}/${post.User.avatar}`
-                }
-                className={`h-[50px] w-[50px] aspect-square border-[3px] ${
-                  post.User.status ? "border-indigo-500" : ""
-                } p-0.5 rounded-full object-cover`}
-              />
+              <Link href={`/profile/${post.User.username}`}>
+                <img
+                  src={
+                    process.env.NODE_ENV === "production"
+                      ? ``
+                      : `${backUrl}/${post.User.avatar}`
+                  }
+                  className={`h-[50px] w-[50px] aspect-square border-[3px] ${
+                    post.User.status ? "border-indigo-500" : ""
+                  } p-0.5 rounded-full object-cover`}
+                />
+              </Link>
               <div className="ml-2 w-full flex flex-col">
                 <h1 className="text-md font-bold flex items-center">
                   {post.User.username}

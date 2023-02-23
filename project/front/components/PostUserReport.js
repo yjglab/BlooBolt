@@ -23,14 +23,6 @@ const PostUserReport = ({ post, onToggleCheckReport }) => {
   });
 
   const onReportUser = useCallback((formData) => {
-    if (!id) {
-      return dispatch(
-        openNotice({
-          content: "로그인이 필요합니다.",
-          type: 2,
-        })
-      );
-    }
     const alredyReported = post.User.UserReports.find(
       (v) => v.reporterId === id
     );

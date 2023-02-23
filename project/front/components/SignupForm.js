@@ -19,12 +19,13 @@ const SignupForm = () => {
     register,
     handleSubmit,
     setError,
+
     formState: { isSubmitting, errors },
   } = useForm();
 
   const onSignUp = (formData) => {
     const { email, username, password, passwordCheck } = formData;
-    const slCheck = /[!?@#$%^&*():;+-=~{}<>\[\]\|\\\"\'\,\.\/\`\₩]/g;
+    const slCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/g;
     if (username.search(/\s/) !== -1 || slCheck.test(username)) {
       return setError("username", {
         message: "사용자명에 공백 또는 특수문자가 들어갈 수 없습니다.",
@@ -47,7 +48,6 @@ const SignupForm = () => {
         password,
       })
     );
-    Router.push("/login");
   };
 
   return (

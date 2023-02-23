@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { Tab } from "@headlessui/react";
 import {
@@ -20,10 +21,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const UserActivity = () => {
-  const { me, untraceDone } = useSelector((state) => state.user);
-
-  const id = useSelector((state) => state.user.me?.id);
+const UserActivity = ({ owner, me, user }) => {
   const dispatch = useDispatch();
 
   const onUntrace = (tracing) => () => {
@@ -53,7 +51,7 @@ const UserActivity = () => {
                 )
               }
             >
-              {`Posts (${me?.Posts.length})`}
+              {`Posts (${user.Posts.length})`}
             </Tab>
 
             <Tab
@@ -66,7 +64,7 @@ const UserActivity = () => {
                 )
               }
             >
-              {`Tracers (${me?.Tracers?.length})`}
+              {`Tracers (${user.Tracers.length})`}
             </Tab>
 
             <Tab
@@ -79,7 +77,7 @@ const UserActivity = () => {
                 )
               }
             >
-              {`Tracings (${me?.Tracings?.length})`}
+              {`Tracings (${user.Tracings.length})`}
             </Tab>
           </Tab.List>
           <Tab.Panels className="mt-2 rounded-md shadow">
@@ -90,13 +88,13 @@ const UserActivity = () => {
               )}
             >
               <ul>
-                {me?.Posts.length === 0 ? (
+                {user.Posts.length === 0 ? (
                   <div className="rounded-md text-sm text-slate-300 p-3 h-20 flex justify-center items-center hover:bg-slate-100">
                     <span>No Posts</span>
                     <FaceFrownIcon className="w-4 ml-1" />
                   </div>
                 ) : (
-                  me?.Posts.map((post) => (
+                  user.Posts.map((post) => (
                     <li
                       key={post.id}
                       className="relative rounded-md p-3  hover:bg-slate-100"
@@ -123,7 +121,7 @@ const UserActivity = () => {
                         </li>
                         <li>&middot;</li>
                         <li className="flex">
-                          {post.Comments?.length || 0}{" "}
+                          {post.Comments.length || 0}{" "}
                           <ChatBubbleOvalLeftEllipsisIcon className="w-3 ml-0.5" />
                         </li>
                       </ul>
@@ -148,13 +146,13 @@ const UserActivity = () => {
               )}
             >
               <ul>
-                {me?.Tracers.length === 0 ? (
+                {user.Tracers.length === 0 ? (
                   <div className="rounded-md text-sm text-slate-300 p-3 h-20 flex justify-center items-center hover:bg-slate-100">
                     <span>No Tracers</span>
                     <FaceFrownIcon className="w-4 ml-1" />
                   </div>
                 ) : (
-                  me?.Tracers?.map((tracer) => (
+                  user.Tracers.map((tracer) => (
                     <li
                       key={tracer.id}
                       className="rounded-md p-3  hover:bg-slate-100"
@@ -225,13 +223,13 @@ const UserActivity = () => {
               )}
             >
               <ul>
-                {me?.Tracings.length === 0 ? (
+                {user.Tracings.length === 0 ? (
                   <div className="rounded-md text-sm text-slate-300 p-3 h-20 flex justify-center items-center hover:bg-slate-100">
                     <span>No Tracings</span>
                     <FaceFrownIcon className="w-4 ml-1" />
                   </div>
                 ) : (
-                  me?.Tracings?.map((tracing) => (
+                  user.Tracings.map((tracing) => (
                     <li
                       key={tracing.id}
                       className="rounded-md p-3  hover:bg-slate-100"
@@ -309,6 +307,12 @@ const UserActivity = () => {
       </div>
     </div>
   );
+};
+
+UserActivity.propTypes = {
+  owner: PropTypes.bool.isRequired,
+  me: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default UserActivity;

@@ -7,6 +7,8 @@ import {
 } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { loadMe } from "../reducers/userSlice";
+import wrapper from "../store/configureStore";
 
 const Support = () => {
   const dispatch = useDispatch();
@@ -118,5 +120,20 @@ const Support = () => {
     </AppLayout>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const cookie = context.req ? context.req.headers.cookie : "";
+    axios.defaults.headers.Cookie = "";
+    if (context.req && cookie) {
+      axios.defaults.headers.Cookie = cookie;
+    }
+    await context.store.dispatch(loadMe());
+
+    return {
+      props: { message: "" },
+    };
+  }
+);
 
 export default Support;

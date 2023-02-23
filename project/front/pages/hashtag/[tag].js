@@ -6,6 +6,9 @@ import PostSection from "../../components/PostSection";
 import { useRouter } from "next/router";
 
 import { loadPostsByHashtag } from "../../reducers/postSlice";
+import wrapper from "../../store/configureStore";
+import axios from "axios";
+import { loadMe } from "../../reducers/userSlice";
 
 const Hashtag = () => {
   const dispatch = useDispatch();
@@ -63,14 +66,33 @@ const Hashtag = () => {
           </div>
 
           <div className="grid auto-cols-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
-            {/* {mainPosts.map((post) => (
+            {mainPosts.map((post) => (
               <PostSection key={post.id} post={post} />
-            ))} */}
+            ))}
           </div>
         </div>
       </div>
     </AppLayout>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const cookie = context.req ? context.req.headers.cookie : "";
+    axios.defaults.headers.Cookie = "";
+    if (context.req && cookie) {
+      axios.defaults.headers.Cookie = cookie;
+    }
+
+    await context.store.dispatch(loadMe());
+    await context.store.dispatch(
+      loadPostsByHashtag({ tag: context.params.tag })
+    );
+
+    return {
+      props: { message: "" },
+    };
+  }
+);
 
 export default Hashtag;

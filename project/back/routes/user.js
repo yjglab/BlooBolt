@@ -4,7 +4,7 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
-const { User, Post, Comment, UserReport } = require("../models");
+const { User, Post, Comment, UserReport, PostImage } = require("../models");
 const { isNotLoggedIn, isLoggedIn } = require("./middlewares");
 const passport = require("passport");
 
@@ -34,24 +34,6 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }, // 10mb
 });
 
-router.get("/", async (req, res, next) => {
-  // console.log(req.headers)
-  try {
-    if (req.user) {
-      const resultUser = await User.findOne({
-        where: { id: req.user.id },
-        attributes: { exclude: ["password"] },
-      });
-      res.status(200).json(resultUser);
-    } else {
-      res.status(200).json(null);
-    }
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
-
 router.post("/signup", isNotLoggedIn, async (req, res, next) => {
   try {
     const existedEmail = await User.findOne({
@@ -64,6 +46,7 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
         username: req.body.username,
       },
     });
+
     if (existedEmail) {
       return res.status(403).send("이미 존재하는 이메일 계정입니다.");
     }
@@ -205,6 +188,113 @@ router.post(
     }
   }
 );
+
+router.get("/:username", async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        username: decodeURIComponent(req.params.username),
+      },
+    });
+    if (!user) {
+      return res.status(403).send("존재하지 않는 사용자입니다.");
+    }
+
+    const resultUser = await User.findOne({
+      where: { username: decodeURIComponent(req.params.username) },
+      attributes: {
+        exclude: ["password", "email", "realname", "address", "reported"],
+      },
+      include: [
+        {
+          model: Post,
+          include: [
+            {
+              model: Comment,
+              include: [
+                {
+                  model: User,
+                  attributes: ["id"],
+                },
+              ],
+            },
+            {
+              model: User,
+              as: "PostProdders",
+              attributes: ["id"],
+            },
+          ],
+        },
+        {
+          model: User,
+          as: "Tracings",
+          attributes: ["id", "username", "role", "avatar", "rank"],
+        },
+        {
+          model: User,
+          as: "Tracers",
+          attributes: ["id", "username", "role", "avatar", "rank"],
+        },
+      ],
+    });
+
+    res.status(200).json(resultUser);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.get("/", async (req, res, next) => {
+  try {
+    if (req.user) {
+      const resultUser = await User.findOne({
+        where: { id: req.user.id },
+        attributes: { exclude: ["password"] },
+        include: [
+          {
+            model: Post,
+            include: [
+              {
+                model: PostImage,
+              },
+              {
+                model: Comment,
+                include: [
+                  {
+                    model: User,
+                    attributes: ["id"],
+                  },
+                ],
+              },
+              {
+                model: User,
+                as: "PostProdders",
+                attributes: ["id"],
+              },
+            ],
+          },
+          {
+            model: User,
+            as: "Tracings",
+            attributes: ["id", "username", "role", "avatar", "rank"],
+          },
+          {
+            model: User,
+            as: "Tracers",
+            attributes: ["id", "username", "role", "avatar", "rank"],
+          },
+        ],
+      });
+      res.status(200).json(resultUser);
+    } else {
+      res.status(200).json(null);
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
 
 router.patch("/:userId/info/public", isLoggedIn, async (req, res, next) => {
   try {

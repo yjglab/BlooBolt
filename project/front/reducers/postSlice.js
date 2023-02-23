@@ -255,6 +255,20 @@ export const postSlice = createSlice({
         state.loadPostsLoading = false;
         state.loadPostsError = payload;
       })
+      .addCase(loadPostsByHashtag.pending, (state) => {
+        state.loadPostsByHashtagLoading = true;
+        state.loadPostsByHashtagError = null;
+      })
+      .addCase(loadPostsByHashtag.fulfilled, (state, { payload }) => {
+        state.loadPostsByHashtagLoading = false;
+        state.loadPostsByHashtagDone = true;
+        state.mainPosts = state.mainPosts.concat(payload);
+        state.loadMorePosts = payload.length !== 0;
+      })
+      .addCase(loadPostsByHashtag.rejected, (state, { payload }) => {
+        state.loadPostsByHashtagLoading = false;
+        state.loadPostsByHashtagError = payload;
+      })
 
       .addCase(uploadPostImages.fulfilled, (state, { payload }) => {
         state.uploadPostImagesDone = true;
@@ -378,7 +392,6 @@ export const postSlice = createSlice({
   },
 });
 
-const { actions, reducer } = postSlice;
 export const { loadPrevPostImages, cancelPostImage, cancelAllPostImages } =
   postSlice.actions;
 export default postSlice;

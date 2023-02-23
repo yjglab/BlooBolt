@@ -6,7 +6,7 @@ import PostForm from "../components/PostForm";
 
 import { cancelAllPostImages, loadPosts } from "../reducers/postSlice";
 import wrapper from "../store/configureStore";
-import { loadMe } from "../reducers/userSlice";
+import { loadMe, loadUser } from "../reducers/userSlice";
 import axios from "axios";
 
 const Square = () => {
@@ -101,10 +101,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (context.req && cookie) {
       axios.defaults.headers.Cookie = cookie;
     }
-    await context.store.dispatch(loadMe());
 
+    await context.store.dispatch(loadMe());
+    await context.store.dispatch(loadPosts());
+    await context.store.dispatch(loadUser({ username: "" }));
     return {
-      props: { message: "Message from SSR" },
+      props: { message: "" },
     };
   }
 );

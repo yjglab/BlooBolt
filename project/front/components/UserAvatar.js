@@ -7,7 +7,7 @@ import { openNotice } from "../reducers/globalSlice";
 import { backUrl } from "../config/config";
 import PropTypes from "prop-types";
 
-const UserAvatar = ({ me }) => {
+const UserAvatar = ({ user, owner }) => {
   const dispatch = useDispatch();
   const {
     register,
@@ -41,26 +41,32 @@ const UserAvatar = ({ me }) => {
 
   return (
     <div className="shadow-lg overflow-hidden relative w-36 h-36 md:mr-5 mb-4 md:mb-0 rounded-full ">
-      <CameraIcon className="w-5 absolute z-10 mx-auto bottom-1 text-white left-0 right-0" />
-      <label
-        htmlFor="userAvatar"
-        className="cursor-pointer w-full h-full opacity-40 hover:opacity-60 absolute bottom-0"
-      >
-        <div className="w-full h-7 bg-slate-900 absolute bottom-0"></div>
-      </label>
-      <input
-        name="userAvatar"
-        id="userAvatar"
-        type="file"
-        accept="image/*"
-        className="hidden"
-        {...register("userAvatar", {
-          onChange: onUploadUserAvatar,
-        })}
-      />
+      {owner && (
+        <>
+          <CameraIcon className="w-5 absolute z-10 mx-auto bottom-1 text-white left-0 right-0" />
+          <label
+            htmlFor="userAvatar"
+            className="cursor-pointer w-full h-full opacity-40 hover:opacity-60 absolute bottom-0"
+          >
+            <div className="w-full h-7 bg-slate-900 absolute bottom-0"></div>
+          </label>
+          <input
+            name="userAvatar"
+            id="userAvatar"
+            type="file"
+            accept="image/*"
+            className="hidden"
+            {...register("userAvatar", {
+              onChange: onUploadUserAvatar,
+            })}
+          />
+        </>
+      )}
       <img
         src={
-          process.env.NODE_ENV === "production" ? `` : `${backUrl}/${me.avatar}`
+          process.env.NODE_ENV === "production"
+            ? ``
+            : `${backUrl}/${user.avatar}`
         }
         className="aspect-square object-cover"
       />
@@ -69,7 +75,8 @@ const UserAvatar = ({ me }) => {
 };
 
 UserAvatar.propTypes = {
-  me: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  owner: PropTypes.bool.isRequired,
 };
 
 export default UserAvatar;

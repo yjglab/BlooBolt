@@ -1,8 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import Router from "next/router";
 import { uploadPost } from "./postSlice";
 
 export const initialState = {
+  loadMeDone: false,
+  loadMeError: null,
+  loadUserDone: false,
+  loadUserError: null,
   signUpDone: false,
   signUpError: null,
   logInDone: false,
@@ -23,6 +28,20 @@ export const loadMe = createAsyncThunk(
   async (info, thunkAPI) => {
     try {
       const { data } = await axios.get("/user");
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+export const loadUser = createAsyncThunk(
+  "user/loadUser",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.get(
+        `/user/${encodeURIComponent(info.username)}`
+      );
       return data;
     } catch (error) {
       console.error(error);
@@ -138,18 +157,6 @@ export const reportUser = createAsyncThunk(
     }
   }
 );
-export const loadUser = createAsyncThunk(
-  "user/loadUser",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.get(`/user/${info.userId}`, info);
-      return data;
-    } catch (error) {
-      console.error(error);
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
 
 export const userSlice = createSlice({
   name: "user",
@@ -166,11 +173,6 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(uploadPost.fulfilled, (state, { payload }) => {
-        state.me.Posts.push(payload);
-        if (state.me.rank === 0) state.me.rank = 6;
-      }) // 나중에 제거
-
       .addCase(loadMe.fulfilled, (state, { payload }) => {
         state.loadMeDone = true;
         state.me = payload;
@@ -179,9 +181,17 @@ export const userSlice = createSlice({
         state.loadMeDone = false;
         state.loadMeError = payload;
       })
-
+      .addCase(loadUser.fulfilled, (state, { payload }) => {
+        state.loadUserDone = true;
+        state.user = payload;
+      })
+      .addCase(loadUser.rejected, (state, { payload }) => {
+        state.loadUserDone = false;
+        state.loadUserError = payload;
+      })
       .addCase(signUp.fulfilled, (state) => {
         state.signUpDone = true;
+        Router.push("/login");
       })
       .addCase(signUp.rejected, (state, { payload }) => {
         state.signUpDone = false;
