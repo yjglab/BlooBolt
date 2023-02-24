@@ -326,7 +326,9 @@ const Navigation = () => {
                             : `${backUrl}/${me.avatar}`
                         }
                         className={`cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] ${
-                          activeUsers.includes(me.id) ? "border-indigo-500" : ""
+                          activeUsers?.includes(me.id)
+                            ? "border-indigo-500"
+                            : ""
                         } p-0.5 rounded-full object-cover`}
                       />
                     </Link>

@@ -20,10 +20,14 @@ export const initialState = {
   traceError: null,
   untraceDone: false,
   untraceError: null,
+  findPasswordLoading: false,
+  findPasswordDone: false,
+  findPasswordError: null,
 
   me: null,
   user: null,
   activeUsers: null,
+  userMessage: null,
 };
 
 export const loadActiveUsers = createAsyncThunk(
@@ -172,6 +176,18 @@ export const reportUser = createAsyncThunk(
     }
   }
 );
+export const findPassword = createAsyncThunk(
+  "user/findPassword",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.post(`/user/support/password`, info);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -290,6 +306,21 @@ export const userSlice = createSlice({
         state.reportUserLoading = false;
         state.reportUserError = payload;
       })
+
+      .addCase(findPassword.pending, (state) => {
+        state.findPasswordLoading = true;
+        state.findPasswordError = null;
+      })
+      .addCase(findPassword.fulfilled, (state, { payload }) => {
+        state.findPasswordLoading = false;
+        state.findPasswordDone = true;
+        state.userMessage = payload.message;
+      })
+      .addCase(findPassword.rejected, (state, { payload }) => {
+        state.findPasswordLoading = false;
+        state.findPasswordError = payload;
+      })
+
       .addDefaultCase((state) => state);
   },
 });

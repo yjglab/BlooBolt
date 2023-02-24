@@ -9,6 +9,7 @@ const { isNotLoggedIn, isLoggedIn } = require("./middlewares");
 const passport = require("passport");
 
 const router = express.Router();
+const nodeMailer = require("nodemailer");
 
 try {
   fs.accessSync("uploads");
@@ -462,6 +463,57 @@ router.post("/:userId/report", isLoggedIn, async (req, res, next) => {
     });
 
     res.status(200).end();
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+// Password 지원
+router.post("/support/password", isNotLoggedIn, async (req, res, next) => {
+  try {
+    const targetUser = await User.findOne({
+      where: { email: req.body.email },
+    });
+    if (!targetUser) {
+      return res.status(403).send("존재하지 않는 계정입니다.");
+    }
+    const transporter = nodeMailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "bloobolt.co@gmail.com",
+        pass: process.env.MAIL_APP_PASSWORD,
+      },
+    });
+
+    const randomCode = Math.random().toString(36).slice(2);
+    const mailOptions = {
+      to: req.body.email,
+      subject: "BlooBolt Support: 임시 비밀번호를 전송해드립니다.",
+      html: `
+        임시 비밀번호를 전송해드립니다.<br/><br/>
+        <h4>${randomCode}</h4>
+        <br/><br/>
+        <span>from. BlooBolt Support</span>
+        `,
+    };
+
+    const hashedPassword = await bcrypt.hash(randomCode, 10);
+    await User.update(
+      {
+        password: hashedPassword,
+      },
+      {
+        where: {
+          email: req.body.email,
+        },
+      }
+    );
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({
+      message: `${req.body.email}로 임시 비밀번호를 전송했습니다. 로그인 후 즉시 비밀번호를 변경하세요.`,
+    });
   } catch (error) {
     console.error(error);
     next(error);
