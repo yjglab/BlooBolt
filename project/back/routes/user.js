@@ -93,6 +93,23 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
       return res.status(403).send("이미 존재하는 사용자명입니다.");
     }
 
+    const usernameFilter = [
+      "관리자",
+      "Admin",
+      "Administrator",
+      "블루볼트",
+      "BlooBolt",
+      "BlooBolt.co",
+      "bloobolt",
+      "Bloobolt",
+      "blooBolt",
+      "BlooBolts",
+    ];
+
+    if (usernameFilter.includes(req.body.username)) {
+      return res.status(403).send("적절하지 않은 사용자명입니다.");
+    }
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     await User.create({
       email: req.body.email,
@@ -228,6 +245,7 @@ router.post(
   }
 );
 
+// 타 사용자 정보 로드
 router.get("/:username", async (req, res, next) => {
   try {
     const user = await User.findOne({
@@ -284,10 +302,11 @@ router.get("/:username", async (req, res, next) => {
   }
 });
 
+// 내 정보 로드
 router.get("/", async (req, res, next) => {
   try {
     if (req.user) {
-      const resultUser = await User.findOne({
+      const me = await User.findOne({
         where: { id: req.user.id },
         attributes: { exclude: ["password"] },
         include: [
@@ -325,7 +344,30 @@ router.get("/", async (req, res, next) => {
           },
         ],
       });
-      res.status(200).json(resultUser);
+
+      if (me.rankPoint >= 1000 && me.rank > 5) {
+        me.update({
+          rank: 5,
+        });
+      } else if (me.rankPoint >= 5000 && me.rank > 4) {
+        me.update({
+          rank: 4,
+        });
+      } else if (me.rankPoint >= 10000 && me.rank > 3) {
+        me.update({
+          rank: 3,
+        });
+      } else if (me.rankPoint >= 100000 && me.rank > 2) {
+        me.update({
+          rank: 2,
+        });
+      } else if (me.rankPoint >= 1000000 && me.rank > 1) {
+        me.update({
+          rank: 1,
+        });
+      }
+
+      res.status(200).json(me);
     } else {
       res.status(200).json(null);
     }

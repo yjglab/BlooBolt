@@ -65,7 +65,7 @@ const Navigation = () => {
       {helper && (
         <button
           onClick={onGotoTop}
-          className="hover:bg-indigo-600 hover:scale-105 p-3.5 bg-indigo-500 rounded-full fixed bottom-10 right-4"
+          className="shadow-xl hover:bg-indigo-600 hover:scale-105 p-3.5 bg-indigo-500 rounded-full fixed bottom-10 right-4"
         >
           <ArrowUturnUpIcon className="w-5 text-white shadow-lg" />
         </button>
@@ -220,17 +220,25 @@ const Navigation = () => {
                 >
                   Logout
                 </button>
-                <Link href={`/profile/${me.username}`}>
-                  <img
-                    className="cursor-pointer ml-6 h-10 w-10 rounded-full object-cover"
-                    src={
-                      process.env.NODE_ENV === "production"
-                        ? ``
-                        : `${backUrl}/${me.avatar}`
-                    }
-                    alt="avatar-image"
-                  />
-                </Link>
+
+                <>
+                  <Link href={`/profile/${me.username}`}>
+                    <div className="cursor-pointer ml-3.5 font-bold">
+                      {me.username}
+                    </div>
+                  </Link>
+                  <Link href={`/profile/${me.username}`}>
+                    <img
+                      className="cursor-pointer ml-4 h-10 w-10 rounded-full object-cover"
+                      src={
+                        process.env.NODE_ENV === "production"
+                          ? ``
+                          : `${backUrl}/${me.avatar}`
+                      }
+                      alt="avatar-image"
+                    />
+                  </Link>
+                </>
               </>
             ) : (
               <>
@@ -339,20 +347,20 @@ const Navigation = () => {
                           <>
                             {me.rank === 6 ? (
                               <FaceSmileIcon
-                                className="w-3.5 ml-0.5 text-slate-400"
+                                className="w-4 ml-0.5 text-slate-400"
                                 aria-hidden="true"
                               />
                             ) : me.rank === 0 ? null : (
                               <ShieldCheckIcon
-                                className={`w-3.5 flex-shrink-0 ${
+                                className={`w-4 ml-0.5 flex-shrink-0 ${
                                   me.rank === 1
                                     ? "text-cyan-400"
                                     : me.rank === 2
                                     ? "text-amber-400"
                                     : me.rank === 3
-                                    ? "text-amber-700/70"
+                                    ? "text-amber-600/90"
                                     : me.rank === 4
-                                    ? "text-indigo-500"
+                                    ? "text-lime-500"
                                     : me.rank === 5
                                     ? "text-slate-400"
                                     : me.rank === 9

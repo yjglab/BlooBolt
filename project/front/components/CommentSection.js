@@ -113,6 +113,14 @@ const CommentSection = ({ post, comment }) => {
         })
       );
     }
+    if (comment.User.id !== id) {
+      return dispatch(
+        openNotice({
+          content: "다른 사용자의 코멘트를 삭제할 수 없습니다.",
+          type: 2,
+        })
+      );
+    }
     dispatch(
       removeComment({
         postId: post.id,
@@ -226,20 +234,20 @@ const CommentSection = ({ post, comment }) => {
               <>
                 {comment.User.rank === 6 ? (
                   <FaceSmileIcon
-                    className="w-3.5 ml-0.5 text-slate-400"
+                    className="w-4 ml-0.5 text-slate-400"
                     aria-hidden="true"
                   />
                 ) : comment.User.rank === 0 ? null : (
                   <ShieldCheckIcon
-                    className={`w-3.5 flex-shrink-0 ${
+                    className={`w-4 ml-0.5 flex-shrink-0 ${
                       comment.User.rank === 1
                         ? "text-cyan-400"
                         : comment.User.rank === 2
                         ? "text-amber-400"
                         : comment.User.rank === 3
-                        ? "text-amber-700/70"
+                        ? "text-amber-600/90"
                         : comment.User.rank === 4
-                        ? "text-indigo-500"
+                        ? "text-lime-500"
                         : comment.User.rank === 5
                         ? "text-slate-400"
                         : comment.User.rank === 9
@@ -295,23 +303,21 @@ const CommentSection = ({ post, comment }) => {
                     </button>
                   )}
                 </Menu.Item>
-                {comment.UserId === id ? (
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        onClick={onRemoveComment}
-                        className={classNames(
-                          active
-                            ? "bg-slate-100 text-slate-600"
-                            : "text-slate-600",
-                          "block px-4 py-2 text-sm text-left w-full"
-                        )}
-                      >
-                        Delete
-                      </button>
-                    )}
-                  </Menu.Item>
-                ) : null}
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={onRemoveComment}
+                      className={classNames(
+                        active
+                          ? "bg-slate-100 text-slate-600"
+                          : "text-slate-600",
+                        "block px-4 py-2 text-sm text-left w-full"
+                      )}
+                    >
+                      Delete
+                    </button>
+                  )}
+                </Menu.Item>
               </div>
             </Menu.Items>
           </Transition>

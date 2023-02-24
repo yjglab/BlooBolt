@@ -55,15 +55,15 @@ const Profile = () => {
                       </span>
                     ) : (
                       <ShieldCheckIcon
-                        className={`w-5 flex-shrink-0 ${
+                        className={`w-5 ml-0.5 flex-shrink-0 ${
                           user.rank === 1
                             ? "text-cyan-400"
                             : user.rank === 2
                             ? "text-amber-400"
                             : user.rank === 3
-                            ? "text-amber-700/70"
+                            ? "text-amber-600/90"
                             : user.rank === 4
-                            ? "text-indigo-500"
+                            ? "text-lime-500"
                             : user.rank === 5
                             ? "text-slate-400"
                             : user.rank === 9

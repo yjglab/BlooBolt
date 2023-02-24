@@ -193,15 +193,15 @@ const UserActivity = ({ owner, me, user }) => {
                                   />
                                 ) : tracer.rank === 0 ? null : (
                                   <ShieldCheckIcon
-                                    className={`w-4 flex-shrink-0 ${
+                                    className={`w-4 ml-0.5 flex-shrink-0 ${
                                       tracer.rank === 1
                                         ? "text-cyan-400"
                                         : tracer.rank === 2
                                         ? "text-amber-400"
                                         : tracer.rank === 3
-                                        ? "text-amber-700/70"
+                                        ? "text-amber-600/90"
                                         : tracer.rank === 4
-                                        ? "text-indigo-500"
+                                        ? "text-lime-500"
                                         : tracer.rank === 5
                                         ? "text-slate-400"
                                         : tracer.rank === 9
@@ -280,15 +280,15 @@ const UserActivity = ({ owner, me, user }) => {
                                     />
                                   ) : tracing.rank === 0 ? null : (
                                     <ShieldCheckIcon
-                                      className={`w-4 flex-shrink-0 ${
+                                      className={`w-4 ml-0.5 flex-shrink-0 ${
                                         tracing.rank === 1
                                           ? "text-cyan-400"
                                           : tracing.rank === 2
                                           ? "text-amber-400"
                                           : tracing.rank === 3
-                                          ? "text-amber-700/70"
+                                          ? "text-amber-600/90"
                                           : tracing.rank === 4
-                                          ? "text-indigo-500"
+                                          ? "text-lime-500"
                                           : tracing.rank === 5
                                           ? "text-slate-400"
                                           : tracing.rank === 9

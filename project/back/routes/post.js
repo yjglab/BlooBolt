@@ -441,7 +441,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
     }
     await User.increment(
       {
-        rankPoint: 10,
+        rankPoint: 520000,
       },
       {
         where: {

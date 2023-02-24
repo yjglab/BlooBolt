@@ -66,7 +66,6 @@ const PostForm = ({
       );
     } else {
       dispatch(openNotice({ content: "포스트가 업로드 되었습니다.", type: 1 }));
-      Router.replace("/square");
     }
   };
 

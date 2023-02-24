@@ -348,20 +348,20 @@ const PostSection = ({ post, detailed }) => {
                   <>
                     {post.User.rank === 6 ? (
                       <FaceSmileIcon
-                        className="w-3.5 ml-0.5 text-slate-400"
+                        className="w-4 ml-0.5 text-slate-400"
                         aria-hidden="true"
                       />
                     ) : post.User.rank === 0 ? null : (
                       <ShieldCheckIcon
-                        className={`w-3.5 flex-shrink-0 ${
+                        className={`w-4 ml-0.5 flex-shrink-0 ${
                           post.User.rank === 1
                             ? "text-cyan-400"
                             : post.User.rank === 2
                             ? "text-amber-400"
                             : post.User.rank === 3
-                            ? "text-amber-700/70"
+                            ? "text-amber-600/90"
                             : post.User.rank === 4
-                            ? "text-indigo-500"
+                            ? "text-lime-500"
                             : post.User.rank === 5
                             ? "text-slate-400"
                             : post.User.rank === 9
