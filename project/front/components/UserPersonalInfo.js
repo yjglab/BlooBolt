@@ -49,7 +49,7 @@ const UserPersonalInfo = ({ me }) => {
         <div className="lg:col-span-1">
           <div className="px-4 sm:px-0">
             <h3 className="text-lg font-medium leading-6 text-slate-600">
-              Personal Information
+              Private
             </h3>
             <p className="mt-1 text-xs text-slate-600">
               이 영역에 게시되는 정보는 공개되지 않습니다.

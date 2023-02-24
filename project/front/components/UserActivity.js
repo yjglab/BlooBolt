@@ -37,7 +37,7 @@ const UserActivity = ({ owner, me, user }) => {
   };
 
   return (
-    <div className={`${owner ? "w-[50%]" : "w-full"} px-3`}>
+    <div className={`${owner ? "sm:w-[50%]" : "w-full"} px-3`}>
       <div className="text-2xl font-semibold ">Activity</div>
 
       <div className="w-full  py-6 sm:px-0">
@@ -132,13 +132,14 @@ const UserActivity = ({ owner, me, user }) => {
                             </li>
                           </ul>
 
-                          <a
-                            href="#"
-                            className={classNames(
-                              "absolute inset-0 rounded-md ",
-                              "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
-                            )}
-                          />
+                          <Link href={`/post/${post.id}`}>
+                            <a
+                              className={classNames(
+                                "absolute inset-0 rounded-md ",
+                                "ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2"
+                              )}
+                            />
+                          </Link>
                         </li>
                       )
                   )

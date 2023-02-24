@@ -91,8 +91,8 @@ const Square = () => {
     <AppLayout>
       {me && togglePostForm && <PostForm onTogglePostForm={onTogglePostForm} />}
       <div className=" flex pb-20">
-        <div className="mt-16 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
-          <div className="px-3 text-2xl mb-8 flex justify-between items-center">
+        <div className="mt-14 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
+          <div className="px-3 h-20 text-2xl mb-8 flex justify-between items-center">
             <div
               onClick={onRefresh}
               className="cursor-pointer relative flex items-center font-bold left-1"

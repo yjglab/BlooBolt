@@ -34,6 +34,11 @@ router.get("/keyword/:word", async (req, res, next) => {
             },
           },
         ],
+        [Op.and]: [
+          {
+            blinded: false,
+          },
+        ],
       },
       limit: 12,
       order: [
@@ -77,7 +82,6 @@ router.get("/keyword/:word", async (req, res, next) => {
         },
       ],
     });
-    console.log("로디드드", loadedPosts);
     res.status(201).json(loadedPosts);
   } catch (error) {
     console.error(error);

@@ -558,7 +558,6 @@ router.get("/:postId/detail", async (req, res, next) => {
         },
       ],
     });
-    console.log(targetPost);
     if (targetPost) {
       res.status(201).json(targetPost);
     } else {

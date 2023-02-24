@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import AppLayout from "../components/AppLayout";
 import LoginForm from "../components/LoginForm";
 import { useSelector } from "react-redux";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import axios from "axios";
 import wrapper from "../store/configureStore";
 import { loadMe } from "../reducers/userSlice";
 
 const Login = () => {
   const { me } = useSelector((state) => state.user);
-
+  const router = useRouter();
   useEffect(() => {
     if (me && me.id) {
-      Router.push("/square");
+      router.back();
     }
   }, [me && me.id]);
 
