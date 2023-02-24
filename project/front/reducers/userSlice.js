@@ -23,11 +23,14 @@ export const initialState = {
   findPasswordLoading: false,
   findPasswordDone: false,
   findPasswordError: null,
+  signUpEmailAuthLoading: false,
+  signUpEmailAuthDone: false,
+  signUpEmailAuthError: null,
 
   me: null,
   user: null,
   activeUsers: null,
-  userMessage: null,
+  supportMessage: null,
 };
 
 export const loadActiveUsers = createAsyncThunk(
@@ -73,6 +76,18 @@ export const signUp = createAsyncThunk(
   async (info, thunkAPI) => {
     try {
       const { data } = await axios.post("/user/signup", info);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+export const signUpEmailAuth = createAsyncThunk(
+  "user/signUpEmailAuth",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.post(`/user/signup/auth`, info);
       return data;
     } catch (error) {
       console.error(error);
@@ -230,7 +245,19 @@ export const userSlice = createSlice({
         state.signUpDone = false;
         state.signUpError = payload;
       })
-
+      .addCase(signUpEmailAuth.pending, (state) => {
+        state.signUpEmailAuthLoading = true;
+        state.signUpEmailAuthError = null;
+      })
+      .addCase(signUpEmailAuth.fulfilled, (state, { payload }) => {
+        state.signUpEmailAuthLoading = false;
+        state.signUpEmailAuthDone = true;
+        state.supportMessage = payload.code;
+      })
+      .addCase(signUpEmailAuth.rejected, (state, { payload }) => {
+        state.signUpEmailAuthLoading = false;
+        state.signUpEmailAuthError = payload;
+      })
       .addCase(logIn.fulfilled, (state, { payload }) => {
         state.logInDone = true;
         state.me = payload;
@@ -314,7 +341,7 @@ export const userSlice = createSlice({
       .addCase(findPassword.fulfilled, (state, { payload }) => {
         state.findPasswordLoading = false;
         state.findPasswordDone = true;
-        state.userMessage = payload.message;
+        state.supportMessage = payload.message;
       })
       .addCase(findPassword.rejected, (state, { payload }) => {
         state.findPasswordLoading = false;

@@ -1,30 +1,37 @@
-import { UserPlusIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowPathIcon,
+  EnvelopeIcon,
+  UserPlusIcon,
+} from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 
-import { signUp } from "../reducers/userSlice";
+import { signUp, signUpEmailAuth } from "../reducers/userSlice";
 import { openNotice } from "../reducers/globalSlice";
 import Router from "next/router";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
-  const { signUpError } = useSelector((state) => state.user);
+  const { signUpError, signUpEmailAuthLoading, supportMessage } = useSelector(
+    (state) => state.user
+  );
+  const [signUpEmailSended, setSignUpEmailSended] = useState(false);
 
   const {
     register,
     handleSubmit,
     setError,
-
+    getValues,
     formState: { isSubmitting, errors },
   } = useForm();
 
   const onSignUp = (formData) => {
-    const { email, username, password, passwordCheck } = formData;
+    const { email, username, password, passwordCheck, signupCode } = formData;
     const slCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/g;
     if (username.search(/\s/) !== -1 || slCheck.test(username)) {
       return setError("username", {
@@ -41,6 +48,11 @@ const SignupForm = () => {
         message: "비밀번호 확인이 일치하지 않습니다",
       });
     }
+    if (signupCode !== supportMessage) {
+      return setError("signupCode", {
+        message: "인증코드가 일치하지 않습니다.",
+      });
+    }
     dispatch(
       signUp({
         email,
@@ -48,6 +60,12 @@ const SignupForm = () => {
         password,
       })
     );
+  };
+
+  const onSignUpEmailAuth = () => {
+    const authEmail = getValues("email");
+    dispatch(signUpEmailAuth({ authEmail }));
+    setSignUpEmailSended(true);
   };
 
   return (
@@ -194,16 +212,53 @@ const SignupForm = () => {
                     <>{errors.passwordCheck.message}</>
                   ) : errors.term ? (
                     <>{errors.term.message}</>
+                  ) : errors.signupCode ? (
+                    <>{errors.signupCode.message}</>
                   ) : signUpError ? (
                     <>{signUpError}</>
                   ) : (
                     ""
                   )}
                 </div>
+                {signUpEmailAuthLoading ? (
+                  <ArrowPathIcon className="w-8 left-0 right-0 mx-auto animate-spin" />
+                ) : signUpEmailSended ? (
+                  <div>
+                    <label htmlFor="signupCode" className="sr-only">
+                      Password
+                    </label>
+                    <input
+                      id="signupCode"
+                      type="password"
+                      placeholder="전송된 이메일 인증 코드 6자리를 입력해주세요."
+                      className="placeholder:text-slate-400 placeholder:text-sm relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      {...register("signupCode", {
+                        required: "비밀번호를 입력해주세요",
+                        maxLength: {
+                          value: 6,
+                        },
+                      })}
+                    />
+                  </div>
+                ) : (
+                  <button
+                    onClick={onSignUpEmailAuth}
+                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-slate-500 py-2 px-4 text-sm font-medium text-white hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+                  >
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                      <EnvelopeIcon
+                        className="h-5 w-5 text-slate-600 group-hover:text-indigo-50"
+                        aria-hidden="true"
+                      />
+                    </span>
+                    Email Authentication
+                  </button>
+                )}
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="group mt-1.5 relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                     <UserPlusIcon
@@ -211,7 +266,7 @@ const SignupForm = () => {
                       aria-hidden="true"
                     />
                   </span>
-                  Sign Up
+                  Join
                 </button>
               </div>
             </form>

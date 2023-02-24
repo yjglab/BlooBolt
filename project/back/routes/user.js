@@ -35,6 +35,44 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }, // 10mb
 });
 
+// signup 이메일 인증
+router.post("/signup/auth", isNotLoggedIn, async (req, res, next) => {
+  try {
+    const transporter = nodeMailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.MAIL_ADDRESS,
+        pass: process.env.MAIL_APP_PASSWORD,
+      },
+    });
+
+    const randomCode = Array(6)
+      .fill()
+      .map((v) => Math.floor(Math.random() * 10))
+      .join("");
+
+    const mailOptions = {
+      to: req.body.authEmail,
+      subject: "BlooBolt Support: 이메일 인증 메일입니다.",
+      html: `
+        BlooBolt에 오신 것을 환영합니다. 아래의 코드를 입력하고 가입을 완료하세요.<br/>
+        <h4>${randomCode}</h4>
+        <br/><br/>
+        <span>from. BlooBolt Support</span>
+        `,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({
+      code: randomCode,
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 router.post("/signup", isNotLoggedIn, async (req, res, next) => {
   try {
     const existedEmail = await User.findOne({
@@ -481,7 +519,7 @@ router.post("/support/password", isNotLoggedIn, async (req, res, next) => {
     const transporter = nodeMailer.createTransport({
       service: "gmail",
       auth: {
-        user: "bloobolt.co@gmail.com",
+        user: process.env.MAIL_ADDRESS,
         pass: process.env.MAIL_APP_PASSWORD,
       },
     });
@@ -491,7 +529,7 @@ router.post("/support/password", isNotLoggedIn, async (req, res, next) => {
       to: req.body.email,
       subject: "BlooBolt Support: 임시 비밀번호를 전송해드립니다.",
       html: `
-        임시 비밀번호를 전송해드립니다.<br/><br/>
+        임시 비밀번호를 전송해드립니다. 로그인 후 즉시 비밀번호를 변경하세요.<br/>
         <h4>${randomCode}</h4>
         <br/><br/>
         <span>from. BlooBolt Support</span>
@@ -512,7 +550,7 @@ router.post("/support/password", isNotLoggedIn, async (req, res, next) => {
     await transporter.sendMail(mailOptions);
 
     res.status(200).json({
-      message: `${req.body.email}로 임시 비밀번호를 전송했습니다. 로그인 후 즉시 비밀번호를 변경하세요.`,
+      message: `${req.body.email}로 임시 비밀번호를 전송했습니다.`,
     });
   } catch (error) {
     console.error(error);

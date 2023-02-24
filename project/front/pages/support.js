@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 
 const Support = () => {
   const dispatch = useDispatch();
-  const { me, findPasswordError, findPasswordLoading, userMessage } =
+  const { me, findPasswordError, findPasswordLoading, supportMessage } =
     useSelector((state) => state.user);
   const [findPasswordSended, setFindPasswordSended] = useState(false);
   const router = useRouter();
@@ -53,7 +53,7 @@ const Support = () => {
                 <span className="font-medium text-indigo-500 hover:text-indigo-500">
                   {!findPasswordSended
                     ? "등록된 이메일이 확인되면 임시 비밀번호를 전송해드립니다"
-                    : userMessage}
+                    : supportMessage}
                 </span>
               </p>
             </div>
