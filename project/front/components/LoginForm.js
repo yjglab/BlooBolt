@@ -43,7 +43,7 @@ const LoginForm = () => {
               Or{" "}
               <Link href="/signup">
                 <span className="font-medium text-indigo-500 hover:text-indigo-500">
-                  make your personal account
+                  make your personal account!
                 </span>
               </Link>
             </p>

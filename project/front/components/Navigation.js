@@ -9,6 +9,8 @@ import {
   ArrowUturnUpIcon,
   BuildingLibraryIcon,
   ChevronDownIcon,
+  FaceSmileIcon,
+  ShieldCheckIcon,
   UserCircleIcon,
   UserGroupIcon,
   UserIcon,
@@ -21,15 +23,13 @@ import { backUrl } from "../config/config";
 import { logOut } from "../reducers/userSlice";
 import { cancelAllPostImages } from "../reducers/postSlice";
 
-const recentPosts = [{ id: 1, name: "최근포스트", href: "#" }];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const { me, activeUsers } = useSelector((state) => state.user);
   const { loadPostsLoading } = useSelector((state) => state.post);
   const [helper, setHelper] = useState(false);
 
@@ -60,7 +60,7 @@ const Navigation = () => {
   return (
     <Popover className="fixed top-0 w-[100vw] left-0 z-50 bg-white shadow-xl shadow-slate-300/20">
       {loadPostsLoading ? (
-        <ArrowPathIcon className="bg-indigo-500 animate-spin p-1.5 rounded-full fixed w-10 text-white mx-auto left-0 right-0 bottom-10" />
+        <ArrowPathIcon className="bg-indigo-500 animate-spin p-2 rounded-full fixed w-10 text-white mx-auto left-0 right-0 bottom-10" />
       ) : null}
       {helper && (
         <button
@@ -71,21 +71,24 @@ const Navigation = () => {
         </button>
       )}
       <div className="">
-        <div className="px-6 flex  items-center justify-between  py-1.5 md:justify-start md:space-x-10">
-          <div className="flex justify-start lg:w-0 lg:flex-1 ">
-            <Link href="/square">
-              <div className="cursor-pointer flex items-center text-xl font-bold text-indigo-500">
-                <div className="h-8 w-8 relative mr-1.5">
-                  <Image
-                    className=" cursor-pointer w-full h-full"
-                    src={bloobolt_logo_nobg}
-                    alt="logo-image"
-                  />
+        <div className="px-6 flex  items-center justify-between  py-2 md:justify-start md:space-x-10">
+          <div className="lg:w-0 lg:flex-1 flex justify-start">
+            <div className="  ">
+              <Link href="/square">
+                <div className="cursor-pointer flex items-center text-xl font-bold text-indigo-500">
+                  <div className="h-7 w-7 relative mr-1.5">
+                    <Image
+                      className=" cursor-pointer w-full h-full"
+                      src={bloobolt_logo_nobg}
+                      alt="logo-image"
+                    />
+                  </div>
+                  <span className="sm:inline ">BlooBolt</span>
                 </div>
-                <span className="hidden sm:inline">BlooBolt</span>
-              </div>
-            </Link>
+              </Link>
+            </div>
           </div>
+
           <div className="-my-2 -mr-2 md:hidden">
             <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
               <span className="sr-only">Open menu</span>
@@ -296,30 +299,74 @@ const Navigation = () => {
                       </span>
                     </div>
                   </Link>
-                  {me && (
-                    <Link href={`/profile/${me.username}`}>
-                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
-                        <UserIcon
-                          className="h-6 w-6 flex-shrink-0 text-indigo-500"
-                          aria-hidden="true"
-                        />
-                        <span className="ml-3 text-base font-medium text-slate-600">
-                          Profile
-                        </span>
-                      </div>
-                    </Link>
-                  )}
+
+                  <Link href={me ? `/profile/${me.username}` : `/login`}>
+                    <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                      <UserIcon
+                        className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-3 text-base font-medium text-slate-600">
+                        Profile
+                      </span>
+                    </div>
+                  </Link>
                 </nav>
               </div>
             </div>
             <div className="space-y-6 py-6 px-5">
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-                <a
-                  href="#"
-                  className="text-base font-medium text-slate-600 hover:text-slate-600"
-                >
-                  Menu-01
-                </a>
+                {me && (
+                  <div className="mb-3 flex items-center">
+                    <Link href={`/profile/${me.username}`}>
+                      <img
+                        src={
+                          process.env.NODE_ENV === "production"
+                            ? ``
+                            : `${backUrl}/${me.avatar}`
+                        }
+                        className={`cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] ${
+                          activeUsers.includes(me.id) ? "border-indigo-500" : ""
+                        } p-0.5 rounded-full object-cover`}
+                      />
+                    </Link>
+                    <div className="ml-2 w-full flex flex-col">
+                      <Link href={`/profile/${me.username}`}>
+                        <h1 className="cursor-pointer text-md font-bold flex items-center">
+                          {me.username}
+                          <>
+                            {me.rank === 6 ? (
+                              <FaceSmileIcon
+                                className="w-3.5 ml-0.5 text-slate-400"
+                                aria-hidden="true"
+                              />
+                            ) : me.rank === 0 ? null : (
+                              <ShieldCheckIcon
+                                className={`w-3.5 flex-shrink-0 ${
+                                  me.rank === 1
+                                    ? "text-cyan-400"
+                                    : me.rank === 2
+                                    ? "text-amber-400"
+                                    : me.rank === 3
+                                    ? "text-amber-700/70"
+                                    : me.rank === 4
+                                    ? "text-indigo-500"
+                                    : me.rank === 5
+                                    ? "text-slate-400"
+                                    : me.rank === 9
+                                    ? "text-red-400"
+                                    : null
+                                }`}
+                                aria-hidden="true"
+                              />
+                            )}
+                          </>
+                        </h1>
+                      </Link>
+                      <h1 className="text-xs relative bottom-0.5">{me.role}</h1>
+                    </div>
+                  </div>
+                )}
               </div>
               <div>
                 {me ? (

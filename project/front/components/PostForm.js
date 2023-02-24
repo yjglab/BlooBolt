@@ -13,6 +13,7 @@ import {
   uploadPostImages,
 } from "../reducers/postSlice";
 import { openNotice } from "../reducers/globalSlice";
+import Router from "next/router";
 
 const PostForm = ({
   onTogglePostForm,
@@ -65,6 +66,7 @@ const PostForm = ({
       );
     } else {
       dispatch(openNotice({ content: "포스트가 업로드 되었습니다.", type: 1 }));
+      Router.replace("/square");
     }
   };
 
