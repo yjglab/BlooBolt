@@ -165,6 +165,7 @@ const PostSection = ({ post, detailed }) => {
         })
       );
     }
+
     dispatch(unprodPost({ postId: post.id, postUserId: post.User.id }));
   }, [id]);
   const onUnblindPost = useCallback(() => {
@@ -172,6 +173,14 @@ const PostSection = ({ post, detailed }) => {
       return dispatch(
         openNotice({
           content: "로그인이 필요합니다.",
+          type: 2,
+        })
+      );
+    }
+    if (me.rank > 5 && post.User.id !== me.id) {
+      return dispatch(
+        openNotice({
+          content: "Rank 5 사용자부터 확인할 수 있습니다.",
           type: 2,
         })
       );

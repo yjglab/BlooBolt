@@ -79,7 +79,7 @@ const Profile = () => {
                 </>
 
                 <span className="ml-2 text-xs bg-slate-400 px-2 py-0.5 text-white rounded-md">
-                  Rank Point{" "}
+                  Bloo Point{" "}
                   <span className="ml-1 font-bold ">{user.rankPoint}</span>
                 </span>
               </div>

@@ -51,7 +51,7 @@ const Hashtag = () => {
     <AppLayout>
       <div className="flex pb-20">
         <div className="mt-14 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
-          <div className="px-3 h-20 text-2xl mb-8 flex justify-between items-center">
+          <div className="px-3 h-20 text-2xl flex justify-between items-center">
             <div
               onClick={onRefresh}
               className="cursor-pointer relative flex items-center font-bold left-1"
@@ -59,6 +59,15 @@ const Hashtag = () => {
               <span>Square</span>
               <ArrowPathIcon className="ml-2  w-6 hover:animate-spin" />
             </div>
+          </div>
+
+          <div className="my-4 ml-2  ">
+            <span className="font-bold  text-indigo-500 mr-1.5">{tag}</span>
+            <span className="">Hashtagged </span>
+            <span className="font-bold  text-indigo-500">
+              {mainPosts.length}
+            </span>{" "}
+            Posts
           </div>
 
           <div className="grid auto-cols-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">

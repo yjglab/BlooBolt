@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Transition, Popover } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
@@ -6,6 +6,8 @@ import { Fragment } from "react";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import {
   ArrowPathIcon,
+  ArrowUturnUpIcon,
+  BuildingLibraryIcon,
   ChevronDownIcon,
   UserCircleIcon,
   UserGroupIcon,
@@ -29,6 +31,25 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
   const { loadPostsLoading } = useSelector((state) => state.post);
+  const [helper, setHelper] = useState(false);
+
+  useEffect(() => {
+    function onScreenScroll() {
+      if (window.scrollY + document.documentElement.clientHeight > 1250) {
+        setHelper(true);
+      } else {
+        setHelper(false);
+      }
+    }
+    window.addEventListener("scroll", onScreenScroll);
+    return () => {
+      window.removeEventListener("scroll", onScreenScroll);
+    };
+  }, []);
+
+  const onGotoTop = useCallback(() => {
+    window.scrollTo(0, 0);
+  });
 
   const onLogout = useCallback(() => {
     dispatch(logOut());
@@ -39,8 +60,16 @@ const Navigation = () => {
   return (
     <Popover className="fixed top-0 w-[100vw] left-0 z-50 bg-white shadow-xl shadow-slate-300/20">
       {loadPostsLoading ? (
-        <ArrowPathIcon className="bg-indigo-500 animate-spin p-1.5 rounded-full fixed w-10 text-white mx-auto left-0 right-0 bottom-7" />
+        <ArrowPathIcon className="bg-indigo-500 animate-spin p-1.5 rounded-full fixed w-10 text-white mx-auto left-0 right-0 bottom-10" />
       ) : null}
+      {helper && (
+        <button
+          onClick={onGotoTop}
+          className="hover:bg-indigo-600 hover:scale-105 p-3.5 bg-indigo-500 rounded-full fixed bottom-10 right-4"
+        >
+          <ArrowUturnUpIcon className="w-5 text-white shadow-lg" />
+        </button>
+      )}
       <div className="">
         <div className="px-6 flex  items-center justify-between  py-1.5 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1 ">
@@ -77,7 +106,7 @@ const Navigation = () => {
                       "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     )}
                   >
-                    <span>User Section</span>
+                    <span>Section</span>
                     <ChevronDownIcon
                       className={classNames(
                         open ? "text-slate-600" : "text-slate-400",
@@ -107,7 +136,7 @@ const Navigation = () => {
                               />
                               <div className="ml-4">
                                 <p className="text-base text-left font-medium text-slate-600">
-                                  User Square
+                                  Square
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
                                   새로운 주제를 제안해보세요.
@@ -128,15 +157,15 @@ const Navigation = () => {
                                   Profile
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  프로필을 수정할 수 있습니다.
+                                  프로필을 만들어보세요.
                                 </p>
                               </div>
                             </button>
                           </Link>
                         </div>
 
-                        <div className="bg-slate-50 px-5 py-5 sm:px-8 sm:py-8">
-                          <div>
+                        <div className="bg-slate-50 px-5 py-5 sm:px-8 sm:py-6">
+                          {/* <div>
                             <h3 className="text-base font-medium text-slate-500">
                               Recent Traced
                             </h3>
@@ -164,7 +193,7 @@ const Navigation = () => {
                               View all posts
                               <span aria-hidden="true"> &rarr;</span>
                             </a>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </Popover.Panel>
@@ -218,6 +247,7 @@ const Navigation = () => {
         </div>
       </div>
 
+      {/* 모바일 */}
       <Transition
         as={Fragment}
         enter="duration-200 ease-out"
@@ -257,7 +287,7 @@ const Navigation = () => {
                 <nav className="grid gap-y-8">
                   <Link href="/square">
                     <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
-                      <UserGroupIcon
+                      <BuildingLibraryIcon
                         className="h-6 w-6 flex-shrink-0 text-indigo-500"
                         aria-hidden="true"
                       />

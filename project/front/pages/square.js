@@ -78,7 +78,6 @@ const Square = () => {
     setKeywordSearching(true);
     dispatch(flushMainPosts());
     dispatch(loadPostsByKeyword({ keyword }));
-    reset();
   });
 
   const onRefresh = useCallback(() => {
@@ -92,7 +91,7 @@ const Square = () => {
       {me && togglePostForm && <PostForm onTogglePostForm={onTogglePostForm} />}
       <div className=" flex pb-20">
         <div className="mt-14 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
-          <div className="px-3 h-20 text-2xl mb-8 flex justify-between items-center">
+          <div className="px-3 h-20 text-2xl flex justify-between items-center">
             <div
               onClick={onRefresh}
               className="cursor-pointer relative flex items-center font-bold left-1"
@@ -126,7 +125,7 @@ const Square = () => {
                 <button
                   type="button"
                   onClick={onTogglePostForm}
-                  className="relative rounded-full hover:scale-105 p-3 right-1 ml-1.5 shadow bg-indigo-500 text-white hover:bg-indigo-600"
+                  className="relative animate-pulse hover:animate-none rounded-full hover:scale-105 p-3 right-1 ml-1.5 shadow bg-indigo-500 text-white hover:bg-indigo-600"
                 >
                   <PaperAirplaneIcon className="w-7" />
                 </button>
@@ -141,6 +140,19 @@ const Square = () => {
                 </Link>
               )}
             </div>
+          </div>
+
+          <div className="my-4 ml-2  ">
+            {keywordSearching && (
+              <>
+                <span className="">Searched </span>
+                <span className="font-bold text-lg text-indigo-500">
+                  {mainPosts.length}
+                </span>{" "}
+                Posts
+              </>
+            )}
+            <span className="opacity-0">.</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
