@@ -84,6 +84,10 @@ const Profile = () => {
                 </span>
               </div>
             </div>
+            <div className="mt-1.5 mb-3 text-sm">
+              {owner ? me.about : user.about}
+            </div>
+
             <div className="mt-1 flex gap-0 sm:gap-3 flex-col sm:flex-row sm:flex-wrap ">
               <div className="md:flex md:gap-3">
                 <div className="mt-2 flex items-center text-sm text-slate-500">
@@ -111,7 +115,7 @@ const Profile = () => {
                     className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
                     aria-hidden="true"
                   />
-                  {user.role}
+                  {owner ? me.role : user.role}
                 </div>
               </div>
               <div className="md:flex md:gap-3">
@@ -121,11 +125,11 @@ const Profile = () => {
                     aria-hidden="true"
                   />
                   <a
-                    href={user.website}
+                    href={owner ? me.website : user.website}
                     target="_blank"
                     rel="noreferrer noopenner"
                   >
-                    {user.website}
+                    {owner ? me.website : user.website}
                   </a>
                 </div>
                 <div className="mt-2 flex items-center text-sm text-slate-500">
@@ -133,7 +137,7 @@ const Profile = () => {
                     className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
                     aria-hidden="true"
                   />
-                  {user.country}
+                  {owner ? me.country : user.country}
                 </div>
               </div>
             </div>

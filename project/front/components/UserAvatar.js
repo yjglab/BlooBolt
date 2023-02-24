@@ -40,7 +40,7 @@ const UserAvatar = ({ avatarPath, owner }) => {
   };
 
   return (
-    <div className="shadow-lg overflow-hidden relative w-36 h-36 md:mr-5 mb-4 md:mb-0 rounded-full ">
+    <div className="shadow-lg overflow-hidden relative w-40 h-40 md:mr-5 mb-4 md:mb-0 rounded-full ">
       {owner && (
         <>
           <CameraIcon className="w-5 absolute z-10 mx-auto bottom-1 text-white left-0 right-0" />

@@ -2,75 +2,31 @@ import React from "react";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 import Image from "next/image";
 import Link from "next/link";
+import { BoltIcon } from "@heroicons/react/20/solid";
 
 const Footer = () => {
   return (
-    <footer className="p-4 w-full  md:px-6 md:py-8 bg-slate-50">
-      <div className="sm:flex sm:items-center sm:justify-between">
-        <a href="/" className="flex items-center mb-4 sm:mb-0">
-          <div className="h-8 w-8 relative mr-1.5">
-            <Image
-              className="h-full w-full mr-3.5 cursor-pointer "
-              src={bloobolt_logo_nobg}
-              alt="logo-image"
-            />
+    <footer className="mx-auto mt-32 w-full max-w-container px-4 sm:px-6 lg:px-8">
+      <div className="border-t border-slate-900/5 py-10">
+        <div className="flex w-36 items-center left-0 right-0 mx-auto">
+          <div className="w-7 h-7">
+            <Image src={bloobolt_logo_nobg} />
           </div>
-          <span className="self-center font-bold text-2xl  whitespace-nowrap text-indigo-500 ">
+          <span className="text-[22px] font-bold ml-1.5 text-indigo-500">
             BlooBolt
           </span>
-        </a>
-        <ul className="flex flex-wrap items-center mb-6 text-sm text-slate-400 sm:mb-0 ">
-          <li>
-            <a href="#" className="mr-4  md:mr-6  hover:text-slate-600">
-              About
-            </a>
-          </li>
-          <li>
-            <a href="#" className="mr-4  md:mr-6 hover:text-slate-600">
-              Privacy Policy
-            </a>
-          </li>
-          <li>
-            <a href="#" className="mr-4  md:mr-6 hover:text-slate-600">
-              Licensing
-            </a>
-          </li>
-          <li>
-            <a href="#" className=" hover:text-slate-600">
-              Contact
-            </a>
-          </li>
-        </ul>
-      </div>
-      <hr className="mb-5 mt-3 sm:mx-auto border-slate-400/60  lg:mt-5 lg:mb-7" />
-      <div className="sm:flex sm:items-center sm:justify-between">
-        <span className="text-sm text-slate-400 sm:text-center ">
-          © {new Date().getFullYear()} <Link href="/">BlooBolt</Link>. All
-          Rights Reserved.
-        </span>
-        <div className="flex  space-x-6 sm:justify-center ">
-          <a
-            href="https://github.com/yjglab"
-            target="_blank"
-            rel="noreferrer noopenner"
-            className="sm:flex text-sm items-center text-slate-400 hover:text-slate-600 "
-          >
-            <div>Powered by yjglab</div>
-
-            <svg
-              className="w-7 h-7 mt-3.5 sm:mt-0 sm:ml-2 "
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span className="sr-only">GitHub account</span>
-          </a>
+        </div>
+        <p className="mt-3 text-center text-sm leading-6 text-slate-500">
+          © {new Date().getFullYear()} BlooBolt. All rights reserved.
+        </p>
+        <p className="text-center  text-sm leading-6 text-slate-500">
+          <BoltIcon className="mr-0.5 w-3.5 inline relative bottom-[1px]" />
+          Powered by yjglab
+        </p>
+        <div className="mt-16 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-slate-700">
+          <a href="/privacy-policy">Privacy policy</a>
+          <div className="h-4 w-px bg-slate-500/20"></div>
+          <a href="/version">Version update</a>
         </div>
       </div>
     </footer>

@@ -7,9 +7,12 @@ import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import {
   ArrowPathIcon,
   ArrowUturnUpIcon,
+  BookOpenIcon,
   BuildingLibraryIcon,
   ChevronDownIcon,
+  CubeIcon,
   FaceSmileIcon,
+  LightBulbIcon,
   ShieldCheckIcon,
   UserCircleIcon,
   UserGroupIcon,
@@ -204,8 +207,12 @@ const Navigation = () => {
                 </>
               )}
             </Popover>
-
-            <Link href="/about">
+            <Link href="/guide">
+              <div className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500">
+                Guide
+              </div>
+            </Link>{" "}
+            <Link href="/">
               <div className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500">
                 About
               </div>
@@ -316,6 +323,28 @@ const Navigation = () => {
                       />
                       <span className="ml-3 text-base font-medium text-slate-600">
                         Profile
+                      </span>
+                    </div>
+                  </Link>
+                  <Link href={me ? `/profile/${me.username}` : `/login`}>
+                    <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                      <LightBulbIcon
+                        className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-3 text-base font-medium text-slate-600">
+                        Guide
+                      </span>
+                    </div>
+                  </Link>
+                  <Link href={me ? `/profile/${me.username}` : `/login`}>
+                    <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                      <CubeIcon
+                        className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-3 text-base font-medium text-slate-600">
+                        About
                       </span>
                     </div>
                   </Link>

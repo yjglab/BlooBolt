@@ -49,7 +49,7 @@ const Hashtag = () => {
 
   return (
     <AppLayout>
-      <div className="flex pb-20">
+      <div className="min-h-screen flex pb-20">
         <div className="mt-12 md:mt-16 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
           <div className="px-3 h-20 text-2xl flex justify-between items-center">
             <div

@@ -256,8 +256,10 @@ const PostSection = ({ post, detailed }) => {
       )}
       <div
         className={`${
-          detailed ? "min-h-[16rem]" : "h-[31.5rem]"
-        } p-1 bg-white relative rounded-2xl shadow overflow-hidden `}
+          detailed
+            ? "min-h-[16rem]"
+            : "hover:border-2 border-2 border-transparent duration-150 hover:border-slate-200 h-[31.5rem] shadow"
+        } p-1 bg-white relative rounded-2xl  overflow-hidden `}
       >
         {reportCheck && (
           <PostUserReport
@@ -288,7 +290,7 @@ const PostSection = ({ post, detailed }) => {
           </div>
         )}
         {post.blinded && blindPost && (
-          <div className="flex backdrop-saturate-0 gap-2 bg-slate-300/50 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur-md z-10">
+          <div className="flex backdrop-saturate-0 gap-2 bg-slate-400/20 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur-md z-10">
             <span className="text-sm text-slate-400">
               작성자에 의해 삭제되었습니다
             </span>
@@ -497,7 +499,7 @@ const PostSection = ({ post, detailed }) => {
 
           <div
             className={`${
-              detailed && "bg-white py-1.5 px-2.5 rounded-3xl"
+              detailed && "z-10 bg-white py-1.5 px-2.5 rounded-3xl"
             } flex justify-between items-center  absolute bottom-4 text-sm`}
           >
             <div className="flex gap-2">
@@ -573,17 +575,25 @@ const PostSection = ({ post, detailed }) => {
         )}
       </div>
       {detailed && (
-        <div className="mt-14">
-          <span className="font-bold text-lg">
-            Comments <span>({post.Comments.length})</span>
-          </span>
-          <div className="w-full mt-3 shadow rounded-2xl h-full p-3  bg-white/90  z-10">
-            <CommentArea
-              post={post}
-              onToggleCommentArea={onToggleCommentArea}
-            />
+        <>
+          <hr className="mt-14 mb-6" />
+          <div>
+            <span className="font-bold text-lg">
+              Comments <span>({post.Comments.length})</span>
+            </span>
+            <div
+              className={`${
+                detailed ? "" : "shadow"
+              } w-full mt-3  rounded-2xl h-full p-3  bg-white/90  z-10`}
+            >
+              <CommentArea
+                post={post}
+                detailed={detailed}
+                onToggleCommentArea={onToggleCommentArea}
+              />
+            </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );

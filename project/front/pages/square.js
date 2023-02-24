@@ -89,7 +89,7 @@ const Square = () => {
   return (
     <AppLayout>
       {me && togglePostForm && <PostForm onTogglePostForm={onTogglePostForm} />}
-      <div className=" flex pb-20">
+      <div className="min-h-screen flex pb-20">
         <div className="mt-12 md:mt-16 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
           <div className="px-3 h-20 text-2xl flex justify-between items-center">
             <div
@@ -155,7 +155,7 @@ const Square = () => {
             <span className="opacity-0">.</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
+          <div className="px-2 md:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
             {mainPosts.map((post) => (
               <PostSection
                 key={post.id}
