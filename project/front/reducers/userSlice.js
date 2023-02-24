@@ -212,7 +212,6 @@ export const userSlice = createSlice({
     builder
       .addCase(loadActiveUsers.fulfilled, (state, { payload }) => {
         state.loadActiveUsersDone = true;
-        console.log(payload);
         state.activeUsers = Object.values(payload)
           .map((v) => parseInt(Object.values(v)))
           .flat();

@@ -33,7 +33,7 @@ const Post = () => {
             </div>
           </div>
 
-          <div className="">
+          <div className="md:px-[20%]">
             <PostSection post={solePost} detailed={true} />
           </div>
         </div>

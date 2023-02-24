@@ -256,7 +256,7 @@ const PostSection = ({ post, detailed }) => {
       )}
       <div
         className={`${
-          detailed ? "" : "h-[31.5rem]"
+          detailed ? "min-h-[16rem]" : "h-[31.5rem]"
         } p-1 bg-white relative rounded-2xl shadow overflow-hidden `}
       >
         {reportCheck && (
@@ -302,23 +302,15 @@ const PostSection = ({ post, detailed }) => {
         )}
 
         {toggleCommentArea && (
-          <div className="w-full h-full p-3 absolute top-0 left-0 bg-white/90 backdrop-blur-sm z-10">
+          <div className="w-full h-full p-3 absolute top-0 left-0 bg-white  z-10">
             <CommentArea
               post={post}
               onToggleCommentArea={onToggleCommentArea}
             />
           </div>
         )}
-        {post.PostImages[0] && (
-          <div
-            className={`${
-              detailed ? "h-[50rem] gap-1" : "h-52 gap-1"
-            } flex rounded-t-xl  overflow-hidden`}
-          >
-            <PostImages postImages={post.PostImages} />
-          </div>
-        )}
-        <div className="p-5 pt-3  flex flex-col justify-between">
+
+        <div className="px-5 pt-3  flex flex-col justify-between">
           <Link href={!detailed ? `post/${post.id}` : "#"}>
             <div className={`${!detailed && "cursor-pointer"}`}>
               <small className="text-slate-400">
@@ -480,10 +472,10 @@ const PostSection = ({ post, detailed }) => {
             className={`${
               !detailed
                 ? post.PostImages[0]
-                  ? "max-h-[40%] line-clamp-5"
-                  : "max-h-[80%] line-clamp-[15] cursor-pointer"
+                  ? " line-clamp-4 mb-5"
+                  : " line-clamp-[15] cursor-pointer"
                 : ""
-            }  mb-8 h-full text-sm break-words  font-normal text-slate-600`}
+            }  h-full text-sm break-words  font-normal text-slate-600`}
           >
             {post.content.split(/(#[^\s#]+)/g).map((v, i) => {
               if (v.match(/(#[^\s#]+)/)) {
@@ -503,7 +495,11 @@ const PostSection = ({ post, detailed }) => {
             })}
           </p>
 
-          <div className="flex justify-between items-center  absolute bottom-4 text-sm ">
+          <div
+            className={`${
+              detailed && "bg-white py-1.5 px-2.5 rounded-3xl"
+            } flex justify-between items-center  absolute bottom-4 text-sm`}
+          >
             <div className="flex gap-2">
               {isProdded ? (
                 <button
@@ -525,13 +521,15 @@ const PostSection = ({ post, detailed }) => {
                 </button>
               )}
 
-              <button
-                onClick={onToggleCommentArea}
-                className="flex hover:scale-105 items-center gap-1 hover:text-indigo-500"
-              >
-                <ChatBubbleOvalLeftEllipsisIcon className="w-5" />
-                {post.Comments.length}
-              </button>
+              {!detailed && (
+                <button
+                  onClick={onToggleCommentArea}
+                  className="flex hover:scale-105 items-center gap-1 hover:text-indigo-500"
+                >
+                  <ChatBubbleOvalLeftEllipsisIcon className="w-5" />
+                  {post.Comments.length}
+                </button>
+              )}
 
               {post.User.id !== me?.id ? (
                 <button
@@ -556,6 +554,16 @@ const PostSection = ({ post, detailed }) => {
           </div>
         </div>
 
+        {post.PostImages[0] && (
+          <div
+            className={`${
+              detailed ? "mt-12 gap-1 w-full aspect-square" : "h-52 gap-1"
+            } flex rounded-xl  overflow-hidden`}
+          >
+            <PostImages postImages={post.PostImages} />
+          </div>
+        )}
+
         {!detailed && (
           <Link href={`/post/${post.id}`}>
             <button className="absolute hover:text-indigo-500 bottom-4 right-6">
@@ -569,7 +577,7 @@ const PostSection = ({ post, detailed }) => {
           <span className="font-bold text-lg">
             Comments <span>({post.Comments.length})</span>
           </span>
-          <div className="w-full mt-3 shadow-md rounded-2xl h-full p-3  bg-white/90  z-10">
+          <div className="w-full mt-3 shadow rounded-2xl h-full p-3  bg-white/90  z-10">
             <CommentArea
               post={post}
               onToggleCommentArea={onToggleCommentArea}

@@ -1,6 +1,5 @@
-import React, { Fragment, useCallback, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Menu, Transition } from "@headlessui/react";
 import CommentForm from "./CommentForm";
 import CommentSection from "./CommentSection";
 

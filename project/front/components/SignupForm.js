@@ -48,6 +48,11 @@ const SignupForm = () => {
         message: "비밀번호 확인이 일치하지 않습니다",
       });
     }
+    if (!signUpEmailSended) {
+      return setError("signupCode", {
+        message: "이메일 인증이 필요합니다.",
+      });
+    }
     if (signupCode !== supportMessage) {
       return setError("signupCode", {
         message: "인증코드가 일치하지 않습니다.",
@@ -221,7 +226,7 @@ const SignupForm = () => {
                   )}
                 </div>
                 {signUpEmailAuthLoading ? (
-                  <ArrowPathIcon className="w-8 left-0 right-0 mx-auto animate-spin" />
+                  <ArrowPathIcon className="w-7 left-0 right-0 mx-auto animate-spin" />
                 ) : signUpEmailSended ? (
                   <div>
                     <label htmlFor="signupCode" className="sr-only">

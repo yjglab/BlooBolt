@@ -59,6 +59,14 @@ const CommentSection = ({ post, comment }) => {
     },
   });
   const onEditCommentMode = useCallback(() => {
+    if (comment.User.id !== id) {
+      return dispatch(
+        openNotice({
+          content: "다른 사용자의 코멘트를 수정할 수 없습니다.",
+          type: 2,
+        })
+      );
+    }
     setEditCommentMode(true);
     setValue("content", `${comment.content}`);
   }, [editCommentMode, comment.content]);
@@ -76,6 +84,7 @@ const CommentSection = ({ post, comment }) => {
       if (!content.trim()) {
         return setError("content");
       }
+
       dispatch(
         editComment({
           content,
@@ -195,7 +204,7 @@ const CommentSection = ({ post, comment }) => {
       key={comment.id}
       className={`p-3 my-2.5 ${
         post.User.id === comment.User.id ? "bg-slate-50" : null
-      } hover:border-slate-200 border-white border rounded-md`}
+      } rounded-md`}
     >
       <div className="mb-1.5 flex items-center">
         <Link href={`/profile/${comment.User.username}`}>
@@ -303,20 +312,6 @@ const CommentSection = ({ post, comment }) => {
                     )}
                   </Menu.Item>
                 ) : null}
-                <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      className={classNames(
-                        active
-                          ? "bg-slate-100 text-slate-600"
-                          : "text-slate-600",
-                        "block px-4 py-2 text-sm text-left w-full"
-                      )}
-                    >
-                      Report
-                    </button>
-                  )}
-                </Menu.Item>
               </div>
             </Menu.Items>
           </Transition>

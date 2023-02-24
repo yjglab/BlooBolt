@@ -125,7 +125,7 @@ const Square = () => {
                 <button
                   type="button"
                   onClick={onTogglePostForm}
-                  className="relative animate-pulse hover:animate-none rounded-full hover:scale-105 p-3 right-1 ml-1.5 shadow bg-indigo-500 text-white hover:bg-indigo-600"
+                  className="relative  rounded-full hover:scale-105 p-3 right-1 ml-1.5 shadow bg-indigo-500 text-white hover:bg-indigo-600"
                 >
                   <PaperAirplaneIcon className="w-7" />
                 </button>
