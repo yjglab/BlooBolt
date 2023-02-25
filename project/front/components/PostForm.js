@@ -20,6 +20,7 @@ const PostForm = ({
   onTogglePostEditMode,
   post,
   postEditMode,
+  prevPostClass,
   prevTopic,
   prevContent,
   prevPostImages,
@@ -47,16 +48,22 @@ const PostForm = ({
   });
 
   const onUploadPost = (formData) => {
-    const { topic, content } = formData;
+    const { topic, content, postClass } = formData;
+    if (postClass === "default") {
+      return setError("postClass", {
+        message: "포스트 분류를 선택해주세요",
+      });
+    }
     if (!content.trim()) {
       return setError("content", {
         message: "빈 포스트를 업로드할 수 없습니다",
       });
     }
+
     reset();
     onTogglePostForm(false);
 
-    dispatch(uploadPost({ topic, content, postImagePaths }));
+    dispatch(uploadPost({ postClass, topic, content, postImagePaths }));
     if (me.rank === 0) {
       dispatch(
         openNotice({
@@ -70,16 +77,23 @@ const PostForm = ({
   };
 
   const onEditPost = (editedFormData) => {
-    const { topic, content } = editedFormData;
-
+    const { postClass, topic, content } = editedFormData;
+    if (postClass === "default") {
+      return setError("postClass", {
+        message: "포스트 분류를 선택해주세요",
+      });
+    }
     if (!content.trim()) {
       return setError("content", {
         message: "빈 포스트를 업로드할 수 없습니다",
       });
     }
+
     reset();
     onTogglePostEditMode(false);
-    dispatch(editPost({ PostId: post.id, topic, content, postImagePaths }));
+    dispatch(
+      editPost({ PostId: post.id, postClass, topic, content, postImagePaths })
+    );
     dispatch(
       openNotice({
         content: "포스트가 수정되었습니다.",
@@ -95,6 +109,7 @@ const PostForm = ({
   useEffect(() => {
     if (postEditMode) {
       onLoadPrevPostImages();
+      setValue("postClass", prevPostClass);
       setValue("topic", prevTopic ? prevTopic : "");
       setValue("content", prevContent);
     }
@@ -134,22 +149,46 @@ const PostForm = ({
             className="mb-8 w-full relative "
           >
             <div className="pt-4 pb-4 px-4 mb-2  bg-white w-full shadow-xl rounded-md   ">
-              <label
-                htmlFor="topic"
-                className="block text-sm font-medium text-slate-600"
-              ></label>
-              <input
-                id="topic"
-                type="text"
-                placeholder="토픽 설정"
-                className="my-1 px-1.5 py-1.5 block w-full placeholder:text-slate-300 text-sm rounded-md border-slate-300  focus:border-indigo-500 focus:ring-indigo-500 "
-                {...register("topic", {
-                  maxLength: {
-                    value: 30,
-                    message: "토픽은 30자 이내로 제한됩니다.",
-                  },
-                })}
-              />
+              <div className="flex my-1 gap-3 items-center justify-between">
+                <div className="w-full">
+                  <label
+                    htmlFor="topic"
+                    className="block text-sm font-medium text-slate-600"
+                  ></label>
+                  <input
+                    id="topic"
+                    type="text"
+                    placeholder="토픽 설정"
+                    className="px-1.5 py-2.5 block w-full placeholder:text-slate-300 text-sm rounded-md border-slate-300  focus:border-indigo-500 focus:ring-indigo-500 "
+                    {...register("topic", {
+                      maxLength: {
+                        value: 30,
+                        message: "토픽은 30자 이내로 제한됩니다.",
+                      },
+                    })}
+                  />
+                </div>
+                <div className="">
+                  <label
+                    htmlFor="postClass"
+                    className="block text-sm font-medium text-slate-600"
+                  ></label>
+                  <select
+                    id="postClass"
+                    name="postClass"
+                    className="relative block w-36 text-sm appearance-none rounded-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    {...register("postClass", {
+                      required: "포스트 분류를 선택해주세요.",
+                    })}
+                  >
+                    <option value="default">...분류</option>
+                    <option value="normal">일반</option>
+                    <option value="fedev">개발-프론트엔드</option>
+                    <option value="bedev">개발-백엔드</option>
+                    <option value="design">디자인-UX/UI</option>
+                  </select>
+                </div>
+              </div>
               <label htmlFor="content" className="sr-only"></label>
               <textarea
                 id="content"
@@ -253,6 +292,8 @@ const PostForm = ({
               <>{errors.topic.message}</>
             ) : errors.postImages ? (
               <>{errors.postImages.message}</>
+            ) : errors.postClass ? (
+              <>{errors.postClass.message}</>
             ) : uploadPostImagesError ? (
               <>{uploadPostImagesError}</>
             ) : (
@@ -270,6 +311,7 @@ PostForm.propTypes = {
   onTogglePostEditMode: PropTypes.func,
   post: PropTypes.object,
   postEditMode: PropTypes.bool,
+  prevPostClass: PropTypes.string,
   prevTopic: PropTypes.string,
   prevContent: PropTypes.string,
   prevPostImages: PropTypes.arrayOf(PropTypes.object),

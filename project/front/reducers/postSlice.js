@@ -397,6 +397,7 @@ export const postSlice = createSlice({
           ? state.solePost
           : state.mainPosts.find((v) => v.id === payload.PostId);
         post.topic = payload.topic;
+        post.class = payload.class;
         post.content = payload.content;
         post.PostImages = payload.PostImages;
         post.edited = true;

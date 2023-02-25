@@ -115,7 +115,7 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
       email: req.body.email,
       username: req.body.username,
       password: hashedPassword,
-      class: req.body.class,
+      class: req.body.userClass,
       avatar:
         "" || process.env.NODE_ENV === "production" ? "" : "base_avatar.png",
       rank: 0,

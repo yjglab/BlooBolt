@@ -92,12 +92,6 @@ const CommentSection = ({ post, comment }) => {
           commentId: comment.id,
         })
       );
-      dispatch(
-        openNotice({
-          content: "코멘트가 수정되었습니다.",
-          type: 1,
-        })
-      );
       reset();
       setEditCommentMode(false);
     },
@@ -222,40 +216,42 @@ const CommentSection = ({ post, comment }) => {
                 ? ``
                 : `${backUrl}/${comment.User.avatar}`
             }
-            className={`cursor-pointer h-[42px] w-[42px] ${"border-indigo-500"} border-[2.5px] p-0.5 rounded-full object-cover`}
+            className={`${
+              comment.User.class === "fedev"
+                ? "border-amber-400"
+                : comment.User.class === "bedev"
+                ? "border-emerald-400"
+                : comment.User.class === "design"
+                ? "border-red-400"
+                : "border-slate-400"
+            } cursor-pointer h-[42px] w-[42px] border-[2.5px] p-0.5 rounded-full object-cover`}
           />
         </Link>
         <div className="ml-2 w-full flex flex-col">
           <Link href={`/profile/${comment.User.username}`}>
             <h1 className="cursor-pointer text-sm font-bold flex items-center">
               {comment.User.username}
-              <>
+              <div
+                className={`${
+                  comment.User.class === "fedev"
+                    ? "text-amber-400"
+                    : comment.User.class === "bedev"
+                    ? "text-emerald-400"
+                    : comment.User.class === "design"
+                    ? "text-red-400"
+                    : "text-slate-400"
+                } flex gap-0.5 text-xs`}
+              >
                 {comment.User.rank === 6 ? (
-                  <FaceSmileIcon
-                    className="w-4 ml-0.5 text-slate-400"
-                    aria-hidden="true"
-                  />
+                  <FaceSmileIcon className="w-4 ml-0.5 " aria-hidden="true" />
                 ) : comment.User.rank === 0 ? null : (
                   <ShieldCheckIcon
-                    className={`w-4 ml-0.5 flex-shrink-0 ${
-                      comment.User.rank === 1
-                        ? "text-cyan-400"
-                        : comment.User.rank === 2
-                        ? "text-amber-400"
-                        : comment.User.rank === 3
-                        ? "text-amber-600/90"
-                        : comment.User.rank === 4
-                        ? "text-lime-500"
-                        : comment.User.rank === 5
-                        ? "text-slate-400"
-                        : comment.User.rank === 9
-                        ? "text-red-400"
-                        : null
-                    }`}
+                    className={`w-4 ml-0.5 flex-shrink-0 `}
                     aria-hidden="true"
                   />
                 )}
-              </>
+                {comment.User.rank}
+              </div>
             </h1>
           </Link>
           <h1 className="text-xs relative bottom-0.5">{comment.User.role}</h1>

@@ -56,13 +56,14 @@ const Hashtag = () => {
               onClick={onRefresh}
               className="cursor-pointer relative flex items-center font-bold left-1"
             >
-              <span>Square</span>
+              <span>
+                Hashtag <span className="text-indigo-500">#{tag}</span>
+              </span>
               <ArrowPathIcon className="ml-2  w-6 hover:animate-spin" />
             </div>
           </div>
 
-          <div className="my-4 ml-2  ">
-            <span className="font-bold  text-indigo-500 mr-1.5">{tag}</span>
+          <div className="my-4 px-2 ">
             <span className="">Hashtagged </span>
             <span className="font-bold  text-indigo-500">
               {mainPosts.length}
@@ -70,7 +71,7 @@ const Hashtag = () => {
             Posts
           </div>
 
-          <div className="grid auto-cols-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+          <div className="px-2 md:px-4 grid auto-cols-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
             {mainPosts.map((post) => (
               <PostSection key={post.id} post={post} detailed={false} />
             ))}

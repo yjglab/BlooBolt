@@ -177,7 +177,7 @@ const PostSection = ({ post, detailed }) => {
         })
       );
     }
-    if (me.rank > 5 && post.User.id !== me.id) {
+    if (me.rank === 0 || (me.rank > 5 && post.User.id !== me.id)) {
       return dispatch(
         openNotice({
           content: "Rank 5 사용자부터 확인할 수 있습니다.",
@@ -249,6 +249,7 @@ const PostSection = ({ post, detailed }) => {
           postEditMode={postEditMode}
           onTogglePostEditMode={onTogglePostEditMode}
           post={post}
+          prevPostClass={post.class}
           prevTopic={post.topic}
           prevContent={post.content}
           prevPostImages={post.PostImages}
@@ -258,7 +259,7 @@ const PostSection = ({ post, detailed }) => {
         className={`${
           detailed
             ? "min-h-[16rem]"
-            : "hover:border-2 border-2 border-transparent duration-150 hover:border-slate-200 h-[31.5rem] shadow"
+            : "duration-150 shadow-slate-300 hover:shadow-slate-400 h-[31.5rem] shadow"
         } p-1 bg-white relative rounded-2xl  overflow-hidden `}
       >
         {reportCheck && (
@@ -307,6 +308,7 @@ const PostSection = ({ post, detailed }) => {
           <div className="w-full h-full p-3 absolute top-0 left-0 bg-white  z-10">
             <CommentArea
               post={post}
+              detailed={detailed}
               onToggleCommentArea={onToggleCommentArea}
             />
           </div>
@@ -338,40 +340,45 @@ const PostSection = ({ post, detailed }) => {
                     ? ``
                     : `${backUrl}/${post.User.avatar}`
                 }
-                className={`cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] ${"border-amber-400"} p-0.5 rounded-full object-cover`}
+                className={`${
+                  post.User.class === "fedev"
+                    ? "border-amber-400"
+                    : post.User.class === "bedev"
+                    ? "border-emerald-400"
+                    : post.User.class === "design"
+                    ? "border-red-400"
+                    : "border-slate-400"
+                } cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
               />
             </Link>
             <div className="ml-2 w-full flex flex-col">
               <Link href={`/profile/${post.User.username}`}>
-                <h1 className="cursor-pointer text-md font-bold flex items-center">
+                <h1 className="cursor-pointer text-sm font-bold flex items-center">
                   {post.User.username}
-                  <>
+                  <div
+                    className={`${
+                      post.User.class === "fedev"
+                        ? "text-amber-400"
+                        : post.User.class === "bedev"
+                        ? "text-emerald-400"
+                        : post.User.class === "design"
+                        ? "text-red-400"
+                        : "text-slate-400"
+                    } flex gap-0.5 text-xs`}
+                  >
                     {post.User.rank === 6 ? (
                       <FaceSmileIcon
-                        className="w-4 ml-0.5 text-slate-400"
+                        className="w-4 ml-0.5 "
                         aria-hidden="true"
                       />
                     ) : post.User.rank === 0 ? null : (
                       <ShieldCheckIcon
-                        className={`w-4 ml-0.5 flex-shrink-0 ${
-                          post.User.rank === 1
-                            ? "text-cyan-400"
-                            : post.User.rank === 2
-                            ? "text-amber-400"
-                            : post.User.rank === 3
-                            ? "text-amber-600/90"
-                            : post.User.rank === 4
-                            ? "text-lime-500"
-                            : post.User.rank === 5
-                            ? "text-slate-400"
-                            : post.User.rank === 9
-                            ? "text-red-400"
-                            : null
-                        }`}
+                        className={`w-4 ml-0.5 flex-shrink-0 `}
                         aria-hidden="true"
                       />
                     )}
-                  </>
+                    {post.User.rank}
+                  </div>
                 </h1>
               </Link>
               <h1 className="text-xs relative bottom-0.5">{post.User.role}</h1>
@@ -497,7 +504,7 @@ const PostSection = ({ post, detailed }) => {
 
           <div
             className={`${
-              detailed && "z-10 bg-white py-1.5 px-2.5 rounded-3xl"
+              detailed && "z-10 bg-white py-1.5  rounded-3xl"
             } flex justify-between items-center  absolute bottom-4 text-sm`}
           >
             <div className="flex gap-2">
@@ -575,8 +582,8 @@ const PostSection = ({ post, detailed }) => {
       {detailed && (
         <>
           <hr className="mt-14 mb-6" />
-          <div>
-            <span className="font-bold text-lg">
+          <div className="px-2">
+            <span className="px-4 font-bold text-lg">
               Comments <span>({post.Comments.length})</span>
             </span>
             <div

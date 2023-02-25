@@ -96,14 +96,14 @@ const Square = () => {
               onClick={onRefresh}
               className="cursor-pointer relative flex items-center font-bold left-1"
             >
-              <span>Square</span>
+              <span>Public Square</span>
               {keywordSearching && (
                 <ArrowPathIcon className="ml-2  w-6 hover:animate-spin" />
               )}
             </div>
 
             <div className="flex items-center">
-              <div className="flex bg-white rounded-md mr-3 border-[1.5px]   ">
+              <div className="hidden sm:flex bg-white rounded-md mr-3 border-[1.5px]   ">
                 <form
                   className="flex h-8 p-1"
                   onSubmit={handleSubmit(onSearchPosts)}
@@ -112,8 +112,8 @@ const Square = () => {
                   <input
                     id="keyword"
                     name="keyword"
-                    className="p-2 w-24 md:w-36 text-sm h-full outline-none bg-white placeholder:text-sm placeholder:text-slate-300 flex-1 text-slate-600 focus:bg-white focus:ring-0 rounded-md  sm:text-sm"
-                    placeholder="Search Post"
+                    className="p-2 w-20 md:w-36 text-sm h-full outline-none bg-white placeholder:text-sm placeholder:text-slate-300 flex-1 text-slate-600 focus:bg-white focus:ring-0 rounded-md  sm:text-sm"
+                    placeholder="포스트 검색"
                     {...register("keyword", {})}
                   />
                   <button type="submit">
@@ -142,17 +142,37 @@ const Square = () => {
             </div>
           </div>
 
-          <div className="my-4 ml-2  ">
-            {keywordSearching && (
-              <>
-                <span className="">Searched </span>
-                <span className="font-bold text-lg text-indigo-500">
-                  {mainPosts.length}
-                </span>{" "}
-                Posts
-              </>
-            )}
-            <span className="opacity-0">.</span>
+          <div className="my-4 px-2 flex justify-between items-center">
+            <div>
+              {keywordSearching && (
+                <>
+                  <span className="">Searched </span>
+                  <span className="font-bold text-lg text-indigo-500">
+                    {mainPosts.length}
+                  </span>{" "}
+                  Posts
+                </>
+              )}
+              <span className="opacity-0">.</span>
+            </div>
+            <div className="flex sm:hidden bg-white rounded-md  border-[1.5px]   ">
+              <form
+                className="flex h-8 p-1"
+                onSubmit={handleSubmit(onSearchPosts)}
+              >
+                <label htmlFor="keyword"></label>
+                <input
+                  id="keyword"
+                  name="keyword"
+                  className="p-2 w-20 md:w-36 text-sm h-full outline-none bg-white placeholder:text-sm placeholder:text-slate-300 flex-1 text-slate-600 focus:bg-white focus:ring-0 rounded-md  sm:text-sm"
+                  placeholder="포스트 검색"
+                  {...register("keyword", {})}
+                />
+                <button type="submit">
+                  <MagnifyingGlassIcon className="w-6 cursor-pointer hover:text-indigo-500 hover:scale-105 mr-2 ml-1" />
+                </button>
+              </form>
+            </div>
           </div>
 
           <div className="px-2 md:px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5">

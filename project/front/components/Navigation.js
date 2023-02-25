@@ -15,7 +15,11 @@ import {
   CubeIcon,
   FaceSmileIcon,
   LightBulbIcon,
+  MegaphoneIcon,
   PaintBrushIcon,
+  RectangleGroupIcon,
+  ServerIcon,
+  ServerStackIcon,
   ShieldCheckIcon,
   UserCircleIcon,
   UserGroupIcon,
@@ -83,7 +87,7 @@ const Navigation = () => {
           <div className="lg:w-0 lg:flex-1 flex justify-start">
             <div className="  ">
               <Link href="/square">
-                <div className="cursor-pointer flex items-center text-xl font-bold text-indigo-500">
+                <div className="cursor-pointer flex items-center text-xl font-bold ">
                   <div className="h-7 w-7 relative mr-1.5">
                     <Image
                       className=" cursor-pointer w-full h-full"
@@ -91,7 +95,7 @@ const Navigation = () => {
                       alt="logo-image"
                     />
                   </div>
-                  <span className="sm:inline ">BlooBolt</span>
+                  <span className="sm:inline text-indigo-500">BlooBolt</span>
                 </div>
               </Link>
             </div>
@@ -154,19 +158,35 @@ const Navigation = () => {
                                 </p>
                               </div>
                             </button>
-                          </Link>
+                          </Link>{" "}
                           <Link href="/square">
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
-                              <CommandLineIcon
+                              <RectangleGroupIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500"
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
                                 <p className="text-base text-left font-medium text-slate-600">
-                                  Development Square
+                                  Frontend Square
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  개발 스퀘어
+                                  프론트엔드 스퀘어
+                                </p>
+                              </div>
+                            </button>
+                          </Link>
+                          <Link href="/square">
+                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
+                              <ServerIcon
+                                className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                                aria-hidden="true"
+                              />
+                              <div className="ml-4">
+                                <p className="text-base text-left font-medium text-slate-600">
+                                  Backend Square
+                                </p>
+                                <p className="mt-0.5 text-xs text-slate-500 text-left">
+                                  백엔드 스퀘어
                                 </p>
                               </div>
                             </button>
@@ -189,16 +209,16 @@ const Navigation = () => {
                           </Link>
                           <Link href="/square">
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
-                              <WrenchScrewdriverIcon
+                              <MegaphoneIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500"
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
                                 <p className="text-base text-left font-medium text-slate-600">
-                                  Help Wanted
+                                  Member Wanted
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  인력 구해요!
+                                  멤버 구해요!
                                 </p>
                               </div>
                             </button>

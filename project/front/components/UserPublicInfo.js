@@ -101,6 +101,30 @@ const UserPublicInfo = ({ me }) => {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label
+                    htmlFor="userClass"
+                    className="block text-sm font-medium text-slate-600"
+                  >
+                    직군
+                  </label>
+                  <input
+                    id="userClass"
+                    type="text"
+                    name="userClass"
+                    disabled={true}
+                    placeholder={
+                      me.class === "fedev"
+                        ? "Front-end Developer"
+                        : me.class === "bedev"
+                        ? "Back-end Developer"
+                        : me.class === "design"
+                        ? "Designer"
+                        : "Normal"
+                    }
+                    className="cursor-not-allowed placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  />
+                </div>
+                <div className="col-span-6 sm:col-span-3">
+                  <label
                     htmlFor="role"
                     className="block text-sm font-medium text-slate-600"
                   >
@@ -220,7 +244,7 @@ const UserPublicInfo = ({ me }) => {
                       placeholder="안녕하세요."
                       {...register("about", {
                         maxLength: {
-                          value: 20,
+                          value: 50,
                           message: "50자 이하의 소개문을 입력해주세요",
                         },
                       })}

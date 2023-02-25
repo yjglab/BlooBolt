@@ -8,6 +8,7 @@ import {
   PauseCircleIcon,
   PlayCircleIcon,
   ShieldCheckIcon,
+  UserIcon,
   WindowIcon,
 } from "@heroicons/react/20/solid";
 import AppLayout from "../../components/AppLayout";
@@ -42,41 +43,29 @@ const Profile = () => {
                 {user.username}
               </h2>
               <div className="flex items-center mt-4 md:mt-1 mb-2">
-                <>
+                <div className={`flex gap-0.5 text-xs text-slate-400`}>
                   <Link href="#">
                     {user.rank === 6 ? (
                       <FaceSmileIcon
-                        className="w-5 ml-0.5 text-slate-400"
+                        className="w-5 ml-0.5 "
                         aria-hidden="true"
                       />
                     ) : user.rank === 0 ? (
-                      <span className="cursor-pointer  px-2 py-0.5 rounded-md bg-slate-400 relative  text-xs text-white">
+                      <span className="cursor-pointer  px-2 py-0.5 rounded-md border border-slate-400 relative  text-xs ">
                         Not Ranked
                       </span>
                     ) : (
                       <ShieldCheckIcon
-                        className={`w-5 ml-0.5 flex-shrink-0 ${
-                          user.rank === 1
-                            ? "text-cyan-400"
-                            : user.rank === 2
-                            ? "text-amber-400"
-                            : user.rank === 3
-                            ? "text-amber-600/90"
-                            : user.rank === 4
-                            ? "text-lime-500"
-                            : user.rank === 5
-                            ? "text-slate-400"
-                            : user.rank === 9
-                            ? "text-red-400"
-                            : null
-                        }`}
+                        className={`w-4 ml-0.5 flex-shrink-0 `}
                         aria-hidden="true"
                       />
                     )}
                   </Link>{" "}
                   <span className="text-sm ml-1">Rank</span>
-                  <span className="text-sm ml-1 font-bold">{user.rank}</span>
-                </>
+                  <span className="text-sm ml-1 font-bold">
+                    {user.rank === 0 ? "-" : user.rank}
+                  </span>
+                </div>
 
                 <span className="ml-2 text-xs bg-slate-400 px-2 py-0.5 text-white rounded-md">
                   Bloo Point{" "}
@@ -91,10 +80,39 @@ const Profile = () => {
             <div className="mt-1 flex gap-0 sm:gap-3 flex-col sm:flex-row sm:flex-wrap ">
               <div className="md:flex md:gap-3">
                 <div className="mt-2 flex items-center text-sm text-slate-500">
-                  <PlayCircleIcon
-                    className="mr-1.5 h-5 w-5 flex-shrink-0 text-indigo-500"
-                    aria-hidden="true"
-                  />
+                  {user.class === "fedev" ? (
+                    <>
+                      <UserIcon
+                        className="mr-1.5 h-5 w-5 flex-shrink-0 text-amber-400"
+                        aria-hidden="true"
+                      />
+                      Frontend Developer
+                    </>
+                  ) : user.class === "bedev" ? (
+                    <>
+                      <UserIcon
+                        className="mr-1.5 h-5 w-5 flex-shrink-0 text-emerald-500"
+                        aria-hidden="true"
+                      />
+                      Backend Developer
+                    </>
+                  ) : user.class === "design" ? (
+                    <>
+                      <UserIcon
+                        className="mr-1.5 h-5 w-5 flex-shrink-0 text-red-400"
+                        aria-hidden="true"
+                      />
+                      Designer
+                    </>
+                  ) : (
+                    <>
+                      <UserIcon
+                        className="mr-1.5 h-5 w-5 flex-shrink-0 text-slate-400"
+                        aria-hidden="true"
+                      />
+                      Normal
+                    </>
+                  )}
                 </div>
 
                 <div className="mt-2 flex items-center text-sm text-slate-500">

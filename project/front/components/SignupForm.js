@@ -31,7 +31,9 @@ const SignupForm = () => {
   } = useForm();
 
   const onSignUp = (formData) => {
-    const { email, username, password, passwordCheck, signupCode } = formData;
+    const { email, username, password, passwordCheck, userClass, signupCode } =
+      formData;
+    console.log(userClass);
     const slCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/g;
     if (username.search(/\s/) !== -1 || slCheck.test(username)) {
       return setError("username", {
@@ -46,6 +48,11 @@ const SignupForm = () => {
     if (password !== passwordCheck) {
       return setError("passwordCheck", {
         message: "비밀번호 확인이 일치하지 않습니다",
+      });
+    }
+    if (userClass === "default") {
+      return setError("userClass", {
+        message: "직군을 선택해주세요.",
       });
     }
     if (!signUpEmailSended) {
@@ -63,6 +70,7 @@ const SignupForm = () => {
         email,
         username,
         password,
+        userClass,
       })
     );
   };
@@ -75,7 +83,7 @@ const SignupForm = () => {
 
   return (
     <AppLayout>
-      <div className="h-screen bg-slate-50">
+      <div className="h-screen ">
         <div className="flex h-full  items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-md space-y-8">
             <div>
@@ -86,31 +94,24 @@ const SignupForm = () => {
                   alt="logo-image"
                 />
               </div>
-              <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-slate-600">
-                Welcome BlooBolt
+              <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-slate-600">
+                BlooBolt에 오신것을 환영합니다
               </h2>
               <p className="mt-2 text-center text-sm text-slate-600">
-                <Link href="/login">
-                  <span
-                    href="/login"
-                    className="font-medium text-indigo-500 hover:text-indigo-500"
-                  >
-                    Already have an account?
-                  </span>
-                </Link>
+                <span className="font-medium text-slate-500 ">
+                  BlooBolt는 개발과 디자인 직군 근무자들의 작은 소통창구입니다
+                </span>
               </p>
             </div>
             <form className="mt-8 space-y-3" onSubmit={handleSubmit(onSignUp)}>
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="-space-y-px rounded-md ">
                 <div>
-                  <label htmlFor="email" className="sr-only">
-                    Email address
-                  </label>
+                  <label htmlFor="email" className="sr-only"></label>
                   <input
                     id="email"
                     type="text"
-                    placeholder="Email address"
+                    placeholder="이메일 주소"
                     className="relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("email", {
                       required: "이메일은 필수 입력입니다",
@@ -124,14 +125,12 @@ const SignupForm = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="username" className="sr-only">
-                    User Name
-                  </label>
+                  <label htmlFor="username" className="sr-only"></label>
                   <input
                     id="username"
                     type="text"
                     className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="User Name"
+                    placeholder="사용자명"
                     {...register("username", {
                       required: "사용자명은 필수 입력입니다",
                       minLength: {
@@ -146,13 +145,11 @@ const SignupForm = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="password" className="sr-only">
-                    Password
-                  </label>
+                  <label htmlFor="password" className="sr-only"></label>
                   <input
                     id="password"
                     type="password"
-                    placeholder="Password"
+                    placeholder="비밀번호"
                     className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("password", {
                       required: "비밀번호를 입력해주세요",
@@ -168,18 +165,36 @@ const SignupForm = () => {
                   />
                 </div>
                 <div className="relative flex items-center">
-                  <label htmlFor="passwordCheck" className="sr-only">
-                    Password Check
-                  </label>
+                  <label htmlFor="passwordCheck" className="sr-only"></label>
                   <input
                     id="passwordCheck"
                     type="password"
-                    placeholder="Password Check"
-                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    placeholder="비밀번호 확인"
+                    className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("passwordCheck", {
                       required: "",
                     })}
                   />
+                </div>
+                <div className="">
+                  <label
+                    htmlFor="userClass"
+                    className="block text-sm font-medium text-slate-600"
+                  ></label>
+                  <select
+                    id="userClass"
+                    name="userClass"
+                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    {...register("userClass", {
+                      required: "직군을 선택해주세요.",
+                    })}
+                  >
+                    <option value="default">...직군을 선택해주세요</option>
+                    <option value="fedev">개발-프론트엔드</option>
+                    <option value="bedev">개발-백엔드</option>
+                    <option value="design">디자인-UX/UI</option>
+                    <option value="normal">일반</option>
+                  </select>
                 </div>
               </div>
 
@@ -197,9 +212,14 @@ const SignupForm = () => {
                     htmlFor="term"
                     className="ml-2 block text-sm text-slate-600"
                   >
-                    Subscribe Terms of Service.
+                    BlooBolt 서비스 가입 약관에 동의합니다.
                   </label>
                 </div>
+                <Link href="/login">
+                  <span className="cursor-pointer text-sm text-indigo-500 hover:text-indigo-500">
+                    이미 회원입니다.
+                  </span>
+                </Link>
               </div>
 
               <div>
@@ -217,6 +237,8 @@ const SignupForm = () => {
                     <>{errors.passwordCheck.message}</>
                   ) : errors.term ? (
                     <>{errors.term.message}</>
+                  ) : errors.userClass ? (
+                    <>{errors.userClass.message}</>
                   ) : errors.signupCode ? (
                     <>{errors.signupCode.message}</>
                   ) : signUpError ? (
@@ -238,7 +260,7 @@ const SignupForm = () => {
                       placeholder="전송된 이메일 인증 코드 6자리를 입력해주세요."
                       className="placeholder:text-slate-400 placeholder:text-sm relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       {...register("signupCode", {
-                        required: "비밀번호를 입력해주세요",
+                        required: "인증코드를 입력해주세요.",
                         maxLength: {
                           value: 6,
                         },

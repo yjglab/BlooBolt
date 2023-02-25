@@ -264,6 +264,7 @@ export const userSlice = createSlice({
         state.me.country = payload.country;
         state.me.website = payload.website;
         state.me.about = payload.about;
+        state.me.class = payload.class;
       })
       .addCase(changeMyPublicInfo.rejected, (state, { payload }) => {
         state.changeMyPublicInfoError = payload;
