@@ -8,7 +8,7 @@ import Router, { useRouter } from "next/router";
 import { loadSolePost } from "../../reducers/postSlice";
 import wrapper from "../../store/configureStore";
 import axios from "axios";
-import { loadActiveUsers, loadMe } from "../../reducers/userSlice";
+import { loadMe } from "../../reducers/userSlice";
 import { ArrowPathIcon } from "@heroicons/react/20/solid";
 
 const Post = () => {
@@ -52,7 +52,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     await context.store.dispatch(loadMe());
     await context.store.dispatch(loadSolePost({ postId: context.params.id }));
-    await context.store.dispatch(loadActiveUsers());
 
     return {
       props: { message: "" },

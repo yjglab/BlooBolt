@@ -33,7 +33,7 @@ function classNames(...classes) {
 const CommentSection = ({ post, comment }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
-  const { me, activeUsers } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
 
   const [extendComment, setExtendComment] = useState(false);
   const [editCommentMode, setEditCommentMode] = useState(false);
@@ -222,9 +222,7 @@ const CommentSection = ({ post, comment }) => {
                 ? ``
                 : `${backUrl}/${comment.User.avatar}`
             }
-            className={`cursor-pointer h-[42px] w-[42px] ${
-              activeUsers.includes(post.User.id) ? "border-indigo-500" : ""
-            } border-[2.5px] p-0.5 rounded-full object-cover`}
+            className={`cursor-pointer h-[42px] w-[42px] ${"border-indigo-500"} border-[2.5px] p-0.5 rounded-full object-cover`}
           />
         </Link>
         <div className="ml-2 w-full flex flex-col">

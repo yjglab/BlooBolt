@@ -8,8 +8,6 @@ export const initialState = {
   loadMeError: null,
   loadUserDone: false,
   loadUserError: null,
-  loadActiveUsersDone: false,
-  loadActiveUsersError: null,
   signUpDone: false,
   signUpError: null,
   logInDone: false,
@@ -29,22 +27,9 @@ export const initialState = {
 
   me: null,
   user: null,
-  activeUsers: null,
   supportMessage: null,
 };
 
-export const loadActiveUsers = createAsyncThunk(
-  "users/loadActiveUsers",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.get("/users/status");
-      return data;
-    } catch (error) {
-      console.error(error);
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
 export const loadMe = createAsyncThunk(
   "user/loadMe",
   async (info, thunkAPI) => {
@@ -210,16 +195,7 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loadActiveUsers.fulfilled, (state, { payload }) => {
-        state.loadActiveUsersDone = true;
-        state.activeUsers = Object.values(payload)
-          .map((v) => parseInt(Object.values(v)))
-          .flat();
-      })
-      .addCase(loadActiveUsers.rejected, (state, { payload }) => {
-        state.loadActiveUsersDone = false;
-        state.loadActiveUsersError = payload;
-      })
+
       .addCase(loadMe.fulfilled, (state, { payload }) => {
         state.loadMeDone = true;
         state.me = payload;

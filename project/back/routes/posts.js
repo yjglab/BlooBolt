@@ -49,7 +49,7 @@ router.get("/keyword/:word", async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username", "role", "avatar", "rank"],
+          attributes: ["id", "class", "username", "role", "avatar", "rank"],
           include: [
             {
               model: UserReport,
@@ -71,7 +71,7 @@ router.get("/keyword/:word", async (req, res, next) => {
           include: [
             {
               model: User,
-              attributes: ["id", "username", "role", "avatar", "rank"],
+              attributes: ["id", "class", "username", "role", "avatar", "rank"],
             },
             {
               model: User,
@@ -106,7 +106,7 @@ router.get("/", async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username", "role", "avatar", "rank"],
+          attributes: ["id", "class", "username", "role", "avatar", "rank"],
           include: [
             {
               model: UserReport,
@@ -128,7 +128,7 @@ router.get("/", async (req, res, next) => {
           include: [
             {
               model: User,
-              attributes: ["id", "username", "role", "avatar", "rank"],
+              attributes: ["id", "class", "username", "role", "avatar", "rank"],
             },
             {
               model: User,

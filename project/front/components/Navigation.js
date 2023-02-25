@@ -10,13 +10,18 @@ import {
   BookOpenIcon,
   BuildingLibraryIcon,
   ChevronDownIcon,
+  CodeBracketIcon,
+  CommandLineIcon,
   CubeIcon,
   FaceSmileIcon,
   LightBulbIcon,
+  PaintBrushIcon,
   ShieldCheckIcon,
   UserCircleIcon,
   UserGroupIcon,
   UserIcon,
+  WrenchIcon,
+  WrenchScrewdriverIcon,
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
@@ -32,7 +37,7 @@ function classNames(...classes) {
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const { me, activeUsers } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
   const { loadPostsLoading } = useSelector((state) => state.post);
   const [helper, setHelper] = useState(false);
 
@@ -142,28 +147,58 @@ const Navigation = () => {
                               />
                               <div className="ml-4">
                                 <p className="text-base text-left font-medium text-slate-600">
-                                  Square
+                                  Public Square
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  새로운 주제를 제안해보세요.
+                                  새로운 토픽이 있나요?
                                 </p>
                               </div>
                             </button>
                           </Link>
-                          <Link
-                            href={me ? `/profile/${me.username}` : "/login"}
-                          >
+                          <Link href="/square">
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
-                              <UserCircleIcon
+                              <CommandLineIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500"
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
                                 <p className="text-base text-left font-medium text-slate-600">
-                                  Profile
+                                  Development Square
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  프로필을 만들어보세요.
+                                  개발 스퀘어
+                                </p>
+                              </div>
+                            </button>
+                          </Link>
+                          <Link href="/square">
+                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
+                              <PaintBrushIcon
+                                className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                                aria-hidden="true"
+                              />
+                              <div className="ml-4">
+                                <p className="text-base text-left font-medium text-slate-600">
+                                  Design Square
+                                </p>
+                                <p className="mt-0.5 text-xs text-slate-500 text-left">
+                                  디자인 스퀘어
+                                </p>
+                              </div>
+                            </button>
+                          </Link>
+                          <Link href="/square">
+                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
+                              <WrenchScrewdriverIcon
+                                className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                                aria-hidden="true"
+                              />
+                              <div className="ml-4">
+                                <p className="text-base text-left font-medium text-slate-600">
+                                  Help Wanted
+                                </p>
+                                <p className="mt-0.5 text-xs text-slate-500 text-left">
+                                  인력 구해요!
                                 </p>
                               </div>
                             </button>
@@ -362,11 +397,7 @@ const Navigation = () => {
                             ? ``
                             : `${backUrl}/${me.avatar}`
                         }
-                        className={`cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] ${
-                          activeUsers?.includes(me.id)
-                            ? "border-indigo-500"
-                            : ""
-                        } p-0.5 rounded-full object-cover`}
+                        className={`cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] ${"border-indigo-500"} p-0.5 rounded-full object-cover`}
                       />
                     </Link>
                     <div className="ml-2 w-full flex flex-col">

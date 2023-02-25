@@ -23,8 +23,8 @@ module.exports = class User extends Model {
           type: DataTypes.STRING(100),
           allowNull: false,
         },
-        status: {
-          type: DataTypes.BOOLEAN,
+        class: {
+          type: DataTypes.STRING(20),
           allowNull: false,
         },
         about: {

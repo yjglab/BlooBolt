@@ -115,7 +115,7 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
       email: req.body.email,
       username: req.body.username,
       password: hashedPassword,
-      status: false,
+      class: req.body.class,
       avatar:
         "" || process.env.NODE_ENV === "production" ? "" : "base_avatar.png",
       rank: 0,
@@ -153,16 +153,7 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
         console.error(loginError);
         return next(loginError);
       }
-      await User.update(
-        {
-          status: true,
-        },
-        {
-          where: {
-            id: user.id,
-          },
-        }
-      );
+
       const resultUser = await User.findOne({
         where: { id: user.id },
         attributes: { exclude: ["password"] },
@@ -189,12 +180,12 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
           {
             model: User,
             as: "Tracings",
-            attributes: ["id", "username", "role", "avatar", "rank"],
+            attributes: ["id", "class", "username", "role", "avatar", "rank"],
           },
           {
             model: User,
             as: "Tracers",
-            attributes: ["id", "username", "role", "avatar", "rank"],
+            attributes: ["id", "class", "username", "role", "avatar", "rank"],
           },
         ],
       });
@@ -204,17 +195,6 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
 });
 
 router.post("/logout", isLoggedIn, async (req, res, next) => {
-  await User.update(
-    {
-      status: false,
-    },
-    {
-      where: {
-        id: req.user.id,
-      },
-    }
-  );
-
   req.logout();
   req.session.destroy();
   res.send("ok");
@@ -285,12 +265,12 @@ router.get("/:username", async (req, res, next) => {
         {
           model: User,
           as: "Tracings",
-          attributes: ["id", "username", "role", "avatar", "rank"],
+          attributes: ["id", "class", "username", "role", "avatar", "rank"],
         },
         {
           model: User,
           as: "Tracers",
-          attributes: ["id", "username", "role", "avatar", "rank"],
+          attributes: ["id", "class", "username", "role", "avatar", "rank"],
         },
       ],
     });
@@ -335,12 +315,12 @@ router.get("/", async (req, res, next) => {
           {
             model: User,
             as: "Tracings",
-            attributes: ["id", "username", "role", "avatar", "rank"],
+            attributes: ["id", "class", "username", "role", "avatar", "rank"],
           },
           {
             model: User,
             as: "Tracers",
-            attributes: ["id", "username", "role", "avatar", "rank"],
+            attributes: ["id", "class", "username", "role", "avatar", "rank"],
           },
         ],
       });
@@ -399,6 +379,7 @@ router.patch("/:userId/info/public", isLoggedIn, async (req, res, next) => {
 
     await User.update(
       {
+        class: req.body.class,
         username: req.body.username,
         role: req.body.role || "None",
         country: req.body.country || "None",
@@ -410,6 +391,7 @@ router.patch("/:userId/info/public", isLoggedIn, async (req, res, next) => {
       }
     );
     res.status(200).json({
+      class: req.body.class,
       username: req.body.username,
       role: req.body.role,
       country: req.body.country,
@@ -450,7 +432,7 @@ router.patch("/:userId/trace", isLoggedIn, async (req, res, next) => {
   try {
     const targetUser = await User.findOne({
       where: { id: req.params.userId },
-      attributes: ["id", "username", "role", "rank", "avatar"],
+      attributes: ["id", "class", "username", "role", "rank", "avatar"],
     });
     if (!targetUser) {
       res.status(403).send("Trace failed: 존재하지 않는 사용자입니다.");
@@ -465,7 +447,7 @@ router.patch("/:userId/trace", isLoggedIn, async (req, res, next) => {
     );
     const me = await User.findOne({
       where: { id: req.user.id },
-      attributes: ["id", "username", "role", "rank", "avatar"],
+      attributes: ["id", "class", "username", "role", "rank", "avatar"],
     });
     await targetUser.addTracers(me);
     res.status(200).json(targetUser);

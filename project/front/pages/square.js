@@ -11,7 +11,7 @@ import {
   loadPostsByKeyword,
 } from "../reducers/postSlice";
 import wrapper from "../store/configureStore";
-import { loadActiveUsers, loadMe, loadUser } from "../reducers/userSlice";
+import { loadMe, loadUser } from "../reducers/userSlice";
 import axios from "axios";
 import { openNotice } from "../reducers/globalSlice";
 import { useForm } from "react-hook-form";
@@ -155,7 +155,7 @@ const Square = () => {
             <span className="opacity-0">.</span>
           </div>
 
-          <div className="px-2 md:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
+          <div className="px-2 md:px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5">
             {mainPosts.map((post) => (
               <PostSection
                 key={post.id}
@@ -182,7 +182,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await context.store.dispatch(loadMe());
     await context.store.dispatch(loadPosts());
     await context.store.dispatch(loadUser({ username: "" }));
-    await context.store.dispatch(loadActiveUsers());
     return {
       props: { message: "" },
     };

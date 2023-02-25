@@ -114,6 +114,7 @@ router.patch("/:postId", isLoggedIn, async (req, res, next) => {
   try {
     await Post.update(
       {
+        class: req.body.class,
         topic: req.body.topic.trim(),
         content: req.body.content,
         edited: true,
@@ -153,6 +154,7 @@ router.patch("/:postId", isLoggedIn, async (req, res, next) => {
 
     res.status(200).json({
       PostId: parseInt(req.params.postId, 10),
+      class: req.body.class,
       topic: req.body.topic,
       content: req.body.content,
       PostImages: postImages,
@@ -180,7 +182,7 @@ router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username", "role", "avatar", "rank"],
+          attributes: ["id", "class", "username", "role", "avatar", "rank"],
         },
         {
           model: User,
@@ -419,6 +421,7 @@ router.delete("/:postId", isLoggedIn, async (req, res, next) => {
 router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
   try {
     const post = await Post.create({
+      class: req.body.class,
       topic: req.body.topic.trim(),
       content: req.body.content,
       edited: false,
@@ -471,7 +474,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username", "role", "avatar", "rank"],
+          attributes: ["id", "username", "class", "role", "avatar", "rank"],
           include: [
             {
               model: UserReport,
@@ -493,7 +496,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
           include: [
             {
               model: User,
-              attributes: ["id", "username", "role", "avatar", "rank"],
+              attributes: ["id", "class", "username", "role", "avatar", "rank"],
             },
             {
               model: User,
@@ -525,7 +528,7 @@ router.get("/:postId/detail", async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username", "role", "avatar", "rank"],
+          attributes: ["id", "class", "username", "role", "avatar", "rank"],
           include: [
             {
               model: UserReport,
@@ -547,7 +550,7 @@ router.get("/:postId/detail", async (req, res, next) => {
           include: [
             {
               model: User,
-              attributes: ["id", "username", "role", "avatar", "rank"],
+              attributes: ["id", "class", "username", "role", "avatar", "rank"],
             },
             {
               model: User,

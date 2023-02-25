@@ -42,7 +42,7 @@ function classNames(...classes) {
 const PostSection = ({ post, detailed }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
-  const { me, activeUsers } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
   const [toggleCommentArea, setToggleCommentArea] = useState(false);
   const [blindPost, setBlindPost] = useState(false);
   const [blindCheck, setBlindCheck] = useState(false);
@@ -338,9 +338,7 @@ const PostSection = ({ post, detailed }) => {
                     ? ``
                     : `${backUrl}/${post.User.avatar}`
                 }
-                className={`cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] ${
-                  activeUsers.includes(post.User.id) ? "border-indigo-500" : ""
-                } p-0.5 rounded-full object-cover`}
+                className={`cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] ${"border-amber-400"} p-0.5 rounded-full object-cover`}
               />
             </Link>
             <div className="ml-2 w-full flex flex-col">

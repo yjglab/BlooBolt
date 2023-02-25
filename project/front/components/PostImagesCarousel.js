@@ -48,14 +48,14 @@ const PostImagesCarousel = ({ postImages, onCloseCarousel }) => {
           <div className="bg-slate-700/30 hover:bg-slate-700/60 p-0.5 sm:hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-[5%]  rounded-full  text-white  cursor-pointer">
             <ArrowRightCircleIcon onClick={nextSlide} className=" w-9 h-9   " />
           </div>
-          <div className="flex top-4 justify-center py-2">
+          <div className="flex fixed left-0 right-0 mx-auto bottom-[3%] justify-center py-2">
             {postImages.map((slide, slideIndex) => (
               <div
                 key={slideIndex}
                 onClick={() => goToSlide(slideIndex)}
                 className="cursor-pointer "
               >
-                <div className="w-2.5 h-2.5 my-2 mx-1.5 rounded-full bg-slate-700  hover:bg-indigo-600 "></div>
+                <div className="w-2.5 h-2.5 my-2 mx-1.5 rounded-full bg-slate-700 hover:scale-110  hover:bg-indigo-600 "></div>
               </div>
             ))}
           </div>

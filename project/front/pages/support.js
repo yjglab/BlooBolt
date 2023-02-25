@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { loadActiveUsers, loadMe, findPassword } from "../reducers/userSlice";
+import { loadMe, findPassword } from "../reducers/userSlice";
 import wrapper from "../store/configureStore";
 import { useRouter } from "next/router";
 
@@ -136,7 +136,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
       axios.defaults.headers.Cookie = cookie;
     }
     await context.store.dispatch(loadMe());
-    await context.store.dispatch(loadActiveUsers());
 
     return {
       props: { message: "" },

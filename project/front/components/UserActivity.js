@@ -24,7 +24,6 @@ function classNames(...classes) {
 
 const UserActivity = ({ owner, me, user }) => {
   const dispatch = useDispatch();
-  const { activeUsers } = useSelector((state) => state.user);
 
   const onUntrace = (tracing) => () => {
     dispatch(untrace(tracing.id));
@@ -173,11 +172,7 @@ const UserActivity = ({ owner, me, user }) => {
                                 ? ``
                                 : `${backUrl}/${tracer.avatar}`
                             }
-                            className={` h-[50px] w-[50px] border-[3px] ${
-                              activeUsers.includes(tracer.id)
-                                ? "border-indigo-500"
-                                : ""
-                            } p-0.5 rounded-full object-cover`}
+                            className={` h-[50px] w-[50px] border-[3px] ${"border-indigo-500"} p-0.5 rounded-full object-cover`}
                           />
                         </Link>
 
@@ -260,11 +255,7 @@ const UserActivity = ({ owner, me, user }) => {
                                 ? ``
                                 : `${backUrl}/${tracing.avatar}`
                             }
-                            className={`h-[50px] w-[50px] border-[3px] ${
-                              activeUsers.includes(tracing.id)
-                                ? "border-indigo-500"
-                                : ""
-                            } p-0.5 rounded-full object-cover`}
+                            className={`h-[50px] w-[50px] border-[3px] ${"border-indigo-500"} p-0.5 rounded-full object-cover`}
                           />
                         </Link>
                         <div className="ml-2 w-full flex flex-col">
