@@ -3,15 +3,7 @@ import AppLayout from "../components/AppLayout";
 import wrapper from "../store/configureStore";
 import axios from "axios";
 import { loadMe } from "../reducers/userSlice";
-import { useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  ArrowPathIcon,
-  CloudArrowUpIcon,
-  FingerPrintIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/outline";
+
 import {
   AdjustmentsHorizontalIcon,
   ChatBubbleLeftEllipsisIcon,
@@ -22,8 +14,10 @@ import {
   EyeSlashIcon,
   LightBulbIcon,
   PaintBrushIcon,
+  QueueListIcon,
   RectangleGroupIcon,
   ServerStackIcon,
+  ShieldCheckIcon,
   UserGroupIcon,
   UserPlusIcon,
 } from "@heroicons/react/20/solid";
@@ -212,12 +206,11 @@ const Guide = () => {
                       aria-hidden="true"
                     />
                   </div>
-                  공유되는 정보
+                  공유 정보
                 </div>
                 <div className="mt-2 text-base leading-6 ">
-                  공유되는 정보는 자신과 다른 사용자들에게 보여집니다. 자신의
-                  모습을 이미지로 표시하거나 어떤 클래스 직무자인지를 표시할 수
-                  있죠.
+                  공유 정보는 자신과 다른 사용자들에게 보여집니다. 자신의 모습을
+                  이미지로 표시하거나 어떤 클래스 직무자인지를 표시할 수 있죠.
                 </div>
               </div>{" "}
               <div className="relative pl-16">
@@ -275,14 +268,14 @@ const Guide = () => {
               참여도에 따라 새로운 랭크가 부여됩니다.
             </h1>
             <div className="mb-6 mt-1 text-sm">
-              포스트를 올리거나 프롯을 받으면 참여도를 상징하는 블루포인트를
-              받습니다.
+              포스트를 올리거나 프롯을 받거나 트레이스를 받으면 참여도를
+              상징하는 블루포인트를 받습니다.
             </div>
             <div className="grid max-w-xl grid-cols-1 gap-y-10 gap-x-8 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
               <div className="relative pl-16">
                 <div className="text-base font-semibold leading-6 ">
                   <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
-                    <LightBulbIcon
+                    <ShieldCheckIcon
                       className="h-6 w-6 text-white"
                       aria-hidden="true"
                     />
@@ -300,7 +293,7 @@ const Guide = () => {
               <div className="relative pl-16">
                 <div className="text-base font-semibold leading-6 ">
                   <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
-                    <DocumentTextIcon
+                    <QueueListIcon
                       className="h-6 w-6 text-white"
                       aria-hidden="true"
                     />

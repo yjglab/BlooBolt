@@ -21,10 +21,9 @@ const Guide = () => {
                   BlooBolt Version Beta
                 </p>
                 <p className="mt-6 text-lg leading-8 ">
-                  안녕하세요, BlooBolt 개발자 yjglab입니다. 2023년 2월 중순
-                  경부터 제작을 시작한 본 서비스의 베타 버전을 개발
-                  완료했습니다. 이 곳에서는 BlooBolt 서비스 버전에 관한 로그
-                  내용을 알려드립니다.
+                  BlooBolt 개발자 yjglab입니다. 2023년 2월 중순 경부터 제작을
+                  시작한 본 웹서비스의 베타 단계 개발을 완료했습니다. 이
+                  곳에서는 BlooBolt 서비스 버전에 관한 로그 내용을 알려드립니다.
                 </p>
                 <div className="mt-10 max-w-xl space-y-8 text-base leading-7  lg:max-w-none">
                   <div className="relative pl-9">
@@ -36,7 +35,7 @@ const Guide = () => {
                       새로운 기능
                     </div>{" "}
                     <div className="inline">
-                      현재 베타 버전을 서비스 중이며 새롭게 추가되는 내용이
+                      현재 베타 단계를 서비스 중이며 새롭게 추가되는 내용이
                       있다면 해당 항목에서 자세히 알려드립니다. 또한 V.1.0
                       버전에서 많은 것들이 추가되고 업데이트될 예정입니다.
                     </div>

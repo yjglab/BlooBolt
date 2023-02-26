@@ -27,6 +27,7 @@ const SignupForm = () => {
     handleSubmit,
     setError,
     getValues,
+    reset,
     formState: { isSubmitting, errors },
   } = useForm();
 
@@ -65,6 +66,10 @@ const SignupForm = () => {
         message: "인증코드가 일치하지 않습니다.",
       });
     }
+    if (signUpError === "이미 존재하는 이메일 계정입니다.") {
+      setSignUpEmailSended(false);
+      reset({ signupCode: null });
+    }
     dispatch(
       signUp({
         email,
@@ -77,6 +82,9 @@ const SignupForm = () => {
 
   const onSignUpEmailAuth = () => {
     const authEmail = getValues("email");
+    if (!authEmail) {
+      return setError("email", { message: "인증할 이메일을 입력해주세요." });
+    }
     dispatch(signUpEmailAuth({ authEmail }));
     setSignUpEmailSended(true);
   };
