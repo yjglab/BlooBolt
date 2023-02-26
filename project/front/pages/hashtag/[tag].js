@@ -11,6 +11,7 @@ import axios from "axios";
 import { loadMe } from "../../reducers/userSlice";
 import { ArrowPathIcon } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
+import SquareHeader from "../../components/SquareHeader";
 
 const Hashtag = () => {
   const dispatch = useDispatch();
@@ -21,63 +22,38 @@ const Hashtag = () => {
     (state) => state.post
   );
 
-  useEffect(() => {
-    function onScreenScroll() {
-      if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
-      ) {
-        if (loadMorePosts && !loadPostsLoading) {
-          dispatch(
-            loadPostsByHashtag({
-              lastPostId: mainPosts[mainPosts.length - 1]?.id,
-              tag,
-            })
-          );
-        }
-      }
-    }
-    window.addEventListener("scroll", onScreenScroll);
-    return () => {
-      window.removeEventListener("scroll", onScreenScroll);
-    };
-  }, [loadMorePosts, loadPostsLoading, mainPosts.length, tag]);
+  // useEffect(() => {
+  //   function onScreenScroll() {
+  //     if (
+  //       window.scrollY + document.documentElement.clientHeight >
+  //       document.documentElement.scrollHeight - 300
+  //     ) {
+  //       if (loadMorePosts && !loadPostsLoading) {
+  //         dispatch(
+  //           loadPostsByHashtag({
+  //             lastPostId: mainPosts[mainPosts.length - 1]?.id,
+  //             tag,
+  //           })
+  //         );
+  //       }
+  //     }
+  //   }
+  //   window.addEventListener("scroll", onScreenScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", onScreenScroll);
+  //   };
+  // }, [loadMorePosts, loadPostsLoading, mainPosts.length, tag]);
 
-  const onRefresh = useCallback(() => {
-    Router.push("/square");
-  });
+  // const onRefresh = useCallback(() => {
+  //   Router.push("/square");
+  // });
 
   return (
     <AppLayout>
-      <div className="min-h-screen flex pb-20">
-        <div className="mt-12 md:mt-16 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
-          <div className="px-3 h-20 text-2xl flex justify-between items-center">
-            <div
-              onClick={onRefresh}
-              className="cursor-pointer relative flex items-center font-bold left-1"
-            >
-              <span>
-                Hashtag <span className="text-indigo-500">#{tag}</span>
-              </span>
-              <ArrowPathIcon className="ml-2  w-6 hover:animate-spin" />
-            </div>
-          </div>
-
-          <div className="my-4 px-2 ">
-            <span className="">Hashtagged </span>
-            <span className="font-bold  text-indigo-500">
-              {mainPosts.length}
-            </span>{" "}
-            Posts
-          </div>
-
-          <div className="px-2 md:px-4 grid auto-cols-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
-            {mainPosts.map((post) => (
-              <PostSection key={post.id} post={post} detailed={false} />
-            ))}
-          </div>
-        </div>
-      </div>
+      <SquareHeader
+        squareSubTitle={"아무나 대화해요!"}
+        squareTitle={"Public Square"}
+      />
     </AppLayout>
   );
 };

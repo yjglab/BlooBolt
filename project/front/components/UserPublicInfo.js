@@ -89,8 +89,8 @@ const UserPublicInfo = ({ me }) => {
                     {...register("username", {
                       required: "사용자명은 필수 입력입니다",
                       minLength: {
-                        value: 2,
-                        message: "2자리 이상의 사용자명을 입력해주세요",
+                        value: 4,
+                        message: "4자리 이상의 사용자명을 입력해주세요",
                       },
                       maxLength: {
                         value: 10,

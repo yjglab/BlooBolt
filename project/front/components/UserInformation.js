@@ -9,7 +9,7 @@ const UserInformation = () => {
 
   return (
     <div className="sm:w-[50%] xl:w-8/12 px-3">
-      <div className="text-2xl font-semibold">Information</div>
+      <div className="text-2xl font-semibold">내 정보</div>
       <div className="w-full  py-6 sm:px-0">
         <UserPublicInfo me={me} />
 

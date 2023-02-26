@@ -27,7 +27,7 @@ const PostImagesCarousel = ({ postImages, onCloseCarousel }) => {
   };
 
   return (
-    <div className="flex-col  w-[100vw] h-screen fixed  flex z-50 justify-center items-center top-0 left-0 bg-slate-50">
+    <div className="flex-col  w-[100vw] h-screen fixed  flex z-50 justify-center items-center top-0 left-0 bg-white">
       <div className="flex items-center w-[100%] h-full py-16 sm:py-0 sm:w-[93.5%] sm:h-[85%] group ">
         <XMarkIcon
           onClick={onCloseCarousel}

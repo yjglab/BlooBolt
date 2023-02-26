@@ -17,12 +17,12 @@ const Footer = () => {
           </span>
         </div>
         <p className="mt-3 text-center text-sm leading-6 text-slate-500">
-          © {new Date().getFullYear()} BlooBolt. All rights reserved.
+          © {new Date().getFullYear()} yjglab. All rights reserved.
         </p>
-        <p className="text-center  text-sm leading-6 text-slate-500">
+        {/* <p className="text-center  text-sm leading-6 text-slate-500">
           <BoltIcon className="mr-0.5 w-3.5 inline relative bottom-[1px]" />
           Powered by yjglab
-        </p>
+        </p> */}
         <div className="mt-16 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-slate-700">
           <a href="/privacy-policy">Privacy policy</a>
           <div className="h-4 w-px bg-slate-500/20"></div>

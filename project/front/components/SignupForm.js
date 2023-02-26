@@ -99,7 +99,8 @@ const SignupForm = () => {
               </h2>
               <p className="mt-2 text-center text-sm text-slate-600">
                 <span className="font-medium text-slate-500 ">
-                  BlooBolt는 개발과 디자인 직군 근무자들의 작은 소통창구입니다
+                  BlooBolt는 소프트웨어 개발과 디자인 직무자들이 소통하는
+                  공간입니다.
                 </span>
               </p>
             </div>
@@ -134,8 +135,8 @@ const SignupForm = () => {
                     {...register("username", {
                       required: "사용자명은 필수 입력입니다",
                       minLength: {
-                        value: 2,
-                        message: "2자리 이상의 사용자명을 입력해주세요",
+                        value: 4,
+                        message: "4자리 이상의 사용자명을 입력해주세요",
                       },
                       maxLength: {
                         value: 10,
@@ -278,7 +279,7 @@ const SignupForm = () => {
                         aria-hidden="true"
                       />
                     </span>
-                    Email Authentication
+                    이메일 인증
                   </button>
                 )}
 
@@ -293,7 +294,7 @@ const SignupForm = () => {
                       aria-hidden="true"
                     />
                   </span>
-                  Join
+                  회원가입
                 </button>
               </div>
             </form>

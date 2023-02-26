@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 import PostSection from "../components/PostSection";
 import PostForm from "../components/PostForm";
+import SquareHeader from "../components/SquareHeader";
 
 import {
   cancelAllPostImages,
@@ -25,168 +26,14 @@ import Link from "next/link";
 const Square = () => {
   const { me } = useSelector((state) => state.user);
 
-  const { mainPosts, loadMorePosts, loadPostsLoading } = useSelector(
-    (state) => state.post
-  );
-  const [togglePostForm, setTogglePostForm] = useState(false);
-  const [keywordSearching, setKeywordSearching] = useState(false);
-
   const dispatch = useDispatch();
-
-  const {
-    register,
-    reset,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm({
-    mode: "onSubmit",
-  });
-
-  useEffect(() => {
-    function onScreenScroll() {
-      if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
-      ) {
-        if (!keywordSearching && loadMorePosts && !loadPostsLoading) {
-          const lastPostId = mainPosts[mainPosts.length - 1]?.id;
-          dispatch(loadPosts(lastPostId));
-        }
-      }
-    }
-    window.addEventListener("scroll", onScreenScroll);
-    return () => {
-      window.removeEventListener("scroll", onScreenScroll);
-    };
-  }, [loadMorePosts, loadPostsLoading, mainPosts, keywordSearching]);
-
-  const onTogglePostForm = useCallback(() => {
-    if (togglePostForm) {
-      dispatch(cancelAllPostImages());
-    }
-    setTogglePostForm(!togglePostForm);
-  }, [togglePostForm]);
-
-  const onSearchPosts = useCallback((formData) => {
-    const { keyword } = formData;
-    if (!keyword || !keyword.trim() || keyword.length < 2) {
-      return dispatch(
-        openNotice({ type: 2, content: "2자리 이상의 검색어를 지정해주세요." })
-      );
-    }
-    setKeywordSearching(true);
-    dispatch(flushMainPosts());
-    dispatch(loadPostsByKeyword({ keyword }));
-  });
-
-  const onRefresh = useCallback(() => {
-    setKeywordSearching(false);
-    dispatch(flushMainPosts());
-    dispatch(loadPosts());
-  });
 
   return (
     <AppLayout>
-      {me && togglePostForm && <PostForm onTogglePostForm={onTogglePostForm} />}
-      <div className="min-h-screen flex pb-20">
-        <div className="mt-12 md:mt-16 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
-          <div className="px-3 h-20 text-2xl flex justify-between items-center">
-            <div
-              onClick={onRefresh}
-              className="cursor-pointer relative flex items-center font-bold left-1"
-            >
-              <span>Public Square</span>
-              {keywordSearching && (
-                <ArrowPathIcon className="ml-2  w-6 hover:animate-spin" />
-              )}
-            </div>
-
-            <div className="flex items-center">
-              <div className="hidden sm:flex bg-white rounded-md mr-3 border-[1.5px]   ">
-                <form
-                  className="flex h-8 p-1"
-                  onSubmit={handleSubmit(onSearchPosts)}
-                >
-                  <label htmlFor="keyword"></label>
-                  <input
-                    id="keyword"
-                    name="keyword"
-                    className="p-2 w-20 md:w-36 text-sm h-full outline-none bg-white placeholder:text-sm placeholder:text-slate-300 flex-1 text-slate-600 focus:bg-white focus:ring-0 rounded-md  sm:text-sm"
-                    placeholder="포스트 검색"
-                    {...register("keyword", {})}
-                  />
-                  <button type="submit">
-                    <MagnifyingGlassIcon className="w-6 cursor-pointer hover:text-indigo-500 hover:scale-105 mr-2 ml-1" />
-                  </button>
-                </form>
-              </div>
-              {me ? (
-                <button
-                  type="button"
-                  onClick={onTogglePostForm}
-                  className="relative  rounded-full hover:scale-105 p-3 right-1 ml-1.5 shadow bg-indigo-500 text-white hover:bg-indigo-600"
-                >
-                  <PaperAirplaneIcon className="w-7" />
-                </button>
-              ) : (
-                <Link href="/login">
-                  <button
-                    type="button"
-                    className="relative rounded-full p-3 right-1 ml-1.5 shadow bg-indigo-500 text-white hover:bg-indigo-600"
-                  >
-                    <PaperAirplaneIcon className="w-7" />
-                  </button>
-                </Link>
-              )}
-            </div>
-          </div>
-
-          <div className="my-4 px-2 flex justify-between items-center">
-            <div>
-              {keywordSearching && (
-                <>
-                  <span className="">Searched </span>
-                  <span className="font-bold text-lg text-indigo-500">
-                    {mainPosts.length}
-                  </span>{" "}
-                  Posts
-                </>
-              )}
-              <span className="opacity-0">.</span>
-            </div>
-            <div className="flex sm:hidden bg-white rounded-md  border-[1.5px]   ">
-              <form
-                className="flex h-8 p-1"
-                onSubmit={handleSubmit(onSearchPosts)}
-              >
-                <label htmlFor="keyword"></label>
-                <input
-                  id="keyword"
-                  name="keyword"
-                  className="p-2 w-20 md:w-36 text-sm h-full outline-none bg-white placeholder:text-sm placeholder:text-slate-300 flex-1 text-slate-600 focus:bg-white focus:ring-0 rounded-md  sm:text-sm"
-                  placeholder="포스트 검색"
-                  {...register("keyword", {})}
-                />
-                <button type="submit">
-                  <MagnifyingGlassIcon className="w-6 cursor-pointer hover:text-indigo-500 hover:scale-105 mr-2 ml-1" />
-                </button>
-              </form>
-            </div>
-          </div>
-
-          <div className="px-2 md:px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5">
-            {mainPosts.map((post) => (
-              <PostSection
-                key={post.id}
-                post={post}
-                detailed={false}
-                onTogglePostForm={onTogglePostForm}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+      <SquareHeader
+        squareSubTitle={"아무나 대화해요!"}
+        squareTitle={"Public Square"}
+      />
     </AppLayout>
   );
 };

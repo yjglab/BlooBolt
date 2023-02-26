@@ -112,6 +112,11 @@ const Navigation = () => {
             as="nav"
             className="items-center hidden space-x-6 md:flex"
           >
+            <Link href="/">
+              <div className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500">
+                홈
+              </div>
+            </Link>
             <Popover className="relative">
               {({ open }) => (
                 <>
@@ -121,7 +126,7 @@ const Navigation = () => {
                       "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     )}
                   >
-                    <span>Section</span>
+                    <span>스퀘어</span>
                     <ChevronDownIcon
                       className={classNames(
                         open ? "text-slate-600" : "text-slate-400",
@@ -154,7 +159,7 @@ const Navigation = () => {
                                   Public Square
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  새로운 토픽이 있나요?
+                                  아무나 대화해요!
                                 </p>
                               </div>
                             </button>
@@ -170,14 +175,14 @@ const Navigation = () => {
                                   Frontend Square
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  프론트엔드 스퀘어
+                                  프론트엔드 개발자에요!
                                 </p>
                               </div>
                             </button>
                           </Link>
                           <Link href="/square">
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
-                              <ServerIcon
+                              <ServerStackIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500"
                                 aria-hidden="true"
                               />
@@ -186,7 +191,7 @@ const Navigation = () => {
                                   Backend Square
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  백엔드 스퀘어
+                                  백엔드 개발자에요!
                                 </p>
                               </div>
                             </button>
@@ -202,23 +207,7 @@ const Navigation = () => {
                                   Design Square
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  디자인 스퀘어
-                                </p>
-                              </div>
-                            </button>
-                          </Link>
-                          <Link href="/square">
-                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
-                              <MegaphoneIcon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-500"
-                                aria-hidden="true"
-                              />
-                              <div className="ml-4">
-                                <p className="text-base text-left font-medium text-slate-600">
-                                  Member Wanted
-                                </p>
-                                <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  멤버 구해요!
+                                  UX/UI 디자이너에요!
                                 </p>
                               </div>
                             </button>
@@ -261,15 +250,15 @@ const Navigation = () => {
                   </Transition>
                 </>
               )}
-            </Popover>
+            </Popover>{" "}
+            <Link href="/members">
+              <div className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500">
+                멤버스
+              </div>
+            </Link>
             <Link href="/guide">
               <div className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500">
-                Guide
-              </div>
-            </Link>{" "}
-            <Link href="/">
-              <div className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500">
-                About
+                가이드
               </div>
             </Link>
           </Popover.Group>
@@ -306,12 +295,12 @@ const Navigation = () => {
               <>
                 <Link href="/signup">
                   <div className="cursor-pointer whitespace-nowrap text-base font-medium text-slate-500 hover:text-slate-600">
-                    Sign Up
+                    회원가입
                   </div>
                 </Link>
                 <Link href="/login">
                   <div className="cursor-pointer ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-600">
-                    Login
+                    로그인
                   </div>
                 </Link>
               </>

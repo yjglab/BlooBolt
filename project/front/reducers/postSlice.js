@@ -6,6 +6,7 @@ export const initialState = {
   mainPosts: [],
   solePost: null,
   postImagePaths: [],
+
   loadMorePosts: true,
   loadPostsLoading: false,
   loadPostsDone: false,
@@ -45,7 +46,7 @@ export const initialState = {
   unprodCommentError: null,
 };
 
-const loadPostsHandler = async (info, thunkAPI) => {
+export const loadPostsHandler = async (info, thunkAPI) => {
   try {
     const { data } = await axios.get(`/posts?lastPostId=${info || 0}`);
     return data;
@@ -54,7 +55,7 @@ const loadPostsHandler = async (info, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 };
-const loadPostsByHashtagHandler = async (info, thunkAPI) => {
+export const loadPostsByHashtagHandler = async (info, thunkAPI) => {
   try {
     const { data } = await axios.get(
       `/hashtag/${encodeURIComponent(info.tag)}?lastPostId=${
@@ -67,7 +68,7 @@ const loadPostsByHashtagHandler = async (info, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 };
-const loadPostsByKeywordHandler = async (info, thunkAPI) => {
+export const loadPostsByKeywordHandler = async (info, thunkAPI) => {
   try {
     const { data } = await axios.get(
       `/posts/keyword/${encodeURIComponent(info.keyword)}?lastPostId=${
@@ -81,10 +82,12 @@ const loadPostsByKeywordHandler = async (info, thunkAPI) => {
   }
 };
 export const loadPosts = createAsyncThunk("posts/loadPosts", loadPostsHandler);
+
 export const loadPostsByHashtag = createAsyncThunk(
   "posts/loadPostsByHashtag",
   loadPostsByHashtagHandler
 );
+
 export const loadPostsByKeyword = createAsyncThunk(
   "posts/loadPostsByKeyword",
   loadPostsByKeywordHandler
@@ -285,7 +288,7 @@ export const postSlice = createSlice({
         state.loadPostsLoading = false;
         state.loadPostsDone = true;
         state.mainPosts = state.mainPosts.concat(payload);
-        state.loadMorePosts = payload.length !== 0;
+        state.loadMorePosts = payload.length === 12;
       })
       .addCase(loadPosts.rejected, (state, { payload }) => {
         state.loadPostsLoading = false;
@@ -299,7 +302,7 @@ export const postSlice = createSlice({
         state.loadPostsByHashtagLoading = false;
         state.loadPostsByHashtagDone = true;
         state.mainPosts = state.mainPosts.concat(payload);
-        state.loadMorePosts = payload.length !== 0;
+        state.loadMorePosts = payload.length === 12;
       })
       .addCase(loadPostsByHashtag.rejected, (state, { payload }) => {
         state.loadPostsByHashtagLoading = false;

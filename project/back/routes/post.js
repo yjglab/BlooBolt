@@ -131,7 +131,9 @@ router.patch("/:postId", isLoggedIn, async (req, res, next) => {
         id: req.params.postId,
       },
     });
-    const hashtags = req.body.content.match(/#[^/\s]+/g);
+    const hashtags = req.body.content.match(
+      /(#[\d|A-Z|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*)/g
+    );
     if (hashtags) {
       const resultHashtags = await Promise.all(
         hashtags.map((tag) =>
@@ -429,7 +431,9 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
       UserId: req.user.id,
       blinded: false,
     });
-    const hashtags = req.body.content.match(/#[^/\s]+/g);
+    const hashtags = req.body.content.match(
+      /(#[\d|A-Z|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*)/g
+    );
     if (hashtags) {
       const resultHashtags = await Promise.all(
         hashtags.map((tag) =>

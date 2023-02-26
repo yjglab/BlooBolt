@@ -259,8 +259,8 @@ const PostSection = ({ post, detailed }) => {
         className={`${
           detailed
             ? "min-h-[16rem]"
-            : "duration-150 shadow-slate-300 hover:shadow-slate-400 h-[31.5rem] shadow"
-        } p-1 bg-white relative rounded-2xl  overflow-hidden `}
+            : "h-[31.5rem] ring-1 ring-slate-200 hover:ring-indigo-500 duration-150"
+        } p-1 bg-white  relative rounded-2xl  overflow-hidden `}
       >
         {reportCheck && (
           <PostUserReport
@@ -315,7 +315,7 @@ const PostSection = ({ post, detailed }) => {
         )}
 
         <div className="px-5 pt-3  flex flex-col justify-between">
-          <Link href={!detailed ? `post/${post.id}` : "#"}>
+          <Link href={!detailed ? `/post/${post.id}` : "#"}>
             <div className={`${!detailed && "cursor-pointer"}`}>
               <small className="text-slate-400">
                 {dayjs(post.updatedAt).format("YYYY.MM.DD | H:mm:ss")}
@@ -504,10 +504,10 @@ const PostSection = ({ post, detailed }) => {
 
           <div
             className={`${
-              detailed && "z-10 bg-white py-1.5  rounded-3xl"
+              detailed && "z-10 bg-white border py-1.5  rounded-3xl"
             } flex justify-between items-center  absolute bottom-4 text-sm`}
           >
-            <div className="flex gap-2">
+            <div className="flex px-2.5  gap-2">
               {isProdded ? (
                 <button
                   onClick={onUnprodPost}

@@ -24,7 +24,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="h-screen bg-slate-50 ">
+    <div className="h-screen ">
       <div className="flex h-full  items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
@@ -37,13 +37,13 @@ const LoginForm = () => {
             </div>
 
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-slate-600">
-              Login to your account
+              당신의 계정으로 로그인하세요
             </h2>
             <p className="mt-2 text-center text-sm text-slate-600">
-              Or{" "}
+              또는{" "}
               <Link href="/signup">
-                <span className="font-medium text-indigo-500 hover:text-indigo-500">
-                  make your personal account!
+                <span className="cursor-pointer font-medium text-indigo-500 hover:text-indigo-600">
+                  새로운 멤버로 등록해보세요!
                 </span>
               </Link>
             </p>
@@ -58,7 +58,7 @@ const LoginForm = () => {
                 <input
                   id="email"
                   type="text"
-                  placeholder="Email address"
+                  placeholder="이메일 주소"
                   className="relative block w-full appearance-none rounded-none rounded-t-xl border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   {...register("email", {
                     required: "이메일은 필수 입력입니다",
@@ -77,7 +77,7 @@ const LoginForm = () => {
                 <input
                   id="password"
                   type="password"
-                  placeholder="Password"
+                  placeholder="비밀번호"
                   className="relative block w-full appearance-none rounded-none rounded-b-xl border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   {...register("password", {
                     required: "비밀번호를 입력해주세요",
@@ -97,14 +97,14 @@ const LoginForm = () => {
                   htmlFor="remember-me"
                   className="ml-2 block text-sm text-slate-600"
                 >
-                  Remember me
+                  내 정보를 기억합니다
                 </label>
               </div>
 
               <div className="text-sm">
                 <Link href="/support">
                   <button className="cursor-pointer font-medium text-indigo-500 hover:text-indigo-600">
-                    Forgot Password?
+                    비밀번호를 잊으셨나요?
                   </button>
                 </Link>
               </div>
