@@ -81,10 +81,7 @@ const CommentForm = ({ post, detailed, onToggleCommentArea }) => {
       <div className="flex items-center mt-1 justify-between">
         {!detailed && (
           <button type="button" className=" rounded-full flex items-center">
-            <XMarkIcon
-              onClick={onToggleCommentArea}
-              className="w-7 text-slate-600 "
-            />
+            <XMarkIcon onClick={onToggleCommentArea} className="w-7 " />
           </button>
         )}
         <div className=" text-orange-400  text-xs " role="alert">

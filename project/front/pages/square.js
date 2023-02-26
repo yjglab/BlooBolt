@@ -31,7 +31,7 @@ const Square = () => {
   return (
     <AppLayout>
       <SquareHeader
-        squareSubTitle={"아무나 대화해요!"}
+        squareSubTitle={"아무나 참여해요!"}
         squareTitle={"Public Square"}
       />
     </AppLayout>

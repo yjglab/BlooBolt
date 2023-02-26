@@ -13,15 +13,18 @@ import {
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import {
+  AdjustmentsHorizontalIcon,
   ChatBubbleLeftEllipsisIcon,
   DocumentTextIcon,
   ExclamationTriangleIcon,
+  EyeIcon,
+  EyeSlashIcon,
   LightBulbIcon,
   PaintBrushIcon,
   RectangleGroupIcon,
-  ServerIcon,
   ServerStackIcon,
   UserGroupIcon,
+  UserPlusIcon,
 } from "@heroicons/react/20/solid";
 
 const Guide = () => {
@@ -116,7 +119,7 @@ const Guide = () => {
             </div>
           </div>
 
-          <div className=" mx-auto my-44 max-w-2xl  lg:max-w-4xl">
+          <div className=" mx-auto my-52 max-w-2xl  lg:max-w-4xl">
             <h1 className=" text-xl font-semibold">
               새로운 토픽에 관해 포스트로 대화를 나눠봐요.
             </h1>
@@ -149,11 +152,12 @@ const Guide = () => {
                       aria-hidden="true"
                     />
                   </div>
-                  내용과 관리
+                  내용과 프롯
                 </div>
                 <div className="mt-2 text-base leading-6 ">
                   포스트는 텍스트와 이미지, 해시태그를 업로드할 수 있습니다.
-                  제한 사항이 없다면 언제든지 수정이 가능하죠.
+                  언제든지 수정이 가능하죠. 프롯은 포스트의 공감 지수입니다.
+                  참여자들의 관심을 끌고 프롯을 받아보세요.
                 </div>
               </div>{" "}
               <div className="relative pl-16">
@@ -185,6 +189,126 @@ const Guide = () => {
                   참여자들의 소중한 코멘트가 담긴 포스트는 삭제에 제한 사항이
                   적용됩니다. 삭제를 요청하면 포스트는 즉시 블라인드되지만
                   참여자들은 열람이 가능합니다.
+                </div>
+              </div>{" "}
+            </div>
+          </div>
+
+          <div className=" mx-auto my-52 max-w-2xl  lg:max-w-4xl">
+            <h1 className=" text-xl font-semibold">
+              자신만의 프로필을 만들어보세요.
+            </h1>
+            <div className="mb-6 mt-1 text-sm">
+              프로필에는 활동 내역과 기본 정보, 개인 정보가 표시됩니다.
+            </div>
+            <div className="grid max-w-xl grid-cols-1 gap-y-10 gap-x-8 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+              <div className="relative pl-16">
+                <div className="text-base font-semibold leading-6 ">
+                  <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
+                    <EyeIcon
+                      className="h-6 w-6 text-white"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  공유되는 정보
+                </div>
+                <div className="mt-2 text-base leading-6 ">
+                  공유되는 정보는 자신과 다른 사용자들에게 보여집니다. 자신의
+                  모습을 이미지로 표시하거나 어떤 일에 직무하는 사람인지를
+                  표시할 수 있죠.
+                </div>
+              </div>{" "}
+              <div className="relative pl-16">
+                <div className="text-base font-semibold leading-6 ">
+                  <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
+                    <EyeSlashIcon
+                      className="h-6 w-6 text-white"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  개인 정보
+                </div>
+                <div className="mt-2 text-base leading-6 ">
+                  개인 정보는 자신 이외의 사람들에게 절대 공개되지 않습니다.
+                  입력된 정보는 강력한 해시 매커니즘이 적용된 암호화 스크립트로
+                  저장되며 개발자도 알 수 없습니다.
+                </div>
+              </div>{" "}
+              <div className="relative pl-16">
+                <div className="text-base font-semibold leading-6 ">
+                  <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
+                    <UserPlusIcon
+                      className="h-6 w-6 text-white"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  트레이스
+                </div>
+                <div className="mt-2 text-base leading-6 ">
+                  트레이스는 팔로우와 동일한 기능입니다. 다른 사용자를
+                  트레이스하면 내 프로필에 정보가 표시되며 나를 트레이스하는
+                  사용자도 확인할 수 있습니다.
+                </div>
+              </div>{" "}
+              <div className="relative pl-16">
+                <div className="text-base font-semibold leading-6 ">
+                  <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
+                    <AdjustmentsHorizontalIcon
+                      className="h-6 w-6 text-white"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  활동 내역
+                </div>
+                <div className="mt-2 text-base leading-6 ">
+                  활동 내역에는 업로드한 포스트와 사용자 트레이스 내역이
+                  보여집니다.
+                </div>
+              </div>{" "}
+            </div>
+          </div>
+
+          <div className=" mx-auto my-52 max-w-2xl  lg:max-w-4xl">
+            <h1 className=" text-xl font-semibold">
+              참여도에 따라 새로운 랭크가 부여됩니다.
+            </h1>
+            <div className="mb-6 mt-1 text-sm">
+              포스트를 올리거나 프롯을 받으면 참여도를 상징하는 블루포인트를
+              받습니다.
+            </div>
+            <div className="grid max-w-xl grid-cols-1 gap-y-10 gap-x-8 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+              <div className="relative pl-16">
+                <div className="text-base font-semibold leading-6 ">
+                  <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
+                    <LightBulbIcon
+                      className="h-6 w-6 text-white"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  랭크
+                </div>
+                <div className="mt-2 text-base leading-6 ">
+                  랭크와 블루포인트는 사용자의 참여 지수를 상징합니다.
+                  블루포인트를 모아 새로운 랭크를 받아보세요. 랭크가 상승할
+                  때마다 특별한 기능
+                  <span className="text-xs relative -top-1">*</span>을
+                  지급합니다.
+                </div>
+              </div>{" "}
+              <div className="relative pl-16">
+                <div className="text-base font-semibold leading-6 ">
+                  <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
+                    <DocumentTextIcon
+                      className="h-6 w-6 text-white"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  랭크의 단계
+                </div>
+                <div className="mt-2 text-base leading-6 ">
+                  랭크는 6에서 1까지 존재합니다. 숫자가 적을 수록 높은 랭크의
+                  참여자를 의미하죠. 랭크와 마크는 사용자 정보의 우측에
+                  표시됩니다.
                 </div>
               </div>{" "}
             </div>

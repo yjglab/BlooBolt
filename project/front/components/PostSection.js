@@ -260,7 +260,7 @@ const PostSection = ({ post, detailed }) => {
           detailed
             ? "min-h-[16rem]"
             : "h-[31.5rem] ring-1 ring-slate-200 hover:ring-indigo-500 duration-150"
-        } p-1 bg-white  relative rounded-2xl  overflow-hidden `}
+        } p-1 bg-white  relative rounded-xl  overflow-hidden `}
       >
         {reportCheck && (
           <PostUserReport
@@ -325,7 +325,7 @@ const PostSection = ({ post, detailed }) => {
                 className={`${
                   detailed ? "" : "line-clamp-2"
                 } mb-3 break-words text-2xl font-bold leading-tight tracking-tight ${
-                  post.topic ? "text-slate-600" : "text-slate-300"
+                  post.topic ? "text-slate-600" : "text-slate-100"
                 }`}
               >
                 {post.topic ? post.topic : "토픽 없음"}

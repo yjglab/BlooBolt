@@ -287,9 +287,7 @@ const CommentSection = ({ post, comment }) => {
                     <button
                       onClick={onEditCommentMode}
                       className={classNames(
-                        active
-                          ? "bg-slate-100 text-slate-600"
-                          : "text-slate-600",
+                        active ? "bg-slate-100 " : "",
                         "block px-4 py-2 text-sm text-left w-full"
                       )}
                     >
@@ -302,9 +300,7 @@ const CommentSection = ({ post, comment }) => {
                     <button
                       onClick={onRemoveComment}
                       className={classNames(
-                        active
-                          ? "bg-slate-100 text-slate-600"
-                          : "text-slate-600",
+                        active ? "bg-slate-100 " : "",
                         "block px-4 py-2 text-sm text-left w-full"
                       )}
                     >
@@ -318,7 +314,7 @@ const CommentSection = ({ post, comment }) => {
         </Menu>
       </div>
       <form onSubmit={handleSubmit(onEditComment)}>
-        <div className="mb-5 text-sm break-words font-normal text-slate-600">
+        <div className="mb-5 text-sm break-words font-normal ">
           {editCommentMode ? (
             <>
               <label htmlFor="content" className="sr-only"></label>
@@ -415,7 +411,7 @@ const CommentSection = ({ post, comment }) => {
             ) : (
               <button
                 type="button"
-                className="mx-1 flex items-center gap-0.5 hover:text-indigo-500 text-slate-600 "
+                className="mx-1 flex items-center gap-0.5 hover:text-indigo-500"
               >
                 {extendComment ? (
                   <MinusIcon onClick={toggleExtendComment} className="w-5" />

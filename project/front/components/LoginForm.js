@@ -36,10 +36,10 @@ const LoginForm = () => {
               />
             </div>
 
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-slate-600">
+            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight ">
               당신의 계정으로 로그인하세요
             </h2>
-            <p className="mt-2 text-center text-sm text-slate-600">
+            <p className="mt-2 text-center text-sm ">
               또는{" "}
               <Link href="/signup">
                 <span className="cursor-pointer font-medium text-indigo-500 hover:text-indigo-600">
@@ -59,7 +59,7 @@ const LoginForm = () => {
                   id="email"
                   type="text"
                   placeholder="이메일 주소"
-                  className="relative block w-full appearance-none rounded-none rounded-t-xl border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-t-xl border border-slate-300 px-3 py-2.5  placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   {...register("email", {
                     required: "이메일은 필수 입력입니다",
                     pattern: {
@@ -78,7 +78,7 @@ const LoginForm = () => {
                   id="password"
                   type="password"
                   placeholder="비밀번호"
-                  className="relative block w-full appearance-none rounded-none rounded-b-xl border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-b-xl border border-slate-300 px-3 py-2.5  placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   {...register("password", {
                     required: "비밀번호를 입력해주세요",
                   })}
@@ -93,10 +93,7 @@ const LoginForm = () => {
                   type="checkbox"
                   className="h-4 w-4 rounded-md border-slate-300 text-indigo-500 focus:ring-indigo-500"
                 />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-slate-600"
-                >
+                <label htmlFor="remember-me" className="ml-2 block text-sm ">
                   내 정보를 기억합니다
                 </label>
               </div>

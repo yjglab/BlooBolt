@@ -9,7 +9,10 @@ import { loadSolePost } from "../../reducers/postSlice";
 import wrapper from "../../store/configureStore";
 import axios from "axios";
 import { loadMe } from "../../reducers/userSlice";
-import { ArrowPathIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowUturnLeftIcon,
+  PaperAirplaneIcon,
+} from "@heroicons/react/20/solid";
 
 const Post = () => {
   const { solePost } = useSelector((state) => state.post);
@@ -22,18 +25,24 @@ const Post = () => {
   return (
     <AppLayout>
       <div className="min-h-screen flex pb-20">
-        <div className="mt-12 md:mt-16 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
-          <div className="px-3 h-20 text-2xl mb-4 flex justify-between items-center">
+        <div className="mt-16 md:mt-20 px-2 sm:px-[2%] md:px-[2%] lg:px-[12%] w-full h-full relative">
+          <h1 className="px-6 text-base font-semibold leading-6 text-indigo-500">
+            {"상세 포스트"}
+          </h1>
+          <div className="px-5 mb-20 h-10 text-2xl flex justify-between items-center">
             <div
               onClick={onRefresh}
               className="cursor-pointer relative flex items-center font-bold left-1"
             >
-              <span>Square</span>
-              <ArrowPathIcon className="ml-2  w-6 hover:animate-spin" />
+              <h1 className=" text-2xl font-bold tracking-tight  sm:text-3xl">
+                {solePost.User.username}님의 포스트
+              </h1>
+
+              <ArrowUturnLeftIcon className="ml-3  w-5 hover:scale-110" />
             </div>
           </div>
 
-          <div className="md:px-[20%]">
+          <div className="mx-auto max-w-7xl px-0 md:px-32">
             <PostSection post={solePost} detailed={true} />
           </div>
         </div>

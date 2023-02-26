@@ -128,7 +128,7 @@ const SquareHeader = ({ squareTitle, squareSubTitle }) => {
     <>
       {me && togglePostForm && <PostForm onTogglePostForm={onTogglePostForm} />}
       <div className="min-h-screen flex pb-20">
-        <div className="mt-16 md:mt-20 px-2 sm:px-4 w-full h-full md:mx-0 relative ">
+        <div className="mt-16 md:mt-20 px-2 sm:px-[2%] md:px-[2%] lg:px-[12%] w-full h-full relative ">
           <h1 className="px-6 text-base font-semibold leading-6 text-indigo-500">
             {squareSubTitle}
           </h1>
@@ -148,9 +148,11 @@ const SquareHeader = ({ squareTitle, squareSubTitle }) => {
 
             <div className="flex items-center">
               {me && !keywordSearching && !router.query.tag ? (
-                <button className=" flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500 hover:bg-indigo-600">
+                <button
+                  onClick={onTogglePostForm}
+                  className=" flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500 hover:bg-indigo-600"
+                >
                   <PaperAirplaneIcon
-                    onClick={onTogglePostForm}
                     className="h-6 w-6 text-white"
                     aria-hidden="true"
                   />
@@ -185,7 +187,7 @@ const SquareHeader = ({ squareTitle, squareSubTitle }) => {
                 </>
               ) : null}
             </div>
-            <div className="flex  bg-white rounded-md  border-[1.5px]   ">
+            <div className="flex py-1  bg-white rounded-md ring-1 ring-slate-200 hover:ring-indigo-500 duration-150 ">
               <form
                 className="flex h-8 p-1"
                 onSubmit={handleSubmit(onSearchPosts)}
@@ -205,7 +207,7 @@ const SquareHeader = ({ squareTitle, squareSubTitle }) => {
             </div>
           </div>
 
-          <div className="px-2 md:px-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5">
+          <div className="px-2 md:px-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-4">
             {mainPosts.map((post) => (
               <PostSection
                 key={post.id}

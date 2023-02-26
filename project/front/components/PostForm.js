@@ -1,4 +1,4 @@
-import { TrashIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { ArrowUpIcon, TrashIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,7 @@ const PostForm = ({
   onTogglePostForm,
   onTogglePostEditMode,
   post,
+  postClass,
   postEditMode,
   prevPostClass,
   prevTopic,
@@ -246,22 +247,20 @@ const PostForm = ({
             <div className="gap-1.5 absolute flex items-center right-0">
               <button
                 type="button"
+                onClick={postEditMode ? onTogglePostEditMode : onTogglePostForm}
                 disabled={isSubmitting}
-                className="text-center "
+                className=" hover:bg-slate-200  flex h-10 w-10 items-center justify-center rounded-lg bg-white "
               >
-                <XMarkIcon
-                  onClick={
-                    postEditMode ? onTogglePostEditMode : onTogglePostForm
-                  }
-                  className="w-9 p-0.5 text-slate-600 shadow bg-white rounded-full hover:bg-slate-700 hover:text-white"
-                />
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
               </button>
+
               <label
                 htmlFor="postImages"
-                className="p-1.5 cursor-pointer text-xs hover:text-white rounded-full font-medium text-center bg-white shadow text-slate-600  focus:ring-4 focus:ring-slate-200  hover:bg-slate-700"
+                className="cursor-pointer hover:bg-slate-200  flex h-10 w-10 items-center justify-center rounded-lg bg-white"
               >
-                <PhotoIcon className="stroke-2 block w-6  " />
+                <PhotoIcon className="h-6 w-6" aria-hidden="true" />
               </label>
+
               <input
                 name="postImages"
                 id="postImages"
@@ -276,9 +275,12 @@ const PostForm = ({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="text-center  "
+                className=" hover:bg-indigo-600  flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500"
               >
-                <ArrowUpCircleIcon className="w-9 text-indigo-500 shadow bg-white rounded-full hover:bg-indigo-500 hover:text-white" />
+                <ArrowUpIcon
+                  className="h-6 w-6 text-white"
+                  aria-hidden="true"
+                />
               </button>
             </div>
           </form>
@@ -310,6 +312,7 @@ PostForm.propTypes = {
   onTogglePostForm: PropTypes.func,
   onTogglePostEditMode: PropTypes.func,
   post: PropTypes.object,
+  postClass: PropTypes.string,
   postEditMode: PropTypes.bool,
   prevPostClass: PropTypes.string,
   prevTopic: PropTypes.string,

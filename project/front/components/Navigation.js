@@ -34,6 +34,7 @@ import { backUrl } from "../config/config";
 
 import { logOut } from "../reducers/userSlice";
 import { cancelAllPostImages } from "../reducers/postSlice";
+import { openNotice } from "../reducers/globalSlice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -69,6 +70,14 @@ const Navigation = () => {
     Router.push("/square");
   });
 
+  const onPreparing = useCallback(() => {
+    dispatch(
+      openNotice({
+        type: 2,
+        content: "멤버스는 준비중인 기능입니다.",
+      })
+    );
+  });
   return (
     <Popover className="fixed top-0 w-[100vw] left-0 z-50 bg-white shadow-xl shadow-slate-300/20">
       {loadPostsLoading ? (
@@ -159,7 +168,7 @@ const Navigation = () => {
                                   Public Square
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  아무나 대화해요!
+                                  아무나 참여해요!
                                 </p>
                               </div>
                             </button>
@@ -251,11 +260,14 @@ const Navigation = () => {
                 </>
               )}
             </Popover>{" "}
-            <Link href="/members">
-              <div className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500">
-                멤버스
-              </div>
-            </Link>
+            {/* <Link href="/members"> */}
+            <div
+              onClick={onPreparing}
+              className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500"
+            >
+              멤버스
+            </div>
+            {/* </Link> */}
             <Link href="/guide">
               <div className="cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500">
                 가이드
