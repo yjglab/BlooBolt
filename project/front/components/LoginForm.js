@@ -37,7 +37,7 @@ const LoginForm = () => {
             </div>
 
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight ">
-              당신의 계정으로 로그인하세요
+              보유한 계정으로 로그인하세요
             </h2>
             <p className="mt-2 text-center text-sm ">
               또는{" "}
@@ -134,7 +134,7 @@ const LoginForm = () => {
                       aria-hidden="true"
                     />
                   </span>
-                  Access
+                  로그인
                 </button>
               </div>
             </div>

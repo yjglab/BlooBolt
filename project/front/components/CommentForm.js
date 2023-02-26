@@ -28,6 +28,14 @@ const CommentForm = ({ post, detailed, onToggleCommentArea }) => {
   const id = useSelector((state) => state.user.me?.id);
   const onUploadComment = useCallback(
     (formData) => {
+      if (me.banned) {
+        return dispatch(
+          openNotice({
+            type: 2,
+            content: "최근 다수의 신고를 받아 이용이 정지된 계정입니다.",
+          })
+        );
+      }
       if (!id) {
         return dispatch(
           openNotice({

@@ -216,8 +216,8 @@ const Guide = () => {
                 </div>
                 <div className="mt-2 text-base leading-6 ">
                   공유되는 정보는 자신과 다른 사용자들에게 보여집니다. 자신의
-                  모습을 이미지로 표시하거나 어떤 일에 직무하는 사람인지를
-                  표시할 수 있죠.
+                  모습을 이미지로 표시하거나 어떤 클래스 직무자인지를 표시할 수
+                  있죠.
                 </div>
               </div>{" "}
               <div className="relative pl-16">

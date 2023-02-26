@@ -63,6 +63,10 @@ module.exports = class User extends Model {
           type: DataTypes.TINYINT,
           allowNull: false,
         },
+        banned: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+        },
       },
       {
         modelName: "User",

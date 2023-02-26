@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   ArrowPathIcon,
   EnvelopeIcon,
+  FaceSmileIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
@@ -43,11 +44,11 @@ const Support = () => {
           <div className="w-full max-w-md space-y-8">
             <div>
               <div className="mx-auto h-16 w-16  relative">
-                <QuestionMarkCircleIcon className="w-full h-full text-indigo-500" />
+                <FaceSmileIcon className="w-full h-full text-indigo-500" />
               </div>
 
               <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-slate-600">
-                Support
+                BlooBolt 지원
               </h2>
               <p className="mt-2 text-center text-sm text-slate-600">
                 <span className="font-medium text-indigo-500 hover:text-indigo-500">

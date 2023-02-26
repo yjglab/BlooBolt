@@ -97,6 +97,14 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
   ]);
 
   const onTogglePostForm = useCallback(() => {
+    if (me.banned) {
+      return dispatch(
+        openNotice({
+          type: 2,
+          content: "최근 다수의 신고를 받아 이용이 정지된 계정입니다.",
+        })
+      );
+    }
     if (squareKind !== "public" && squareKind !== me.class) {
       return dispatch(
         openNotice({
@@ -120,6 +128,7 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
         openNotice({ type: 2, content: "2자리 이상의 검색어를 지정해주세요." })
       );
     }
+
     setKeywordSearching(true);
     dispatch(flushMainPosts());
     dispatch(loadPostsByKeyword({ keyword }));
@@ -142,7 +151,7 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
       <div className="min-h-screen flex pb-20">
         <div className="mt-16 md:mt-20 px-2 sm:px-[2%] md:px-[2%] lg:px-[12%] w-full h-full relative ">
           <h1 className="px-6 text-base font-semibold leading-6 text-indigo-500">
-            {squareSubTitle}
+            {keywordSearching ? "어떤 포스트를 찾으시나요?" : squareSubTitle}
           </h1>
           <div className="px-5 h-10 text-2xl flex justify-between items-center">
             <div
@@ -150,7 +159,7 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
               className="cursor-pointer relative flex items-center font-bold left-1"
             >
               <h1 className=" text-2xl font-bold tracking-tight  sm:text-3xl">
-                {squareTitle}
+                {keywordSearching ? "키워드 검색" : squareTitle}
               </h1>
 
               {keywordSearching || router.query.tag ? (

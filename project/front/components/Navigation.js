@@ -278,7 +278,7 @@ const Navigation = () => {
                   onClick={onLogout}
                   className="whitespace-nowrap text-base font-medium text-slate-500 hover:text-slate-600"
                 >
-                  Logout
+                  로그아웃
                 </button>
 
                 <>

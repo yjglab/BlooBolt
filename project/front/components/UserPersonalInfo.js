@@ -10,7 +10,6 @@ const UserPersonalInfo = ({ me }) => {
   const { changeMyPersonalInfoDone, changeMyPersonalInfoError } = useSelector(
     (state) => state.user
   );
-
   const {
     register,
     handleSubmit,
@@ -49,7 +48,7 @@ const UserPersonalInfo = ({ me }) => {
         <div className="lg:col-span-1">
           <div className="px-4 sm:px-0">
             <h3 className="text-lg font-medium leading-6 text-slate-600">
-              Private
+              개인 정보
             </h3>
             <p className="mt-1 text-xs text-slate-600">
               이 영역에 게시되는 정보는 공개되지 않습니다.
@@ -65,7 +64,7 @@ const UserPersonalInfo = ({ me }) => {
                     htmlFor="email"
                     className="block text-sm font-medium text-slate-600"
                   >
-                    Email ID
+                    이메일 ID
                   </label>
                   <input
                     id="email"
@@ -81,7 +80,7 @@ const UserPersonalInfo = ({ me }) => {
                     htmlFor="realname"
                     className="block text-sm font-medium text-slate-600"
                   >
-                    Real Name
+                    실명
                   </label>
                   <input
                     type="text"
@@ -101,7 +100,7 @@ const UserPersonalInfo = ({ me }) => {
                     htmlFor="address"
                     className="block text-sm font-medium text-slate-600"
                   >
-                    Address
+                    주소
                   </label>
                   <input
                     type="text"

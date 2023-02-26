@@ -178,14 +178,15 @@ const PostSection = ({ post, detailed, squareKind }) => {
         })
       );
     }
-    if (me.rank === 0 || (me.rank > 5 && post.User.id !== me.id)) {
+    if (me.rank === 0 && post.User.id !== me.id) {
       return dispatch(
         openNotice({
-          content: "Rank 5 사용자부터 확인할 수 있습니다.",
+          content: "Rank 6 사용자부터 확인할 수 있습니다.",
           type: 2,
         })
       );
     }
+
     setBlindPost(false);
   }, [id]);
 
@@ -360,7 +361,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
                                 "block px-4 py-2 text-sm text-left w-full"
                               )}
                             >
-                              Edit
+                              수정
                             </button>
                           )}
                         </Menu.Item>
@@ -382,10 +383,10 @@ const PostSection = ({ post, detailed, squareKind }) => {
                               )}
                             >
                               {post.blinded
-                                ? "Revert"
+                                ? "복원"
                                 : post.reverted
-                                ? "Delete"
-                                : "Delete"}
+                                ? "삭제"
+                                : "삭제"}
                             </button>
                           )}
                         </Menu.Item>
@@ -402,7 +403,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
                             "block px-4 py-2 text-sm text-left w-full"
                           )}
                         >
-                          Report
+                          사용자 신고
                         </button>
                       )}
                     </Menu.Item>
@@ -485,7 +486,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
               !detailed
                 ? post.PostImages[0]
                   ? " line-clamp-4 mb-3"
-                  : " line-clamp-[15] cursor-pointer"
+                  : " line-clamp-[15] "
                 : ""
             }  h-full text-sm break-words  font-normal text-slate-600`}
           >

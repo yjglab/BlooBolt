@@ -25,8 +25,7 @@ const Profile = () => {
   if (!user) {
     return;
   }
-  const owner = me?.id === user.id && me?.username === user.username;
-  console.log(owner);
+  const owner = me?.id === user.id;
   return (
     <AppLayout>
       <div className="min-h-screen">

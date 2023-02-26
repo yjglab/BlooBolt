@@ -98,7 +98,8 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
       "Admin",
       "Administrator",
       "블루볼트",
-      "BlooBolt",
+      // "BlooBolt",
+      "BLOOBOLT",
       "BlooBolt.co",
       "bloobolt",
       "Bloobolt",
@@ -130,6 +131,7 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
       address: "",
 
       reported: 0,
+      banned: false,
     });
 
     res.status(201).send("ok");
@@ -189,6 +191,7 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
           },
         ],
       });
+
       return res.status(200).json(resultUser);
     });
   })(req, res, next);
@@ -344,6 +347,30 @@ router.get("/", async (req, res, next) => {
       } else if (me.rankPoint >= 1000000 && me.rank > 1) {
         me.update({
           rank: 1,
+        });
+      }
+
+      if (me.reported >= 14) {
+        await me.update({
+          banned: true,
+        });
+
+        // 보류
+        // await Post.destroy({
+        //   where: {
+        //     UserId: me.id,
+        //   },
+        // });
+      } else if (me.reported >= 7) {
+        const myPosts = await Post.findAll({
+          where: {
+            UserId: me.id,
+          },
+        });
+        await myPosts.forEach((v) => {
+          v.update({
+            blinded: true,
+          });
         });
       }
 
@@ -503,14 +530,9 @@ router.post("/:userId/report", isLoggedIn, async (req, res, next) => {
       return res.status(403).send("이미 신고한 사용자입니다.");
     }
 
-    await User.increment(
-      {
-        reported: 1,
-      },
-      {
-        where: { id: req.params.userId },
-      }
-    );
+    await targetUser.increment({
+      reported: 1,
+    });
 
     const reporter = await User.findOne({
       where: { id: req.user.id },

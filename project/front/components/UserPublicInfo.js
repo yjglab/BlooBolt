@@ -62,7 +62,7 @@ const UserPublicInfo = ({ me }) => {
         <div className="lg:col-span-1">
           <div className="px-4 sm:px-0">
             <h3 className="text-lg font-medium leading-6 text-slate-600">
-              Public
+              공유 정보
             </h3>
             <p className="mt-1 text-xs text-slate-600">
               이 영역에 게시되는 정보는 공개적으로 표시됩니다.
@@ -78,7 +78,7 @@ const UserPublicInfo = ({ me }) => {
                     htmlFor="username"
                     className="block text-sm font-medium text-slate-600"
                   >
-                    User Name
+                    사용자명
                   </label>
                   <input
                     id="username"
@@ -113,9 +113,9 @@ const UserPublicInfo = ({ me }) => {
                     disabled={true}
                     placeholder={
                       me.class === "fedev"
-                        ? "Front-end Developer"
+                        ? "Frontend Developer"
                         : me.class === "bedev"
-                        ? "Back-end Developer"
+                        ? "Backend Developer"
                         : me.class === "design"
                         ? "Designer"
                         : "Normal"
@@ -128,13 +128,13 @@ const UserPublicInfo = ({ me }) => {
                     htmlFor="role"
                     className="block text-sm font-medium text-slate-600"
                   >
-                    Role
+                    역할
                   </label>
                   <input
                     type="text"
                     name="role"
                     id="role"
-                    placeholder="Web Developer"
+                    placeholder="서버 개발"
                     className="placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     {...register("role", {
                       maxLength: {
@@ -149,7 +149,7 @@ const UserPublicInfo = ({ me }) => {
                     htmlFor="country"
                     className="block text-sm font-medium text-slate-600"
                   >
-                    Country
+                    거주국
                   </label>
                   <select
                     id="country"
@@ -204,7 +204,7 @@ const UserPublicInfo = ({ me }) => {
                       htmlFor="website"
                       className="block text-sm font-medium text-slate-600"
                     >
-                      Website
+                      웹사이트
                     </label>
                     <div className="mt-1 flex rounded-md shadow-sm">
                       <span className="inline-flex items-center rounded-l-md border border-r-0 border-slate-300 bg-slate-50 px-3 text-sm text-slate-500">
@@ -233,7 +233,7 @@ const UserPublicInfo = ({ me }) => {
                     htmlFor="about"
                     className="block text-sm font-medium text-slate-600"
                   >
-                    About
+                    소개
                   </label>
                   <div className="mt-1">
                     <textarea

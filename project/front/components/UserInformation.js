@@ -26,7 +26,7 @@ const UserInformation = () => {
             <div className="border-t border-slate-200"></div>
           </div>
         </div>
-
+        {/* 
         <div className="mt-10 sm:mt-0">
           <div className="lg:grid lg:grid-cols-3 lg:gap-6">
             <div className="lg:col-span-1">
@@ -81,44 +81,44 @@ const UserInformation = () => {
                         </div>
                       </div>
                     </fieldset>
-                    {/* <fieldset>
-                    <legend className="contents text-base font-medium text-slate-600">
-                      Profile disclosure
-                    </legend>
-                    <p className="text-sm text-slate-500">
-                      프로필 공개 여부를 결정합니다
-                    </p>
-                    <div className="mt-4 space-y-4">
-                      <div className="flex items-center">
-                        <input
-                          id="push-everything"
-                          name="push-notifications"
-                          type="radio"
-                          className="h-4 w-4 border-slate-300 text-indigo-500 focus:ring-indigo-500"
-                        />
-                        <label
-                          htmlFor="push-everything"
-                          className="ml-3 block text-sm font-medium text-slate-600"
-                        >
-                          Public
-                        </label>
+                    <fieldset>
+                      <legend className="contents text-base font-medium text-slate-600">
+                        Profile disclosure
+                      </legend>
+                      <p className="text-sm text-slate-500">
+                        프로필 공개 여부를 결정합니다
+                      </p>
+                      <div className="mt-4 space-y-4">
+                        <div className="flex items-center">
+                          <input
+                            id="push-everything"
+                            name="push-notifications"
+                            type="radio"
+                            className="h-4 w-4 border-slate-300 text-indigo-500 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="push-everything"
+                            className="ml-3 block text-sm font-medium text-slate-600"
+                          >
+                            Public
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="push-email"
+                            name="push-notifications"
+                            type="radio"
+                            className="h-4 w-4 border-slate-300 text-indigo-500 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="push-email"
+                            className="ml-3 block text-sm font-medium text-slate-600"
+                          >
+                            Private
+                          </label>
+                        </div>
                       </div>
-                      <div className="flex items-center">
-                        <input
-                          id="push-email"
-                          name="push-notifications"
-                          type="radio"
-                          className="h-4 w-4 border-slate-300 text-indigo-500 focus:ring-indigo-500"
-                        />
-                        <label
-                          htmlFor="push-email"
-                          className="ml-3 block text-sm font-medium text-slate-600"
-                        >
-                          Private
-                        </label>
-                      </div>
-                    </div>
-                  </fieldset> */}
+                    </fieldset>
                   </div>
                   <div className="bg-slate-50 px-4 py-3 text-right sm:px-6">
                     <button
@@ -132,7 +132,7 @@ const UserInformation = () => {
               </form>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
