@@ -51,8 +51,9 @@ const Hashtag = () => {
   return (
     <AppLayout>
       <SquareHeader
-        squareSubTitle={"아무나 참여해요!"}
-        squareTitle={"Public Square"}
+        squareSubTitle={"어떤 글이 태그되었나요?"}
+        squareTitle={`Hashtag #${router.query.tag}`}
+        squareKind={"public"}
       />
     </AppLayout>
   );

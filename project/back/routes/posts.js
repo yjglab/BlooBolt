@@ -10,7 +10,7 @@ const {
 } = require("../models");
 const router = express.Router();
 
-router.get("/keyword/:word", async (req, res, next) => {
+router.post("/keyword/:word", async (req, res, next) => {
   try {
     const where = {};
     // if (parseInt(req.query.lastPostId, 10)) {
@@ -89,14 +89,17 @@ router.get("/keyword/:word", async (req, res, next) => {
   }
 });
 
-router.get("/", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const where = {};
     if (parseInt(req.query.lastPostId, 10)) {
       where.id = { [Op.lt]: parseInt(req.query.lastPostId, 10) };
     }
     const loadedPosts = await Post.findAll({
-      where,
+      where: {
+        ...where,
+        [Op.and]: { unique: req.body.postUnique },
+      },
       limit: 12,
       order: [
         ["createdAt", "DESC"],

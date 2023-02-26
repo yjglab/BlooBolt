@@ -23,7 +23,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import PostForm from "./PostForm";
 
-const SquareHeader = ({ squareTitle, squareSubTitle }) => {
+const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
   const { me } = useSelector((state) => state.user);
   const [togglePostForm, setTogglePostForm] = useState(false);
 
@@ -70,7 +70,7 @@ const SquareHeader = ({ squareTitle, squareSubTitle }) => {
         ) {
           console.log("일반");
           const lastPostId = mainPosts[mainPosts.length - 1]?.id;
-          dispatch(loadPosts(lastPostId));
+          dispatch(loadPosts({ lastPostId, postUnique: squareKind }));
         } else if (
           !router.query.tag &&
           keywordSearching &&
@@ -117,16 +117,18 @@ const SquareHeader = ({ squareTitle, squareSubTitle }) => {
 
   const onRefresh = useCallback(() => {
     if (router.query.tag) {
-      router.push("/square");
+      router.back();
     }
     setKeywordSearching(false);
     dispatch(flushMainPosts());
-    dispatch(loadPosts());
+    dispatch(loadPosts({ postUnique: squareKind }));
   });
 
   return (
     <>
-      {me && togglePostForm && <PostForm onTogglePostForm={onTogglePostForm} />}
+      {me && togglePostForm && (
+        <PostForm squareKind={squareKind} onTogglePostForm={onTogglePostForm} />
+      )}
       <div className="min-h-screen flex pb-20">
         <div className="mt-16 md:mt-20 px-2 sm:px-[2%] md:px-[2%] lg:px-[12%] w-full h-full relative ">
           <h1 className="px-6 text-base font-semibold leading-6 text-indigo-500">
@@ -179,9 +181,6 @@ const SquareHeader = ({ squareTitle, squareSubTitle }) => {
                 </>
               ) : router.query.tag ? (
                 <>
-                  <span className="text-lg mr-1 font-semibold text-indigo-500">
-                    #{router.query.tag}
-                  </span>
                   <span className="font-bold mr-0.5 ">{mainPosts.length}</span>
                   개의 포스트가 있습니다.
                 </>
@@ -213,6 +212,7 @@ const SquareHeader = ({ squareTitle, squareSubTitle }) => {
                 key={post.id}
                 post={post}
                 detailed={false}
+                squareKind={squareKind}
                 onTogglePostForm={onTogglePostForm}
               />
             ))}
@@ -225,6 +225,8 @@ const SquareHeader = ({ squareTitle, squareSubTitle }) => {
 
 SquareHeader.propTypes = {
   squareTitle: PropTypes.string.isRequired,
+  squareSubTitle: PropTypes.string.isRequired,
+  squareKind: PropTypes.string.isRequired,
 };
 
 export default SquareHeader;

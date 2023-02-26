@@ -19,7 +19,7 @@ const PostForm = ({
   onTogglePostForm,
   onTogglePostEditMode,
   post,
-  postClass,
+  squareKind,
   postEditMode,
   prevPostClass,
   prevTopic,
@@ -50,21 +50,28 @@ const PostForm = ({
 
   const onUploadPost = (formData) => {
     const { topic, content, postClass } = formData;
-    if (postClass === "default") {
-      return setError("postClass", {
-        message: "포스트 분류를 선택해주세요",
-      });
-    }
     if (!content.trim()) {
       return setError("content", {
         message: "빈 포스트를 업로드할 수 없습니다",
       });
     }
-
+    if (postClass === "default") {
+      return setError("postClass", {
+        message: "포스트 분류를 선택해주세요.",
+      });
+    }
     reset();
     onTogglePostForm(false);
 
-    dispatch(uploadPost({ postClass, topic, content, postImagePaths }));
+    dispatch(
+      uploadPost({
+        postUnique: squareKind,
+        postClass,
+        topic,
+        content,
+        postImagePaths,
+      })
+    );
     if (me.rank === 0) {
       dispatch(
         openNotice({
@@ -81,7 +88,7 @@ const PostForm = ({
     const { postClass, topic, content } = editedFormData;
     if (postClass === "default") {
       return setError("postClass", {
-        message: "포스트 분류를 선택해주세요",
+        message: "포스트 분류를 선택해주세요.",
       });
     }
     if (!content.trim()) {
@@ -137,7 +144,7 @@ const PostForm = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900 bg-opacity-25 flex justify-center items-center  backdrop-blur-md  z-30">
+    <div className="fixed inset-0 bg-slate-500 bg-opacity-25 flex justify-center items-center  backdrop-blur-md  z-30">
       <div className="flex md:w-2/3 sm:w-4/5  w-11/12 rounded-md mb-10 relative top-8">
         <div className="flex relative flex-col w-full ">
           <form
@@ -174,20 +181,40 @@ const PostForm = ({
                     htmlFor="postClass"
                     className="block text-sm font-medium text-slate-600"
                   ></label>
-                  <select
-                    id="postClass"
-                    name="postClass"
-                    className="relative block w-36 text-sm appearance-none rounded-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    {...register("postClass", {
-                      required: "포스트 분류를 선택해주세요.",
-                    })}
-                  >
-                    <option value="default">...분류</option>
-                    <option value="normal">일반</option>
-                    <option value="fedev">개발-프론트엔드</option>
-                    <option value="bedev">개발-백엔드</option>
-                    <option value="design">디자인-UX/UI</option>
-                  </select>
+                  {squareKind === "public" ? (
+                    <select
+                      id="postClass"
+                      name="postClass"
+                      className="relative block w-36 text-sm appearance-none rounded-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      {...register("postClass", {
+                        required: "포스트 분류를 선택해주세요.",
+                      })}
+                    >
+                      <option value="default">...분류</option>
+                      <option value="normal">일반</option>
+                      <option value="fedev">개발-프론트엔드</option>
+                      <option value="bedev">개발-백엔드</option>
+                      <option value="design">디자인-UX/UI</option>
+                    </select>
+                  ) : (
+                    <select
+                      id="postClass"
+                      name="postClass"
+                      // disabled={true}
+                      className="cursor-not-allowed relative block w-36 text-sm appearance-none rounded-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      {...register("postClass", {})}
+                    >
+                      <option value={squareKind}>
+                        {squareKind === "fedev"
+                          ? "프론트엔드"
+                          : squareKind === "bedev"
+                          ? "백엔드"
+                          : squareKind === "design"
+                          ? "디자인"
+                          : null}
+                      </option>
+                    </select>
+                  )}
                 </div>
               </div>
               <label htmlFor="content" className="sr-only"></label>
@@ -236,7 +263,7 @@ const PostForm = ({
                       alt={v}
                     /> */}
                       <div className="z-1 flex justify-center items-center w-full h-full top-0 left-0 absolute opacity-0 hover:bg-slate-200 hover:opacity-100 hover:bg-opacity-50">
-                        <TrashIcon className="text-slate-600 w-1/3 h-1/3 " />
+                        <TrashIcon className=" w-1/3 h-1/3 " />
                       </div>
                     </button>
                   ))}
@@ -312,7 +339,7 @@ PostForm.propTypes = {
   onTogglePostForm: PropTypes.func,
   onTogglePostEditMode: PropTypes.func,
   post: PropTypes.object,
-  postClass: PropTypes.string,
+  squareKind: PropTypes.string.isRequired,
   postEditMode: PropTypes.bool,
   prevPostClass: PropTypes.string,
   prevTopic: PropTypes.string,

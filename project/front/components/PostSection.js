@@ -39,7 +39,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const PostSection = ({ post, detailed }) => {
+const PostSection = ({ post, detailed, squareKind }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
   const { me } = useSelector((state) => state.user);
@@ -248,6 +248,7 @@ const PostSection = ({ post, detailed }) => {
         <PostForm
           postEditMode={postEditMode}
           onTogglePostEditMode={onTogglePostEditMode}
+          squareKind={squareKind}
           post={post}
           prevPostClass={post.class}
           prevTopic={post.topic}
@@ -259,7 +260,7 @@ const PostSection = ({ post, detailed }) => {
         className={`${
           detailed
             ? "min-h-[16rem]"
-            : "h-[31.5rem] ring-1 ring-slate-200 hover:ring-indigo-500 duration-150"
+            : "h-[27.5rem] ring-1 ring-slate-200 hover:ring-indigo-500 duration-150"
         } p-1 bg-white  relative rounded-xl  overflow-hidden `}
       >
         {reportCheck && (
@@ -315,78 +316,13 @@ const PostSection = ({ post, detailed }) => {
         )}
 
         <div className="px-5 pt-3  flex flex-col justify-between">
-          <Link href={!detailed ? `/post/${post.id}` : "#"}>
-            <div className={`${!detailed && "cursor-pointer"}`}>
-              <small className="text-slate-400">
-                {dayjs(post.updatedAt).format("YYYY.MM.DD | H:mm:ss")}
-                {post.edited && " (수정됨)"}
-              </small>
-              <h5
-                className={`${
-                  detailed ? "" : "line-clamp-2"
-                } mb-3 break-words text-2xl font-bold leading-tight tracking-tight ${
-                  post.topic ? "text-slate-600" : "text-slate-100"
-                }`}
-              >
-                {post.topic ? post.topic : "토픽 없음"}
-              </h5>
-            </div>
-          </Link>
-          <div className="mb-3 flex items-center">
-            <Link href={`/profile/${post.User.username}`}>
-              <img
-                src={
-                  process.env.NODE_ENV === "production"
-                    ? ``
-                    : `${backUrl}/${post.User.avatar}`
-                }
-                className={`${
-                  post.User.class === "fedev"
-                    ? "border-amber-400"
-                    : post.User.class === "bedev"
-                    ? "border-emerald-400"
-                    : post.User.class === "design"
-                    ? "border-red-400"
-                    : "border-slate-400"
-                } cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
-              />
-            </Link>
-            <div className="ml-2 w-full flex flex-col">
-              <Link href={`/profile/${post.User.username}`}>
-                <h1 className="cursor-pointer text-sm font-bold flex items-center">
-                  {post.User.username}
-                  <div
-                    className={`${
-                      post.User.class === "fedev"
-                        ? "text-amber-400"
-                        : post.User.class === "bedev"
-                        ? "text-emerald-400"
-                        : post.User.class === "design"
-                        ? "text-red-400"
-                        : "text-slate-400"
-                    } flex gap-0.5 text-xs`}
-                  >
-                    {post.User.rank === 6 ? (
-                      <FaceSmileIcon
-                        className="w-4 ml-0.5 "
-                        aria-hidden="true"
-                      />
-                    ) : post.User.rank === 0 ? null : (
-                      <ShieldCheckIcon
-                        className={`w-4 ml-0.5 flex-shrink-0 `}
-                        aria-hidden="true"
-                      />
-                    )}
-                    {post.User.rank}
-                  </div>
-                </h1>
-              </Link>
-              <h1 className="text-xs relative bottom-0.5">{post.User.role}</h1>
-            </div>
-
-            <Menu as="div" className="relative bottom-2 inline-block text-left">
+          <div className={`${!detailed && "cursor-pointer"} relative`}>
+            <Menu
+              as="div"
+              className="absolute top-0 -right-2.5 inline-block text-left"
+            >
               <div>
-                <Menu.Button className="rounded-md px-3 py-1.5 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
+                <Menu.Button className="rounded-md px-3 py-1 text-sm font-medium  hover:bg-slate-50 focus:outline-none">
                   <svg
                     className="w-5 h-5"
                     aria-hidden="true"
@@ -473,13 +409,81 @@ const PostSection = ({ post, detailed }) => {
                 </Menu.Items>
               </Transition>
             </Menu>
+            <small className="text-slate-400 text-xs">
+              {dayjs(post.updatedAt).format("YY.MM.DD | H:mm:ss")}
+              {post.edited && " (수정됨)"}
+            </small>
+            <Link href={!detailed ? `/post/${post.id}` : "#"}>
+              <h5
+                className={`${
+                  detailed ? "" : "line-clamp-2"
+                } mb-2 break-words text-xl font-bold leading-tight tracking-tight ${
+                  post.topic ? "text-slate-600" : "text-slate-100"
+                }`}
+              >
+                {post.topic ? post.topic : "토픽 없음"}
+              </h5>
+            </Link>
+          </div>
+
+          <div className="mb-3 flex items-center">
+            <Link href={`/profile/${post.User.username}`}>
+              <img
+                src={
+                  process.env.NODE_ENV === "production"
+                    ? ``
+                    : `${backUrl}/${post.User.avatar}`
+                }
+                className={`${
+                  post.User.class === "fedev"
+                    ? "border-amber-400"
+                    : post.User.class === "bedev"
+                    ? "border-emerald-400"
+                    : post.User.class === "design"
+                    ? "border-red-400"
+                    : "border-slate-400"
+                } cursor-pointer h-[45px] w-[45px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
+              />
+            </Link>
+            <div className="ml-2 w-full flex flex-col">
+              <Link href={`/profile/${post.User.username}`}>
+                <h1 className="cursor-pointer text-sm font-bold flex items-center">
+                  {post.User.username}
+                  <div
+                    className={`${
+                      post.User.class === "fedev"
+                        ? "text-amber-400"
+                        : post.User.class === "bedev"
+                        ? "text-emerald-400"
+                        : post.User.class === "design"
+                        ? "text-red-400"
+                        : "text-slate-400"
+                    } flex gap-0.5 text-xs`}
+                  >
+                    {post.User.rank === 6 ? (
+                      <FaceSmileIcon
+                        className="w-4 ml-0.5 "
+                        aria-hidden="true"
+                      />
+                    ) : post.User.rank === 0 ? null : (
+                      <ShieldCheckIcon
+                        className={`w-4 ml-0.5 flex-shrink-0 `}
+                        aria-hidden="true"
+                      />
+                    )}
+                    {post.User.rank}
+                  </div>
+                </h1>
+              </Link>
+              <h1 className="text-xs relative bottom-0.5">{post.User.role}</h1>
+            </div>
           </div>
 
           <p
             className={`${
               !detailed
                 ? post.PostImages[0]
-                  ? " line-clamp-4 mb-5"
+                  ? " line-clamp-4 mb-3"
                   : " line-clamp-[15] cursor-pointer"
                 : ""
             }  h-full text-sm break-words  font-normal text-slate-600`}
@@ -505,7 +509,7 @@ const PostSection = ({ post, detailed }) => {
           <div
             className={`${
               detailed && "z-10 bg-white border py-1.5  rounded-3xl"
-            } flex justify-between items-center  absolute bottom-4 text-sm`}
+            } flex justify-between items-center left-2.5 absolute bottom-2.5 text-sm`}
           >
             <div className="flex px-2.5  gap-2">
               {isProdded ? (
@@ -564,7 +568,7 @@ const PostSection = ({ post, detailed }) => {
         {post.PostImages[0] && (
           <div
             className={`${
-              detailed ? "mt-12 gap-1 w-full aspect-square" : "h-52 gap-1"
+              detailed ? "mt-12 gap-1 w-full aspect-square" : "h-44 gap-1"
             } flex rounded-xl  overflow-hidden`}
           >
             <PostImages postImages={post.PostImages} />
@@ -573,7 +577,7 @@ const PostSection = ({ post, detailed }) => {
 
         {!detailed && (
           <Link href={`/post/${post.id}`}>
-            <button className="absolute hover:text-indigo-500 bottom-4 right-6">
+            <button className="absolute hover:text-indigo-500 bottom-2.5 right-6">
               <ArrowsPointingOutIcon className="w-5 hover:scale-105" />
             </button>
           </Link>
@@ -607,5 +611,6 @@ const PostSection = ({ post, detailed }) => {
 PostSection.propTypes = {
   post: PropTypes.object.isRequired,
   detailed: PropTypes.bool.isRequired,
+  squareKind: PropTypes.string.isRequired,
 };
 export default PostSection;

@@ -36,8 +36,8 @@ const Landing = () => {
                     자유롭게 대화에 참여하세요
                   </h1>
                   <p className="mt-6 text-sm sm:text-base md:text-lg leading-5 ">
-                    BlooBolt Square는 소프트웨어 개발과 디자인 직무자들이 대화에
-                    참여하는 공간입니다.
+                    BlooBolt Square는 소프트웨어 개발과 디자인 직무자들이
+                    소통하는 공간입니다.
                     <br />
                   </p>
                   <div className="mt-10 flex items-center justify-center gap-x-6">

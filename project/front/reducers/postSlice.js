@@ -48,7 +48,10 @@ export const initialState = {
 
 export const loadPostsHandler = async (info, thunkAPI) => {
   try {
-    const { data } = await axios.get(`/posts?lastPostId=${info || 0}`);
+    const { data } = await axios.post(
+      `/posts?lastPostId=${info.lastPostId || 0}`,
+      info
+    );
     return data;
   } catch (error) {
     console.error(error);
@@ -57,7 +60,7 @@ export const loadPostsHandler = async (info, thunkAPI) => {
 };
 export const loadPostsByHashtagHandler = async (info, thunkAPI) => {
   try {
-    const { data } = await axios.get(
+    const { data } = await axios.post(
       `/hashtag/${encodeURIComponent(info.tag)}?lastPostId=${
         info.lastPostId || 0
       }`
@@ -70,7 +73,7 @@ export const loadPostsByHashtagHandler = async (info, thunkAPI) => {
 };
 export const loadPostsByKeywordHandler = async (info, thunkAPI) => {
   try {
-    const { data } = await axios.get(
+    const { data } = await axios.post(
       `/posts/keyword/${encodeURIComponent(info.keyword)}?lastPostId=${
         info.lastPostId || 0
       }`
@@ -403,6 +406,7 @@ export const postSlice = createSlice({
         post.class = payload.class;
         post.content = payload.content;
         post.PostImages = payload.PostImages;
+        post.updatedAt = payload.updatedAt;
         post.edited = true;
         state.postImagePaths = [];
       })

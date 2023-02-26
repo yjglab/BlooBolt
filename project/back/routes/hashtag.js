@@ -10,7 +10,7 @@ const {
 } = require("../models");
 const router = express.Router();
 
-router.get("/:id", async (req, res, next) => {
+router.post("/:id", async (req, res, next) => {
   try {
     const where = {};
     // if (parseInt(req.query.lastPostId, 10)) {

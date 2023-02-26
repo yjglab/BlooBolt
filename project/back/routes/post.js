@@ -159,6 +159,7 @@ router.patch("/:postId", isLoggedIn, async (req, res, next) => {
       class: req.body.postClass,
       topic: req.body.topic,
       content: req.body.content,
+      updatedAt: post.updatedAt,
       PostImages: postImages,
     });
   } catch (error) {
@@ -423,6 +424,7 @@ router.delete("/:postId", isLoggedIn, async (req, res, next) => {
 router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
   try {
     const post = await Post.create({
+      unique: req.body.postUnique,
       class: req.body.postClass,
       topic: req.body.topic.trim(),
       content: req.body.content,

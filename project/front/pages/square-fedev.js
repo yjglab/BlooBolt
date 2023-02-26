@@ -10,9 +10,9 @@ const Square = () => {
   return (
     <AppLayout>
       <SquareHeader
-        squareSubTitle={"아무나 참여해요!"}
-        squareTitle={"Public Square"}
-        squareKind={"public"}
+        squareSubTitle={"프론트엔드 개발자에요!"}
+        squareTitle={"Frontend Square"}
+        squareKind={"fedev"}
       />
     </AppLayout>
   );
@@ -27,7 +27,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 
     await context.store.dispatch(loadMe());
-    await context.store.dispatch(loadPosts({ postUnique: "public" }));
+    await context.store.dispatch(loadPosts({ postUnique: "fedev" }));
     await context.store.dispatch(loadUser({ username: "" }));
     return {
       props: { message: "" },

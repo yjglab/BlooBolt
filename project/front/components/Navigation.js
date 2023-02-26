@@ -159,7 +159,7 @@ const Navigation = () => {
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           <Link href="/square">
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
-                              <UserGroupIcon
+                              <BuildingLibraryIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500"
                                 aria-hidden="true"
                               />
@@ -173,7 +173,7 @@ const Navigation = () => {
                               </div>
                             </button>
                           </Link>{" "}
-                          <Link href="/square">
+                          <Link href="/square-fedev">
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
                               <RectangleGroupIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500"
@@ -189,7 +189,7 @@ const Navigation = () => {
                               </div>
                             </button>
                           </Link>
-                          <Link href="/square">
+                          <Link href="/square-bedev">
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
                               <ServerStackIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500"
@@ -205,7 +205,7 @@ const Navigation = () => {
                               </div>
                             </button>
                           </Link>
-                          <Link href="/square">
+                          <Link href="/square-design">
                             <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
                               <PaintBrushIcon
                                 className="h-6 w-6 flex-shrink-0 text-indigo-500"
@@ -223,25 +223,22 @@ const Navigation = () => {
                           </Link>
                         </div>
 
-                        <div className="bg-slate-50 px-5 py-5 sm:px-8 sm:py-6">
-                          {/* <div>
+                        {/* <div className="bg-slate-50 px-5 py-5 sm:px-8 sm:py-6">
+                          <div>
                             <h3 className="text-base font-medium text-slate-500">
                               Recent Traced
                             </h3>
                             <ul role="list" className="mt-4 space-y-4">
-                              {recentPosts.map((post) => (
-                                <li
-                                  key={post.id}
-                                  className="truncate text-base"
-                                >
-                                  <a
-                                    href={post.href}
-                                    className="font-medium text-slate-600 hover:text-slate-600"
-                                  >
-                                    {post.name}
-                                  </a>
-                                </li>
-                              ))}
+                              <li className="truncate text-base">
+                                <a className="font-medium text-slate-600 hover:text-slate-600">
+                                  {"post.name"}
+                                </a>
+                              </li>
+                              <li className="truncate text-base">
+                                <a className="font-medium text-slate-600 hover:text-slate-600">
+                                  {"post.name"}
+                                </a>
+                              </li>
                             </ul>
                           </div>
                           <div className="mt-5 text-sm">
@@ -252,8 +249,8 @@ const Navigation = () => {
                               View all posts
                               <span aria-hidden="true"> &rarr;</span>
                             </a>
-                          </div> */}
-                        </div>
+                          </div>
+                        </div> */}
                       </div>
                     </Popover.Panel>
                   </Transition>
@@ -338,7 +335,7 @@ const Navigation = () => {
           <div className="shadow-xl divide-y-2 divide-slate-50 rounded-md bg-white shadow-md-lg ring-1 ring-black ring-opacity-5">
             <div className="px-5 pt-5 pb-6">
               <div className="flex items-center justify-between">
-                <Link href="/square">
+                <Link href="/">
                   <div className="flex items-center text-xl font-bold text-indigo-500">
                     <div className="w-6 h-6 mr-1">
                       <Image
@@ -359,51 +356,78 @@ const Navigation = () => {
               </div>
               <div className="mt-6">
                 <nav className="grid gap-y-8">
-                  <Link href="/square">
-                    <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
-                      <BuildingLibraryIcon
-                        className="h-6 w-6 flex-shrink-0 text-indigo-500"
-                        aria-hidden="true"
-                      />
-                      <span className="ml-3 text-base font-medium text-slate-600">
-                        Square
-                      </span>
-                    </div>
-                  </Link>
-
-                  <Link href={me ? `/profile/${me.username}` : `/login`}>
-                    <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
-                      <UserIcon
-                        className="h-6 w-6 flex-shrink-0 text-indigo-500"
-                        aria-hidden="true"
-                      />
-                      <span className="ml-3 text-base font-medium text-slate-600">
-                        Profile
-                      </span>
-                    </div>
-                  </Link>
-                  <Link href={me ? `/profile/${me.username}` : `/login`}>
-                    <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
-                      <LightBulbIcon
-                        className="h-6 w-6 flex-shrink-0 text-indigo-500"
-                        aria-hidden="true"
-                      />
-                      <span className="ml-3 text-base font-medium text-slate-600">
-                        Guide
-                      </span>
-                    </div>
-                  </Link>
-                  <Link href={me ? `/profile/${me.username}` : `/login`}>
-                    <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
-                      <CubeIcon
-                        className="h-6 w-6 flex-shrink-0 text-indigo-500"
-                        aria-hidden="true"
-                      />
-                      <span className="ml-3 text-base font-medium text-slate-600">
-                        About
-                      </span>
-                    </div>
-                  </Link>
+                  <div className="grid grid-cols-2">
+                    <Link href="/square">
+                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                        <BuildingLibraryIcon
+                          className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                          aria-hidden="true"
+                        />
+                        <span className="ml-3 text-base font-medium text-slate-600">
+                          퍼블릭 스퀘어
+                        </span>
+                      </div>
+                    </Link>
+                    <Link href="/squar-fedev">
+                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                        <RectangleGroupIcon
+                          className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                          aria-hidden="true"
+                        />
+                        <span className="ml-3 text-base font-medium text-slate-600">
+                          프론트엔드 스퀘어
+                        </span>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-2">
+                    <Link href="/square-bedev">
+                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                        <ServerStackIcon
+                          className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                          aria-hidden="true"
+                        />
+                        <span className="ml-3 text-base font-medium text-slate-600">
+                          백엔드 스퀘어
+                        </span>
+                      </div>
+                    </Link>
+                    <Link href="/square-design">
+                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                        <PaintBrushIcon
+                          className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                          aria-hidden="true"
+                        />
+                        <span className="ml-3 text-base font-medium text-slate-600">
+                          디자인 스퀘어
+                        </span>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-2">
+                    <Link href={me ? `/profile/${me.username}` : `/login`}>
+                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                        <UserIcon
+                          className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                          aria-hidden="true"
+                        />
+                        <span className="ml-3 text-base font-medium text-slate-600">
+                          프로필
+                        </span>
+                      </div>
+                    </Link>
+                    <Link href={me ? `/profile/${me.username}` : `/login`}>
+                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                        <BookOpenIcon
+                          className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                          aria-hidden="true"
+                        />
+                        <span className="ml-3 text-base font-medium text-slate-600">
+                          가이드
+                        </span>
+                      </div>
+                    </Link>
+                  </div>
                 </nav>
               </div>
             </div>
@@ -465,20 +489,20 @@ const Navigation = () => {
                     onClick={onLogout}
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500"
                   >
-                    Logout
+                    로그아웃
                   </button>
                 ) : (
                   <>
                     <Link href="/login">
                       <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500">
-                        Login
+                        로그인
                       </div>
                     </Link>
                     <p className="mt-6 text-center text-base font-medium text-slate-500">
-                      Don't have an account?{" "}
+                      계정이 없으신가요?
                       <Link href="/signup">
-                        <span className="text-indigo-500 hover:text-indigo-500">
-                          Sign up
+                        <span className="ml-1 text-indigo-500 hover:text-indigo-500">
+                          회원가입
                         </span>
                       </Link>
                     </p>

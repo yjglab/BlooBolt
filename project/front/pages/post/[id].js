@@ -15,11 +15,12 @@ import {
 } from "@heroicons/react/20/solid";
 
 const Post = () => {
+  const router = useRouter();
   const { solePost } = useSelector((state) => state.post);
   if (!solePost) return;
 
   const onRefresh = () => {
-    Router.push("/square");
+    router.back();
   };
 
   return (
@@ -42,7 +43,7 @@ const Post = () => {
             </div>
           </div>
 
-          <div className="mx-auto max-w-7xl px-0 md:px-32">
+          <div className=" px-0 md:px-4">
             <PostSection post={solePost} detailed={true} />
           </div>
         </div>

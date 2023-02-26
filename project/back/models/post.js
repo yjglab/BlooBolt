@@ -5,6 +5,10 @@ module.exports = class Post extends Model {
   static init(sequelize) {
     return super.init(
       {
+        unique: {
+          type: DataTypes.STRING(10),
+          allowNull: false,
+        },
         topic: {
           type: DataTypes.TEXT,
           allowNull: true,
