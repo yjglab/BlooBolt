@@ -19,7 +19,7 @@ const Landing = () => {
                 <div className="mb-8 flex justify-center">
                   <div className="text-xs sm:text-sm relative rounded-full py-1 px-3 leading-6  ring-1 ring-slate-900/10 hover:ring-slate-900/20">
                     해당 버전은 V.Beta 입니다.{" "}
-                    <Link href="#">
+                    <Link href="/version-log">
                       <span className="cursor-pointer font-semibold text-indigo-600">
                         <span className="absolute inset-0" aria-hidden="true" />
                         변경된 내용 알아보기{" "}
@@ -30,7 +30,7 @@ const Landing = () => {
                 </div>
                 <div className="text-center">
                   <h1 className="text-3xl  font-bold tracking-tight  md:text-6xl">
-                    자신의 스퀘어에서
+                    당신의 스퀘어에서
                     <br />
                     <div className="p-0.5 md:p-1" />
                     자유롭게 대화에 참여하세요

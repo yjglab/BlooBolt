@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import {
   ArrowUturnLeftIcon,
   CloudArrowUpIcon,
+  DocumentPlusIcon,
   MagnifyingGlassIcon,
   PaperAirplaneIcon,
 } from "@heroicons/react/20/solid";
@@ -96,6 +97,15 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
   ]);
 
   const onTogglePostForm = useCallback(() => {
+    if (squareKind !== "public" && squareKind !== me.class) {
+      return dispatch(
+        openNotice({
+          type: 2,
+          content:
+            "포스트는 퍼블릭 스퀘어와 자신의 스퀘어에만 업로드할 수 있습니다.",
+        })
+      );
+    }
     if (togglePostForm) {
       dispatch(cancelAllPostImages());
     }
@@ -152,18 +162,24 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
               {me && !keywordSearching && !router.query.tag ? (
                 <button
                   onClick={onTogglePostForm}
-                  className=" flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500 hover:bg-indigo-600"
+                  className=" flex h-10 gap-1.5 px-2 items-center justify-center rounded-lg bg-indigo-500 hover:bg-indigo-600"
                 >
-                  <PaperAirplaneIcon
-                    className="h-6 w-6 text-white"
+                  <span className="hidden sm:inline text-sm text-white ">
+                    포스트
+                  </span>
+                  <DocumentPlusIcon
+                    className="h-5 w-5 text-white"
                     aria-hidden="true"
                   />
                 </button>
               ) : keywordSearching || router.query.tag ? null : (
                 <Link href="/login">
-                  <button className=" flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500 hover:bg-indigo-600">
-                    <PaperAirplaneIcon
-                      className="h-6 w-6 text-white"
+                  <button className=" flex h-10 gap-1.5 px-2 items-center justify-center rounded-lg bg-indigo-500 hover:bg-indigo-600">
+                    <span className="hidden sm:inline text-sm text-white ">
+                      포스트
+                    </span>
+                    <DocumentPlusIcon
+                      className="h-5 w-5 text-white"
                       aria-hidden="true"
                     />
                   </button>

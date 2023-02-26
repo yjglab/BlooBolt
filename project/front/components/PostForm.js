@@ -156,7 +156,7 @@ const PostForm = ({
             encType="multipart/form-data"
             className="mb-8 w-full relative "
           >
-            <div className="pt-4 pb-4 px-4 mb-2  bg-white w-full shadow-xl rounded-md   ">
+            <div className="pt-4 pb-4 px-4 mb-2  bg-white w-full rounded-md   ">
               <div className="flex my-1 gap-3 items-center justify-between">
                 <div className="w-full">
                   <label

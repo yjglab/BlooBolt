@@ -9,6 +9,7 @@ import {
   ArrowsPointingOutIcon,
   BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
+  ChatBubbleOvalLeftIcon,
   FaceSmileIcon,
   ShieldCheckIcon,
   UserMinusIcon,
@@ -537,7 +538,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
                   onClick={onToggleCommentArea}
                   className="flex hover:scale-105 items-center gap-1 hover:text-indigo-500"
                 >
-                  <ChatBubbleOvalLeftEllipsisIcon className="w-5" />
+                  <ChatBubbleOvalLeftIcon className="w-5" />
                   {post.Comments.length}
                 </button>
               )}

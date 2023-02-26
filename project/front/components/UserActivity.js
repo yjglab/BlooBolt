@@ -5,6 +5,7 @@ import { Tab } from "@headlessui/react";
 import {
   BoltIcon,
   ChatBubbleOvalLeftEllipsisIcon,
+  ChatBubbleOvalLeftIcon,
   FaceFrownIcon,
   FaceSmileIcon,
   ShieldCheckIcon,
@@ -125,7 +126,7 @@ const UserActivity = ({ owner, me, user }) => {
                         <li>&middot;</li>
                         <li className="flex">
                           {post.Comments.length || 0}{" "}
-                          <ChatBubbleOvalLeftEllipsisIcon className="w-3 ml-0.5" />
+                          <ChatBubbleOvalLeftIcon className="w-3 ml-0.5" />
                         </li>
                       </ul>
 

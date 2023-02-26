@@ -24,9 +24,13 @@ const Footer = () => {
           Powered by yjglab
         </p> */}
         <div className="mt-16 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-slate-700">
-          <a href="/privacy-policy">Privacy policy</a>
+          {/* <Link href="/privacy-policy"> */}
+          <span className="cursor-pointer">Privacy policy</span>
+          {/* </Link> */}
           <div className="h-4 w-px bg-slate-500/20"></div>
-          <a href="/version">Version update</a>
+          <Link href="/version-log">
+            <span className="cursor-pointer">Version logging</span>
+          </Link>
         </div>
       </div>
     </footer>
