@@ -24,6 +24,8 @@ export const initialState = {
   uploadPostError: null,
   removePostDone: false,
   removePostError: null,
+  removePostCompletelyDone: false,
+  removePostCompletelyError: null,
   revertPostDone: false,
   revertPostError: null,
   uploadPostImagesDone: false,
@@ -133,6 +135,18 @@ export const uploadPost = createAsyncThunk(
 );
 export const removePost = createAsyncThunk(
   "post/removePost",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.delete(`/post/${info}`);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+export const removePostCompletely = createAsyncThunk(
+  "post/removePostCompletely",
   async (info, thunkAPI) => {
     try {
       const { data } = await axios.delete(`/post/${info}`);
@@ -360,7 +374,15 @@ export const postSlice = createSlice({
       .addCase(removePost.rejected, (state, { payload }) => {
         state.removePostError = payload;
       })
-
+      .addCase(removePostCompletely.fulfilled, (state, { payload }) => {
+        state.removePostCompletelyDone = true;
+        state.mainPosts = state.mainPosts.filter(
+          (v) => v.id !== payload.PostId
+        );
+      })
+      .addCase(removePostCompletely.rejected, (state, { payload }) => {
+        state.removePostCompletelyError = payload;
+      })
       .addCase(revertPost.fulfilled, (state, { payload }) => {
         state.revertPostDone = true;
         const post = state.solePost

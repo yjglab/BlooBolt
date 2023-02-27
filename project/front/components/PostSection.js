@@ -28,6 +28,7 @@ import {
   removePost,
   revertPost,
   unprodPost,
+  removePostCompletely,
 } from "../reducers/postSlice";
 import { trace, untrace, reportUser } from "../reducers/userSlice";
 import { backUrl } from "../config/config";
@@ -93,15 +94,26 @@ const PostSection = ({ post, detailed, squareKind }) => {
     }
 
     setBlindCheck(false);
-    dispatch(removePost(post.id));
-    dispatch(
-      openNotice({
-        type: 1,
-        content:
-          "포스트가 블라인드 되었습니다. 다른 사용자가 작성자의 포스트를 확인할 수 있습니다.",
-      })
-    );
-    setBlindPost(true);
+
+    if (post.Comments.length === 0) {
+      dispatch(removePostCompletely(post.id));
+      dispatch(
+        openNotice({
+          type: 1,
+          content: "포스트가 삭제되었습니다.",
+        })
+      );
+    } else {
+      dispatch(removePost(post.id));
+      dispatch(
+        openNotice({
+          type: 1,
+          content:
+            "포스트가 블라인드 되었습니다. 다른 사용자가 작성자의 포스트를 확인할 수 있습니다.",
+        })
+      );
+      setBlindPost(true);
+    }
   };
 
   const onRevertPost = () => {
@@ -273,10 +285,17 @@ const PostSection = ({ post, detailed, squareKind }) => {
         )}
         {blindCheck && (
           <div className="flex backdrop-saturate-0 gap-2 bg-white/50 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur-md z-10">
-            <span className="text-sm text-slate-500 text-center px-5">
-              삭제 요청된 포스트는 블라인드 처리되며 수정이 불가능합니다. 또한
-              여전히 다른 사용자에 의해 확인될 수 있으며 복원이 가능합니다.
-            </span>
+            {post.Comments.length === 0 ? (
+              <span className="text-sm text-slate-500 text-center px-5">
+                포스트를 삭제하면 블루포인트가 회수됩니다. 포스트를
+                삭제하시겠습니까?
+              </span>
+            ) : (
+              <span className="text-sm text-slate-500 text-center px-5">
+                삭제 요청된 포스트는 블라인드 처리되며 수정이 불가능합니다. 또한
+                여전히 다른 사용자에 의해 확인될 수 있으며 복원이 가능합니다.
+              </span>
+            )}
             <div className="mt-2 flex gap-2">
               <button
                 onClick={onRemovePost}

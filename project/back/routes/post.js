@@ -386,23 +386,33 @@ router.patch("/:postId/revert", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// 포스트 삭제
+// 포스트 삭제 (블라인드/완전삭제)
 router.delete("/:postId", isLoggedIn, async (req, res, next) => {
   try {
-    // await Post.destroy({
-    //   where: { id: req.params.postId, UserId: req.user.id },
-    // });
-    await Post.update(
-      {
-        blinded: true,
+    const targetPost = await Post.findOne({
+      where: {
+        id: req.params.postId,
+        UserId: req.user.id,
       },
-      {
-        where: {
-          id: req.params.postId,
-          UserId: req.user.id,
+      include: [
+        {
+          model: Comment,
+          attributes: ["id"],
         },
-      }
-    );
+      ],
+    });
+    if (!targetPost) {
+      res.status(401).send("존재하지 않는 포스트입니다.");
+    }
+
+    if (targetPost.Comments.length === 0) {
+      await targetPost.destroy();
+    } else {
+      await targetPost.update({
+        blinded: true,
+      });
+    }
+
     await User.decrement(
       {
         rankPoint: 10,
