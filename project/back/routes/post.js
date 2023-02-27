@@ -28,6 +28,8 @@ AWS.config.update({
   secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
   region: "ap-northeast-2",
 });
+console.log(process.env.S3_ACCESS_KEY_ID);
+console.log(process.env.S3_SECRET_ACCESS_KEY);
 
 const upload = multer({
   storage:
