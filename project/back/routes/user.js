@@ -20,6 +20,12 @@ try {
   fs.mkdirSync("uploads");
 }
 
+AWS.config.update({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  region: "ap-northeast-2",
+});
+
 const upload = multer({
   storage:
     process.env.NODE_ENV === "production"
@@ -132,7 +138,9 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
       password: hashedPassword,
       class: req.body.userClass,
       avatar:
-        "" || process.env.NODE_ENV === "production" ? "" : "base_avatar.png",
+        process.env.NODE_ENV === "production"
+          ? "https://blooboltbucket.s3.ap-northeast-2.amazonaws.com/thumb/base_avatar.png"
+          : "base_avatar.png",
       rank: 0,
       rankPoint: 0,
 
