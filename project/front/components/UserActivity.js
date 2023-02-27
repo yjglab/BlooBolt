@@ -167,7 +167,7 @@ const UserActivity = ({ owner, me, user }) => {
                           <img
                             src={
                               process.env.NODE_ENV === "production"
-                                ? ``
+                                ? `${tracer.avatar}`
                                 : `${backUrl}/${tracer.avatar}`
                             }
                             className={`${
@@ -255,7 +255,7 @@ const UserActivity = ({ owner, me, user }) => {
                           <img
                             src={
                               process.env.NODE_ENV === "production"
-                                ? ``
+                                ? `${tracing.avatar}`
                                 : `${backUrl}/${tracing.avatar}`
                             }
                             className={`${

@@ -213,7 +213,7 @@ const CommentSection = ({ post, comment }) => {
           <img
             src={
               process.env.NODE_ENV === "production"
-                ? ``
+                ? `${comment.User.avatar}`
                 : `${backUrl}/${comment.User.avatar}`
             }
             className={`${

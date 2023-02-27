@@ -14,6 +14,8 @@ const { isLoggedIn } = require("./middlewares");
 const path = require("path");
 
 const router = express.Router();
+const multerS3 = require("multer-s3");
+const AWS = require("aws-sdk");
 
 try {
   fs.accessSync("uploads");
@@ -23,7 +25,18 @@ try {
 const upload = multer({
   storage:
     process.env.NODE_ENV === "production"
-      ? ""
+      ? multerS3({
+          s3: new AWS.S3(),
+          bucket: "blooboltbucket",
+          key(req, file, cb) {
+            cb(
+              null,
+              `original/${Date.now()}_${encodeURIComponent(
+                path.basename(file.originalname)
+              )}`
+            );
+          },
+        })
       : multer.diskStorage({
           destination(req, file, done) {
             done(null, "uploads");
@@ -49,7 +62,9 @@ router.post(
       }
       res.json(
         req.files.map((v) =>
-          process.env.NODE_ENV === "production" ? "" : v.filename
+          process.env.NODE_ENV === "production"
+            ? v.location.replace(/\/original\//, "/thumb/")
+            : v.filename
         )
       );
     } catch (error) {

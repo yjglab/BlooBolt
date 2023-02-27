@@ -37,7 +37,10 @@ const PostImagesCarousel = ({ postImages, onCloseCarousel }) => {
           <img
             src={
               process.env.NODE_ENV === "production"
-                ? ``
+                ? `${postImages[currentIndex].src.replace(
+                    /\/thumb\//,
+                    "/original/"
+                  )}`
                 : `${backUrl}/${postImages[currentIndex].src}`
             }
             className="w-full sm:h-full h-[60%] object-cover  bg-center bg-cover sm:shadow sm:rounded-md "

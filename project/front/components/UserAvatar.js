@@ -65,7 +65,7 @@ const UserAvatar = ({ avatarPath, owner }) => {
       <img
         src={
           process.env.NODE_ENV === "production"
-            ? ``
+            ? `${avatarPath}`
             : `${backUrl}/${avatarPath}`
         }
         className="aspect-square object-cover"

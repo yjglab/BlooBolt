@@ -448,7 +448,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
               <img
                 src={
                   process.env.NODE_ENV === "production"
-                    ? ``
+                    ? `${post.User.avatar}`
                     : `${backUrl}/${post.User.avatar}`
                 }
                 className={`${

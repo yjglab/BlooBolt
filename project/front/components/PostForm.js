@@ -246,22 +246,12 @@ const PostForm = ({
                           className="hover:opacity-25 z-0 aspect-square object-cover"
                           src={
                             process.env.NODE_ENV === "production"
-                              ? ``
+                              ? `${v.replace(/\/thumb\//, "/original/")}`
                               : `${backUrl}/${v}`
                           }
                           alt={v}
                         />
                       }
-                      {/* <Image
-                      className="hover:opacity-25 z-0 aspect-square object-cover"
-                      layout="fill"
-                      src={
-                        process.env.NODE_ENV === "production"
-                          ? ``
-                          : `${backUrl}/${v}`
-                      }
-                      alt={v}
-                    /> */}
                       <div className="z-1 flex justify-center items-center w-full h-full top-0 left-0 absolute opacity-0 hover:bg-slate-200 hover:opacity-100 hover:bg-opacity-50">
                         <TrashIcon className=" w-1/3 h-1/3 " />
                       </div>

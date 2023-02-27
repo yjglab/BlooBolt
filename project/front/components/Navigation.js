@@ -292,7 +292,7 @@ const Navigation = () => {
                       className="cursor-pointer ml-4 h-10 w-10 rounded-full object-cover"
                       src={
                         process.env.NODE_ENV === "production"
-                          ? ``
+                          ? `${me.avatar}`
                           : `${backUrl}/${me.avatar}`
                       }
                       alt="avatar-image"
@@ -439,7 +439,7 @@ const Navigation = () => {
                       <img
                         src={
                           process.env.NODE_ENV === "production"
-                            ? ``
+                            ? `${me.avatar}`
                             : `${backUrl}/${me.avatar}`
                         }
                         className={`${
