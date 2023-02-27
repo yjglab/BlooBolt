@@ -28,6 +28,6 @@ module.exports = {
     host: "127.0.0.1",
     dialect: "mysql",
     timezone: "+09:00",
-    logging: false,
+    // logging: false,
   },
 };

@@ -5,7 +5,6 @@ import {
   ArrowPathIcon,
   EnvelopeIcon,
   FaceSmileIcon,
-  QuestionMarkCircleIcon,
 } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
 import axios from "axios";

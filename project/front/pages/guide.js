@@ -6,7 +6,6 @@ import { loadMe } from "../reducers/userSlice";
 
 import {
   AdjustmentsHorizontalIcon,
-  ChatBubbleLeftEllipsisIcon,
   ChatBubbleOvalLeftIcon,
   DocumentTextIcon,
   ExclamationTriangleIcon,

@@ -28,6 +28,10 @@ db.sequelize
 passportConfig();
 
 if (process.env.NODE_ENV === "production") {
+  // app.enable("trust proxy"); // https
+  app.use(morgan("combined"));
+  app.use(hpp()); // 보안용
+  app.use(helmet()); // 보안용
 } else {
   app.use(morgan("dev"));
 }
@@ -50,9 +54,11 @@ app.use(
     saveUninitialized: false,
     resave: false,
     secret: process.env.COOKIE_SECRET,
+    // proxy: process.env.NODE_ENV === "production", // https
     cookie: {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
+      domain: process.env.NODE_ENV === "production" && ".bloobolt.com",
     },
   })
 );

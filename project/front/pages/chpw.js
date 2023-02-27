@@ -14,7 +14,6 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { changePassword } from "../reducers/userSlice";
-import { openNotice } from "../reducers/globalSlice";
 
 const ChangePassword = () => {
   const dispatch = useDispatch();

@@ -4,11 +4,8 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import CommentArea from "./CommentArea";
 import {
-  ArrowPathIcon,
-  ArrowsPointingInIcon,
   ArrowsPointingOutIcon,
   BoltIcon,
-  ChatBubbleOvalLeftEllipsisIcon,
   ChatBubbleOvalLeftIcon,
   FaceSmileIcon,
   ShieldCheckIcon,
@@ -30,9 +27,8 @@ import {
   unprodPost,
   removePostCompletely,
 } from "../reducers/postSlice";
-import { trace, untrace, reportUser } from "../reducers/userSlice";
+import { trace, untrace } from "../reducers/userSlice";
 import { backUrl } from "../config/config";
-import { useForm } from "react-hook-form";
 import PostUserReport from "./PostUserReport";
 
 dayjs.locale("ko");

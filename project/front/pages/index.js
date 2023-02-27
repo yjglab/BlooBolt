@@ -3,9 +3,7 @@ import AppLayout from "../components/AppLayout";
 import wrapper from "../store/configureStore";
 import axios from "axios";
 import { loadMe } from "../reducers/userSlice";
-import { useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+
 import Link from "next/link";
 
 const Landing = () => {

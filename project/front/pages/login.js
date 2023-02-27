@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import AppLayout from "../components/AppLayout";
 import LoginForm from "../components/LoginForm";
 import { useSelector } from "react-redux";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import axios from "axios";
 import wrapper from "../store/configureStore";
 import { loadMe } from "../reducers/userSlice";

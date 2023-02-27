@@ -12,8 +12,6 @@ import AppLayout from "../components/AppLayout";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 
 import { signUp, signUpEmailAuth } from "../reducers/userSlice";
-import { openNotice } from "../reducers/globalSlice";
-import Router from "next/router";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -34,7 +32,6 @@ const SignupForm = () => {
   const onSignUp = (formData) => {
     const { email, username, password, passwordCheck, userClass, signupCode } =
       formData;
-    console.log(userClass);
     const slCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/g;
     if (username.search(/\s/) !== -1 || slCheck.test(username)) {
       return setError("username", {

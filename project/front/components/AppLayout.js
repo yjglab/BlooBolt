@@ -6,25 +6,6 @@ import NoticeModal from "./NoticeModal";
 
 const AppLayout = ({ children }) => {
   const { noticeCalled } = useSelector((state) => state.global);
-  const { me } = useSelector((state) => state.user);
-
-  const dispatch = useDispatch();
-
-  // const logOutWhenCloseWindow = (e) => {
-  //   e.preventDefault();
-  //   dispatch(logOut());
-  // };
-  // useEffect(() => {
-  //   // if (me && me.id) {
-  //   //   dispatch(logIn());
-  //   // }
-  //   window.addEventListener("beforeunload", logOutWhenCloseWindow);
-
-  //   return () => {
-  //     window.removeEventListener("beforeunload", logOutWhenCloseWindow);
-  //     // dispatch(offlineStatus())
-  //   };
-  // }, []);
 
   return (
     <>

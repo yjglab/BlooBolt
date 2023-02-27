@@ -5,8 +5,6 @@ import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
-import { Provider, useSelector } from "react-redux";
-// import store from "../store/configureStore";
 import wrapper from "../store/configureStore";
 
 const BlooBolt = ({ Component, pageProps }) => {

@@ -442,40 +442,45 @@ const Navigation = () => {
                             ? ``
                             : `${backUrl}/${me.avatar}`
                         }
-                        className={`cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] ${"border-indigo-500"} p-0.5 rounded-full object-cover`}
+                        className={`${
+                          me.class === "fedev"
+                            ? "border-amber-400"
+                            : me.class === "bedev"
+                            ? "border-emerald-400"
+                            : me.class === "design"
+                            ? "border-red-400"
+                            : "border-slate-400"
+                        } cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
                       />
                     </Link>
                     <div className="ml-2 w-full flex flex-col">
                       <Link href={`/profile/${me.username}`}>
                         <h1 className="cursor-pointer text-md font-bold flex items-center">
                           {me.username}
-                          <>
+                          <div
+                            className={`${
+                              me.class === "fedev"
+                                ? "text-amber-400"
+                                : me.class === "bedev"
+                                ? "text-emerald-400"
+                                : me.class === "design"
+                                ? "text-red-400"
+                                : "text-slate-400"
+                            } flex gap-0.5 text-xs`}
+                          >
                             {me.rank === 6 ? (
                               <FaceSmileIcon
-                                className="w-4 ml-0.5 text-slate-400"
+                                className="w-4 ml-0.5 "
                                 aria-hidden="true"
                               />
                             ) : me.rank === 0 ? null : (
                               <ShieldCheckIcon
-                                className={`w-4 ml-0.5 flex-shrink-0 ${
-                                  me.rank === 1
-                                    ? "text-cyan-400"
-                                    : me.rank === 2
-                                    ? "text-amber-400"
-                                    : me.rank === 3
-                                    ? "text-amber-600/90"
-                                    : me.rank === 4
-                                    ? "text-lime-500"
-                                    : me.rank === 5
-                                    ? "text-slate-400"
-                                    : me.rank === 9
-                                    ? "text-red-400"
-                                    : null
-                                }`}
+                                className={`w-4 ml-0.5 flex-shrink-0 `}
                                 aria-hidden="true"
                               />
                             )}
-                          </>
+                            {me.rank}
+                          </div>
                         </h1>
                       </Link>
                       <h1 className="text-xs relative bottom-0.5">{me.role}</h1>
