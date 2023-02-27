@@ -72,7 +72,7 @@ const Support = () => {
                     <input
                       id="email"
                       type="text"
-                      placeholder="Email address"
+                      placeholder="이메일 주소"
                       className="relative block w-full appearance-none rounded-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       {...register("email", {
                         required: "이메일을 입력해주세요",
@@ -113,7 +113,7 @@ const Support = () => {
                           aria-hidden="true"
                         />
                       </span>
-                      Submit
+                      임시 비밀번호 전송
                     </button>
                   </div>
                 </div>

@@ -6,44 +6,73 @@ export const initialState = {
   mainPosts: [],
   solePost: null,
   postImagePaths: [],
-
   loadMorePosts: true,
+
   loadPostsLoading: false,
   loadPostsDone: false,
   loadPostsError: null,
+
   loadPostsByHashtagLoading: false,
   loadPostsByHashtagDone: false,
   loadPostsByHashtagError: null,
+
   loadPostsByKeywordLoading: false,
   loadPostsByKeywordDone: false,
   loadPostsByKeywordError: null,
 
+  loadSolePostLoading: false,
   loadSolePostDone: false,
   loadSolePostError: null,
+
+  uploadPostLoading: false,
   uploadPostDone: false,
   uploadPostError: null,
+
+  removePostLoading: false,
   removePostDone: false,
   removePostError: null,
+
+  removePostCompletelyLoading: false,
   removePostCompletelyDone: false,
   removePostCompletelyError: null,
+
+  revertPostLoading: false,
   revertPostDone: false,
   revertPostError: null,
+
+  uploadPostImagesLoading: false,
   uploadPostImagesDone: false,
   uploadPostImagesError: null,
+
+  prodPostLoading: false,
   prodPostDone: false,
   prodPostError: null,
+
+  unprodPostLoading: false,
   unprodPostDone: false,
   unprodPostError: null,
+
+  editPostLoading: false,
   editPostDone: false,
   editPostError: null,
+
+  uploadCommentLoading: false,
   uploadCommentDone: false,
   uploadCommentError: null,
+
+  editCommentLoading: false,
   editCommentDone: false,
   editCommentError: null,
+
+  removeCommentLoading: false,
   removeCommentDone: false,
   removeCommentError: null,
+
+  prodCommentLoading: false,
   prodCommentDone: false,
   prodCommentError: null,
+
+  unprodCommentLoading: false,
   unprodCommentDone: false,
   unprodCommentError: null,
 };
@@ -280,7 +309,7 @@ export const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
-    flushMainPosts(state, { payload }) {
+    flushMainPosts(state) {
       state.mainPosts = [];
     },
     loadPrevPostImages(state, { payload }) {
@@ -311,6 +340,7 @@ export const postSlice = createSlice({
         state.loadPostsLoading = false;
         state.loadPostsError = payload;
       })
+
       .addCase(loadPostsByHashtag.pending, (state) => {
         state.loadPostsByHashtagLoading = true;
         state.loadPostsByHashtagError = null;
@@ -325,6 +355,7 @@ export const postSlice = createSlice({
         state.loadPostsByHashtagLoading = false;
         state.loadPostsByHashtagError = payload;
       })
+
       .addCase(loadPostsByKeyword.pending, (state) => {
         state.loadPostsByKeywordLoading = true;
         state.loadPostsByKeywordError = null;
@@ -340,12 +371,21 @@ export const postSlice = createSlice({
         state.loadPostsByKeywordError = payload;
       })
 
+      .addCase(loadSolePost.pending, (state) => {
+        state.loadSolePostLoading = true;
+        state.loadSolePostError = null;
+      })
       .addCase(loadSolePost.fulfilled, (state, { payload }) => {
         state.loadSolePostDone = true;
         state.solePost = payload;
       })
       .addCase(loadSolePost.rejected, (state, { payload }) => {
         state.loadSolePostError = payload;
+      })
+
+      .addCase(uploadPostImages.pending, (state) => {
+        state.uploadPostImagesLoading = true;
+        state.uploadPostImagesError = null;
       })
       .addCase(uploadPostImages.fulfilled, (state, { payload }) => {
         state.uploadPostImagesDone = true;
@@ -355,6 +395,10 @@ export const postSlice = createSlice({
         state.uploadPostImagesError = payload;
       })
 
+      .addCase(uploadPost.pending, (state) => {
+        state.uploadPostLoading = true;
+        state.uploadPostError = null;
+      })
       .addCase(uploadPost.fulfilled, (state, { payload }) => {
         state.uploadPostDone = true;
         state.mainPosts.unshift(payload);
@@ -364,6 +408,10 @@ export const postSlice = createSlice({
         state.uploadPostError = payload;
       })
 
+      .addCase(removePost.pending, (state) => {
+        state.removePostLoading = true;
+        state.removePostError = null;
+      })
       .addCase(removePost.fulfilled, (state, { payload }) => {
         state.removePostDone = true;
         const post = state.solePost
@@ -374,6 +422,11 @@ export const postSlice = createSlice({
       .addCase(removePost.rejected, (state, { payload }) => {
         state.removePostError = payload;
       })
+
+      .addCase(removePostCompletely.pending, (state) => {
+        state.removePostCompletelyLoading = true;
+        state.removePostCompletelyError = null;
+      })
       .addCase(removePostCompletely.fulfilled, (state, { payload }) => {
         state.removePostCompletelyDone = true;
         state.mainPosts = state.mainPosts.filter(
@@ -382,6 +435,11 @@ export const postSlice = createSlice({
       })
       .addCase(removePostCompletely.rejected, (state, { payload }) => {
         state.removePostCompletelyError = payload;
+      })
+
+      .addCase(revertPost.pending, (state) => {
+        state.revertPostLoading = true;
+        state.revertPostError = null;
       })
       .addCase(revertPost.fulfilled, (state, { payload }) => {
         state.revertPostDone = true;
@@ -395,6 +453,10 @@ export const postSlice = createSlice({
         state.revertPostError = payload;
       })
 
+      .addCase(prodPost.pending, (state) => {
+        state.prodPostLoading = true;
+        state.prodPostError = null;
+      })
       .addCase(prodPost.fulfilled, (state, { payload }) => {
         state.prodPostDone = true;
         const post = state.solePost
@@ -406,6 +468,10 @@ export const postSlice = createSlice({
         state.prodPostError = payload;
       })
 
+      .addCase(unprodPost.pending, (state) => {
+        state.unprodPostLoading = true;
+        state.unprodPostError = null;
+      })
       .addCase(unprodPost.fulfilled, (state, { payload }) => {
         state.unprodPostDone = true;
         const post = state.solePost
@@ -419,6 +485,10 @@ export const postSlice = createSlice({
         state.unprodPostError = payload;
       })
 
+      .addCase(editPost.pending, (state) => {
+        state.editPostLoading = true;
+        state.editPostError = null;
+      })
       .addCase(editPost.fulfilled, (state, { payload }) => {
         state.editPostDone = true;
         const post = state.solePost
@@ -436,6 +506,10 @@ export const postSlice = createSlice({
         state.editPostError = payload;
       })
 
+      .addCase(uploadComment.pending, (state) => {
+        state.uploadCommentLoading = true;
+        state.uploadCommentError = null;
+      })
       .addCase(uploadComment.fulfilled, (state, { payload }) => {
         state.uploadCommentDone = true;
         const post = state.solePost
@@ -447,6 +521,10 @@ export const postSlice = createSlice({
         state.uploadCommentError = payload;
       })
 
+      .addCase(removeComment.pending, (state) => {
+        state.removeCommentLoading = true;
+        state.removeCommentError = null;
+      })
       .addCase(removeComment.fulfilled, (state, { payload }) => {
         state.removeCommentDone = true;
         const post = state.solePost
@@ -458,6 +536,10 @@ export const postSlice = createSlice({
         state.removeCommentError = payload;
       })
 
+      .addCase(editComment.pending, (state) => {
+        state.editCommentLoading = true;
+        state.editCommentError = null;
+      })
       .addCase(editComment.fulfilled, (state, { payload }) => {
         state.editCommentDone = true;
         const post = state.solePost
@@ -470,6 +552,10 @@ export const postSlice = createSlice({
         state.editCommentError = payload;
       })
 
+      .addCase(prodComment.pending, (state) => {
+        state.prodCommentLoading = true;
+        state.prodCommentError = null;
+      })
       .addCase(prodComment.fulfilled, (state, { payload }) => {
         state.prodCommentDone = true;
         const post = state.solePost
@@ -482,6 +568,10 @@ export const postSlice = createSlice({
         state.prodCommentError = payload;
       })
 
+      .addCase(unprodComment.pending, (state) => {
+        state.unprodCommentLoading = true;
+        state.unprodCommentError = null;
+      })
       .addCase(unprodComment.fulfilled, (state, { payload }) => {
         state.unprodCommentDone = true;
         const post = state.solePost
@@ -495,6 +585,7 @@ export const postSlice = createSlice({
       .addCase(unprodComment.rejected, (state, { payload }) => {
         state.unprodCommentError = payload;
       })
+
       .addDefaultCase((state) => state);
   },
 });

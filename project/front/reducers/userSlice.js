@@ -1,29 +1,47 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import Router from "next/router";
-import { uploadPost } from "./postSlice";
 
 export const initialState = {
+  loadMeLoading: false,
   loadMeDone: false,
   loadMeError: null,
+
+  loadUserLoading: false,
   loadUserDone: false,
   loadUserError: null,
+
+  signUpLoading: false,
   signUpDone: false,
   signUpError: null,
+
+  logInLoading: false,
   logInDone: false,
   logInError: null,
+
+  logOutLoading: false,
   logOutDone: false,
   logOutError: null,
+
+  traceLoading: false,
   traceDone: false,
   traceError: null,
+
+  untraceLoading: false,
   untraceDone: false,
   untraceError: null,
+
   findPasswordLoading: false,
   findPasswordDone: false,
   findPasswordError: null,
+
   signUpEmailAuthLoading: false,
   signUpEmailAuthDone: false,
   signUpEmailAuthError: null,
+
+  changePasswordLoading: false,
+  changePasswordDone: false,
+  changePasswordError: null,
 
   me: null,
   user: null,
@@ -188,6 +206,18 @@ export const findPassword = createAsyncThunk(
     }
   }
 );
+export const changePassword = createAsyncThunk(
+  "user/changePassword",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.patch(`/user/${info.UserId}/changepw`, info);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -195,7 +225,10 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-
+      .addCase(loadMe.pending, (state) => {
+        state.loadMeLoading = true;
+        state.loadMeError = null;
+      })
       .addCase(loadMe.fulfilled, (state, { payload }) => {
         state.loadMeDone = true;
         state.me = payload;
@@ -203,6 +236,11 @@ export const userSlice = createSlice({
       .addCase(loadMe.rejected, (state, { payload }) => {
         state.loadMeDone = false;
         state.loadMeError = payload;
+      })
+
+      .addCase(loadUser.pending, (state) => {
+        state.loadUserLoading = true;
+        state.loadUserError = null;
       })
       .addCase(loadUser.fulfilled, (state, { payload }) => {
         state.loadUserDone = true;
@@ -212,6 +250,11 @@ export const userSlice = createSlice({
         state.loadUserDone = false;
         state.loadUserError = payload;
       })
+
+      .addCase(signUp.pending, (state) => {
+        state.signUpLoading = true;
+        state.signUpError = null;
+      })
       .addCase(signUp.fulfilled, (state) => {
         state.signUpDone = true;
         Router.push("/login");
@@ -220,6 +263,7 @@ export const userSlice = createSlice({
         state.signUpDone = false;
         state.signUpError = payload;
       })
+
       .addCase(signUpEmailAuth.pending, (state) => {
         state.signUpEmailAuthLoading = true;
         state.signUpEmailAuthError = null;
@@ -233,6 +277,11 @@ export const userSlice = createSlice({
         state.signUpEmailAuthLoading = false;
         state.signUpEmailAuthError = payload;
       })
+
+      .addCase(logIn.pending, (state) => {
+        state.logInLoading = true;
+        state.logInError = null;
+      })
       .addCase(logIn.fulfilled, (state, { payload }) => {
         state.logInDone = true;
         state.me = payload;
@@ -241,6 +290,10 @@ export const userSlice = createSlice({
         state.logInError = payload;
       })
 
+      .addCase(logOut.pending, (state) => {
+        state.logOutLoading = true;
+        state.logOutError = null;
+      })
       .addCase(logOut.fulfilled, (state) => {
         state.logOutDone = true;
         state.me = null;
@@ -249,6 +302,10 @@ export const userSlice = createSlice({
         state.logOutError = payload;
       })
 
+      .addCase(uploadUserAvatar.pending, (state) => {
+        state.uploadUserAvatarLoading = true;
+        state.uploadUserAvatarError = null;
+      })
       .addCase(uploadUserAvatar.fulfilled, (state, { payload }) => {
         state.uploadUserAvatarDone = true;
         state.me.avatar = payload;
@@ -257,6 +314,10 @@ export const userSlice = createSlice({
         state.uploadUserAvatarError = payload;
       })
 
+      .addCase(changeMyPublicInfo.pending, (state) => {
+        state.changeMyPublicInfoLoading = true;
+        state.changeMyPublicInfoError = null;
+      })
       .addCase(changeMyPublicInfo.fulfilled, (state, { payload }) => {
         state.changeMyPublicInfoDone = true;
         state.me.username = payload.username;
@@ -270,6 +331,10 @@ export const userSlice = createSlice({
         state.changeMyPublicInfoError = payload;
       })
 
+      .addCase(changeMyPersonalInfo.pending, (state) => {
+        state.changeMyPersonalInfoLoading = true;
+        state.changeMyPersonalInfoError = null;
+      })
       .addCase(changeMyPersonalInfo.fulfilled, (state, { payload }) => {
         state.changeMyPersonalInfoDone = true;
         state.me.realname = payload.realname;
@@ -279,6 +344,10 @@ export const userSlice = createSlice({
         state.changeMyPersonalInfoError = payload;
       })
 
+      .addCase(trace.pending, (state) => {
+        state.traceLoading = true;
+        state.traceError = null;
+      })
       .addCase(trace.fulfilled, (state, { payload }) => {
         state.traceLoading = false;
         state.traceDone = true;
@@ -289,6 +358,10 @@ export const userSlice = createSlice({
         state.traceError = payload;
       })
 
+      .addCase(untrace.pending, (state) => {
+        state.untraceLoading = true;
+        state.untraceError = null;
+      })
       .addCase(untrace.fulfilled, (state, { payload }) => {
         state.untraceLoading = false;
         state.untraceDone = true;
@@ -301,6 +374,10 @@ export const userSlice = createSlice({
         state.untraceError = payload;
       })
 
+      .addCase(reportUser.pending, (state) => {
+        state.reportUserLoading = true;
+        state.reportUserError = null;
+      })
       .addCase(reportUser.fulfilled, (state) => {
         state.reportUserLoading = false;
         state.reportUserDone = true;
@@ -322,6 +399,21 @@ export const userSlice = createSlice({
       .addCase(findPassword.rejected, (state, { payload }) => {
         state.findPasswordLoading = false;
         state.findPasswordError = payload;
+      })
+
+      .addCase(changePassword.pending, (state) => {
+        state.changePasswordLoading = true;
+        state.changePasswordError = null;
+      })
+      .addCase(changePassword.fulfilled, (state, { payload }) => {
+        state.changePasswordLoading = false;
+        state.changePasswordDone = true;
+        state.supportMessage = payload.message;
+        Router.push(`/profile/${state.me.username}`);
+      })
+      .addCase(changePassword.rejected, (state, { payload }) => {
+        state.changePasswordLoading = false;
+        state.changePasswordError = payload;
       })
 
       .addDefaultCase((state) => state);

@@ -168,7 +168,7 @@ const Navigation = () => {
                                   Public Square
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  아무나 참여해요!
+                                  누구나 참여해요!
                                 </p>
                               </div>
                             </button>

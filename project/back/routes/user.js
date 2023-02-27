@@ -553,7 +553,7 @@ router.post("/:userId/report", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// Password 지원
+// Password 찾기 지원
 router.post("/support/password", isNotLoggedIn, async (req, res, next) => {
   try {
     const targetUser = await User.findOne({
@@ -598,6 +598,37 @@ router.post("/support/password", isNotLoggedIn, async (req, res, next) => {
     res.status(200).json({
       message: `${req.body.email}로 임시 비밀번호를 전송했습니다.`,
     });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+// Password 변경
+router.patch("/:userId/changepw", isLoggedIn, async (req, res, next) => {
+  try {
+    const me = await User.findOne({
+      where: { id: req.params.userId },
+    });
+
+    const pwCompareResult = await bcrypt.compare(
+      req.body.prevPassword,
+      me.password
+    );
+    console.log(pwCompareResult);
+    if (!pwCompareResult) {
+      return res.status(401).send("현재 비밀번호가 일치하지 않습니다.");
+    }
+    if (req.body.nextPassword !== req.body.nextPasswordCheck) {
+      return res.status(401).send("변경할 비밀번호가 일치하지 않습니다.");
+    }
+
+    const hashedNextPassword = await bcrypt.hash(req.body.nextPassword, 10);
+    await me.update({
+      password: hashedNextPassword,
+    });
+
+    res.status(200).send("success");
   } catch (error) {
     console.error(error);
     next(error);

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { changeMyPersonalInfo } from "../reducers/userSlice";
 import { openNotice } from "../reducers/globalSlice";
+import { KeyIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 const UserPersonalInfo = ({ me }) => {
   const dispatch = useDispatch();
@@ -113,6 +115,13 @@ const UserPersonalInfo = ({ me }) => {
                       },
                     })}
                   />
+                </div>
+                <div className="col-span-6 sm:col-span-3">
+                  <Link href="/chpw">
+                    <div className="cursor-pointer text-sm flex font-semibold text-indigo-600">
+                      비밀번호 변경 <KeyIcon className="ml-0.5 w-4" />
+                    </div>
+                  </Link>
                 </div>
               </div>
               <div className="flex justify-between items-center bg-slate-50 px-4 py-3 text-right sm:px-6">
