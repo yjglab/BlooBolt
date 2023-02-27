@@ -28,7 +28,7 @@ db.sequelize
 passportConfig();
 
 if (process.env.NODE_ENV === "production") {
-  // app.enable("trust proxy"); // https
+  app.enable("trust proxy"); // https
   app.use(morgan("combined"));
   app.use(hpp()); // 보안용
   app.use(helmet()); // 보안용
@@ -54,7 +54,7 @@ app.use(
     saveUninitialized: false,
     resave: false,
     secret: process.env.COOKIE_SECRET,
-    // proxy: process.env.NODE_ENV === "production", // https
+    proxy: process.env.NODE_ENV === "production", // https
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
