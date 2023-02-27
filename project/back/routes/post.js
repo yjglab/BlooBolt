@@ -22,6 +22,13 @@ try {
 } catch (error) {
   fs.mkdirSync("uploads");
 }
+
+AWS.config.update({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  region: "ap-northeast-2",
+});
+
 const upload = multer({
   storage:
     process.env.NODE_ENV === "production"

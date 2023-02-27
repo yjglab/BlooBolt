@@ -17,7 +17,7 @@ const Footer = () => {
           </span>
         </div>
         <p className="mt-3 text-center text-sm leading-6 text-slate-500">
-          © {new Date().getFullYear()} yjglab. All rights reserved.
+          © 2023 yjglab. All rights reserved.
         </p>
         {/* <p className="text-center  text-sm leading-6 text-slate-500">
           <BoltIcon className="mr-0.5 w-3.5 inline relative bottom-[1px]" />
