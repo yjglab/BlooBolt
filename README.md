@@ -3,17 +3,17 @@
 BlooBolt Square는 소프트웨어 개발자와 디자인 직무자들의 소통 광장입니다.
 
 <div align=center> 
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
 <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
 <img src="https://img.shields.io/badge/Redux--Toolkit-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
-<img src="https://img.shields.io/badge/Nextjs-000000?style=for-the-badge&logo=Nextjs&logoColor=white">
+<img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white">
 <img src="https://img.shields.io/badge/Tailwindcss-764ABC?style=for-the-badge&logo=Tailwindcss&logoColor=black">
 </div>
 
 <div align=center> 
 <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=Express&logoColor=white">
 <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white">
-<img src="https://img.shields.io/badge/AWS--Lambda-FF9900?style=for-the-badge&logo=Sequelize&logoColor=white">
+<img src="https://img.shields.io/badge/AWS--Lambda-FF9900?style=for-the-badge&logo=AWS--Lambda&logoColor=white">
 </div>
 
 [front]
