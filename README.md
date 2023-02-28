@@ -1,5 +1,15 @@
 # BlooBolt
 
+BlooBolt Square는 소프트웨어 개발자와 디자인 직무자들의 소통 광장입니다.
+
+<div align=center> 
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
+<img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
+<img src="https://img.shields.io/badge/ReduxToolkit-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
+<img src="https://img.shields.io/badge/Next-000000?style=for-the-badge&logo=Next&logoColor=white">
+<img src="https://img.shields.io/badge/Tailwindcss-06B6D4?style=flat-square&logo=Tailwindcss&logoColor=white"/>
+</div>
+
 [front]
 
 - React, redux(toolkit), Next, Tailwind
