@@ -321,6 +321,7 @@ export const userSlice = createSlice({
       .addCase(changeMyPublicInfo.fulfilled, (state, { payload }) => {
         state.changeMyPublicInfoDone = true;
         state.me.username = payload.username;
+        state.me.class = payload.class;
         state.me.role = payload.role;
         state.me.country = payload.country;
         state.me.website = payload.website;

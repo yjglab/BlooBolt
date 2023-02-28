@@ -523,33 +523,31 @@ const PostSection = ({ post, detailed, squareKind }) => {
             })}
           </p>
 
-          <div
-            className={`${
-              detailed && "z-10 bg-white border py-1.5  rounded-3xl"
-            } flex justify-between items-center left-2.5 absolute bottom-2.5 text-sm`}
-          >
-            <div className="flex px-2.5  gap-2">
-              {isProdded ? (
-                <button
-                  onClick={onUnprodPost}
-                  className="flex items-center gap-1 hover:text-indigo-500"
-                >
-                  <BoltIcon className="w-5 text-indigo-500" />
-                  <span className="text-indigo-500">
-                    {post.PostProdders.length}
-                  </span>
-                </button>
-              ) : (
-                <button
-                  onClick={onProdPost}
-                  className="flex hover:scale-105 items-center gap-1 hover:text-indigo-500"
-                >
-                  <BoltIcon className="w-5 " />
-                  <span className="">{post.PostProdders.length}</span>
-                </button>
-              )}
+          {!detailed && (
+            <div
+              className={`flex justify-between items-center left-2.5 absolute bottom-2.5 text-sm`}
+            >
+              <div className="flex px-2.5  gap-2">
+                {isProdded ? (
+                  <button
+                    onClick={onUnprodPost}
+                    className="flex items-center gap-1 hover:text-indigo-500"
+                  >
+                    <BoltIcon className="w-5 text-indigo-500" />
+                    <span className="text-indigo-500">
+                      {post.PostProdders.length}
+                    </span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={onProdPost}
+                    className="flex hover:scale-105 items-center gap-1 hover:text-indigo-500"
+                  >
+                    <BoltIcon className="w-5 " />
+                    <span className="">{post.PostProdders.length}</span>
+                  </button>
+                )}
 
-              {!detailed && (
                 <button
                   onClick={onToggleCommentArea}
                   className="flex hover:scale-105 items-center gap-1 hover:text-indigo-500"
@@ -557,29 +555,29 @@ const PostSection = ({ post, detailed, squareKind }) => {
                   <ChatBubbleOvalLeftIcon className="w-5" />
                   {post.Comments.length}
                 </button>
-              )}
 
-              {post.User.id !== me?.id ? (
-                <button
-                  onClick={onToggleTrace}
-                  className="flex items-center gap-1 hover:text-indigo-500 hover:scale-105"
-                >
-                  {isTracing ? (
-                    <>
-                      <UserMinusIcon className="w-5 " />
-                      Untrace
-                    </>
-                  ) : (
-                    <>
-                      {" "}
-                      <UserPlusIcon className="w-5 " />
-                      Trace
-                    </>
-                  )}
-                </button>
-              ) : null}
+                {post.User.id !== me?.id ? (
+                  <button
+                    onClick={onToggleTrace}
+                    className="flex items-center gap-1 hover:text-indigo-500 hover:scale-105"
+                  >
+                    {isTracing ? (
+                      <>
+                        <UserMinusIcon className="w-5 " />
+                        Untrace
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <UserPlusIcon className="w-5 " />
+                        Trace
+                      </>
+                    )}
+                  </button>
+                ) : null}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {post.PostImages[0] && (
@@ -604,6 +602,52 @@ const PostSection = ({ post, detailed, squareKind }) => {
         <>
           <hr className="mt-14 mb-6" />
           <div className="px-2">
+            <div
+              className="z-10 bg-white px-1.5  py-1.5 mb-8
+          flex  items-center text-sm"
+            >
+              <div className="flex px-2.5  gap-2">
+                {isProdded ? (
+                  <button
+                    onClick={onUnprodPost}
+                    className="flex items-center gap-1 hover:text-indigo-500"
+                  >
+                    <BoltIcon className="w-5 text-indigo-500" />
+                    <span className="text-indigo-500">
+                      {post.PostProdders.length}
+                    </span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={onProdPost}
+                    className="flex hover:scale-105 items-center gap-1 hover:text-indigo-500"
+                  >
+                    <BoltIcon className="w-5 " />
+                    <span className="">{post.PostProdders.length}</span>
+                  </button>
+                )}
+
+                {post.User.id !== me?.id ? (
+                  <button
+                    onClick={onToggleTrace}
+                    className="flex items-center gap-1 hover:text-indigo-500 hover:scale-105"
+                  >
+                    {isTracing ? (
+                      <>
+                        <UserMinusIcon className="w-5 " />
+                        Untrace
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <UserPlusIcon className="w-5 " />
+                        Trace
+                      </>
+                    )}
+                  </button>
+                ) : null}
+              </div>
+            </div>
             <span className="px-4 font-bold text-lg">
               Comments <span>({post.Comments.length})</span>
             </span>
