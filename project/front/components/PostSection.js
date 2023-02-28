@@ -501,7 +501,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
               !detailed
                 ? post.PostImages[0]
                   ? " line-clamp-4 mb-3"
-                  : " line-clamp-[15] "
+                  : " line-clamp-[12] "
                 : ""
             }  h-full text-sm break-words  font-normal text-slate-600`}
           >
@@ -585,7 +585,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
         {post.PostImages[0] && (
           <div
             className={`${
-              detailed ? "mt-12 gap-1 w-full aspect-square" : "h-44 gap-1"
+              detailed ? "mt-12 gap-1 w-full aspect-square" : "h-40 gap-1"
             } flex rounded-xl  overflow-hidden`}
           >
             <PostImages postImages={post.PostImages} />

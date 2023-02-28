@@ -291,7 +291,7 @@ const CommentSection = ({ post, comment }) => {
                         "block px-4 py-2 text-sm text-left w-full"
                       )}
                     >
-                      Edit
+                      수정
                     </button>
                   )}
                 </Menu.Item>
@@ -304,7 +304,7 @@ const CommentSection = ({ post, comment }) => {
                         "block px-4 py-2 text-sm text-left w-full"
                       )}
                     >
-                      Delete
+                      삭제
                     </button>
                   )}
                 </Menu.Item>

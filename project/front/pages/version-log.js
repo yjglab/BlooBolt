@@ -5,6 +5,9 @@ import axios from "axios";
 import { loadMe } from "../reducers/userSlice";
 
 import { StarIcon, WrenchScrewdriverIcon } from "@heroicons/react/20/solid";
+import guide_shot from "../public/guide_shot.png";
+import guide_shot_2 from "../public/guide_shot_2.png";
+import Image from "next/image";
 
 const Guide = () => {
   return (
@@ -57,13 +60,9 @@ const Guide = () => {
                 </div>
               </div>
             </div>
-            <img
-              src={""}
-              alt="Product screenshot"
-              className="w-[48rem] object-cover max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0"
-              width={2432}
-              height={1442}
-            />
+            <div className="w-[48rem] relative max-w-none rounded-xl shadow-xl  sm:w-[57rem] md:-ml-4 lg:-ml-0">
+              <Image src={guide_shot_2} className="absolute " />
+            </div>
           </div>
         </div>
       </div>

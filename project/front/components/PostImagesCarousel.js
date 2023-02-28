@@ -28,12 +28,12 @@ const PostImagesCarousel = ({ postImages, onCloseCarousel }) => {
 
   return (
     <div className="flex-col  w-[100vw] h-screen fixed  flex z-50 justify-center items-center top-0 left-0 bg-white">
-      <div className="flex items-center w-[100%] h-full py-16 sm:py-0 sm:w-[93.5%] sm:h-[85%] group ">
+      <div className="flex items-center overflow-hidden w-[100%] h-full py-16 sm:py-0 sm:w-[93.5%] sm:h-[85%] group ">
         <XMarkIcon
           onClick={onCloseCarousel}
           className="text-slate-600 absolute top-5 right-[5%] p-0.5 stroke-2 cursor-pointer w-8 h-8  rounded-full"
         />
-        <div className="w-full sm:h-full h-auto">
+        <div className="w-full sm:h-full h-auto relative">
           <img
             src={
               process.env.NODE_ENV === "production"
@@ -43,7 +43,7 @@ const PostImagesCarousel = ({ postImages, onCloseCarousel }) => {
                   )}`
                 : `${backUrl}/${postImages[currentIndex].src}`
             }
-            className="w-full sm:h-full h-[60%] object-cover  bg-center bg-cover sm:shadow sm:rounded-md "
+            className=" w-full h-auto sm:shadow sm:rounded-md "
           ></img>
           <div className="bg-slate-700/30 hover:bg-slate-700/60 p-0.5 sm:hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-[5%]  rounded-full  text-white cursor-pointer">
             <ArrowLeftCircleIcon onClick={prevSlide} className=" w-9 h-9   " />

@@ -159,13 +159,11 @@ const SignupForm = () => {
                     className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("password", {
                       required: "비밀번호를 입력해주세요",
-                      minLength: {
-                        value: 4,
-                        message: "4자리 이상의 비밀번호를 입력해주세요",
-                      },
-                      maxLength: {
-                        value: 14,
-                        message: "14자리 이히의 비밀번호를 입력해주세요",
+                      pattern: {
+                        value:
+                          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                        message:
+                          "비밀번호는 영문, 숫자, 특수기호를 조합한 8자 이상이어야 합니다.",
                       },
                     })}
                   />

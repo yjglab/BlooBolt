@@ -14,6 +14,8 @@ import {
   CommandLineIcon,
   CubeIcon,
   FaceSmileIcon,
+  HomeIcon,
+  InformationCircleIcon,
   LightBulbIcon,
   MegaphoneIcon,
   PaintBrushIcon,
@@ -45,6 +47,7 @@ const Navigation = () => {
   const { me } = useSelector((state) => state.user);
   const { loadPostsLoading } = useSelector((state) => state.post);
   const [helper, setHelper] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
     function onScreenScroll() {
@@ -158,68 +161,76 @@ const Navigation = () => {
                       <div className="overflow-hidden shadow-xl rounded-md shadow-md-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           <Link href="/square">
-                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
-                              <BuildingLibraryIcon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-500"
-                                aria-hidden="true"
-                              />
-                              <div className="ml-4">
-                                <p className="text-base text-left font-medium text-slate-600">
-                                  Public Square
-                                </p>
-                                <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  누구나 참여해요!
-                                </p>
-                              </div>
-                            </button>
+                            <div className="w-full">
+                              <Popover.Button className="-m-3 w-full flex items-start rounded-md p-3 hover:bg-slate-50">
+                                <BuildingLibraryIcon
+                                  className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                                  aria-hidden="true"
+                                />
+                                <div className="ml-4">
+                                  <p className="text-base text-left font-medium text-slate-600">
+                                    Public Square
+                                  </p>
+                                  <p className="mt-0.5 text-xs text-slate-500 text-left">
+                                    누구나 참여해요!
+                                  </p>
+                                </div>
+                              </Popover.Button>
+                            </div>
                           </Link>{" "}
                           <Link href="/square-fedev">
-                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
-                              <RectangleGroupIcon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-500"
-                                aria-hidden="true"
-                              />
-                              <div className="ml-4">
-                                <p className="text-base text-left font-medium text-slate-600">
-                                  Frontend Square
-                                </p>
-                                <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  프론트엔드 개발자에요!
-                                </p>
-                              </div>
-                            </button>
+                            <div className="w-full">
+                              <Popover.Button className="-m-3 w-full flex items-start rounded-md p-3 hover:bg-slate-50">
+                                <RectangleGroupIcon
+                                  className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                                  aria-hidden="true"
+                                />
+                                <div className="ml-4">
+                                  <p className="text-base text-left font-medium text-slate-600">
+                                    Frontend Square
+                                  </p>
+                                  <p className="mt-0.5 text-xs text-slate-500 text-left">
+                                    프론트엔드 개발자에요!
+                                  </p>
+                                </div>
+                              </Popover.Button>
+                            </div>
                           </Link>
                           <Link href="/square-bedev">
-                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
-                              <ServerStackIcon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-500"
-                                aria-hidden="true"
-                              />
-                              <div className="ml-4">
-                                <p className="text-base text-left font-medium text-slate-600">
-                                  Backend Square
-                                </p>
-                                <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  백엔드 개발자에요!
-                                </p>
-                              </div>
-                            </button>
+                            <div className="w-full">
+                              <Popover.Button className="-m-3 w-full flex items-start rounded-md p-3 hover:bg-slate-50">
+                                <ServerStackIcon
+                                  className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                                  aria-hidden="true"
+                                />
+                                <div className="ml-4">
+                                  <p className="text-base text-left font-medium text-slate-600">
+                                    Backend Square
+                                  </p>
+                                  <p className="mt-0.5 text-xs text-slate-500 text-left">
+                                    백엔드 개발자에요!
+                                  </p>
+                                </div>
+                              </Popover.Button>
+                            </div>
                           </Link>
                           <Link href="/square-design">
-                            <button className="-m-3 flex items-start rounded-md p-3 hover:bg-slate-50">
-                              <PaintBrushIcon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-500"
-                                aria-hidden="true"
-                              />
-                              <div className="ml-4">
-                                <p className="text-base text-left font-medium text-slate-600">
-                                  Design Square
-                                </p>
-                                <p className="mt-0.5 text-xs text-slate-500 text-left">
-                                  UX/UI 디자이너에요!
-                                </p>
-                              </div>
-                            </button>
+                            <div className="w-full">
+                              <Popover.Button className="-m-3 w-full flex items-start rounded-md p-3 hover:bg-slate-50">
+                                <PaintBrushIcon
+                                  className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                                  aria-hidden="true"
+                                />
+                                <div className="ml-4">
+                                  <p className="text-base text-left font-medium text-slate-600">
+                                    Design Square
+                                  </p>
+                                  <p className="mt-0.5 text-xs text-slate-500 text-left">
+                                    UX/UI 디자이너에요!
+                                  </p>
+                                </div>
+                              </Popover.Button>
+                            </div>
                           </Link>
                         </div>
 
@@ -336,15 +347,17 @@ const Navigation = () => {
             <div className="px-5 pt-5 pb-6">
               <div className="flex items-center justify-between">
                 <Link href="/">
-                  <div className="flex items-center text-xl font-bold text-indigo-500">
-                    <div className="w-6 h-6 mr-1">
-                      <Image
-                        className=" cursor-pointer w-full h-full"
-                        src={bloobolt_logo_nobg}
-                        alt="logo-image"
-                      />
-                    </div>
-                    BlooBolt
+                  <div>
+                    <Popover.Button className="flex items-center text-xl font-bold text-indigo-500">
+                      <div className="w-6 h-6 mr-1">
+                        <Image
+                          className=" cursor-pointer w-full h-full"
+                          src={bloobolt_logo_nobg}
+                          alt="logo-image"
+                        />
+                      </div>
+                      BlooBolt
+                    </Popover.Button>
                   </div>
                 </Link>
                 <div className="-mr-2">
@@ -357,26 +370,50 @@ const Navigation = () => {
               <div className="mt-6">
                 <nav className="grid gap-y-8">
                   <div className="grid grid-cols-2">
+                    <Link href="/">
+                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                        <HomeIcon
+                          className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                          aria-hidden="true"
+                        />
+                        <Popover.Button className="ml-3 text-left w-full h-full  text-base font-medium text-slate-600">
+                          홈
+                        </Popover.Button>
+                      </div>
+                    </Link>
+                    <Link href="/version-log">
+                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                        <InformationCircleIcon
+                          className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                          aria-hidden="true"
+                        />
+                        <Popover.Button className="ml-3 text-left w-full h-full  text-base font-medium text-slate-600">
+                          버전 정보
+                        </Popover.Button>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-2">
                     <Link href="/square">
                       <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
                         <BuildingLibraryIcon
                           className="h-6 w-6 flex-shrink-0 text-indigo-500"
                           aria-hidden="true"
                         />
-                        <span className="ml-3 text-base font-medium text-slate-600">
+                        <Popover.Button className="ml-3 text-left w-full h-full  text-base font-medium text-slate-600">
                           퍼블릭 스퀘어
-                        </span>
+                        </Popover.Button>
                       </div>
                     </Link>
-                    <Link href="/squar-fedev">
+                    <Link href="/square-fedev">
                       <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
                         <RectangleGroupIcon
                           className="h-6 w-6 flex-shrink-0 text-indigo-500"
                           aria-hidden="true"
                         />
-                        <span className="ml-3 text-base font-medium text-slate-600">
+                        <Popover.Button className="ml-3 text-left w-full h-full  text-base font-medium text-slate-600">
                           프론트엔드 스퀘어
-                        </span>
+                        </Popover.Button>
                       </div>
                     </Link>
                   </div>
@@ -387,9 +424,9 @@ const Navigation = () => {
                           className="h-6 w-6 flex-shrink-0 text-indigo-500"
                           aria-hidden="true"
                         />
-                        <span className="ml-3 text-base font-medium text-slate-600">
+                        <Popover.Button className="ml-3 text-left w-full h-full  text-base font-medium text-slate-600">
                           백엔드 스퀘어
-                        </span>
+                        </Popover.Button>
                       </div>
                     </Link>
                     <Link href="/square-design">
@@ -398,9 +435,9 @@ const Navigation = () => {
                           className="h-6 w-6 flex-shrink-0 text-indigo-500"
                           aria-hidden="true"
                         />
-                        <span className="ml-3 text-base font-medium text-slate-600">
+                        <Popover.Button className="ml-3 text-left w-full h-full  text-base font-medium text-slate-600">
                           디자인 스퀘어
-                        </span>
+                        </Popover.Button>
                       </div>
                     </Link>
                   </div>
@@ -411,20 +448,20 @@ const Navigation = () => {
                           className="h-6 w-6 flex-shrink-0 text-indigo-500"
                           aria-hidden="true"
                         />
-                        <span className="ml-3 text-base font-medium text-slate-600">
+                        <Popover.Button className="ml-3 text-left w-full h-full  text-base font-medium text-slate-600">
                           프로필
-                        </span>
+                        </Popover.Button>
                       </div>
                     </Link>
-                    <Link href={me ? `/profile/${me.username}` : `/login`}>
+                    <Link href="/guide">
                       <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
                         <BookOpenIcon
                           className="h-6 w-6 flex-shrink-0 text-indigo-500"
                           aria-hidden="true"
                         />
-                        <span className="ml-3 text-base font-medium text-slate-600">
+                        <Popover.Button className="ml-3 text-left w-full h-full  text-base font-medium text-slate-600">
                           가이드
-                        </span>
+                        </Popover.Button>
                       </div>
                     </Link>
                   </div>
@@ -434,83 +471,89 @@ const Navigation = () => {
             <div className="space-y-6 py-6 px-5">
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
                 {me && (
-                  <div className="mb-3 flex items-center">
-                    <Link href={`/profile/${me.username}`}>
-                      <img
-                        src={
-                          process.env.NODE_ENV === "production"
-                            ? `${me.avatar}`
-                            : `${backUrl}/${me.avatar}`
-                        }
-                        className={`${
-                          me.class === "fedev"
-                            ? "border-amber-400"
-                            : me.class === "bedev"
-                            ? "border-emerald-400"
-                            : me.class === "design"
-                            ? "border-red-400"
-                            : "border-slate-400"
-                        } cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
-                      />
-                    </Link>
-                    <div className="ml-2 w-full flex flex-col">
-                      <Link href={`/profile/${me.username}`}>
-                        <h1 className="cursor-pointer text-md font-bold flex items-center">
-                          {me.username}
-                          <div
-                            className={`${
-                              me.class === "fedev"
-                                ? "text-amber-400"
-                                : me.class === "bedev"
-                                ? "text-emerald-400"
-                                : me.class === "design"
-                                ? "text-red-400"
-                                : "text-slate-400"
-                            } flex gap-0.5 text-xs`}
-                          >
-                            {me.rank === 6 ? (
-                              <FaceSmileIcon
-                                className="w-4 ml-0.5 "
-                                aria-hidden="true"
-                              />
-                            ) : me.rank === 0 ? null : (
-                              <ShieldCheckIcon
-                                className={`w-4 ml-0.5 flex-shrink-0 `}
-                                aria-hidden="true"
-                              />
-                            )}
-                            {me.rank}
-                          </div>
-                        </h1>
-                      </Link>
-                      <h1 className="text-xs relative bottom-0.5">{me.role}</h1>
+                  <Link href={`/profile/${me.username}`}>
+                    <div>
+                      <Popover.Button className="mb-3 flex items-center">
+                        <img
+                          src={
+                            process.env.NODE_ENV === "production"
+                              ? `${me.avatar}`
+                              : `${backUrl}/${me.avatar}`
+                          }
+                          className={`${
+                            me.class === "fedev"
+                              ? "border-amber-400"
+                              : me.class === "bedev"
+                              ? "border-emerald-400"
+                              : me.class === "design"
+                              ? "border-red-400"
+                              : "border-slate-400"
+                          } cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
+                        />
+
+                        <div className="ml-2 w-full flex flex-col">
+                          <h1 className="cursor-pointer text-md font-bold flex items-center">
+                            {me.username}
+                            <div
+                              className={`${
+                                me.class === "fedev"
+                                  ? "text-amber-400"
+                                  : me.class === "bedev"
+                                  ? "text-emerald-400"
+                                  : me.class === "design"
+                                  ? "text-red-400"
+                                  : "text-slate-400"
+                              } flex gap-0.5 text-xs`}
+                            >
+                              {me.rank === 6 ? (
+                                <FaceSmileIcon
+                                  className="w-4 ml-0.5 "
+                                  aria-hidden="true"
+                                />
+                              ) : me.rank === 0 ? null : (
+                                <ShieldCheckIcon
+                                  className={`w-4 ml-0.5 flex-shrink-0 `}
+                                  aria-hidden="true"
+                                />
+                              )}
+                              {me.rank}
+                            </div>
+                          </h1>
+
+                          <h1 className="text-xs text-left relative bottom-0.5">
+                            {me.role}
+                          </h1>
+                        </div>
+                      </Popover.Button>
                     </div>
-                  </div>
+                  </Link>
                 )}
               </div>
               <div>
                 {me ? (
-                  <button
+                  <Popover.Button
                     onClick={onLogout}
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500"
                   >
                     로그아웃
-                  </button>
+                  </Popover.Button>
                 ) : (
                   <>
                     <Link href="/login">
-                      <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500">
-                        로그인
+                      <div>
+                        <Popover.Button className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-base font-medium text-white shadow-md-sm hover:bg-indigo-500">
+                          로그인
+                        </Popover.Button>
                       </div>
                     </Link>
-                    <p className="mt-6 text-center text-base font-medium text-slate-500">
-                      계정이 없으신가요?
-                      <Link href="/signup">
-                        <span className="ml-1 text-indigo-500 hover:text-indigo-500">
+                    <Link href="/signup">
+                      <div className="-m-3 w-full flex justify-center mt-0.5 items-center rounded-md p-3">
+                        계정이 없으신가요?
+                        <Popover.Button className="ml-1 text-base font-medium text-indigo-500">
                           회원가입
-                        </span>
-                      </Link>
-                    </p>
+                        </Popover.Button>
+                      </div>
+                    </Link>
                   </>
                 )}
               </div>
