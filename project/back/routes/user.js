@@ -233,7 +233,10 @@ router.post(
     try {
       User.update(
         {
-          avatar: req.file.location.replace(/\/original\//, "/thumb/"),
+          avatar:
+            process.env.NODE_ENV === "production"
+              ? req.file.location.replace(/\/original\//, "/thumb/")
+              : req.file.filename,
         },
         {
           where: {

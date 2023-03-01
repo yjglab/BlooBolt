@@ -43,7 +43,7 @@ const PostImagesCarousel = ({ postImages, onCloseCarousel }) => {
                   )}`
                 : `${backUrl}/${postImages[currentIndex].src}`
             }
-            className=" w-full h-auto sm:shadow sm:rounded-md "
+            className=" w-full h-full sm:shadow object-cover sm:rounded-md "
           ></img>
           <div className="bg-slate-700/30 hover:bg-slate-700/60 p-0.5 sm:hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-[5%]  rounded-full  text-white cursor-pointer">
             <ArrowLeftCircleIcon onClick={prevSlide} className=" w-9 h-9   " />

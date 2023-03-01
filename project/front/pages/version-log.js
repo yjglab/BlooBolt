@@ -21,7 +21,7 @@ const Guide = () => {
                   Version Log
                 </h2>
                 <p className="mt-2 text-3xl font-bold tracking-tight  sm:text-4xl">
-                  BlooBolt Version Beta
+                  BlooBolt Beta 0.0.0
                 </p>
                 <p className="mt-6 text-lg leading-8 ">
                   BlooBolt 개발자입니다. 올해 2월 중순부터 제작을 시작한 본
