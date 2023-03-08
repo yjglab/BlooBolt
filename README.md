@@ -47,7 +47,7 @@ BlooBolt Square는 소프트웨어 개발자와 디자인 직무자들의 소통
 - 내가 구독하고 싶은 사용자가 있다면 트레이스해보세요. 내 프로필의 트레이싱 리스트에 나타납니다.
 - 물론, 누군가가 나를 트레이스 했을 수도 있습니다.
 
-## 📋 [사용된 기술과 고민의 흔적 - WIKI]()
+## 📋 [사용된 기술과 선정 이유 - WIKI]()
 
 ## 페이지
 
@@ -76,6 +76,8 @@ BlooBolt Square는 소프트웨어 개발자와 디자인 직무자들의 소통
 |                                  <img width="1043" alt="image" src="https://user-images.githubusercontent.com/70316567/222098770-8a7a7052-5e1f-48ab-9f2a-28156316d8b0.png">                                  |                 <img width="1043" alt="image" src="https://user-images.githubusercontent.com/70316567/222099394-3c021bbb-313d-455f-9d8d-c8f1315a3cb9.png">                 |
 
 ## 서비스 구조와 흐름
+
+![구조정리-01-01](https://user-images.githubusercontent.com/70316567/222455696-d4c8fb70-401b-4e37-9dc5-36e2f0c398f8.png)
 
 ## Version Release
 
