@@ -73,7 +73,7 @@ router.post("/signup/auth", isNotLoggedIn, async (req, res, next) => {
 
     const mailOptions = {
       to: req.body.authEmail,
-      subject: "BlooBolt Support: 이메일 인증 메일입니다.",
+      subject: "BlooBolt: 이메일 인증 메일입니다.",
       html: `
         BlooBolt에 오신 것을 환영합니다. 아래의 코드를 입력하고 가입을 완료하세요.<br/>
         <h4>${randomCode}</h4>
@@ -132,7 +132,13 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const usercode = Array(4)
+      .fill()
+      .map((v) => Math.floor(Math.random() * 10))
+      .join("");
+
     await User.create({
+      usercode,
       email: req.body.email,
       username: req.body.username,
       password: hashedPassword,
@@ -155,6 +161,26 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
       reported: 0,
       banned: false,
     });
+
+    const transporter = nodeMailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.MAIL_ADDRESS,
+        pass: process.env.MAIL_APP_PASSWORD,
+      },
+    });
+    const mailOptions = {
+      to: req.body.email,
+      subject: "BlooBolt: 가입을 환영합니다! 사용자 코드를 전송해드립니다.",
+      html: `
+        BlooBolt 가입이 완료되었습니다. 아래의 사용자 코드는 회원님의 개인 정보를 변경하거나 인증시 사용되는 암호 코드입니다. 보관에 주의해주세요.<br/>
+        <h4>${usercode}</h4>
+        <br/><br/>
+        <span>from. BlooBolt</span>
+        `,
+    };
+
+    await transporter.sendMail(mailOptions);
 
     res.status(201).send("ok");
   } catch (error) {
@@ -586,10 +612,15 @@ router.post("/:userId/report", isLoggedIn, async (req, res, next) => {
 router.post("/support/password", isNotLoggedIn, async (req, res, next) => {
   try {
     const targetUser = await User.findOne({
-      where: { email: req.body.email },
+      where: {
+        email: req.body.email,
+        usercode: req.body.usercode,
+      },
     });
     if (!targetUser) {
-      return res.status(403).send("존재하지 않는 계정입니다.");
+      return res
+        .status(403)
+        .send("존재하지 않거나 사용자 코드가 일치하지 않는 계정입니다.");
     }
     const transporter = nodeMailer.createTransport({
       service: "gmail",
@@ -602,9 +633,9 @@ router.post("/support/password", isNotLoggedIn, async (req, res, next) => {
     const randomCode = Math.random().toString(36).slice(2);
     const mailOptions = {
       to: req.body.email,
-      subject: "BlooBolt Support: 임시 비밀번호를 전송해드립니다.",
+      subject: "BlooBolt: 임시 비밀번호를 전송해드립니다.",
       html: `
-        임시 비밀번호를 전송해드립니다. 로그인 후 즉시 비밀번호를 변경하세요.<br/>
+        임시 비밀번호를 전송해드립니다. 로그인 후 프로필 페이지에서 즉시 비밀번호를 변경하세요.<br/>
         <h4>${randomCode}</h4>
         <br/><br/>
         <span>from. BlooBolt Support</span>

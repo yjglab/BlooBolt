@@ -100,9 +100,9 @@ const LoginForm = () => {
 
               <div className="text-sm">
                 <Link href="/support">
-                  <button className="cursor-pointer font-medium text-indigo-500 hover:text-indigo-600">
+                  <span className="cursor-pointer font-medium text-indigo-500 hover:text-indigo-600">
                     비밀번호를 잊으셨나요?
-                  </button>
+                  </span>
                 </Link>
               </div>
             </div>

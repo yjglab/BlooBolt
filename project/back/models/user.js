@@ -5,6 +5,10 @@ module.exports = class User extends Model {
   static init(sequelize) {
     return super.init(
       {
+        usercode: {
+          type: DataTypes.STRING(10),
+          allowNull: false,
+        },
         email: {
           type: DataTypes.STRING(100),
           allowNull: false,

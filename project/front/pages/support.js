@@ -24,6 +24,10 @@ const Support = () => {
     }
   }, [me]);
 
+  useEffect(() => {
+    if (supportMessage) setFindPasswordSended(true);
+  }, [supportMessage]);
+
   const {
     register,
     handleSubmit,
@@ -31,9 +35,8 @@ const Support = () => {
   } = useForm();
 
   const onFindPassword = (formData) => {
-    const { email } = formData;
-    dispatch(findPassword({ email }));
-    setFindPasswordSended(true);
+    const { email, usercode } = formData;
+    dispatch(findPassword({ email, usercode }));
   };
 
   return (
@@ -72,7 +75,7 @@ const Support = () => {
                       id="email"
                       type="text"
                       placeholder="이메일 주소"
-                      className="relative block w-full appearance-none rounded-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className="relative block w-full appearance-none rounded-t-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       {...register("email", {
                         required: "이메일을 입력해주세요",
                         pattern: {
@@ -80,6 +83,20 @@ const Support = () => {
                             /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
                           message: "이메일 형식에 맞지 않습니다",
                         },
+                      })}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="usercode" className="sr-only"></label>
+                    <input
+                      id="usercode"
+                      type="text"
+                      placeholder="사용자 코드"
+                      className="relative block w-full appearance-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      {...register("usercode", {
+                        required:
+                          "가입시 이메일로 전송된 사용자 코드 4자리를 입력해주세요",
+                        maxLength: 4,
                       })}
                     />
                   </div>

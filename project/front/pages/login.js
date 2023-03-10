@@ -12,7 +12,7 @@ const Login = () => {
   const router = useRouter();
   useEffect(() => {
     if (me && me.id) {
-      router.back();
+      router.push("/square");
     }
   }, [me && me.id]);
 
