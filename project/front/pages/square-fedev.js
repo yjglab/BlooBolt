@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppLayout from "../components/AppLayout";
 import SquareHeader from "../components/SquareHeader";
 import { loadPosts } from "../reducers/postSlice";
 import wrapper from "../store/configureStore";
 import { loadMe, loadUser } from "../reducers/userSlice";
 import axios from "axios";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 const Square = () => {
+  const { me } = useSelector((state) => state.user);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (me?.class === "social") {
+      router.push("/social-setup");
+    }
+  }, [me?.class]);
+
   return (
     <AppLayout>
       <SquareHeader

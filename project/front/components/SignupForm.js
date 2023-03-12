@@ -109,8 +109,8 @@ const SignupForm = () => {
               </h2>
               <p className="mt-2 text-center text-sm text-slate-600">
                 <span className="font-medium text-slate-500 ">
-                  BlooBolt는 소프트웨어 개발과 디자인 직무자들이 소통하는
-                  공간입니다.
+                  BlooBolt는 소프트웨어 개발과 기획, 디자인 직무자들의 소통
+                  광장입니다.
                 </span>
               </p>
             </div>

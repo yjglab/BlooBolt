@@ -21,6 +21,54 @@ const Guide = () => {
                   Version Log
                 </h2>
                 <p className="mt-2 text-3xl font-bold tracking-tight  sm:text-4xl">
+                  BlooBolt 0.0.1
+                </p>
+                <p className="mt-6 text-lg leading-8 "></p>
+                <div className="mt-10 max-w-xl space-y-8 text-base leading-7  lg:max-w-none">
+                  <div className="relative pl-9">
+                    <div className=" font-semibold ">
+                      <StarIcon
+                        className="absolute top-1 left-1 h-5 w-5 text-indigo-600"
+                        aria-hidden="true"
+                      />
+                      새로운 기능
+                    </div>{" "}
+                    <div className="inline">
+                      이제 회원가입과 로그인 절차를 편리하게 하기 위한 소셜
+                      로그인 기능을 제공합니다.
+                    </div>
+                  </div>
+                  <div className="relative pl-9">
+                    <div className=" font-semibold ">
+                      <WrenchScrewdriverIcon
+                        className="absolute top-1 left-1 h-5 w-5 text-indigo-600"
+                        aria-hidden="true"
+                      />
+                      변경된 내용
+                    </div>{" "}
+                    <div className="inline">
+                      비밀번호 관리 절차를 변경했습니다. 각 사용자는 계정 가입
+                      시 고유의 사용자 코드를 메일로 제공받으며 이 코드의 확인
+                      과정을 통해 비밀번호를 변경할 수 있습니다.
+                    </div>
+                  </div>{" "}
+                </div>
+              </div>
+            </div>
+            <div className="w-[48rem] relative max-w-none rounded-xl shadow-xl  sm:w-[57rem] md:-ml-4 lg:-ml-0">
+              <Image src={guide_shot_2} className="absolute " />
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-64 mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+            <div className="lg:pr-8 lg:pt-4">
+              <div className="lg:max-w-lg">
+                <h2 className="text-base font-semibold leading-7 text-indigo-600">
+                  Version Log
+                </h2>
+                <p className="mt-2 text-3xl font-bold tracking-tight  sm:text-4xl">
                   BlooBolt Beta 0.0.0
                 </p>
                 <p className="mt-6 text-lg leading-8 ">
