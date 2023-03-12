@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 
-import { signUp, signUpEmailAuth } from "../reducers/userSlice";
+import { signUp, signUpEmailAuth, signKakao } from "../reducers/userSlice";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -29,6 +29,9 @@ const SignupForm = () => {
     formState: { isSubmitting, errors },
   } = useForm();
 
+  const onSignUpKakao = () => {
+    dispatch(signKakao());
+  };
   const onSignUp = (formData) => {
     const { email, username, password, passwordCheck, userClass, signupCode } =
       formData;
@@ -89,7 +92,7 @@ const SignupForm = () => {
   return (
     <AppLayout>
       <div className="h-screen ">
-        <div className="flex h-full  items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="flex h-full mt-[10%] justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-md space-y-8">
             <div>
               <div className="mx-auto h-20 w-20  relative">
@@ -109,7 +112,37 @@ const SignupForm = () => {
                 </span>
               </p>
             </div>
-            <form className="mt-8 space-y-3" onSubmit={handleSubmit(onSignUp)}>
+
+            {/* <div className="w-full flex relative top-3 justify-between h-0.5 items-center">
+              <div className="w-full  bg-slate-200 h-[1.5px]"></div>
+              <div className="text-slate-400 text-xs w-full text-center">
+                소셜 계정 회원가입
+              </div>
+              <div className="w-full  bg-slate-200 h-[1.5px]"></div>
+            </div>
+            <div>
+              <button
+                onClick={onSignUpKakao}
+                className="group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2.5 px-4 text-sm font-medium"
+              >
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <img
+                    className="w-8"
+                    src="https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png"
+                  />
+                </span>
+                KAKAO
+              </button>
+            </div> */}
+
+            <div className="w-full flex relative top-3 justify-between h-0.5 items-center">
+              <div className="w-full  bg-slate-200 h-[1.5px]"></div>
+              <div className="text-slate-400 text-xs w-full text-center">
+                일반 계정 회원가입
+              </div>
+              <div className="w-full  bg-slate-200 h-[1.5px]"></div>
+            </div>
+            <form className="mt-8 space-y-2" onSubmit={handleSubmit(onSignUp)}>
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="-space-y-px rounded-md ">
                 <div>
@@ -136,7 +169,7 @@ const SignupForm = () => {
                     id="username"
                     type="text"
                     className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="사용자명"
+                    placeholder="사용자명 (4~10자)"
                     {...register("username", {
                       required: "사용자명은 필수 입력입니다",
                       minLength: {
@@ -155,7 +188,7 @@ const SignupForm = () => {
                   <input
                     id="password"
                     type="password"
-                    placeholder="비밀번호"
+                    placeholder="비밀번호 (영문/숫자/특수기호 조합 8자 이상)"
                     className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("password", {
                       required: "비밀번호를 입력해주세요",
@@ -183,7 +216,7 @@ const SignupForm = () => {
                 <div className="">
                   <label
                     htmlFor="userClass"
-                    className="block text-sm font-medium text-slate-600"
+                    className="block text-sm font-medium "
                   ></label>
                   <select
                     id="userClass"
@@ -220,8 +253,8 @@ const SignupForm = () => {
                   </label>
                 </div>
                 <Link href="/login">
-                  <span className="cursor-pointer text-sm text-indigo-500 hover:text-indigo-500">
-                    이미 회원입니다.
+                  <span className="underline cursor-pointer text-sm text-indigo-500 hover:text-indigo-600">
+                    이미 회원입니다
                   </span>
                 </Link>
               </div>
@@ -252,7 +285,7 @@ const SignupForm = () => {
                   )}
                 </div>
                 {signUpEmailAuthLoading ? (
-                  <ArrowPathIcon className="w-7 left-0 right-0 mx-auto animate-spin" />
+                  <ArrowPathIcon className="w-7 left-0 py-1.5 right-0 mx-auto animate-spin" />
                 ) : signUpEmailSended ? (
                   <div>
                     <label htmlFor="signupCode" className="sr-only">
@@ -261,6 +294,7 @@ const SignupForm = () => {
                     <input
                       id="signupCode"
                       type="password"
+                      autoFocus
                       placeholder="전송된 이메일 인증 코드 6자리를 입력해주세요."
                       className="placeholder:text-slate-400 placeholder:text-sm relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       {...register("signupCode", {
@@ -274,7 +308,7 @@ const SignupForm = () => {
                 ) : (
                   <button
                     onClick={onSignUpEmailAuth}
-                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-slate-500 py-2 px-4 text-sm font-medium text-white hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-slate-500 py-2.5 px-4 text-sm font-medium text-white hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
                   >
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                       <EnvelopeIcon
@@ -285,11 +319,10 @@ const SignupForm = () => {
                     이메일 인증
                   </button>
                 )}
-
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group mt-1.5 relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="group mt-1.5 relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500 py-2.5 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                     <UserPlusIcon

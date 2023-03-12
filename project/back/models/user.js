@@ -15,12 +15,12 @@ module.exports = class User extends Model {
           unique: "email",
         },
         username: {
-          type: DataTypes.STRING(10),
+          type: DataTypes.STRING(30),
           allowNull: false,
           unique: "username",
         },
         realname: {
-          type: DataTypes.STRING(10),
+          type: DataTypes.STRING(30),
           allowNull: false,
         },
         password: {
@@ -70,6 +70,10 @@ module.exports = class User extends Model {
         banned: {
           type: DataTypes.BOOLEAN,
           allowNull: false,
+        },
+        social: {
+          type: DataTypes.STRING(30),
+          allowNull: true,
         },
       },
       {

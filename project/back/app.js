@@ -10,6 +10,7 @@ const db = require("./models");
 const passportConfig = require("./passport");
 const passport = require("passport");
 
+const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const usersRouter = require("./routes/users");
 const postRouter = require("./routes/post");
@@ -68,6 +69,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/users", usersRouter);
 app.use("/post", postRouter);

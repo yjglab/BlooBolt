@@ -14,6 +14,7 @@ const BlooBolt = ({ Component, pageProps }) => {
         <meta charSet="utf-8" />
         <title>BlooBolt</title>
       </Head>
+
       <Navigation />
       <Component {...pageProps} />
       <Footer />

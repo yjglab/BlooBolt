@@ -11,6 +11,10 @@ export const initialState = {
   loadUserDone: false,
   loadUserError: null,
 
+  signKakaoLoading: false,
+  signKakaoDone: false,
+  signKakaoError: null,
+
   signUpLoading: false,
   signUpDone: false,
   signUpError: null,
@@ -67,6 +71,18 @@ export const loadUser = createAsyncThunk(
       const { data } = await axios.get(
         `/user/${encodeURIComponent(info.username)}`
       );
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+export const signKakao = createAsyncThunk(
+  "user/signKakao",
+  async (info, thunkAPI) => {
+    try {
+      const { data } = await axios.get("/auth/kakao");
       return data;
     } catch (error) {
       console.error(error);
@@ -262,6 +278,20 @@ export const userSlice = createSlice({
       .addCase(signUp.rejected, (state, { payload }) => {
         state.signUpDone = false;
         state.signUpError = payload;
+      })
+
+      .addCase(signKakao.pending, (state) => {
+        state.signKakaoLoading = true;
+        state.signKakaoError = null;
+      })
+      .addCase(signKakao.fulfilled, (state, { payload }) => {
+        state.signKakaoDone = true;
+        state.me = payload;
+        Router.push("/square");
+      })
+      .addCase(signKakao.rejected, (state, { payload }) => {
+        state.signKakaoDone = false;
+        state.signKakaoError = payload;
       })
 
       .addCase(signUpEmailAuth.pending, (state) => {
