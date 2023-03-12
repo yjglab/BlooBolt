@@ -1,4 +1,4 @@
-# BlooBolt 0.0.0
+# BlooBolt 0.1.0
 
 ![배너-01](https://user-images.githubusercontent.com/70316567/222092312-07e87f20-6bde-4a61-833b-2c8fe615141c.png)
 
@@ -72,9 +72,9 @@ BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들�
 | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                       <img width="1043" alt="image" src="https://user-images.githubusercontent.com/70316567/222094491-39bfef0f-3b6b-4c3a-985d-3e5f91403602.png">                                        |              <img width="1043" alt="image" src="https://user-images.githubusercontent.com/70316567/222095785-296f0e99-eaf2-4e25-aee5-dcdadaab1b9c.png">               |                      <img width="1043" alt="image" src="https://user-images.githubusercontent.com/70316567/222098467-105ab99b-77b9-41c9-bf1e-dc1aca6ff59d.png">                      |
 
-| [프로필](<https://github.com/yjglab/BlooBolt/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-(0.0.0-Beta)#%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%EA%B3%BC-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%ED%8E%98%EC%9D%B4%EC%A7%80>) | [가이드와 버전 공지](<https://github.com/yjglab/BlooBolt/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-(0.0.0-Beta)#%EC%8A%A4%ED%80%98%EC%96%B4-%ED%8E%98%EC%9D%B4%EC%A7%80>) |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                  <img width="1043" alt="image" src="https://user-images.githubusercontent.com/70316567/222098770-8a7a7052-5e1f-48ab-9f2a-28156316d8b0.png">                                  |                 <img width="1043" alt="image" src="https://user-images.githubusercontent.com/70316567/222099394-3c021bbb-313d-455f-9d8d-c8f1315a3cb9.png">                 |
+| [프로필](<https://github.com/yjglab/BlooBolt/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-(0.0.0-Beta)#%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%EA%B3%BC-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%ED%8E%98%EC%9D%B4%EC%A7%80>) | [가이드와 버전 공지](https://github.com/yjglab/BlooBolt/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5#%EA%B7%B8-%EC%99%B8-%ED%8E%98%EC%9D%B4%EC%A7%80) |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                  <img width="1043" alt="image" src="https://user-images.githubusercontent.com/70316567/222098770-8a7a7052-5e1f-48ab-9f2a-28156316d8b0.png">                                  |     <img width="1043" alt="image" src="https://user-images.githubusercontent.com/70316567/222099394-3c021bbb-313d-455f-9d8d-c8f1315a3cb9.png">      |
 
 ## 🗄 [DB 모델링 - WIKI](https://github.com/yjglab/BlooBolt/wiki/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%AA%A8%EB%8D%B8%EB%A7%81)
 
@@ -84,7 +84,7 @@ BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들�
 
 ## 🗓 Version Release
 
-[BlooBolt 0.0.1](https://github.com/yjglab/BlooBolt "BlooBolt") / Latest
+[BlooBolt 0.1.0](https://github.com/yjglab/BlooBolt "BlooBolt") / Latest
 [BlooBolt 0.0.0 Beta](https://github.com/yjglab/BlooBolt "BlooBolt")
 
 ## 1.0.0에서 추가됩니다.
