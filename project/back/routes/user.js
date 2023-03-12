@@ -695,4 +695,38 @@ router.patch("/:userId/changepw", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.patch("/:socialId/social-setup", isLoggedIn, async (req, res, next) => {
+  try {
+    if (req.params.socialId !== req.user.socialId) {
+      return res.status(403).send("다른 사용자의 정보를 수정할 수 없습니다.");
+    }
+
+    const me = await User.findOne({
+      where: { socialId: req.params.socialId, social: "kakao" },
+    });
+    if (me.username !== req.body.username) {
+      const existedUsername = await User.findOne({
+        where: {
+          username: req.body.username,
+        },
+      });
+      if (existedUsername) {
+        return res.status(403).send("이미 존재하는 사용자명입니다.");
+      }
+    }
+
+    await me.update({
+      class: req.body.userClass,
+      username: req.body.username,
+    });
+    res.status(200).json({
+      class: req.body.userClass,
+      username: req.body.username,
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 module.exports = router;

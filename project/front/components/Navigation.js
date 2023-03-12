@@ -487,6 +487,8 @@ const Navigation = () => {
                               ? "border-emerald-400"
                               : me.class === "design"
                               ? "border-red-400"
+                              : me.class === "plan"
+                              ? "border-violet-400"
                               : "border-slate-400"
                           } cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
                         />
@@ -502,6 +504,8 @@ const Navigation = () => {
                                   ? "text-emerald-400"
                                   : me.class === "design"
                                   ? "text-red-400"
+                                  : me.class === "plan"
+                                  ? "text-violet-400"
                                   : "text-slate-400"
                               } flex gap-0.5 text-xs`}
                             >

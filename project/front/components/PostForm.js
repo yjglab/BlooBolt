@@ -195,6 +195,7 @@ const PostForm = ({
                       <option value="fedev">개발-프론트엔드</option>
                       <option value="bedev">개발-백엔드</option>
                       <option value="design">디자인-UX/UI</option>
+                      <option value="plan">서비스-기획</option>
                     </select>
                   ) : (
                     <select
@@ -211,6 +212,8 @@ const PostForm = ({
                           ? "백엔드"
                           : squareKind === "design"
                           ? "디자인"
+                          : squareKind === "plan"
+                          ? "기획"
                           : null}
                       </option>
                     </select>

@@ -5,13 +5,14 @@ import {
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 
 import { signUp, signUpEmailAuth, signKakao } from "../reducers/userSlice";
+import { backUrl } from "../config/config";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -29,9 +30,10 @@ const SignupForm = () => {
     formState: { isSubmitting, errors },
   } = useForm();
 
-  const onSignUpKakao = () => {
-    dispatch(signKakao());
-  };
+  const onSignKakao = useCallback(() => {
+    window.location.href = `${backUrl}/auth/kakao`;
+  }, []);
+
   const onSignUp = (formData) => {
     const { email, username, password, passwordCheck, userClass, signupCode } =
       formData;
@@ -113,7 +115,7 @@ const SignupForm = () => {
               </p>
             </div>
 
-            {/* <div className="w-full flex relative top-3 justify-between h-0.5 items-center">
+            <div className="w-full flex relative top-3 justify-between h-0.5 items-center">
               <div className="w-full  bg-slate-200 h-[1.5px]"></div>
               <div className="text-slate-400 text-xs w-full text-center">
                 소셜 계정 회원가입
@@ -122,7 +124,7 @@ const SignupForm = () => {
             </div>
             <div>
               <button
-                onClick={onSignUpKakao}
+                onClick={onSignKakao}
                 className="group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2.5 px-4 text-sm font-medium"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -133,7 +135,7 @@ const SignupForm = () => {
                 </span>
                 KAKAO
               </button>
-            </div> */}
+            </div>
 
             <div className="w-full flex relative top-3 justify-between h-0.5 items-center">
               <div className="w-full  bg-slate-200 h-[1.5px]"></div>
@@ -230,6 +232,7 @@ const SignupForm = () => {
                     <option value="fedev">개발-프론트엔드</option>
                     <option value="bedev">개발-백엔드</option>
                     <option value="design">디자인-UX/UI</option>
+                    <option value="plan">기획</option>
                     <option value="normal">일반</option>
                   </select>
                 </div>

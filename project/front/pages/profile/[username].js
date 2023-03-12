@@ -103,6 +103,14 @@ const Profile = () => {
                       />
                       Designer
                     </>
+                  ) : user.class === "plan" ? (
+                    <>
+                      <UserIcon
+                        className="mr-1.5 h-5 w-5 flex-shrink-0 text-violet-400"
+                        aria-hidden="true"
+                      />
+                      Service Planner
+                    </>
                   ) : (
                     <>
                       <UserIcon

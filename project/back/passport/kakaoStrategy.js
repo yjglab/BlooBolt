@@ -1,6 +1,7 @@
 const KakaoStrategy = require("passport-kakao").Strategy;
-
+const dotenv = require("dotenv");
 const { User } = require("../models");
+dotenv.config();
 
 module.exports = (passport) => {
   passport.use(
@@ -13,8 +14,8 @@ module.exports = (passport) => {
         try {
           const existedUser = await User.findOne({
             where: {
-              email: profile._json.kakao_account_email,
               social: "kakao",
+              socialId: profile.id,
             },
           });
           if (existedUser) {
@@ -22,10 +23,10 @@ module.exports = (passport) => {
           } else {
             const newSocialUser = await User.create({
               usercode: "social",
-              email: profile._json.kakao_account_email,
+              email: profile._json.kakao_account.email,
               username: `kakao_${Math.random().toString(36).slice(6)}`,
               password: "social",
-              class: "public",
+              class: "social",
               avatar:
                 process.env.NODE_ENV === "production"
                   ? "https://blooboltbucket.s3.ap-northeast-2.amazonaws.com/thumb/base_avatar.png"
@@ -44,6 +45,7 @@ module.exports = (passport) => {
               reported: 0,
               banned: false,
               social: "kakao",
+              socialId: profile.id,
             });
             done(null, newSocialUser);
           }

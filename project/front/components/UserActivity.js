@@ -177,6 +177,8 @@ const UserActivity = ({ owner, me, user }) => {
                                 ? "border-emerald-400"
                                 : tracer.class === "design"
                                 ? "border-red-400"
+                                : tracer.class === "plan"
+                                ? "border-violet-400"
                                 : "border-slate-400"
                             } h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
                           />
@@ -194,6 +196,8 @@ const UserActivity = ({ owner, me, user }) => {
                                     ? "text-emerald-400"
                                     : tracer.class === "design"
                                     ? "text-red-400"
+                                    : tracer.class === "plan"
+                                    ? "text-violet-400"
                                     : "text-slate-400"
                                 } flex gap-0.5 text-xs`}
                               >
@@ -265,6 +269,8 @@ const UserActivity = ({ owner, me, user }) => {
                                 ? "border-emerald-400"
                                 : tracing.class === "design"
                                 ? "border-red-400"
+                                : tracing.class === "plan"
+                                ? "border-violet-400"
                                 : "border-slate-400"
                             } h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
                           />
@@ -282,6 +288,8 @@ const UserActivity = ({ owner, me, user }) => {
                                       ? "text-emerald-400"
                                       : tracing.class === "design"
                                       ? "text-red-400"
+                                      : tracing.class === "plan"
+                                      ? "text-violet-400"
                                       : "text-slate-400"
                                   } flex gap-0.5 text-xs`}
                                 >

@@ -458,6 +458,8 @@ const PostSection = ({ post, detailed, squareKind }) => {
                     ? "border-emerald-400"
                     : post.User.class === "design"
                     ? "border-red-400"
+                    : post.User.class === "plan"
+                    ? "border-violet-400"
                     : "border-slate-400"
                 } cursor-pointer h-[45px] w-[45px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
               />
@@ -474,6 +476,8 @@ const PostSection = ({ post, detailed, squareKind }) => {
                         ? "text-emerald-400"
                         : post.User.class === "design"
                         ? "text-red-400"
+                        : post.User.class === "plan"
+                        ? "text-violet-400"
                         : "text-slate-400"
                     } flex gap-0.5 text-xs`}
                   >

@@ -118,6 +118,8 @@ const UserPublicInfo = ({ me }) => {
                         ? "Backend Developer"
                         : me.class === "design"
                         ? "Designer"
+                        : me.class === "plan"
+                        ? "Service Planner"
                         : "Normal"
                     }
                     className="cursor-not-allowed placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"

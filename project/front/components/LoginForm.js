@@ -1,11 +1,11 @@
 import Link from "next/link";
-import React from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 import Image from "next/image";
-
+import { backUrl } from "../config/config";
 import { logIn } from "../reducers/userSlice";
 
 const LoginForm = () => {
@@ -22,6 +22,10 @@ const LoginForm = () => {
     const { email, password } = formData;
     dispatch(logIn({ email, password }));
   };
+
+  const onSignKakao = useCallback(() => {
+    window.location.href = `${backUrl}/auth/kakao`;
+  }, []);
 
   return (
     <div className="h-screen ">
@@ -48,6 +52,37 @@ const LoginForm = () => {
               </Link>
             </p>
           </div>
+
+          <div className="w-full flex relative top-3 justify-between h-0.5 items-center">
+            <div className="w-full  bg-slate-200 h-[1.5px]"></div>
+            <div className="text-slate-400 text-xs w-full text-center">
+              소셜 계정 로그인
+            </div>
+            <div className="w-full  bg-slate-200 h-[1.5px]"></div>
+          </div>
+          <div>
+            <button
+              onClick={onSignKakao}
+              className="group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2.5 px-4 text-sm font-medium"
+            >
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                <img
+                  className="w-8"
+                  src="https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png"
+                />
+              </span>
+              KAKAO
+            </button>
+          </div>
+
+          <div className="w-full flex relative top-3 justify-between h-0.5 items-center">
+            <div className="w-full  bg-slate-200 h-[1.5px]"></div>
+            <div className="text-slate-400 text-xs w-full text-center">
+              일반 계정 로그인
+            </div>
+            <div className="w-full  bg-slate-200 h-[1.5px]"></div>
+          </div>
+
           <form className="mt-8 space-y-3" onSubmit={handleSubmit(onLogin)}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md ">

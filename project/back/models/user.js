@@ -75,6 +75,10 @@ module.exports = class User extends Model {
           type: DataTypes.STRING(30),
           allowNull: true,
         },
+        socialId: {
+          type: DataTypes.STRING(100),
+          allowNull: true,
+        },
       },
       {
         modelName: "User",
