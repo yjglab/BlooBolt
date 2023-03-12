@@ -116,13 +116,15 @@ const UserPersonalInfo = ({ me }) => {
                     })}
                   />
                 </div>
-                <div className="col-span-6 sm:col-span-3">
-                  <Link href="/chpw">
-                    <div className="cursor-pointer text-sm flex font-semibold text-indigo-600">
-                      비밀번호 변경 <KeyIcon className="ml-0.5 w-4" />
-                    </div>
-                  </Link>
-                </div>
+                {!me.social && (
+                  <div className="col-span-6 sm:col-span-3">
+                    <Link href="/chpw">
+                      <div className="cursor-pointer text-sm flex font-semibold text-indigo-600">
+                        비밀번호 변경 <KeyIcon className="ml-0.5 w-4" />
+                      </div>
+                    </Link>
+                  </div>
+                )}
               </div>
               <div className="flex justify-between items-center bg-slate-50 px-4 py-3 text-right sm:px-6">
                 <div className=" flex text-orange-400 text-xs " role="alert">

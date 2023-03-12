@@ -14,10 +14,10 @@ const SocialSetup = () => {
   const { me } = useSelector((state) => state.user);
   const router = useRouter();
   useEffect(() => {
-    if (!me.class === "social") {
+    if (!me || !me.class === "social") {
       router.back();
     }
-  }, [me.class]);
+  }, [me]);
 
   const dispatch = useDispatch();
   const { socialSetupError } = useSelector((state) => state.user);
@@ -91,7 +91,7 @@ const SocialSetup = () => {
                   <input
                     id="username"
                     type="text"
-                    className="relative block w-full appearance-none rounded-t-md  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-t-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     placeholder="사용자명 (4~10자)"
                     {...register("username", {
                       required: "사용자명은 필수 입력입니다",
@@ -115,7 +115,7 @@ const SocialSetup = () => {
                   <select
                     id="userClass"
                     name="userClass"
-                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("userClass", {
                       required: "직군을 선택해주세요.",
                     })}

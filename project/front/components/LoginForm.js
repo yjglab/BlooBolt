@@ -26,6 +26,9 @@ const LoginForm = () => {
   const onSignKakao = useCallback(() => {
     window.location.href = `${backUrl}/auth/kakao`;
   }, []);
+  const onSignGoogle = useCallback(() => {
+    window.location.href = `${backUrl}/auth/google`;
+  }, []);
 
   return (
     <div className="h-screen ">
@@ -60,18 +63,30 @@ const LoginForm = () => {
             </div>
             <div className="w-full  bg-slate-200 h-[1.5px]"></div>
           </div>
-          <div>
+          <div className="flex gap-2">
             <button
-              onClick={onSignKakao}
-              className="group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2.5 px-4 text-sm font-medium"
+              onClick={onSignGoogle}
+              className="group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium"
             >
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <img
-                  className="w-8"
+                  className="w-5 grayscale"
+                  src="https://cdn.cdnlogo.com/logos/g/35/google-icon.svg"
+                />
+              </span>
+              Google
+            </button>
+            <button
+              onClick={onSignKakao}
+              className="group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium"
+            >
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                <img
+                  className="w-8 grayscale"
                   src="https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png"
                 />
               </span>
-              KAKAO
+              Kakao
             </button>
           </div>
 
@@ -94,7 +109,7 @@ const LoginForm = () => {
                   id="email"
                   type="text"
                   placeholder="이메일 주소"
-                  className="relative block w-full appearance-none rounded-none rounded-t-xl border border-slate-300 px-3 py-2.5  placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2  placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   {...register("email", {
                     required: "이메일은 필수 입력입니다",
                     pattern: {
@@ -113,7 +128,7 @@ const LoginForm = () => {
                   id="password"
                   type="password"
                   placeholder="비밀번호"
-                  className="relative block w-full appearance-none rounded-none rounded-b-xl border border-slate-300 px-3 py-2.5  placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   {...register("password", {
                     required: "비밀번호를 입력해주세요",
                   })}
@@ -125,11 +140,11 @@ const LoginForm = () => {
               <div className="flex items-center">
                 <input
                   id="remember-me"
-                  type="checkbox"
+                  // type="checkbox"
                   className="h-4 w-4 rounded-md border-slate-300 text-indigo-500 focus:ring-indigo-500"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm ">
-                  내 정보를 기억합니다
+                  {/* 내 정보를 기억합니다 */}
                 </label>
               </div>
 

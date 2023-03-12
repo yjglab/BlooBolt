@@ -248,6 +248,7 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
 router.post("/logout", isLoggedIn, async (req, res, next) => {
   req.logout();
   req.session.destroy();
+  req.session = null;
   res.send("ok");
 });
 
@@ -702,7 +703,7 @@ router.patch("/:socialId/social-setup", isLoggedIn, async (req, res, next) => {
     }
 
     const me = await User.findOne({
-      where: { socialId: req.params.socialId, social: "kakao" },
+      where: { socialId: req.params.socialId, social: req.body.social },
     });
     if (me.username !== req.body.username) {
       const existedUsername = await User.findOne({

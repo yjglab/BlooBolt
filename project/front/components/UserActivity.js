@@ -46,7 +46,7 @@ const UserActivity = ({ owner, me, user }) => {
             <Tab
               className={({ selected }) =>
                 classNames(
-                  "w-full rounded-md py-2.5 text-sm font-medium leading-5 ",
+                  "w-full rounded-md py-2 text-sm font-medium leading-5 ",
                   selected
                     ? "bg-indigo-500 text-white"
                     : " bg-slate-100 hover:bg-slate-200 "
@@ -59,7 +59,7 @@ const UserActivity = ({ owner, me, user }) => {
             <Tab
               className={({ selected }) =>
                 classNames(
-                  "w-full rounded-md py-2.5 text-sm font-medium leading-5 ",
+                  "w-full rounded-md py-2 text-sm font-medium leading-5 ",
                   selected
                     ? "bg-indigo-500 text-white"
                     : " bg-slate-100 hover:bg-slate-200 "
@@ -72,7 +72,7 @@ const UserActivity = ({ owner, me, user }) => {
             <Tab
               className={({ selected }) =>
                 classNames(
-                  "w-full rounded-md py-2.5 text-sm font-medium leading-5 ",
+                  "w-full rounded-md py-2 text-sm font-medium leading-5 ",
                   selected
                     ? "bg-indigo-500 text-white"
                     : " bg-slate-100 hover:bg-slate-200 "

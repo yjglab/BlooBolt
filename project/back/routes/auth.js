@@ -12,7 +12,23 @@ router.get(
     failureRedirect: "/login",
   }),
   async (req, res) => {
-    console.log(process.env.NODE_ENV);
+    if (process.env.NODE_ENV === "production") {
+      res.redirect("https://bloobolt.com/square");
+    } else {
+      res.redirect("http://localhost:4040/square");
+    }
+  }
+);
+
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  async (req, res) => {
     if (process.env.NODE_ENV === "production") {
       res.redirect("https://bloobolt.com/square");
     } else {

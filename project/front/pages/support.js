@@ -75,7 +75,7 @@ const Support = () => {
                       id="email"
                       type="text"
                       placeholder="이메일 주소"
-                      className="relative block w-full appearance-none rounded-t-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className="relative block w-full appearance-none rounded-t-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       {...register("email", {
                         required: "이메일을 입력해주세요",
                         pattern: {
@@ -92,7 +92,7 @@ const Support = () => {
                       id="usercode"
                       type="text"
                       placeholder="사용자 코드"
-                      className="relative block w-full appearance-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className="relative block w-full appearance-none rounded-b-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       {...register("usercode", {
                         required:
                           "가입시 이메일로 전송된 사용자 코드 4자리를 입력해주세요",
@@ -136,7 +136,9 @@ const Support = () => {
               </form>
             )}
             {findPasswordLoading && (
-              <ArrowPathIcon className="w-8 left-0 right-0 mx-auto animate-spin" />
+              <div className="group relative flex items-center w-full justify-center rounded-md border border-transparent py-2 px-4">
+                <ArrowPathIcon className="w-5 left-0 right-0 mx-auto animate-spin" />
+              </div>
             )}
           </div>
         </div>

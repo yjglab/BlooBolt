@@ -33,6 +33,9 @@ const SignupForm = () => {
   const onSignKakao = useCallback(() => {
     window.location.href = `${backUrl}/auth/kakao`;
   }, []);
+  const onSignGoogle = useCallback(() => {
+    window.location.href = `${backUrl}/auth/google`;
+  }, []);
 
   const onSignUp = (formData) => {
     const { email, username, password, passwordCheck, userClass, signupCode } =
@@ -94,7 +97,7 @@ const SignupForm = () => {
   return (
     <AppLayout>
       <div className="h-screen ">
-        <div className="flex h-full mt-[10%] justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="flex h-full mt-[7%] justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-md space-y-8">
             <div>
               <div className="mx-auto h-20 w-20  relative">
@@ -123,18 +126,32 @@ const SignupForm = () => {
               <div className="w-full  bg-slate-200 h-[1.5px]"></div>
             </div>
             <div>
-              <button
-                onClick={onSignKakao}
-                className="group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2.5 px-4 text-sm font-medium"
-              >
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <img
-                    className="w-8"
-                    src="https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png"
-                  />
-                </span>
-                KAKAO
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={onSignGoogle}
+                  className="group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium"
+                >
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <img
+                      className="w-5 grayscale"
+                      src="https://cdn.cdnlogo.com/logos/g/35/google-icon.svg"
+                    />
+                  </span>
+                  Google
+                </button>
+                <button
+                  onClick={onSignKakao}
+                  className="group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium"
+                >
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <img
+                      className="w-8 grayscale"
+                      src="https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png"
+                    />
+                  </span>
+                  Kakao
+                </button>
+              </div>
             </div>
 
             <div className="w-full flex relative top-3 justify-between h-0.5 items-center">
@@ -153,7 +170,7 @@ const SignupForm = () => {
                     id="email"
                     type="text"
                     placeholder="이메일 주소"
-                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("email", {
                       required: "이메일은 필수 입력입니다",
                       maxLength: 100,
@@ -170,7 +187,7 @@ const SignupForm = () => {
                   <input
                     id="username"
                     type="text"
-                    className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     placeholder="사용자명 (4~10자)"
                     {...register("username", {
                       required: "사용자명은 필수 입력입니다",
@@ -191,7 +208,7 @@ const SignupForm = () => {
                     id="password"
                     type="password"
                     placeholder="비밀번호 (영문/숫자/특수기호 조합 8자 이상)"
-                    className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("password", {
                       required: "비밀번호를 입력해주세요",
                       pattern: {
@@ -209,7 +226,7 @@ const SignupForm = () => {
                     id="passwordCheck"
                     type="password"
                     placeholder="비밀번호 확인"
-                    className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("passwordCheck", {
                       required: "",
                     })}
@@ -223,7 +240,7 @@ const SignupForm = () => {
                   <select
                     id="userClass"
                     name="userClass"
-                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("userClass", {
                       required: "직군을 선택해주세요.",
                     })}
@@ -288,7 +305,9 @@ const SignupForm = () => {
                   )}
                 </div>
                 {signUpEmailAuthLoading ? (
-                  <ArrowPathIcon className="w-7 left-0 py-1.5 right-0 mx-auto animate-spin" />
+                  <div className="group relative flex items-center w-full justify-center rounded-md border border-transparent py-2 px-4">
+                    <ArrowPathIcon className="w-5 left-0 right-0 mx-auto animate-spin" />
+                  </div>
                 ) : signUpEmailSended ? (
                   <div>
                     <label htmlFor="signupCode" className="sr-only">
@@ -299,7 +318,7 @@ const SignupForm = () => {
                       type="password"
                       autoFocus
                       placeholder="전송된 이메일 인증 코드 6자리를 입력해주세요."
-                      className="placeholder:text-slate-400 placeholder:text-sm relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className="placeholder:text-slate-400 placeholder:text-sm relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       {...register("signupCode", {
                         required: "인증코드를 입력해주세요.",
                         maxLength: {
@@ -311,7 +330,7 @@ const SignupForm = () => {
                 ) : (
                   <button
                     onClick={onSignUpEmailAuth}
-                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-slate-500 py-2.5 px-4 text-sm font-medium text-white hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-slate-500 py-2 px-4 text-sm font-medium text-white hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
                   >
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                       <EnvelopeIcon
@@ -325,7 +344,7 @@ const SignupForm = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group mt-1.5 relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500 py-2.5 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="group mt-1.5 relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                     <UserPlusIcon

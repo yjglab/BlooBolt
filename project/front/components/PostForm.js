@@ -167,7 +167,7 @@ const PostForm = ({
                     id="topic"
                     type="text"
                     placeholder="토픽 설정"
-                    className="px-1.5 py-2.5 block w-full placeholder:text-slate-300 text-sm rounded-md border-slate-300  focus:border-indigo-500 focus:ring-indigo-500 "
+                    className="px-1.5 py-2 block w-full placeholder:text-slate-300 text-sm rounded-md border-slate-300  focus:border-indigo-500 focus:ring-indigo-500 "
                     {...register("topic", {
                       maxLength: {
                         value: 30,
@@ -185,7 +185,7 @@ const PostForm = ({
                     <select
                       id="postClass"
                       name="postClass"
-                      className="relative block w-36 text-sm appearance-none rounded-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className="relative block w-36 text-sm appearance-none rounded-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       {...register("postClass", {
                         required: "포스트 분류를 선택해주세요.",
                       })}
@@ -202,7 +202,7 @@ const PostForm = ({
                       id="postClass"
                       name="postClass"
                       // disabled={true}
-                      className="cursor-not-allowed relative block w-36 text-sm appearance-none rounded-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className="cursor-not-allowed relative block w-36 text-sm appearance-none rounded-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       {...register("postClass", {})}
                     >
                       <option value={squareKind}>

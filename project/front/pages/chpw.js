@@ -80,7 +80,7 @@ const ChangePassword = () => {
                     id="prevPassword"
                     type="password"
                     placeholder="현재 비밀번호"
-                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("prevPassword", {
                       required: "비밀번호를 입력해주세요",
                     })}
@@ -92,7 +92,7 @@ const ChangePassword = () => {
                     id="nextPassword"
                     type="password"
                     placeholder="변경할 비밀번호"
-                    className="relative block w-full appearance-none rounded-none border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("nextPassword", {
                       required: "변경할 비밀번호를 입력해주세요",
                       pattern: {
@@ -113,7 +113,7 @@ const ChangePassword = () => {
                     id="nextPasswordCheck"
                     type="password"
                     placeholder="변경할 비밀번호 확인"
-                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2.5 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     {...register("nextPasswordCheck", {
                       required: "",
                     })}
