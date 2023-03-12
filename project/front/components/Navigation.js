@@ -10,24 +10,15 @@ import {
   BookOpenIcon,
   BuildingLibraryIcon,
   ChevronDownIcon,
-  CodeBracketIcon,
-  CommandLineIcon,
-  CubeIcon,
   FaceSmileIcon,
   HomeIcon,
   InformationCircleIcon,
-  LightBulbIcon,
-  MegaphoneIcon,
   PaintBrushIcon,
+  PresentationChartBarIcon,
   RectangleGroupIcon,
-  ServerIcon,
   ServerStackIcon,
   ShieldCheckIcon,
-  UserCircleIcon,
-  UserGroupIcon,
   UserIcon,
-  WrenchIcon,
-  WrenchScrewdriverIcon,
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
@@ -81,6 +72,7 @@ const Navigation = () => {
       })
     );
   });
+
   return (
     <Popover className="fixed top-0 w-[100vw] left-0 z-50 bg-white shadow-xl shadow-slate-300/20">
       {loadPostsLoading ? (
@@ -232,6 +224,24 @@ const Navigation = () => {
                               </Popover.Button>
                             </div>
                           </Link>
+                          <Link href="/square-plan">
+                            <div className="w-full">
+                              <Popover.Button className="-m-3 w-full flex items-start rounded-md p-3 hover:bg-slate-50">
+                                <PresentationChartBarIcon
+                                  className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                                  aria-hidden="true"
+                                />
+                                <div className="ml-4">
+                                  <p className="text-base text-left font-medium text-slate-600">
+                                    Planner Square
+                                  </p>
+                                  <p className="mt-0.5 text-xs text-slate-500 text-left">
+                                    서비스 기획자에요!
+                                  </p>
+                                </div>
+                              </Popover.Button>
+                            </div>
+                          </Link>
                         </div>
 
                         {/* <div className="bg-slate-50 px-5 py-5 sm:px-8 sm:py-6">
@@ -360,6 +370,7 @@ const Navigation = () => {
                     </Popover.Button>
                   </div>
                 </Link>
+
                 <div className="-mr-2">
                   <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                     <span className="sr-only">Close menu</span>
@@ -381,19 +392,6 @@ const Navigation = () => {
                         </Popover.Button>
                       </div>
                     </Link>
-                    <Link href="/version-log">
-                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
-                        <InformationCircleIcon
-                          className="h-6 w-6 flex-shrink-0 text-indigo-500"
-                          aria-hidden="true"
-                        />
-                        <Popover.Button className="ml-3 text-left w-full h-full  text-base font-medium text-slate-600">
-                          버전 정보
-                        </Popover.Button>
-                      </div>
-                    </Link>
-                  </div>
-                  <div className="grid grid-cols-2">
                     <Link href="/square">
                       <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
                         <BuildingLibraryIcon
@@ -405,6 +403,8 @@ const Navigation = () => {
                         </Popover.Button>
                       </div>
                     </Link>
+                  </div>
+                  <div className="grid grid-cols-2">
                     <Link href="/square-fedev">
                       <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
                         <RectangleGroupIcon
@@ -416,8 +416,6 @@ const Navigation = () => {
                         </Popover.Button>
                       </div>
                     </Link>
-                  </div>
-                  <div className="grid grid-cols-2">
                     <Link href="/square-bedev">
                       <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
                         <ServerStackIcon
@@ -429,6 +427,8 @@ const Navigation = () => {
                         </Popover.Button>
                       </div>
                     </Link>
+                  </div>
+                  <div className="grid grid-cols-2">
                     <Link href="/square-design">
                       <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
                         <PaintBrushIcon
@@ -437,6 +437,17 @@ const Navigation = () => {
                         />
                         <Popover.Button className="ml-3 text-left w-full h-full  text-base font-medium text-slate-600">
                           디자인 스퀘어
+                        </Popover.Button>
+                      </div>
+                    </Link>
+                    <Link href="/square-plan">
+                      <div className="-m-3 flex items-center rounded-md p-3 hover:bg-slate-50">
+                        <PresentationChartBarIcon
+                          className="h-6 w-6 flex-shrink-0 text-indigo-500"
+                          aria-hidden="true"
+                        />
+                        <Popover.Button className="ml-3 text-left w-full h-full  text-base font-medium text-slate-600">
+                          기획 스퀘어
                         </Popover.Button>
                       </div>
                     </Link>
