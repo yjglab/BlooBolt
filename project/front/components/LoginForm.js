@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { ArrowPathIcon, LockClosedIcon } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import { logIn } from "../reducers/userSlice";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { logInError } = useSelector((state) => state.user);
+  const { logInError, loginLoading } = useSelector((state) => state.user);
 
   const {
     register,
@@ -47,10 +47,10 @@ const LoginForm = () => {
               보유한 계정으로 로그인하세요
             </h2>
             <p className="mt-2 text-center text-sm ">
-              또는{" "}
+              계정이 없으신가요?{" "}
               <Link href="/signup">
-                <span className="cursor-pointer font-medium text-indigo-500 hover:text-indigo-600">
-                  새로운 멤버로 등록해보세요!
+                <span className="underline cursor-pointer font-medium text-indigo-500 hover:text-indigo-600">
+                  회원가입
                 </span>
               </Link>
             </p>
@@ -184,7 +184,11 @@ const LoginForm = () => {
                       aria-hidden="true"
                     />
                   </span>
-                  로그인
+                  {loginLoading ? (
+                    <ArrowPathIcon className="w-5 left-0 right-0 mx-auto animate-spin" />
+                  ) : (
+                    "로그인"
+                  )}
                 </button>
               </div>
             </div>

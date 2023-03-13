@@ -224,7 +224,7 @@ const CommentSection = ({ post, comment }) => {
                 : comment.User.class === "design"
                 ? "border-red-400"
                 : comment.User.class === "plan"
-                ? "border-violet-400"
+                ? "border-sky-300"
                 : "border-slate-400"
             } cursor-pointer h-[42px] w-[42px] border-[2.5px] p-0.5 rounded-full object-cover`}
           />
@@ -242,7 +242,7 @@ const CommentSection = ({ post, comment }) => {
                     : comment.User.class === "design"
                     ? "text-red-400"
                     : comment.User.class === "plan"
-                    ? "text-violet-400"
+                    ? "text-sky-300"
                     : "text-slate-400"
                 } flex gap-0.5 text-xs`}
               >

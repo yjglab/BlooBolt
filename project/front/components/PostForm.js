@@ -1,4 +1,9 @@
-import { ArrowUpIcon, TrashIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowPathIcon,
+  ArrowUpIcon,
+  TrashIcon,
+  XMarkIcon,
+} from "@heroicons/react/20/solid";
 import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,9 +33,12 @@ const PostForm = ({
 }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { postImagePaths, editPostDone, uploadPostImagesError } = useSelector(
-    (state) => state.post
-  );
+  const {
+    postImagePaths,
+    editPostDone,
+    uploadPostLoading,
+    uploadPostImagesError,
+  } = useSelector((state) => state.post);
 
   const {
     register,
@@ -297,10 +305,14 @@ const PostForm = ({
                 disabled={isSubmitting}
                 className=" hover:bg-indigo-600  flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500"
               >
-                <ArrowUpIcon
-                  className="h-6 w-6 text-white"
-                  aria-hidden="true"
-                />
+                {uploadPostLoading ? (
+                  <ArrowPathIcon className="w-5 text-white left-0 right-0 mx-auto animate-spin" />
+                ) : (
+                  <ArrowUpIcon
+                    className="h-6 w-6 text-white"
+                    aria-hidden="true"
+                  />
+                )}
               </button>
             </div>
           </form>

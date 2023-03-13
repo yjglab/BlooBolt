@@ -1,4 +1,9 @@
-import { ArrowUpCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowPathIcon,
+  ArrowUpCircleIcon,
+  ArrowUpIcon,
+  XMarkIcon,
+} from "@heroicons/react/20/solid";
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
@@ -10,6 +15,7 @@ import { uploadComment } from "../reducers/postSlice";
 const CommentForm = ({ post, detailed, onToggleCommentArea }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
+  const { uploadCommentLoading } = useSelector((state) => state.post);
 
   const {
     register,
@@ -98,9 +104,16 @@ const CommentForm = ({ post, detailed, onToggleCommentArea }) => {
         <button
           type="submit"
           disabled={isSubmitting || post.blinded}
-          className=" rounded-full flex items-center"
+          className=" rounded-full flex items-center bg-indigo-500 p-1"
         >
-          <ArrowUpCircleIcon className="w-7 text-indigo-500 hover:text-indigo-600" />
+          {uploadCommentLoading ? (
+            <ArrowPathIcon className="w-4 text-white left-0 right-0 mx-auto animate-spin" />
+          ) : (
+            <ArrowUpIcon
+              className="w-4 text-white  hover:text-indigo-600"
+              aria-hidden="true"
+            />
+          )}
         </button>
       </div>
     </form>

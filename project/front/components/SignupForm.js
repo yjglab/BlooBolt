@@ -16,9 +16,8 @@ import { backUrl } from "../config/config";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
-  const { signUpError, signUpEmailAuthLoading, supportMessage } = useSelector(
-    (state) => state.user
-  );
+  const { signUpError, signUpEmailAuthLoading, supportMessage, signUpLoading } =
+    useSelector((state) => state.user);
   const [signUpEmailSended, setSignUpEmailSended] = useState(false);
 
   const {
@@ -352,7 +351,11 @@ const SignupForm = () => {
                       aria-hidden="true"
                     />
                   </span>
-                  회원가입
+                  {signUpLoading ? (
+                    <ArrowPathIcon className="w-5 left-0 right-0 mx-auto animate-spin" />
+                  ) : (
+                    "회원가입"
+                  )}
                 </button>
               </div>
             </form>

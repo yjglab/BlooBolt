@@ -84,10 +84,10 @@ BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들�
 
 ## 🗓 Version Release
 
-[BlooBolt 0.1.0](https://github.com/yjglab/BlooBolt "BlooBolt") / Latest
-[BlooBolt 0.0.0 Beta](https://github.com/yjglab/BlooBolt "BlooBolt")
+- [BlooBolt 0.1.0](https://github.com/yjglab/BlooBolt "BlooBolt") / Latest
+- [BlooBolt 0.0.0 Beta](https://github.com/yjglab/BlooBolt "BlooBolt")
 
-## 1.0.0에서 추가됩니다.
+## 다음 버전에서 추가됩니다.
 
 > 포스트 스크랩
 

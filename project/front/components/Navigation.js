@@ -90,7 +90,7 @@ const Navigation = () => {
         <div className="px-6 flex  items-center justify-between  py-2 md:justify-start md:space-x-10">
           <div className="lg:w-0 lg:flex-1 flex justify-start">
             <div className="  ">
-              <Link href="/square">
+              <Link href="/">
                 <div className="cursor-pointer flex items-center text-xl font-bold ">
                   <div className="h-7 w-7 relative mr-1.5">
                     <Image
@@ -499,7 +499,7 @@ const Navigation = () => {
                               : me.class === "design"
                               ? "border-red-400"
                               : me.class === "plan"
-                              ? "border-violet-400"
+                              ? "border-sky-300"
                               : "border-slate-400"
                           } cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
                         />
@@ -516,7 +516,7 @@ const Navigation = () => {
                                   : me.class === "design"
                                   ? "text-red-400"
                                   : me.class === "plan"
-                                  ? "text-violet-400"
+                                  ? "text-sky-300"
                                   : "text-slate-400"
                               } flex gap-0.5 text-xs`}
                             >
