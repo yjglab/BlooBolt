@@ -251,11 +251,12 @@ export const userSlice = createSlice({
         state.loadMeError = null;
       })
       .addCase(loadMe.fulfilled, (state, { payload }) => {
+        state.loadMeLoading = false;
         state.loadMeDone = true;
         state.me = payload;
       })
       .addCase(loadMe.rejected, (state, { payload }) => {
-        state.loadMeDone = false;
+        state.loadMeLoading = false;
         state.loadMeError = payload;
       })
 
@@ -264,11 +265,12 @@ export const userSlice = createSlice({
         state.loadUserError = null;
       })
       .addCase(loadUser.fulfilled, (state, { payload }) => {
+        state.loadUserLoading = false;
         state.loadUserDone = true;
         state.user = payload;
       })
       .addCase(loadUser.rejected, (state, { payload }) => {
-        state.loadUserDone = false;
+        state.loadUserLoading = false;
         state.loadUserError = payload;
       })
 
@@ -277,11 +279,12 @@ export const userSlice = createSlice({
         state.signUpError = null;
       })
       .addCase(signUp.fulfilled, (state) => {
+        state.signUpLoading = false;
         state.signUpDone = true;
         Router.push("/login");
       })
       .addCase(signUp.rejected, (state, { payload }) => {
-        state.signUpDone = false;
+        state.signUpLoading = false;
         state.signUpError = payload;
       })
 
@@ -304,10 +307,12 @@ export const userSlice = createSlice({
         state.logInError = null;
       })
       .addCase(logIn.fulfilled, (state, { payload }) => {
+        state.logInLoading = false;
         state.logInDone = true;
         state.me = payload;
       })
       .addCase(logIn.rejected, (state, { payload }) => {
+        state.logInLoading = false;
         state.logInError = payload;
       })
 
@@ -316,10 +321,12 @@ export const userSlice = createSlice({
         state.logOutError = null;
       })
       .addCase(logOut.fulfilled, (state) => {
+        state.logOutLoading = false;
         state.logOutDone = true;
         state.me = null;
       })
       .addCase(logOut.rejected, (state, { payload }) => {
+        state.logOutLoading = false;
         state.logOutError = payload;
       })
 
@@ -328,10 +335,12 @@ export const userSlice = createSlice({
         state.uploadUserAvatarError = null;
       })
       .addCase(uploadUserAvatar.fulfilled, (state, { payload }) => {
+        state.uploadUserAvatarLoading = false;
         state.uploadUserAvatarDone = true;
         state.me.avatar = payload;
       })
       .addCase(uploadUserAvatar.rejected, (state, { payload }) => {
+        state.uploadUserAvatarLoading = false;
         state.uploadUserAvatarError = payload;
       })
 
@@ -340,6 +349,7 @@ export const userSlice = createSlice({
         state.changeMyPublicInfoError = null;
       })
       .addCase(changeMyPublicInfo.fulfilled, (state, { payload }) => {
+        state.changeMyPublicInfoLoading = false;
         state.changeMyPublicInfoDone = true;
         state.me.username = payload.username;
         state.me.class = payload.class;
@@ -350,6 +360,7 @@ export const userSlice = createSlice({
         state.me.class = payload.class;
       })
       .addCase(changeMyPublicInfo.rejected, (state, { payload }) => {
+        state.changeMyPublicInfoLoading = false;
         state.changeMyPublicInfoError = payload;
       })
 
@@ -358,11 +369,13 @@ export const userSlice = createSlice({
         state.changeMyPersonalInfoError = null;
       })
       .addCase(changeMyPersonalInfo.fulfilled, (state, { payload }) => {
+        state.changeMyPersonalInfoLoading = false;
         state.changeMyPersonalInfoDone = true;
         state.me.realname = payload.realname;
         state.me.address = payload.address;
       })
       .addCase(changeMyPersonalInfo.rejected, (state, { payload }) => {
+        state.changeMyPersonalInfoLoading = false;
         state.changeMyPersonalInfoError = payload;
       })
 
