@@ -13,6 +13,7 @@ import {
   EyeSlashIcon,
   LightBulbIcon,
   PaintBrushIcon,
+  PresentationChartBarIcon,
   QueueListIcon,
   RectangleGroupIcon,
   ServerStackIcon,
@@ -108,6 +109,21 @@ const Guide = () => {
                 </div>
                 <div className="mt-2 text-base leading-6 ">
                   디자인 스퀘어에는 UX/UI 디자이너만이 포스트를 업로드할 수
+                  있습니다. 업로드한 내용을 다른 클래스 근무자들과 공유해보세요.
+                </div>
+              </div>
+              <div className="relative pl-16">
+                <div className="text-base font-semibold leading-6 ">
+                  <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
+                    <PresentationChartBarIcon
+                      className="h-6 w-6 text-white"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  Plan Square
+                </div>
+                <div className="mt-2 text-base leading-6 ">
+                  기획 스퀘어에는 서비스 기획자만이 포스트를 업로드할 수
                   있습니다. 업로드한 내용을 다른 클래스 근무자들과 공유해보세요.
                 </div>
               </div>

@@ -10,7 +10,7 @@ import { logIn } from "../reducers/userSlice";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { logInError, loginLoading } = useSelector((state) => state.user);
+  const { logInError, logInLoading } = useSelector((state) => state.user);
 
   const {
     register,
@@ -184,7 +184,7 @@ const LoginForm = () => {
                       aria-hidden="true"
                     />
                   </span>
-                  {loginLoading ? (
+                  {logInLoading ? (
                     <ArrowPathIcon className="w-5 left-0 right-0 mx-auto animate-spin" />
                   ) : (
                     "로그인"

@@ -12,7 +12,7 @@ const Login = () => {
   const router = useRouter();
   useEffect(() => {
     if (me && me.id) {
-      router.push("/square");
+      router.push("/square", undefined, { shallow: true });
     }
   }, [me && me.id]);
 

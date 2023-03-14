@@ -14,7 +14,7 @@ const Square = () => {
 
   useEffect(() => {
     if (me?.class === "social") {
-      router.push("/social-setup");
+      router.push("/social-setup", undefined, { shallow: true });
     }
   }, [me?.class]);
 
