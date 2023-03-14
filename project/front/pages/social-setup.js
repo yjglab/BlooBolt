@@ -25,6 +25,7 @@ const SocialSetup = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { isSubmitting, errors },
   } = useForm();
 
@@ -140,6 +141,10 @@ const SocialSetup = () => {
                       <>{errors.email.message}</>
                     ) : errors.password ? (
                       <>{errors.password.message}</>
+                    ) : errors.username ? (
+                      <>{errors.username.message}</>
+                    ) : errors.userClass ? (
+                      <>{errors.userClass.message}</>
                     ) : socialSetupError ? (
                       <>{socialSetupError}</>
                     ) : (
