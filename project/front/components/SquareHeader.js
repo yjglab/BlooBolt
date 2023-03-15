@@ -14,15 +14,23 @@ import {
 import { openNotice } from "../reducers/globalSlice";
 import { useForm } from "react-hook-form";
 import {
+  ArrowsPointingOutIcon,
   ArrowUturnLeftIcon,
+  BoltIcon,
+  ChatBubbleOvalLeftIcon,
   CloudArrowUpIcon,
   DocumentPlusIcon,
   MagnifyingGlassIcon,
   PaperAirplaneIcon,
+  PhotoIcon,
+  ShieldCheckIcon,
+  UserPlusIcon,
 } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import PostForm from "./PostForm";
+import { Menu } from "@headlessui/react";
+import PostLoading from "./PostLoading";
 
 const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
   const { me } = useSelector((state) => state.user);
@@ -241,6 +249,14 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
                 onTogglePostForm={onTogglePostForm}
               />
             ))}
+
+            {loadPostsLoading && (
+              <>
+                <PostLoading />
+                <PostLoading />
+                <PostLoading />
+              </>
+            )}
           </div>
         </div>
       </div>

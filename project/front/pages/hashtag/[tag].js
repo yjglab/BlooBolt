@@ -2,15 +2,12 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../../components/AppLayout";
-import PostSection from "../../components/PostSection";
 import Router, { useRouter } from "next/router";
 
 import { loadPostsByHashtag } from "../../reducers/postSlice";
 import wrapper from "../../store/configureStore";
 import axios from "axios";
 import { loadMe } from "../../reducers/userSlice";
-import { ArrowPathIcon } from "@heroicons/react/20/solid";
-import { useForm } from "react-hook-form";
 import SquareHeader from "../../components/SquareHeader";
 
 const Hashtag = () => {

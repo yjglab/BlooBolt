@@ -8,6 +8,7 @@ import {
   BoltIcon,
   ChatBubbleOvalLeftIcon,
   FaceSmileIcon,
+  ServerStackIcon,
   ShieldCheckIcon,
   UserMinusIcon,
   UserPlusIcon,
@@ -426,7 +427,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
                 </Menu.Items>
               </Transition>
             </Menu>
-            <small className="text-slate-400 text-xs">
+            <small className="text-slate-400 text-xs inline-flex">
               {dayjs(post.updatedAt).format("YY.MM.DD | H:mm:ss")}
               {post.edited && " (수정됨)"}
             </small>
@@ -535,7 +536,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
                 {isProdded ? (
                   <button
                     onClick={onUnprodPost}
-                    className="flex items-center gap-1 hover:text-indigo-500"
+                    className="flex items-center gap-0.5 hover:text-indigo-500"
                   >
                     <BoltIcon className="w-5 text-indigo-500" />
                     <span className="text-indigo-500">
@@ -545,7 +546,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
                 ) : (
                   <button
                     onClick={onProdPost}
-                    className="flex hover:scale-105 items-center gap-1 hover:text-indigo-500"
+                    className="flex hover:scale-105 items-center gap-0.5 hover:text-indigo-500"
                   >
                     <BoltIcon className="w-5 " />
                     <span className="">{post.PostProdders.length}</span>
@@ -554,7 +555,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
 
                 <button
                   onClick={onToggleCommentArea}
-                  className="flex hover:scale-105 items-center gap-1 hover:text-indigo-500"
+                  className="flex hover:scale-105 items-center gap-0.5 hover:text-indigo-500"
                 >
                   <ChatBubbleOvalLeftIcon className="w-5" />
                   {post.Comments.length}
@@ -563,18 +564,16 @@ const PostSection = ({ post, detailed, squareKind }) => {
                 {post.User.id !== me?.id ? (
                   <button
                     onClick={onToggleTrace}
-                    className="flex items-center gap-1 hover:text-indigo-500 hover:scale-105"
+                    className="flex items-center gap-0.5 hover:text-indigo-500 hover:scale-105"
                   >
                     {isTracing ? (
                       <>
                         <UserMinusIcon className="w-5 " />
-                        Untrace
                       </>
                     ) : (
                       <>
                         {" "}
                         <UserPlusIcon className="w-5 " />
-                        Trace
                       </>
                     )}
                   </button>

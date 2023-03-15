@@ -113,22 +113,12 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
       return res.status(403).send("이미 존재하는 사용자명입니다.");
     }
 
-    const usernameFilter = [
-      "관리자",
-      "Admin",
-      "Administrator",
-      "블루볼트",
-      // "BlooBolt",
-      "BLOOBOLT",
-      "BlooBolt.co",
-      "bloobolt",
-      "Bloobolt",
-      "blooBolt",
-      "BlooBolts",
-    ];
+    const usernameFilter = ["관리자", "administrator", "블루볼트", "bloobolt"];
 
-    if (usernameFilter.includes(req.body.username)) {
-      return res.status(403).send("적절하지 않은 사용자명입니다.");
+    for (const name of usernameFilter) {
+      if (req.body.username.toLowerCase().includes(name)) {
+        return res.status(403).send("적절하지 않은 사용자명입니다.");
+      }
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -713,6 +703,13 @@ router.patch("/:socialId/social-setup", isLoggedIn, async (req, res, next) => {
       });
       if (existedUsername) {
         return res.status(403).send("이미 존재하는 사용자명입니다.");
+      }
+    }
+
+    const usernameFilter = ["관리자", "administrator", "블루볼트", "bloobolt"];
+    for (const name of usernameFilter) {
+      if (req.body.username.toLowerCase().includes(name)) {
+        return res.status(403).send("적절하지 않은 사용자명입니다.");
       }
     }
 

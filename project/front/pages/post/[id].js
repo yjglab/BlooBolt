@@ -44,7 +44,11 @@ const Post = () => {
           </div>
 
           <div className=" px-0 md:px-4">
-            <PostSection post={solePost} detailed={true} />
+            <PostSection
+              post={solePost}
+              detailed={true}
+              squareKind={solePost.class}
+            />
           </div>
         </div>
       </div>

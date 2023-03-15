@@ -75,9 +75,9 @@ const Navigation = () => {
 
   return (
     <Popover className="fixed top-0 w-[100vw] left-0 z-50 bg-white shadow-xl shadow-slate-300/20">
-      {loadPostsLoading ? (
+      {/* {loadPostsLoading ? (
         <ArrowPathIcon className="bg-indigo-500 animate-spin p-2 rounded-full fixed w-10 text-white mx-auto left-0 right-0 bottom-10" />
-      ) : null}
+      ) : null} */}
       {helper && (
         <button
           onClick={onGotoTop}
