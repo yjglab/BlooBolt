@@ -137,19 +137,19 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
         process.env.NODE_ENV === "production"
           ? "https://blooboltbucket.s3.ap-northeast-2.amazonaws.com/thumb/base_avatar.png"
           : "base_avatar.png",
-      rank: 0,
-      rankPoint: 0,
+      // rank: 0,
+      // rankPoint: 0,
 
-      role: "None",
-      country: "None",
-      website: "None",
-      about: "",
+      // role: "None",
+      // country: "None",
+      // website: "None",
+      // about: "",
 
-      realname: "",
-      address: "",
+      // realname: "",
+      // address: "",
 
-      reported: 0,
-      banned: false,
+      // reported: 0,
+      // banned: false,
     });
 
     const transporter = nodeMailer.createTransport({

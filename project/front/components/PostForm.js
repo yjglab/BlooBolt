@@ -303,15 +303,12 @@ const PostForm = ({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className=" hover:bg-indigo-600  flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500"
+                className=" hover:bg-indigo-600 text-white flex h-10 w-16 items-center justify-center rounded-lg bg-indigo-500"
               >
                 {uploadPostLoading ? (
-                  <ArrowPathIcon className="w-5 text-white left-0 right-0 mx-auto animate-spin" />
+                  <ArrowPathIcon className="w-5  left-0 right-0 mx-auto animate-spin" />
                 ) : (
-                  <ArrowUpIcon
-                    className="h-6 w-6 text-white"
-                    aria-hidden="true"
-                  />
+                  "업로드"
                 )}
               </button>
             </div>

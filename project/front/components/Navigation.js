@@ -36,13 +36,11 @@ function classNames(...classes) {
 const Navigation = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { loadPostsLoading } = useSelector((state) => state.post);
   const [helper, setHelper] = useState(false);
-  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
     function onScreenScroll() {
-      if (window.scrollY + document.documentElement.clientHeight > 1250) {
+      if (window.scrollY + document.documentElement.clientHeight > 1000) {
         setHelper(true);
       } else {
         setHelper(false);
@@ -75,9 +73,6 @@ const Navigation = () => {
 
   return (
     <Popover className="fixed top-0 w-[100vw] left-0 z-50 bg-white shadow-xl shadow-slate-300/20">
-      {/* {loadPostsLoading ? (
-        <ArrowPathIcon className="bg-indigo-500 animate-spin p-2 rounded-full fixed w-10 text-white mx-auto left-0 right-0 bottom-10" />
-      ) : null} */}
       {helper && (
         <button
           onClick={onGotoTop}

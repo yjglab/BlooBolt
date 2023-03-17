@@ -22,6 +22,7 @@ module.exports = class User extends Model {
         realname: {
           type: DataTypes.STRING(30),
           allowNull: false,
+          defaultValue: "",
         },
         password: {
           type: DataTypes.STRING(100),
@@ -34,10 +35,12 @@ module.exports = class User extends Model {
         about: {
           type: DataTypes.STRING(50),
           allowNull: false,
+          defaultValue: "",
         },
         role: {
           type: DataTypes.STRING(20),
           allowNull: false,
+          defaultValue: "None",
         },
         avatar: {
           type: DataTypes.STRING(500),
@@ -46,30 +49,37 @@ module.exports = class User extends Model {
         rank: {
           type: DataTypes.TINYINT,
           allowNull: false,
+          defaultValue: 0,
         },
         rankPoint: {
           type: DataTypes.INTEGER,
           allowNull: false,
+          defaultValue: 0,
         },
         country: {
           type: DataTypes.STRING(30),
           allowNull: false,
+          defaultValue: "None",
         },
         address: {
           type: DataTypes.STRING(50),
           allowNull: false,
+          defaultValue: "",
         },
         website: {
           type: DataTypes.STRING(200),
           allowNull: false,
+          defaultValue: "None",
         },
         reported: {
           type: DataTypes.TINYINT,
           allowNull: false,
+          defaultValue: 0,
         },
         banned: {
           type: DataTypes.BOOLEAN,
           allowNull: false,
+          defaultValue: false,
         },
         social: {
           type: DataTypes.STRING(30),

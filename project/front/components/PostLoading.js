@@ -51,7 +51,7 @@ const PostLoading = () => {
       </div>
 
       <div className="h-40 mt-3 gap-1 flex justify-center items-center rounded-xl bg-slate-300 overflow-hidden">
-        <PhotoIcon className="w-12 text-white" />
+        <PhotoIcon className="w-12 text-white/70" />
       </div>
     </div>
   );

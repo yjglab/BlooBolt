@@ -24,14 +24,22 @@ module.exports = class Post extends Model {
         edited: {
           type: DataTypes.BOOLEAN,
           allowNull: false,
+          defaultValue: false,
         },
         blinded: {
           type: DataTypes.BOOLEAN,
           allowNull: false,
+          defaultValue: false,
         },
         reverted: {
           type: DataTypes.BOOLEAN,
           allowNull: false,
+          defaultValue: false,
+        },
+        question: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+          defaultValue: false,
         },
       },
       {

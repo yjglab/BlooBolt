@@ -103,16 +103,13 @@ const CommentForm = ({ post, detailed, onToggleCommentArea }) => {
         </div>
         <button
           type="submit"
-          disabled={isSubmitting || post.blinded}
-          className=" rounded-full flex items-center bg-indigo-500 p-1"
+          disabled={uploadCommentLoading || post.blinded}
+          className=" rounded-md flex text-white items-center hover:bg-indigo-600 bg-indigo-500 py-1 px-2"
         >
           {uploadCommentLoading ? (
-            <ArrowPathIcon className="w-4 text-white left-0 right-0 mx-auto animate-spin" />
+            <ArrowPathIcon className="w-4  left-0 right-0 mx-auto animate-spin" />
           ) : (
-            <ArrowUpIcon
-              className="w-4 text-white  hover:text-indigo-600"
-              aria-hidden="true"
-            />
+            <span className="text-sm ">업로드</span>
           )}
         </button>
       </div>

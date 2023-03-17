@@ -460,10 +460,10 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
       class: req.body.postClass,
       topic: req.body.topic.trim(),
       content: req.body.content,
-      edited: false,
-      reverted: false,
       UserId: req.user.id,
-      blinded: false,
+      // edited: false,
+      // reverted: false,
+      // blinded: false,
     });
     const hashtags = req.body.content.match(
       /(#[\d|A-Z|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*)/g
