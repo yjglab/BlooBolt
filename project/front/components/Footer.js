@@ -24,12 +24,12 @@ const Footer = () => {
           Powered by yjglab
         </p> */}
         <div className="mt-16 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-slate-700">
-          {/* <Link href="/privacy-policy"> */}
-          <span className="cursor-pointer">Privacy policy</span>
-          {/* </Link> */}
+          <Link href="/service/terms">
+            <span className="cursor-pointer">서비스 이용 약관</span>
+          </Link>
           <div className="h-4 w-px bg-slate-500/20"></div>
-          <Link href="/version-log">
-            <span className="cursor-pointer">Version logging</span>
+          <Link href="/service/version-log">
+            <span className="cursor-pointer">버전 정보</span>
           </Link>
         </div>
       </div>

@@ -1,11 +1,11 @@
 import React from "react";
-import AppLayout from "../components/AppLayout";
-import wrapper from "../store/configureStore";
+import AppLayout from "../../components/AppLayout";
+import wrapper from "../../store/configureStore";
 import axios from "axios";
-import { loadMe } from "../reducers/userSlice";
+import { loadMe } from "../../reducers/userSlice";
 
 import { StarIcon, WrenchScrewdriverIcon } from "@heroicons/react/20/solid";
-import guide_shot_2 from "../public/guide_shot_2.png";
+import guide_shot_2 from "../../public/guide_shot_2.png";
 import Image from "next/image";
 
 const Guide = () => {

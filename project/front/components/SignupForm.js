@@ -2,6 +2,7 @@ import {
   ArrowPathIcon,
   EnvelopeIcon,
   UserPlusIcon,
+  XMarkIcon,
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 import bloobolt_logo_nobg from "../public/bloobolt_logo_nobg.png";
-
+import TermsContent from "../components/TermsContent";
 import { signUp, signUpEmailAuth, signKakao } from "../reducers/userSlice";
 import { backUrl } from "../config/config";
 
@@ -93,11 +94,15 @@ const SignupForm = () => {
     setSignUpEmailSended(true);
   };
 
+  const [toggleTerm, setToggleTerm] = useState(false);
+  const onToggleTerms = useCallback(() => {
+    setToggleTerm(!toggleTerm);
+  }, [toggleTerm]);
   return (
     <AppLayout>
-      <div className="h-screen ">
-        <div className="flex h-full mt-[7%] justify-center py-12 px-4 sm:px-6 lg:px-8">
-          <div className="w-full max-w-md space-y-8">
+      <div className="min-h-screen ">
+        <div className="flex h-full mt-[7%] justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
+          <div className="w-full max-w-md space-y-8 ">
             <div>
               <div className="mx-auto h-20 w-20  relative">
                 <Image
@@ -106,8 +111,8 @@ const SignupForm = () => {
                   alt="logo-image"
                 />
               </div>
-              <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-slate-600">
-                BlooBolt에 오신것을 환영합니다
+              <h2 className="mt-6 text-center text-2xl font-bold  text-slate-600">
+                환영합니다
               </h2>
               <p className="mt-2 text-center text-sm text-slate-600">
                 <span className="font-medium text-slate-500 ">
@@ -254,8 +259,8 @@ const SignupForm = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
+              <div className="flex items-center justify-between ">
+                <div className="flex items-center mb-4">
                   <input
                     id="term"
                     type="checkbox"
@@ -268,15 +273,40 @@ const SignupForm = () => {
                     htmlFor="term"
                     className="ml-2 block text-sm text-slate-600"
                   >
-                    BlooBolt 서비스 가입 약관에 동의합니다.
+                    <span
+                      onClick={onToggleTerms}
+                      className="cursor-pointer underline text-slate-500"
+                    >
+                      BlooBolt 서비스 이용 약관
+                    </span>
+                    에 동의합니다.
                   </label>
                 </div>
                 <Link href="/login">
-                  <span className="underline cursor-pointer text-sm text-indigo-500 hover:text-indigo-600">
+                  <span className="underline mb-4 cursor-pointer text-sm text-indigo-500 hover:text-indigo-600">
                     이미 회원입니다
                   </span>
                 </Link>
               </div>
+              {/* // */}
+
+              {toggleTerm && (
+                <div className="group relative h-96 overflow-y-scroll  w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300 py-2 px-4 text-sm ">
+                  <div className="mx-auto max-w-2xl text-center relative top-14">
+                    <h2 className="text-sm font-semibold leading-6 text-indigo-500">
+                      BlooBolt
+                    </h2>
+                    <p className=" text-2xl font-bold tracking-tight  sm:text-2xl ">
+                      서비스 이용 약관
+                    </p>
+                    <p className="mt-1 text-sm leading-8 ">
+                      공정거래위원회 표준약관 제10023호 (2015. 6. 26. 개정)
+                    </p>
+                  </div>
+
+                  <TermsContent />
+                </div>
+              )}
 
               <div>
                 <div

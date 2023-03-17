@@ -31,19 +31,6 @@ module.exports = (passport) => {
                 process.env.NODE_ENV === "production"
                   ? "https://blooboltbucket.s3.ap-northeast-2.amazonaws.com/thumb/base_avatar.png"
                   : "base_avatar.png",
-              rank: 0,
-              rankPoint: 0,
-
-              role: "None",
-              country: "None",
-              website: "None",
-              about: "",
-
-              realname: "",
-              address: "",
-
-              reported: 0,
-              banned: false,
               social: "kakao",
               socialId: profile.id,
             });

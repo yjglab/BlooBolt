@@ -234,7 +234,7 @@ const PostForm = ({
                 maxLength={1500}
                 rows="14"
                 className="px-1.5 pt-2 w-full text-sm xl:text-base  border-0 focus:ring-0 focus:outline-none placeholder:text-slate-300"
-                placeholder="우측 아래를 드래그하여 입력창을 넓힐 수 있습니다."
+                placeholder="내용을 입력해주세요."
                 {...register("content", {
                   required: "내용을 입력해주세요",
                   maxLength: {

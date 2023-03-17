@@ -17,7 +17,7 @@ const Landing = () => {
                 <div className="mb-8 flex justify-center">
                   <div className="text-xs sm:text-sm relative rounded-full py-1 px-3 leading-6  ring-1 ring-slate-900/10 hover:ring-slate-900/20">
                     현재 버전은 0.1.0 입니다.{" "}
-                    <Link href="/version-log">
+                    <Link href="/service/version-log">
                       <span className="cursor-pointer font-semibold text-indigo-600">
                         <span className="absolute inset-0" aria-hidden="true" />
                         변경된 내용 알아보기{" "}
