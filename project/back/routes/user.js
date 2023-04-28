@@ -289,7 +289,16 @@ router.get("/:username", async (req, res, next) => {
     const resultUser = await User.findOne({
       where: { username: decodeURIComponent(req.params.username) },
       attributes: {
-        exclude: ["password", "email", "realname", "address", "reported"],
+        exclude: [
+          "password",
+          "usercode",
+          "social",
+          "socialId",
+          "email",
+          "realname",
+          "address",
+          "reported",
+        ],
       },
       include: [
         {

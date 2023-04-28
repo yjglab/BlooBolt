@@ -1,8 +1,84 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import _ from "lodash";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios, { AxiosError } from 'axios';
 
-export const initialState = {
+import Post from '../typings/post';
+import PostImage from '../typings/postImage';
+
+export interface PostState {
+  mainPosts: Post[];
+  solePost: Post | null;
+  postImagePaths: PostImage[];
+  loadMorePosts: boolean;
+
+  loadPostsLoading: boolean;
+  loadPostsDone: boolean;
+  loadPostsError: any;
+
+  loadPostsByHashtagLoading: boolean;
+  loadPostsByHashtagDone: boolean;
+  loadPostsByHashtagError: any;
+
+  loadPostsByKeywordLoading: boolean;
+  loadPostsByKeywordDone: boolean;
+  loadPostsByKeywordError: any;
+
+  loadSolePostLoading: boolean;
+  loadSolePostDone: boolean;
+  loadSolePostError: any;
+
+  uploadPostLoading: boolean;
+  uploadPostDone: boolean;
+  uploadPostError: any;
+
+  removePostLoading: boolean;
+  removePostDone: boolean;
+  removePostError: any;
+
+  removePostCompletelyLoading: boolean;
+  removePostCompletelyDone: boolean;
+  removePostCompletelyError: any;
+
+  revertPostLoading: boolean;
+  revertPostDone: boolean;
+  revertPostError: any;
+
+  uploadPostImagesLoading: boolean;
+  uploadPostImagesDone: boolean;
+  uploadPostImagesError: any;
+
+  prodPostLoading: boolean;
+  prodPostDone: boolean;
+  prodPostError: any;
+
+  unprodPostLoading: boolean;
+  unprodPostDone: boolean;
+  unprodPostError: any;
+
+  editPostLoading: boolean;
+  editPostDone: boolean;
+  editPostError: any;
+
+  uploadCommentLoading: boolean;
+  uploadCommentDone: boolean;
+  uploadCommentError: any;
+
+  editCommentLoading: boolean;
+  editCommentDone: boolean;
+  editCommentError: any;
+
+  removeCommentLoading: boolean;
+  removeCommentDone: boolean;
+  removeCommentError: any;
+
+  prodCommentLoading: boolean;
+  prodCommentDone: boolean;
+  prodCommentError: any;
+
+  unprodCommentLoading: boolean;
+  unprodCommentDone: boolean;
+  unprodCommentError: any;
+}
+export const initialState: PostState = {
   mainPosts: [],
   solePost: null,
   postImagePaths: [],
@@ -76,237 +152,238 @@ export const initialState = {
   unprodCommentDone: false,
   unprodCommentError: null,
 };
-
-export const loadPostsHandler = async (info, thunkAPI) => {
+interface LoadPostsInfo {
+  lastPostId?: number;
+  tag?: string;
+  keyword?: string;
+  postId?: number;
+  postUnique: string;
+}
+export const loadPosts = createAsyncThunk('posts/loadPosts', async (info: LoadPostsInfo, thunkAPI) => {
   try {
-    const { data } = await axios.post(
-      `/posts?lastPostId=${info.lastPostId || 0}`,
-      info
-    );
+    const { data } = await axios.post(`/posts?lastPostId=${info.lastPostId || 0}`, info);
     return data;
   } catch (error) {
-    console.error(error);
-    return thunkAPI.rejectWithValue(error.response.data);
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+    throw error;
   }
-};
-export const loadPostsByHashtagHandler = async (info, thunkAPI) => {
-  try {
-    const { data } = await axios.post(
-      `/hashtag/${encodeURIComponent(info.tag)}?lastPostId=${
-        info.lastPostId || 0
-      }`
-    );
-    return data;
-  } catch (error) {
-    console.error(error);
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
-};
-export const loadPostsByKeywordHandler = async (info, thunkAPI) => {
-  try {
-    const { data } = await axios.post(
-      `/posts/keyword/${encodeURIComponent(info.keyword)}?lastPostId=${
-        info.lastPostId || 0
-      }`
-    );
-    return data;
-  } catch (error) {
-    console.error(error);
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
-};
-export const loadPosts = createAsyncThunk("posts/loadPosts", loadPostsHandler);
+});
 
 export const loadPostsByHashtag = createAsyncThunk(
-  "posts/loadPostsByHashtag",
-  loadPostsByHashtagHandler
+  'posts/loadPostsByHashtag',
+  async (info: LoadPostsInfo, thunkAPI) => {
+    try {
+      const { data } = await axios.post(
+        `/hashtag/${encodeURIComponent(info.tag || '')}?lastPostId=${info.lastPostId || 0}`,
+      );
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
+    }
+  },
 );
 
 export const loadPostsByKeyword = createAsyncThunk(
-  "posts/loadPostsByKeyword",
-  loadPostsByKeywordHandler
+  'posts/loadPostsByKeyword',
+  async (info: LoadPostsInfo, thunkAPI) => {
+    try {
+      const { data } = await axios.post(
+        `/posts/keyword/${encodeURIComponent(info.keyword || '')}?lastPostId=${info.lastPostId || 0}`,
+      );
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
+    }
+  },
 );
+interface LoadSolePostInfo {
+  postId: number;
+}
 export const loadSolePost = createAsyncThunk(
-  "post/loadSolePost",
-  async (info, thunkAPI) => {
+  'post/loadSolePost',
+  async (info: LoadSolePostInfo, thunkAPI) => {
     try {
       const { data } = await axios.get(`/post/${info.postId}/detail`);
       return data;
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
+    }
+  },
+);
+export const uploadPostImages = createAsyncThunk('post/uploadPostImages', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.post(`/post/images`, info);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const uploadPostImages = createAsyncThunk(
-  "post/uploadPostImages",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.post(`/post/images`, info);
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const uploadPost = createAsyncThunk('post/uploadPost', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.post(`/post`, info);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const uploadPost = createAsyncThunk(
-  "post/uploadPost",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.post(`/post`, info);
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const removePost = createAsyncThunk('post/removePost', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.delete(`/post/${info}`);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const removePost = createAsyncThunk(
-  "post/removePost",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.delete(`/post/${info}`);
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const removePostCompletely = createAsyncThunk('post/removePostCompletely', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.delete(`/post/${info}`);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const removePostCompletely = createAsyncThunk(
-  "post/removePostCompletely",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.delete(`/post/${info}`);
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const revertPost = createAsyncThunk('post/revertPost', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.patch(`/post/${info}/revert`);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const revertPost = createAsyncThunk(
-  "post/revertPost",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.patch(`/post/${info}/revert`);
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const prodPost = createAsyncThunk('post/prodPost', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.patch(`/post/${info.postId}/prod`, info);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const prodPost = createAsyncThunk(
-  "post/prodPost",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.patch(`/post/${info.postId}/prod`, info);
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const unprodPost = createAsyncThunk('post/unprodPost', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.delete(`/post/${info.postId}/prod`);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const unprodPost = createAsyncThunk(
-  "post/unprodPost",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.delete(`/post/${info.postId}/prod`);
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const editPost = createAsyncThunk('post/editPost', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.patch(`/post/${info.PostId}`, info);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const editPost = createAsyncThunk(
-  "post/editPost",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.patch(`/post/${info.PostId}`, info);
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const uploadComment = createAsyncThunk('post/uploadComment', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.post(`/post/${info.postId}/comment`, info);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const uploadComment = createAsyncThunk(
-  "post/uploadComment",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.post(`/post/${info.postId}/comment`, info);
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const editComment = createAsyncThunk('post/editComment', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.patch(`/post/${info.postId}/comment/${info.commentId}`, info);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const editComment = createAsyncThunk(
-  "post/editComment",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.patch(
-        `/post/${info.postId}/comment/${info.commentId}`,
-        info
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const removeComment = createAsyncThunk('post/removeComment', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.delete(`/post/${info.postId}/comment/${info.commentId}`);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const removeComment = createAsyncThunk(
-  "post/removeComment",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.delete(
-        `/post/${info.postId}/comment/${info.commentId}`
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const prodComment = createAsyncThunk('post/prodComment', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.patch(`/post/${info.postId}/comment/${info.commentId}/prod`, info);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const prodComment = createAsyncThunk(
-  "post/prodComment",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.patch(
-        `/post/${info.postId}/comment/${info.commentId}/prod`,
-        info
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const unprodComment = createAsyncThunk('post/unprodComment', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.delete(`/post/${info.postId}/comment/${info.commentId}/prod`);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const unprodComment = createAsyncThunk(
-  "post/unprodComment",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.delete(
-        `/post/${info.postId}/comment/${info.commentId}/prod`
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
+});
 
-export const postSlice = createSlice({
-  name: "post",
+export const post = createSlice({
+  name: 'post',
   initialState,
   reducers: {
     flushMainPosts(state) {
@@ -316,9 +393,7 @@ export const postSlice = createSlice({
       state.postImagePaths = state.postImagePaths.concat(payload);
     },
     cancelPostImage(state, { payload }) {
-      state.postImagePaths = state.postImagePaths.filter(
-        (v, i) => i !== payload
-      );
+      state.postImagePaths = state.postImagePaths.filter((v, i) => i !== payload);
     },
     cancelAllPostImages(state) {
       state.postImagePaths = [];
@@ -421,9 +496,7 @@ export const postSlice = createSlice({
       .addCase(removePost.fulfilled, (state, { payload }) => {
         state.removePostLoading = false;
         state.removePostDone = true;
-        const post = state.solePost
-          ? state.solePost
-          : state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
         post.blinded = true;
       })
       .addCase(removePost.rejected, (state, { payload }) => {
@@ -438,9 +511,7 @@ export const postSlice = createSlice({
       .addCase(removePostCompletely.fulfilled, (state, { payload }) => {
         state.removePostCompletelyLoading = false;
         state.removePostCompletelyDone = true;
-        state.mainPosts = state.mainPosts.filter(
-          (v) => v.id !== payload.PostId
-        );
+        state.mainPosts = state.mainPosts.filter((v) => v.id !== payload.PostId);
       })
       .addCase(removePostCompletely.rejected, (state, { payload }) => {
         state.removePostCompletelyLoading = false;
@@ -454,9 +525,7 @@ export const postSlice = createSlice({
       .addCase(revertPost.fulfilled, (state, { payload }) => {
         state.revertPostLoading = false;
         state.revertPostDone = true;
-        const post = state.solePost
-          ? state.solePost
-          : state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
         post.blinded = false;
         post.reverted = true;
       })
@@ -472,9 +541,7 @@ export const postSlice = createSlice({
       .addCase(prodPost.fulfilled, (state, { payload }) => {
         state.prodPostLoading = false;
         state.prodPostDone = true;
-        const post = state.solePost
-          ? state.solePost
-          : state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
         post.PostProdders.push({ id: payload.UserId });
       })
       .addCase(prodPost.rejected, (state, { payload }) => {
@@ -489,12 +556,8 @@ export const postSlice = createSlice({
       .addCase(unprodPost.fulfilled, (state, { payload }) => {
         state.unprodPostLoading = false;
         state.unprodPostDone = true;
-        const post = state.solePost
-          ? state.solePost
-          : state.mainPosts.find((v) => v.id === payload.PostId);
-        post.PostProdders = post.PostProdders.filter(
-          (v) => v.id !== payload.UserId
-        );
+        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
+        post.PostProdders = post.PostProdders.filter((v) => v.id !== payload.UserId);
       })
       .addCase(unprodPost.rejected, (state, { payload }) => {
         state.unprodPostLoading = false;
@@ -508,9 +571,7 @@ export const postSlice = createSlice({
       .addCase(editPost.fulfilled, (state, { payload }) => {
         state.editPostLoading = false;
         state.editPostDone = true;
-        const post = state.solePost
-          ? state.solePost
-          : state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
         post.topic = payload.topic;
         post.class = payload.class;
         post.content = payload.content;
@@ -531,9 +592,7 @@ export const postSlice = createSlice({
       .addCase(uploadComment.fulfilled, (state, { payload }) => {
         state.uploadCommentLoading = false;
         state.uploadCommentDone = true;
-        const post = state.solePost
-          ? state.solePost
-          : state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
         post.Comments.push(payload);
       })
       .addCase(uploadComment.rejected, (state, { payload }) => {
@@ -548,9 +607,7 @@ export const postSlice = createSlice({
       .addCase(removeComment.fulfilled, (state, { payload }) => {
         state.removeCommentLoading = false;
         state.removeCommentDone = true;
-        const post = state.solePost
-          ? state.solePost
-          : state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
         post.Comments = post.Comments.filter((v) => v.id !== payload.CommentId);
       })
       .addCase(removeComment.rejected, (state, { payload }) => {
@@ -565,9 +622,7 @@ export const postSlice = createSlice({
       .addCase(editComment.fulfilled, (state, { payload }) => {
         state.editCommentLoading = false;
         state.editCommentDone = true;
-        const post = state.solePost
-          ? state.solePost
-          : state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
         const comment = post.Comments.find((v) => v.id === payload.CommentId);
         comment.content = payload.content;
       })
@@ -583,9 +638,7 @@ export const postSlice = createSlice({
       .addCase(prodComment.fulfilled, (state, { payload }) => {
         state.prodCommentLoading = false;
         state.prodCommentDone = true;
-        const post = state.solePost
-          ? state.solePost
-          : state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
         const comment = post.Comments.find((v) => v.id === payload.CommentId);
         comment.CommentProdders.push({ id: payload.UserId });
       })
@@ -601,13 +654,9 @@ export const postSlice = createSlice({
       .addCase(unprodComment.fulfilled, (state, { payload }) => {
         state.unprodCommentLoading = false;
         state.unprodCommentDone = true;
-        const post = state.solePost
-          ? state.solePost
-          : state.mainPosts.find((v) => v.id === payload.PostId);
+        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
         const comment = post.Comments.find((v) => v.id === payload.CommentId);
-        comment.CommentProdders = comment.CommentProdders.filter(
-          (v) => v.id !== payload.UserId
-        );
+        comment.CommentProdders = comment.CommentProdders.filter((v) => v.id !== payload.UserId);
       })
       .addCase(unprodComment.rejected, (state, { payload }) => {
         state.unprodCommentLoading = false;
@@ -618,10 +667,5 @@ export const postSlice = createSlice({
   },
 });
 
-export const {
-  loadPrevPostImages,
-  cancelPostImage,
-  cancelAllPostImages,
-  flushMainPosts,
-} = postSlice.actions;
-export default postSlice;
+export const { loadPrevPostImages, cancelPostImage, cancelAllPostImages, flushMainPosts } = post.actions;
+export default post;

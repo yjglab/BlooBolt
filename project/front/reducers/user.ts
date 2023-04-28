@@ -1,8 +1,74 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import Router from "next/router";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import Router from 'next/router';
+import User from '../typings/user';
 
-export const initialState = {
+export interface UserState {
+  loadMeLoading: boolean;
+  loadMeDone: boolean;
+  loadMeError: any;
+
+  loadUserLoading: boolean;
+  loadUserDone: boolean;
+  loadUserError: any;
+
+  signUpLoading: boolean;
+  signUpDone: boolean;
+  signUpError: any;
+
+  logInLoading: boolean;
+  logInDone: boolean;
+  logInError: any;
+
+  logOutLoading: boolean;
+  logOutDone: boolean;
+  logOutError: any;
+
+  traceLoading: boolean;
+  traceDone: boolean;
+  traceError: any;
+
+  untraceLoading: boolean;
+  untraceDone: boolean;
+  untraceError: any;
+
+  findPasswordLoading: boolean;
+  findPasswordDone: boolean;
+  findPasswordError: any;
+
+  signUpEmailAuthLoading: boolean;
+  signUpEmailAuthDone: boolean;
+  signUpEmailAuthError: any;
+
+  changePasswordLoading: boolean;
+  changePasswordDone: boolean;
+  changePasswordError: any;
+
+  socialSetupLoading: boolean;
+  socialSetupDone: boolean;
+  socialSetupError: any;
+
+  uploadUserAvatarLoading: boolean;
+  uploadUserAvatarDone: boolean;
+  uploadUserAvatarError: any;
+
+  changeMyPublicInfoLoading: boolean;
+  changeMyPublicInfoDone: boolean;
+  changeMyPublicInfoError: any;
+
+  changeMyPersonalInfoLoading: boolean;
+  changeMyPersonalInfoDone: boolean;
+  changeMyPersonalInfoError: any;
+
+  reportUserLoading: boolean;
+  reportUserDone: boolean;
+  reportUserError: any;
+
+  me: User | null;
+  user: Partial<User> | null;
+  supportMessage: string | null;
+}
+export const initialState: UserState = {
   loadMeLoading: false,
   loadMeDone: false,
   loadMeError: null,
@@ -47,201 +113,261 @@ export const initialState = {
   socialSetupDone: false,
   socialSetupError: null,
 
+  uploadUserAvatarLoading: false,
+  uploadUserAvatarDone: false,
+  uploadUserAvatarError: null,
+
+  changeMyPublicInfoLoading: false,
+  changeMyPublicInfoDone: false,
+  changeMyPublicInfoError: null,
+
+  changeMyPersonalInfoLoading: false,
+  changeMyPersonalInfoDone: false,
+  changeMyPersonalInfoError: null,
+
+  reportUserLoading: false,
+  reportUserDone: false,
+  reportUserError: null,
+
   me: null,
   user: null,
   supportMessage: null,
 };
 
-export const loadMe = createAsyncThunk(
-  "user/loadMe",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.get("/user");
-      return data;
-    } catch (error) {
-      console.error(error);
+export const loadMe = createAsyncThunk('user/loadMe', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.get('/user');
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const loadUser = createAsyncThunk(
-  "user/loadUser",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.get(
-        `/user/${encodeURIComponent(info.username)}`
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+interface LoadUserInfo {
+  username: string;
+}
+export const loadUser = createAsyncThunk('user/loadUser', async (info: LoadUserInfo, thunkAPI) => {
+  try {
+    const { data } = await axios.get(`/user/${encodeURIComponent(info.username ? info.username : '')}`);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
+});
+interface SignUpInfo {
+  email: string;
+  username: string;
+  password: string;
+  userClass: string;
+  authMail?: string;
+}
+export const signUp = createAsyncThunk('user/signUp', async (info: SignUpInfo, thunkAPI) => {
+  try {
+    const { data } = await axios.post('/user/signup', info);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+    throw error;
+  }
+});
 
-export const signUp = createAsyncThunk(
-  "user/signUp",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.post("/user/signup", info);
-      return data;
-    } catch (error) {
-      console.error(error);
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
 export const signUpEmailAuth = createAsyncThunk(
-  "user/signUpEmailAuth",
-  async (info, thunkAPI) => {
+  'user/signUpEmailAuth',
+  async (info: SignUpInfo, thunkAPI) => {
     try {
       const { data } = await axios.post(`/user/signup/auth`, info);
       return data;
     } catch (error) {
-      console.error(error);
-      return thunkAPI.rejectWithValue(error.response.data);
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
     }
-  }
+  },
 );
-export const logIn = createAsyncThunk("user/logIn", async (info, thunkAPI) => {
+export const logIn = createAsyncThunk('user/logIn', async (info, thunkAPI) => {
   try {
-    const { data } = await axios.post("/user/login", info);
+    const { data } = await axios.post('/user/login', info);
     return data;
   } catch (error) {
-    console.error(error);
-    return thunkAPI.rejectWithValue(error.response.data);
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+    throw error;
   }
 });
-export const logOut = createAsyncThunk(
-  "user/logOut",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.post("/user/logout");
-      return data;
-    } catch (error) {
-      console.error(error);
+export const logOut = createAsyncThunk('user/logOut', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.post('/user/logout');
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const uploadUserAvatar = createAsyncThunk(
-  "user/uploadUserAvatar",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.post(`/user/avatar`, info);
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+export const uploadUserAvatar = createAsyncThunk('user/uploadUserAvatar', async (info, thunkAPI) => {
+  try {
+    const { data } = await axios.post(`/user/avatar`, info);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
+});
+interface ChangeMyInfo extends Partial<User> {
+  userId: number;
+}
 export const changeMyPublicInfo = createAsyncThunk(
-  "user/changeMyPublicInfo",
-  async (info, thunkAPI) => {
+  'user/changeMyPublicInfo',
+  async (info: ChangeMyInfo, thunkAPI) => {
     try {
-      const { data } = await axios.patch(
-        `/user/${info.userId}/info/public`,
-        info
-      );
+      const { data } = await axios.patch(`/user/${info.userId}/info/public`, info);
       return data;
     } catch (error) {
-      console.error(error);
-      return thunkAPI.rejectWithValue(error.response.data);
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
     }
-  }
+  },
 );
 export const changeMyPersonalInfo = createAsyncThunk(
-  "user/changeMyPersonalInfo",
-  async (info, thunkAPI) => {
+  'user/changeMyPersonalInfo',
+  async (info: ChangeMyInfo, thunkAPI) => {
     try {
-      const { data } = await axios.patch(
-        `/user/${info.userId}/info/personal`,
-        info
-      );
+      const { data } = await axios.patch(`/user/${info.userId}/info/personal`, info);
       return data;
     } catch (error) {
-      console.error(error);
-      return thunkAPI.rejectWithValue(error.response.data);
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
     }
-  }
+  },
 );
-export const trace = createAsyncThunk("user/trace", async (info, thunkAPI) => {
+export const trace = createAsyncThunk('user/trace', async (info: number, thunkAPI) => {
   try {
     const { data } = await axios.patch(`/user/${info}/trace`);
     return data;
   } catch (error) {
-    console.error(error);
-    return thunkAPI.rejectWithValue(error.response.data);
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+    throw error;
   }
 });
-export const untrace = createAsyncThunk(
-  "user/untrace",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.delete(`/user/${info}/trace`);
-      return data;
-    } catch (error) {
-      console.error(error);
+
+export const untrace = createAsyncThunk('user/untrace', async (info: number, thunkAPI) => {
+  try {
+    const { data } = await axios.delete(`/user/${info}/trace`);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
-export const reportUser = createAsyncThunk(
-  "user/reportUser",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.post(`/user/${info.userId}/report`, info);
-      return data;
-    } catch (error) {
-      console.error(error);
+});
+interface ReportUserInfo {
+  userId: number;
+  reportContent: string;
+  postId: number;
+}
+export const reportUser = createAsyncThunk('user/reportUser', async (info: ReportUserInfo, thunkAPI) => {
+  try {
+    const { data } = await axios.post(`/user/${info.userId}/report`, info);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
+});
+interface FindPasswordInfo {
+  email: string;
+  usercode: string;
+}
 export const findPassword = createAsyncThunk(
-  "user/findPassword",
-  async (info, thunkAPI) => {
+  'user/findPassword',
+  async (info: FindPasswordInfo, thunkAPI) => {
     try {
       const { data } = await axios.post(`/user/support/password`, info);
       return data;
     } catch (error) {
-      console.error(error);
-      return thunkAPI.rejectWithValue(error.response.data);
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
     }
-  }
+  },
 );
+interface ChangePasswordInfo {
+  UserId: number;
+  prevPassword: string;
+  nextPassword: string;
+  nextPasswordCheck: string;
+}
 export const changePassword = createAsyncThunk(
-  "user/changePassword",
-  async (info, thunkAPI) => {
+  'user/changePassword',
+  async (info: ChangePasswordInfo, thunkAPI) => {
     try {
       const { data } = await axios.patch(`/user/${info.UserId}/changepw`, info);
       return data;
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
+    }
+  },
+);
+interface SocialSetupInfo {
+  socialId: string;
+  social: string;
+  username: string;
+  userClass: string;
+}
+export const socialSetup = createAsyncThunk('user/socialSetup', async (info: SocialSetupInfo, thunkAPI) => {
+  try {
+    const { data } = await axios.patch(`/user/${info.socialId}/social-setup`, info);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
+    throw error;
   }
-);
+});
 
-export const socialSetup = createAsyncThunk(
-  "user/socialSetup",
-  async (info, thunkAPI) => {
-    try {
-      const { data } = await axios.patch(
-        `/user/${info.socialId}/social-setup`,
-        info
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const userSlice = createSlice({
-  name: "user",
+export const user = createSlice({
+  name: 'user',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -281,7 +407,7 @@ export const userSlice = createSlice({
       .addCase(signUp.fulfilled, (state) => {
         state.signUpLoading = false;
         state.signUpDone = true;
-        Router.push("/login");
+        Router.push('/login');
       })
       .addCase(signUp.rejected, (state, { payload }) => {
         state.signUpLoading = false;
@@ -337,7 +463,7 @@ export const userSlice = createSlice({
       .addCase(uploadUserAvatar.fulfilled, (state, { payload }) => {
         state.uploadUserAvatarLoading = false;
         state.uploadUserAvatarDone = true;
-        state.me.avatar = payload;
+        if (state.me) state.me.avatar = payload;
       })
       .addCase(uploadUserAvatar.rejected, (state, { payload }) => {
         state.uploadUserAvatarLoading = false;
@@ -351,13 +477,15 @@ export const userSlice = createSlice({
       .addCase(changeMyPublicInfo.fulfilled, (state, { payload }) => {
         state.changeMyPublicInfoLoading = false;
         state.changeMyPublicInfoDone = true;
-        state.me.username = payload.username;
-        state.me.class = payload.class;
-        state.me.role = payload.role;
-        state.me.country = payload.country;
-        state.me.website = payload.website;
-        state.me.about = payload.about;
-        state.me.class = payload.class;
+        if (state.me) {
+          state.me.username = payload.username;
+          state.me.class = payload.class;
+          state.me.role = payload.role;
+          state.me.country = payload.country;
+          state.me.website = payload.website;
+          state.me.about = payload.about;
+          state.me.class = payload.class;
+        }
       })
       .addCase(changeMyPublicInfo.rejected, (state, { payload }) => {
         state.changeMyPublicInfoLoading = false;
@@ -371,8 +499,10 @@ export const userSlice = createSlice({
       .addCase(changeMyPersonalInfo.fulfilled, (state, { payload }) => {
         state.changeMyPersonalInfoLoading = false;
         state.changeMyPersonalInfoDone = true;
-        state.me.realname = payload.realname;
-        state.me.address = payload.address;
+        if (state.me) {
+          state.me.realname = payload.realname;
+          state.me.address = payload.address;
+        }
       })
       .addCase(changeMyPersonalInfo.rejected, (state, { payload }) => {
         state.changeMyPersonalInfoLoading = false;
@@ -386,7 +516,7 @@ export const userSlice = createSlice({
       .addCase(trace.fulfilled, (state, { payload }) => {
         state.traceLoading = false;
         state.traceDone = true;
-        state.me.Tracings.push(payload);
+        if (state.me) state.me.Tracings.push(payload);
       })
       .addCase(trace.rejected, (state, { payload }) => {
         state.traceLoading = false;
@@ -400,9 +530,7 @@ export const userSlice = createSlice({
       .addCase(untrace.fulfilled, (state, { payload }) => {
         state.untraceLoading = false;
         state.untraceDone = true;
-        state.me.Tracings = state.me.Tracings.filter(
-          (v) => v.id !== payload.UserId
-        );
+        if (state.me) state.me.Tracings = state.me.Tracings.filter((v) => v.id !== payload.UserId);
       })
       .addCase(untrace.rejected, (state, { payload }) => {
         state.untraceLoading = false;
@@ -444,7 +572,7 @@ export const userSlice = createSlice({
         state.changePasswordLoading = false;
         state.changePasswordDone = true;
         state.supportMessage = payload.message;
-        Router.push(`/profile/${state.me.username}`);
+        if (state.me) Router.push(`/profile/${state.me.username}`);
       })
       .addCase(changePassword.rejected, (state, { payload }) => {
         state.changePasswordLoading = false;
@@ -458,8 +586,10 @@ export const userSlice = createSlice({
       .addCase(socialSetup.fulfilled, (state, { payload }) => {
         state.socialSetupLoading = false;
         state.socialSetupDone = true;
-        state.me.class = payload.class;
-        state.me.username = payload.username;
+        if (state.me) {
+          state.me.class = payload.class;
+          state.me.username = payload.username;
+        }
         Router.push(`/square`);
       })
       .addCase(socialSetup.rejected, (state, { payload }) => {
@@ -471,5 +601,5 @@ export const userSlice = createSlice({
   },
 });
 
-// export const {} = userSlice.actions;
-export default userSlice;
+// export const {} = user.actions;
+export default user;
