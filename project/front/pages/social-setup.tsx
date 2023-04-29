@@ -1,37 +1,41 @@
-import React, { useCallback, useEffect } from 'react';
-import AppLayout from '../components/AppLayout';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import axios from 'axios';
-import wrapper from '../store/configureStore';
-import { loadMe, socialSetup } from '../reducers/user';
-import bloobolt_logo_nobg from '../public/bloobolt_logo_nobg.png';
-import { useForm } from 'react-hook-form';
 import { PencilIcon } from '@heroicons/react/20/solid';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import axios from 'axios';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React, { FC, useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import AppLayout from '../components/AppLayout';
+import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
+import { loadMe, socialSetup } from '../reducers/user';
+import { RootState, useAppDispatch, useAppSelector, wrapper } from '../store/configureStore';
 
-const SocialSetup = () => {
-  const { me } = useSelector((state) => state.user);
+const SocialSetup: FC = () => {
+  const { me } = useAppSelector((state) => state.user);
   const router = useRouter();
   useEffect(() => {
-    if (!me || !me.class === 'social') {
+    if (!me || me.class !== 'social') {
       router.back();
     }
-  }, [me]);
+  }, [me, router]);
 
-  const dispatch = useDispatch();
-  const { socialSetupError } = useSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const { socialSetupError } = useAppSelector((state) => state.user);
 
+  interface SocialSetupValues {
+    username: string;
+    userClass: string;
+  }
   const {
     register,
     handleSubmit,
     setError,
     formState: { isSubmitting, errors },
-  } = useForm();
+  } = useForm<SocialSetupValues>();
 
-  const onSocialSetup = (formData) => {
+  const onSocialSetup: SubmitHandler<SocialSetupValues> = (formData) => {
     const { username, userClass } = formData;
-    const slCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/g;
+    const slCheck = /[{}[\]/?.,;:|)*~`!^\-+<>@#$%&\\=('"]/g;
     if (username.search(/\s/) !== -1 || slCheck.test(username)) {
       return setError('username', {
         message: '사용자명에 공백 또는 특수문자가 들어갈 수 없습니다.',
@@ -42,10 +46,10 @@ const SocialSetup = () => {
         message: '직군을 선택해주세요.',
       });
     }
-    dispatch(
+    return dispatch(
       socialSetup({
-        socialId: me.socialId,
-        social: me.social,
+        socialId: me?.socialId || '',
+        social: me?.social || '',
         username,
         userClass,
       }),
@@ -58,7 +62,7 @@ const SocialSetup = () => {
           <div className='w-full max-w-md space-y-8'>
             <div>
               <div className='mx-auto h-20 w-20  relative'>
-                <Image className=' cursor-pointer w-full h-full' src={bloobolt_logo_nobg} alt='logo-image' />
+                <Image className=' cursor-pointer w-full h-full' src={blooboltLogoNobg} alt='logo-image' />
               </div>
 
               <h2 className='mt-6 text-center text-3xl font-bold tracking-tight '>
@@ -70,16 +74,16 @@ const SocialSetup = () => {
             </div>
 
             <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
-              <div className='w-full  bg-slate-200 h-[1.5px]'></div>
+              <div className='w-full  bg-slate-200 h-[1.5px]' />
               <div className='text-slate-400 text-xs w-full text-center'>추가 정보 등록</div>
-              <div className='w-full  bg-slate-200 h-[1.5px]'></div>
+              <div className='w-full  bg-slate-200 h-[1.5px]' />
             </div>
 
             <form className='mt-8 space-y-3' onSubmit={handleSubmit(onSocialSetup)}>
               <input type='hidden' name='remember' defaultValue='true' />
               <div className='-space-y-px rounded-md '>
                 <div>
-                  <label htmlFor='username' className='sr-only'></label>
+                  <label htmlFor='username' className='sr-only' />
                   <input
                     id='username'
                     type='text'
@@ -100,10 +104,9 @@ const SocialSetup = () => {
                 </div>
 
                 <div className=''>
-                  <label htmlFor='userClass' className='block text-sm font-medium '></label>
+                  <label htmlFor='userClass' className='block text-sm font-medium ' />
                   <select
                     id='userClass'
-                    name='userClass'
                     className='relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
                     {...register('userClass', {
                       required: '직군을 선택해주세요.',
@@ -122,19 +125,9 @@ const SocialSetup = () => {
               <div>
                 <div>
                   <div className='h-6 flex justify-center text-orange-400 text-xs ' role='alert'>
-                    {errors.email ? (
-                      <>{errors.email.message}</>
-                    ) : errors.password ? (
-                      <>{errors.password.message}</>
-                    ) : errors.username ? (
-                      <>{errors.username.message}</>
-                    ) : errors.userClass ? (
-                      <>{errors.userClass.message}</>
-                    ) : socialSetupError ? (
-                      <>{socialSetupError}</>
-                    ) : (
-                      ''
-                    )}
+                    {errors.username && <>errors.username.message</>}
+                    {errors.userClass && <>errors.userClass.message</>}
+                    {socialSetupError && <>socialSetupError</>}
                   </div>
                   <button
                     type='submit'
@@ -165,8 +158,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   if (context.req && cookie) {
     axios.defaults.headers.Cookie = cookie;
   }
-  await context.store.dispatch(loadMe());
-
+  const dispatch = context.store.dispatch as ThunkDispatch<RootState, void, AnyAction>;
+  await dispatch(loadMe());
   return {
     props: { message: '' },
   };

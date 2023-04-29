@@ -1,8 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 import Post from '../typings/post';
-import PostImage from '../typings/postImage';
 
 export interface PostState {
   mainPosts: Post[];
@@ -157,7 +156,7 @@ interface LoadPostsInfo {
   tag?: string;
   keyword?: string;
   postId?: number;
-  postUnique: string;
+  postUnique?: string;
 }
 export const loadPosts = createAsyncThunk('posts/loadPosts', async (info: LoadPostsInfo, thunkAPI) => {
   try {
@@ -208,7 +207,7 @@ export const loadPostsByKeyword = createAsyncThunk(
   },
 );
 interface LoadSolePostInfo {
-  postId: number;
+  postId: string;
 }
 export const loadSolePost = createAsyncThunk(
   'post/loadSolePost',
@@ -241,14 +240,14 @@ export const uploadPostImages = createAsyncThunk(
     }
   },
 );
-interface uploadPostInfo {
+interface UploadPostInfo {
   postUnique: string;
   postClass: string;
   topic: string;
   content: string;
   postImagePaths: string[];
 }
-export const uploadPost = createAsyncThunk('post/uploadPost', async (info: uploadPostInfo, thunkAPI) => {
+export const uploadPost = createAsyncThunk('post/uploadPost', async (info: UploadPostInfo, thunkAPI) => {
   try {
     const { data } = await axios.post(`/post`, info);
     return data;
@@ -300,11 +299,11 @@ export const revertPost = createAsyncThunk('post/revertPost', async (info: numbe
     throw error;
   }
 });
-interface prodPostInfo {
+interface ProdPostInfo {
   postId: number;
   postUserId: number;
 }
-export const prodPost = createAsyncThunk('post/prodPost', async (info: prodPostInfo, thunkAPI) => {
+export const prodPost = createAsyncThunk('post/prodPost', async (info: ProdPostInfo, thunkAPI) => {
   try {
     const { data } = await axios.patch(`/post/${info.postId}/prod`, info);
     return data;
@@ -316,7 +315,7 @@ export const prodPost = createAsyncThunk('post/prodPost', async (info: prodPostI
     throw error;
   }
 });
-export const unprodPost = createAsyncThunk('post/unprodPost', async (info: prodPostInfo, thunkAPI) => {
+export const unprodPost = createAsyncThunk('post/unprodPost', async (info: ProdPostInfo, thunkAPI) => {
   try {
     const { data } = await axios.delete(`/post/${info.postId}/prod`);
     return data;
@@ -328,14 +327,14 @@ export const unprodPost = createAsyncThunk('post/unprodPost', async (info: prodP
     throw error;
   }
 });
-interface editPostInfo {
+interface EditPostInfo {
   PostId: number;
   postClass: string;
   topic: string;
   content: string;
   postImagePaths: string[];
 }
-export const editPost = createAsyncThunk('post/editPost', async (info: editPostInfo, thunkAPI) => {
+export const editPost = createAsyncThunk('post/editPost', async (info: EditPostInfo, thunkAPI) => {
   try {
     const { data } = await axios.patch(`/post/${info.PostId}`, info);
     return data;
@@ -347,14 +346,14 @@ export const editPost = createAsyncThunk('post/editPost', async (info: editPostI
     throw error;
   }
 });
-interface uploadCommentInfo {
+interface UploadCommentInfo {
   content: string;
   postId: number;
   userId: number;
 }
 export const uploadComment = createAsyncThunk(
   'post/uploadComment',
-  async (info: uploadCommentInfo, thunkAPI) => {
+  async (info: UploadCommentInfo, thunkAPI) => {
     try {
       const { data } = await axios.post(`/post/${info.postId}/comment`, info);
       return data;
@@ -367,12 +366,12 @@ export const uploadComment = createAsyncThunk(
     }
   },
 );
-interface editCommentInfo {
+interface EditCommentInfo {
   content: string;
   postId: number;
   commentId: number;
 }
-export const editComment = createAsyncThunk('post/editComment', async (info: editCommentInfo, thunkAPI) => {
+export const editComment = createAsyncThunk('post/editComment', async (info: EditCommentInfo, thunkAPI) => {
   try {
     const { data } = await axios.patch(`/post/${info.postId}/comment/${info.commentId}`, info);
     return data;
@@ -384,13 +383,13 @@ export const editComment = createAsyncThunk('post/editComment', async (info: edi
     throw error;
   }
 });
-interface removeCommentInfo {
+interface RemoveCommentInfo {
   postId: number;
   commentId: number;
 }
 export const removeComment = createAsyncThunk(
   'post/removeComment',
-  async (info: removeCommentInfo, thunkAPI) => {
+  async (info: RemoveCommentInfo, thunkAPI) => {
     try {
       const { data } = await axios.delete(`/post/${info.postId}/comment/${info.commentId}`);
       return data;
@@ -403,12 +402,12 @@ export const removeComment = createAsyncThunk(
     }
   },
 );
-interface prodCommentInfo {
+interface ProdCommentInfo {
   postId: number;
   commentId: number;
   commentUserId?: number;
 }
-export const prodComment = createAsyncThunk('post/prodComment', async (info: prodCommentInfo, thunkAPI) => {
+export const prodComment = createAsyncThunk('post/prodComment', async (info: ProdCommentInfo, thunkAPI) => {
   try {
     const { data } = await axios.patch(`/post/${info.postId}/comment/${info.commentId}/prod`, info);
     return data;
@@ -422,7 +421,7 @@ export const prodComment = createAsyncThunk('post/prodComment', async (info: pro
 });
 export const unprodComment = createAsyncThunk(
   'post/unprodComment',
-  async (info: prodCommentInfo, thunkAPI) => {
+  async (info: ProdCommentInfo, thunkAPI) => {
     try {
       const { data } = await axios.delete(`/post/${info.postId}/comment/${info.commentId}/prod`);
       return data;

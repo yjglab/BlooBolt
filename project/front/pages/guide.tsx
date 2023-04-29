@@ -1,9 +1,3 @@
-import React from 'react';
-import AppLayout from '../components/AppLayout';
-import wrapper from '../store/configureStore';
-import axios from 'axios';
-import { loadMe } from '../reducers/user';
-
 import {
   AdjustmentsHorizontalIcon,
   ChatBubbleOvalLeftIcon,
@@ -21,9 +15,16 @@ import {
   UserGroupIcon,
   UserPlusIcon,
 } from '@heroicons/react/20/solid';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import axios from 'axios';
 import Link from 'next/link';
+import React, { FC } from 'react';
+import { AnyAction } from 'redux';
+import AppLayout from '../components/AppLayout';
+import { loadMe } from '../reducers/user';
+import { RootState, wrapper } from '../store/configureStore';
 
-const Guide = () => {
+const Guide: FC = () => {
   return (
     <AppLayout>
       <div className='bg-white py-24 sm:py-32'>
@@ -274,7 +275,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   if (context.req && cookie) {
     axios.defaults.headers.Cookie = cookie;
   }
-  await context.store.dispatch(loadMe());
+
+  const dispatch = context.store.dispatch as ThunkDispatch<RootState, void, AnyAction>;
+  await dispatch(loadMe());
 
   return {
     props: { message: '' },

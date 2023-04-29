@@ -1,14 +1,14 @@
-import React from 'react';
-import AppLayout from '../../components/AppLayout';
-import wrapper from '../../store/configureStore';
-import axios from 'axios';
-import { loadMe } from '../../reducers/user';
-
 import { StarIcon, WrenchScrewdriverIcon } from '@heroicons/react/20/solid';
-import guide_shot_2 from '../../public/guide_shot_2.png';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import axios from 'axios';
 import Image from 'next/image';
+import React, { FC } from 'react';
+import AppLayout from '../../components/AppLayout';
+import guideShot2 from '../../public/guideShot2.png';
+import { loadMe } from '../../reducers/user';
+import { RootState, wrapper } from '../../store/configureStore';
 
-const Guide = () => {
+const Guide: FC = () => {
   return (
     <AppLayout>
       <div className='overflow-hidden bg-white py-24 sm:py-32'>
@@ -18,7 +18,7 @@ const Guide = () => {
               <div className='lg:max-w-lg'>
                 <h2 className='text-base font-semibold leading-7 text-indigo-600'>Version Log</h2>
                 <p className='mt-2 text-3xl font-bold tracking-tight  sm:text-4xl'>BlooBolt 0.1.0</p>
-                <p className='mt-6 text-lg leading-8 '></p>
+                <p className='mt-6 text-lg leading-8 ' />
                 <div className='mt-10 max-w-xl space-y-8 text-base leading-7  lg:max-w-none'>
                   <div className='relative pl-9'>
                     <div className=' font-semibold '>
@@ -29,12 +29,12 @@ const Guide = () => {
                       새로운 기능
                     </div>{' '}
                     <div className='mb-2'>
-                      <div className='w-[4px] h-[4px] mr-0.5 bg-slate-700 rounded-full inline-block relative bottom-1'></div>{' '}
+                      <div className='w-[4px] h-[4px] mr-0.5 bg-slate-700 rounded-full inline-block relative bottom-1' />{' '}
                       서비스 기획자를 위한 기획 스퀘어가 추가되었습니다. 이제 계정 가입 시 기획자 직군을
                       새롭게 선택할 수 있습니다.
                     </div>
                     <div className='mb-2'>
-                      <div className='w-[4px] h-[4px] mr-0.5 bg-slate-700 rounded-full inline-block relative bottom-1'></div>{' '}
+                      <div className='w-[4px] h-[4px] mr-0.5 bg-slate-700 rounded-full inline-block relative bottom-1' />{' '}
                       이제 회원가입과 로그인 절차를 편리하게 하기 위한 소셜 로그인 기능을 제공합니다.
                     </div>
                   </div>
@@ -47,7 +47,7 @@ const Guide = () => {
                       변경된 내용
                     </div>{' '}
                     <div className='mb-2'>
-                      <div className='w-[4px] h-[4px] mr-0.5 bg-slate-700 rounded-full inline-block relative bottom-1'></div>{' '}
+                      <div className='w-[4px] h-[4px] mr-0.5 bg-slate-700 rounded-full inline-block relative bottom-1' />{' '}
                       일반 계정 사용자의 비밀번호를 잊어버린 경우의 임시 발급 절차를 변경했습니다. 각 사용자는
                       계정 가입 시 고유의 사용자 코드를 메일로 제공받으며 해당 코드의 확인 과정을 통해
                       비밀번호를 재발급 받을 수 있습니다.
@@ -57,7 +57,7 @@ const Guide = () => {
               </div>
             </div>
             <div className='w-[48rem] relative max-w-none rounded-xl shadow-xl  sm:w-[57rem] md:-ml-4 lg:-ml-0'>
-              <Image src={guide_shot_2} className='absolute ' />
+              <Image src={guideShot2} className='absolute ' />
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@ const Guide = () => {
               </div>
             </div>
             <div className='w-[48rem] relative max-w-none rounded-xl shadow-xl  sm:w-[57rem] md:-ml-4 lg:-ml-0'>
-              <Image src={guide_shot_2} className='absolute ' />
+              <Image src={guideShot2} className='absolute ' />
             </div>
           </div>
         </div>
@@ -118,7 +118,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   if (context.req && cookie) {
     axios.defaults.headers.Cookie = cookie;
   }
-  await context.store.dispatch(loadMe());
+
+  const dispatch = context.store.dispatch as ThunkDispatch<RootState, void, AnyAction>;
+  await dispatch(loadMe());
 
   return {
     props: { message: '' },

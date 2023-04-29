@@ -1,21 +1,21 @@
 // Square 대신 Hashtag: ddd
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import axios from 'axios';
+import Router, { useRouter } from 'next/router';
+import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AppLayout from '../../components/AppLayout';
-import Router, { useRouter } from 'next/router';
-
-import { loadPostsByHashtag } from '../../reducers/post';
-import wrapper from '../../store/configureStore';
-import axios from 'axios';
-import { loadMe } from '../../reducers/user';
 import SquareHeader from '../../components/SquareHeader';
+import { loadPostsByHashtag } from '../../reducers/post';
+import { loadMe } from '../../reducers/user';
+import { RootState, useAppDispatch, useAppSelector, wrapper } from '../../store/configureStore';
 
-const Hashtag = () => {
-  const dispatch = useDispatch();
+const Hashtag: FC = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { tag } = router.query;
-  const { me } = useSelector((state) => state.user);
-  const { mainPosts, loadMorePosts, loadPostsLoading } = useSelector((state) => state.post);
+  const { me } = useAppSelector((state) => state.user);
+  const { mainPosts, loadMorePosts, loadPostsLoading } = useAppSelector((state) => state.post);
 
   // useEffect(() => {
   //   function onScreenScroll() {
@@ -46,9 +46,9 @@ const Hashtag = () => {
   return (
     <AppLayout>
       <SquareHeader
-        squareSubTitle={'어떤 글이 태그되었나요?'}
-        squareTitle={`Hashtag #${router.query.tag}`}
-        squareKind={'public'}
+        squareSubTitle='어떤 글이 태그되었나요?'
+        squareTitle={`Hashtag ${router.query.tag}`}
+        squareKind='public'
       />
     </AppLayout>
   );
@@ -61,8 +61,11 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     axios.defaults.headers.Cookie = cookie;
   }
 
-  await context.store.dispatch(loadMe());
-  await context.store.dispatch(loadPostsByHashtag({ tag: context.params.tag }));
+  const dispatch = context.store.dispatch as ThunkDispatch<RootState, void, AnyAction>;
+  await dispatch(loadMe());
+  if (typeof context.params?.tag !== 'undefined' && !Array.isArray(context.params.tag)) {
+    await dispatch(loadPostsByHashtag({ tag: context.params.tag }));
+  }
 
   return {
     props: { message: '' },

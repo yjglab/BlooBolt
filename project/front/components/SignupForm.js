@@ -5,7 +5,7 @@ import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import AppLayout from './AppLayout';
-import bloobolt_logo_nobg from '../public/bloobolt_logo_nobg.png';
+import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
 import TermsContent from './TermsContent';
 import { signUp, signUpEmailAuth, signKakao } from '../reducers/user';
 import { backUrl } from '../config/config';
@@ -100,7 +100,7 @@ const SignupForm = () => {
           <div className='w-full max-w-md space-y-8 '>
             <div>
               <div className='mx-auto h-20 w-20  relative'>
-                <Image className=' cursor-pointer w-full h-full' src={bloobolt_logo_nobg} alt='logo-image' />
+                <Image className=' cursor-pointer w-full h-full' src={blooboltLogoNobg} alt='logo-image' />
               </div>
               <h2 className='mt-6 text-center text-2xl font-bold  text-slate-600'>환영합니다</h2>
               <p className='mt-2 text-center text-sm text-slate-600'>

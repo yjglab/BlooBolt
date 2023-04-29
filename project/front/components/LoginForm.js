@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ArrowPathIcon, LockClosedIcon } from '@heroicons/react/20/solid';
 import { useForm } from 'react-hook-form';
-import bloobolt_logo_nobg from '../public/bloobolt_logo_nobg.png';
+import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
 import Image from 'next/image';
 import { backUrl } from '../config/config';
 import { logIn } from '../reducers/user';
@@ -36,7 +36,7 @@ const LoginForm = () => {
         <div className='w-full max-w-md space-y-8'>
           <div>
             <div className='mx-auto h-20 w-20  relative'>
-              <Image className=' cursor-pointer w-full h-full' src={bloobolt_logo_nobg} alt='logo-image' />
+              <Image className=' cursor-pointer w-full h-full' src={blooboltLogoNobg} alt='logo-image' />
             </div>
 
             <h2 className='mt-6 text-center text-3xl font-bold tracking-tight '>

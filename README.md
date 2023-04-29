@@ -23,10 +23,12 @@ BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들�
 </div>
 
 > Branch: dev-ts
-> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
+
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
 
 > Branch: master
-> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
+
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
 
 ## 🏛 서비스 소개 / [결과물 바로보기](https://bloobolt.com)
 

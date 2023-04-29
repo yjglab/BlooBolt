@@ -21,7 +21,7 @@ import {
   UserIcon,
 } from '@heroicons/react/20/solid';
 import Image from 'next/image';
-import bloobolt_logo_nobg from '../public/bloobolt_logo_nobg.png';
+import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
 import Router from 'next/router';
 import { backUrl } from '../config/config';
 
@@ -90,7 +90,7 @@ const Navigation = () => {
                   <div className='h-7 w-7 relative mr-1.5'>
                     <Image
                       className=' cursor-pointer w-full h-full'
-                      src={bloobolt_logo_nobg}
+                      src={blooboltLogoNobg}
                       alt='logo-image'
                     />
                   </div>
@@ -346,7 +346,7 @@ const Navigation = () => {
                       <div className='w-6 h-6 mr-1'>
                         <Image
                           className=' cursor-pointer w-full h-full'
-                          src={bloobolt_logo_nobg}
+                          src={blooboltLogoNobg}
                           alt='logo-image'
                         />
                       </div>
