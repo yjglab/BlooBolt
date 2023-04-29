@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 
 import Post from '../typings/post';
@@ -7,7 +7,7 @@ import PostImage from '../typings/postImage';
 export interface PostState {
   mainPosts: Post[];
   solePost: Post | null;
-  postImagePaths: PostImage[];
+  postImagePaths: string[];
   loadMorePosts: boolean;
 
   loadPostsLoading: boolean;
@@ -225,19 +225,30 @@ export const loadSolePost = createAsyncThunk(
     }
   },
 );
-export const uploadPostImages = createAsyncThunk('post/uploadPostImages', async (info, thunkAPI) => {
-  try {
-    const { data } = await axios.post(`/post/images`, info);
-    return data;
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      console.error(error.response.data);
-      return thunkAPI.rejectWithValue(error.response.data);
+
+export const uploadPostImages = createAsyncThunk(
+  'post/uploadPostImages',
+  async (info: FormData, thunkAPI) => {
+    try {
+      const { data } = await axios.post(`/post/images`, info);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
     }
-    throw error;
-  }
-});
-export const uploadPost = createAsyncThunk('post/uploadPost', async (info, thunkAPI) => {
+  },
+);
+interface uploadPostInfo {
+  postUnique: string;
+  postClass: string;
+  topic: string;
+  content: string;
+  postImagePaths: string[];
+}
+export const uploadPost = createAsyncThunk('post/uploadPost', async (info: uploadPostInfo, thunkAPI) => {
   try {
     const { data } = await axios.post(`/post`, info);
     return data;
@@ -249,7 +260,8 @@ export const uploadPost = createAsyncThunk('post/uploadPost', async (info, thunk
     throw error;
   }
 });
-export const removePost = createAsyncThunk('post/removePost', async (info, thunkAPI) => {
+
+export const removePost = createAsyncThunk('post/removePost', async (info: number, thunkAPI) => {
   try {
     const { data } = await axios.delete(`/post/${info}`);
     return data;
@@ -261,19 +273,22 @@ export const removePost = createAsyncThunk('post/removePost', async (info, thunk
     throw error;
   }
 });
-export const removePostCompletely = createAsyncThunk('post/removePostCompletely', async (info, thunkAPI) => {
-  try {
-    const { data } = await axios.delete(`/post/${info}`);
-    return data;
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      console.error(error.response.data);
-      return thunkAPI.rejectWithValue(error.response.data);
+export const removePostCompletely = createAsyncThunk(
+  'post/removePostCompletely',
+  async (info: number, thunkAPI) => {
+    try {
+      const { data } = await axios.delete(`/post/${info}`);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
     }
-    throw error;
-  }
-});
-export const revertPost = createAsyncThunk('post/revertPost', async (info, thunkAPI) => {
+  },
+);
+export const revertPost = createAsyncThunk('post/revertPost', async (info: number, thunkAPI) => {
   try {
     const { data } = await axios.patch(`/post/${info}/revert`);
     return data;
@@ -285,7 +300,11 @@ export const revertPost = createAsyncThunk('post/revertPost', async (info, thunk
     throw error;
   }
 });
-export const prodPost = createAsyncThunk('post/prodPost', async (info, thunkAPI) => {
+interface prodPostInfo {
+  postId: number;
+  postUserId: number;
+}
+export const prodPost = createAsyncThunk('post/prodPost', async (info: prodPostInfo, thunkAPI) => {
   try {
     const { data } = await axios.patch(`/post/${info.postId}/prod`, info);
     return data;
@@ -297,7 +316,7 @@ export const prodPost = createAsyncThunk('post/prodPost', async (info, thunkAPI)
     throw error;
   }
 });
-export const unprodPost = createAsyncThunk('post/unprodPost', async (info, thunkAPI) => {
+export const unprodPost = createAsyncThunk('post/unprodPost', async (info: prodPostInfo, thunkAPI) => {
   try {
     const { data } = await axios.delete(`/post/${info.postId}/prod`);
     return data;
@@ -309,7 +328,14 @@ export const unprodPost = createAsyncThunk('post/unprodPost', async (info, thunk
     throw error;
   }
 });
-export const editPost = createAsyncThunk('post/editPost', async (info, thunkAPI) => {
+interface editPostInfo {
+  PostId: number;
+  postClass: string;
+  topic: string;
+  content: string;
+  postImagePaths: string[];
+}
+export const editPost = createAsyncThunk('post/editPost', async (info: editPostInfo, thunkAPI) => {
   try {
     const { data } = await axios.patch(`/post/${info.PostId}`, info);
     return data;
@@ -321,19 +347,32 @@ export const editPost = createAsyncThunk('post/editPost', async (info, thunkAPI)
     throw error;
   }
 });
-export const uploadComment = createAsyncThunk('post/uploadComment', async (info, thunkAPI) => {
-  try {
-    const { data } = await axios.post(`/post/${info.postId}/comment`, info);
-    return data;
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      console.error(error.response.data);
-      return thunkAPI.rejectWithValue(error.response.data);
+interface uploadCommentInfo {
+  content: string;
+  postId: number;
+  userId: number;
+}
+export const uploadComment = createAsyncThunk(
+  'post/uploadComment',
+  async (info: uploadCommentInfo, thunkAPI) => {
+    try {
+      const { data } = await axios.post(`/post/${info.postId}/comment`, info);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
     }
-    throw error;
-  }
-});
-export const editComment = createAsyncThunk('post/editComment', async (info, thunkAPI) => {
+  },
+);
+interface editCommentInfo {
+  content: string;
+  postId: number;
+  commentId: number;
+}
+export const editComment = createAsyncThunk('post/editComment', async (info: editCommentInfo, thunkAPI) => {
   try {
     const { data } = await axios.patch(`/post/${info.postId}/comment/${info.commentId}`, info);
     return data;
@@ -345,19 +384,31 @@ export const editComment = createAsyncThunk('post/editComment', async (info, thu
     throw error;
   }
 });
-export const removeComment = createAsyncThunk('post/removeComment', async (info, thunkAPI) => {
-  try {
-    const { data } = await axios.delete(`/post/${info.postId}/comment/${info.commentId}`);
-    return data;
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      console.error(error.response.data);
-      return thunkAPI.rejectWithValue(error.response.data);
+interface removeCommentInfo {
+  postId: number;
+  commentId: number;
+}
+export const removeComment = createAsyncThunk(
+  'post/removeComment',
+  async (info: removeCommentInfo, thunkAPI) => {
+    try {
+      const { data } = await axios.delete(`/post/${info.postId}/comment/${info.commentId}`);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
     }
-    throw error;
-  }
-});
-export const prodComment = createAsyncThunk('post/prodComment', async (info, thunkAPI) => {
+  },
+);
+interface prodCommentInfo {
+  postId: number;
+  commentId: number;
+  commentUserId?: number;
+}
+export const prodComment = createAsyncThunk('post/prodComment', async (info: prodCommentInfo, thunkAPI) => {
   try {
     const { data } = await axios.patch(`/post/${info.postId}/comment/${info.commentId}/prod`, info);
     return data;
@@ -369,18 +420,21 @@ export const prodComment = createAsyncThunk('post/prodComment', async (info, thu
     throw error;
   }
 });
-export const unprodComment = createAsyncThunk('post/unprodComment', async (info, thunkAPI) => {
-  try {
-    const { data } = await axios.delete(`/post/${info.postId}/comment/${info.commentId}/prod`);
-    return data;
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      console.error(error.response.data);
-      return thunkAPI.rejectWithValue(error.response.data);
+export const unprodComment = createAsyncThunk(
+  'post/unprodComment',
+  async (info: prodCommentInfo, thunkAPI) => {
+    try {
+      const { data } = await axios.delete(`/post/${info.postId}/comment/${info.commentId}/prod`);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
     }
-    throw error;
-  }
-});
+  },
+);
 
 export const post = createSlice({
   name: 'post',
@@ -389,11 +443,11 @@ export const post = createSlice({
     flushMainPosts(state) {
       state.mainPosts = [];
     },
-    loadPrevPostImages(state, { payload }) {
-      state.postImagePaths = state.postImagePaths.concat(payload);
+    loadPrevPostImages(state, action: PayloadAction<string[]>) {
+      state.postImagePaths = state.postImagePaths.concat(action.payload);
     },
-    cancelPostImage(state, { payload }) {
-      state.postImagePaths = state.postImagePaths.filter((v, i) => i !== payload);
+    cancelPostImage(state, action: PayloadAction<number>) {
+      state.postImagePaths = state.postImagePaths.filter((v, i) => i !== action.payload);
     },
     cancelAllPostImages(state) {
       state.postImagePaths = [];
@@ -496,8 +550,10 @@ export const post = createSlice({
       .addCase(removePost.fulfilled, (state, { payload }) => {
         state.removePostLoading = false;
         state.removePostDone = true;
-        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
-        post.blinded = true;
+        const targetPost = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
+        if (targetPost) targetPost.blinded = true;
       })
       .addCase(removePost.rejected, (state, { payload }) => {
         state.removePostLoading = false;
@@ -525,9 +581,13 @@ export const post = createSlice({
       .addCase(revertPost.fulfilled, (state, { payload }) => {
         state.revertPostLoading = false;
         state.revertPostDone = true;
-        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
-        post.blinded = false;
-        post.reverted = true;
+        const targetPost = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
+        if (targetPost) {
+          targetPost.blinded = false;
+          targetPost.reverted = true;
+        }
       })
       .addCase(revertPost.rejected, (state, { payload }) => {
         state.revertPostLoading = false;
@@ -541,8 +601,10 @@ export const post = createSlice({
       .addCase(prodPost.fulfilled, (state, { payload }) => {
         state.prodPostLoading = false;
         state.prodPostDone = true;
-        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
-        post.PostProdders.push({ id: payload.UserId });
+        const targetPost = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
+        if (targetPost) targetPost.PostProdders.push({ id: payload.UserId });
       })
       .addCase(prodPost.rejected, (state, { payload }) => {
         state.prodPostLoading = false;
@@ -556,8 +618,11 @@ export const post = createSlice({
       .addCase(unprodPost.fulfilled, (state, { payload }) => {
         state.unprodPostLoading = false;
         state.unprodPostDone = true;
-        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
-        post.PostProdders = post.PostProdders.filter((v) => v.id !== payload.UserId);
+        const targetPost = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
+        if (targetPost)
+          targetPost.PostProdders = targetPost.PostProdders.filter((v) => v.id !== payload.UserId);
       })
       .addCase(unprodPost.rejected, (state, { payload }) => {
         state.unprodPostLoading = false;
@@ -571,14 +636,18 @@ export const post = createSlice({
       .addCase(editPost.fulfilled, (state, { payload }) => {
         state.editPostLoading = false;
         state.editPostDone = true;
-        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
-        post.topic = payload.topic;
-        post.class = payload.class;
-        post.content = payload.content;
-        post.PostImages = payload.PostImages;
-        post.updatedAt = payload.updatedAt;
-        post.edited = true;
-        state.postImagePaths = [];
+        const targetPost = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
+        if (targetPost) {
+          targetPost.topic = payload.topic;
+          targetPost.class = payload.class;
+          targetPost.content = payload.content;
+          targetPost.PostImages = payload.PostImages;
+          targetPost.updatedAt = payload.updatedAt;
+          targetPost.edited = true;
+          state.postImagePaths = [];
+        }
       })
       .addCase(editPost.rejected, (state, { payload }) => {
         state.editPostLoading = false;
@@ -592,8 +661,10 @@ export const post = createSlice({
       .addCase(uploadComment.fulfilled, (state, { payload }) => {
         state.uploadCommentLoading = false;
         state.uploadCommentDone = true;
-        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
-        post.Comments.push(payload);
+        const targetPost = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
+        if (targetPost) targetPost.Comments.push(payload);
       })
       .addCase(uploadComment.rejected, (state, { payload }) => {
         state.uploadCommentLoading = false;
@@ -607,8 +678,10 @@ export const post = createSlice({
       .addCase(removeComment.fulfilled, (state, { payload }) => {
         state.removeCommentLoading = false;
         state.removeCommentDone = true;
-        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
-        post.Comments = post.Comments.filter((v) => v.id !== payload.CommentId);
+        const targetPost = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
+        if (targetPost) targetPost.Comments = targetPost.Comments.filter((v) => v.id !== payload.CommentId);
       })
       .addCase(removeComment.rejected, (state, { payload }) => {
         state.removeCommentLoading = false;
@@ -622,9 +695,15 @@ export const post = createSlice({
       .addCase(editComment.fulfilled, (state, { payload }) => {
         state.editCommentLoading = false;
         state.editCommentDone = true;
-        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
-        const comment = post.Comments.find((v) => v.id === payload.CommentId);
-        comment.content = payload.content;
+        const targetPost = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
+        if (targetPost) {
+          const targetComment = targetPost.Comments.find((v) => v.id === payload.CommentId);
+          if (targetComment) {
+            targetComment.content = payload.content;
+          }
+        }
       })
       .addCase(editComment.rejected, (state, { payload }) => {
         state.editCommentLoading = false;
@@ -638,9 +717,15 @@ export const post = createSlice({
       .addCase(prodComment.fulfilled, (state, { payload }) => {
         state.prodCommentLoading = false;
         state.prodCommentDone = true;
-        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
-        const comment = post.Comments.find((v) => v.id === payload.CommentId);
-        comment.CommentProdders.push({ id: payload.UserId });
+        const targetPost = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
+        if (targetPost) {
+          const targetComment = targetPost.Comments.find((v) => v.id === payload.CommentId);
+          if (targetComment) {
+            targetComment.CommentProdders.push({ id: payload.UserId });
+          }
+        }
       })
       .addCase(prodComment.rejected, (state, { payload }) => {
         state.prodCommentLoading = false;
@@ -654,9 +739,17 @@ export const post = createSlice({
       .addCase(unprodComment.fulfilled, (state, { payload }) => {
         state.unprodCommentLoading = false;
         state.unprodCommentDone = true;
-        const post = state.solePost ? state.solePost : state.mainPosts.find((v) => v.id === payload.PostId);
-        const comment = post.Comments.find((v) => v.id === payload.CommentId);
-        comment.CommentProdders = comment.CommentProdders.filter((v) => v.id !== payload.UserId);
+        const targetPost = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
+        if (targetPost) {
+          const targetComment = targetPost.Comments.find((v) => v.id === payload.CommentId);
+          if (targetComment) {
+            targetComment.CommentProdders = targetComment.CommentProdders.filter(
+              (v) => v.id !== payload.UserId,
+            );
+          }
+        }
       })
       .addCase(unprodComment.rejected, (state, { payload }) => {
         state.unprodCommentLoading = false;
