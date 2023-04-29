@@ -1,35 +1,42 @@
-import AppLayout from '../components/AppLayout';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { ArrowPathIcon, EnvelopeIcon, FaceSmileIcon } from '@heroicons/react/20/solid';
-import { useForm } from 'react-hook-form';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { loadMe, findPassword } from '../reducers/user';
-import wrapper from '../store/configureStore';
 import { useRouter } from 'next/router';
+import React, { FC, useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import AppLayout from '../components/AppLayout';
+import { findPassword, loadMe } from '../reducers/user';
+import { RootState, useAppDispatch, useAppSelector, wrapper } from '../store/configureStore';
 
-const Support = () => {
-  const dispatch = useDispatch();
-  const { me, findPasswordError, findPasswordLoading, supportMessage } = useSelector((state) => state.user);
+const Support: FC = () => {
+  const dispatch = useAppDispatch();
+  const { me, findPasswordError, findPasswordLoading, supportMessage } = useAppSelector(
+    (state) => state.user,
+  );
   const [findPasswordSended, setFindPasswordSended] = useState(false);
   const router = useRouter();
   useEffect(() => {
     if (me && me.id) {
       router.back();
     }
-  }, [me]);
+  }, [me, router]);
 
   useEffect(() => {
     if (supportMessage) setFindPasswordSended(true);
   }, [supportMessage]);
 
+  interface FindPasswordValues {
+    email: string;
+    usercode: string;
+  }
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm();
+  } = useForm<FindPasswordValues>();
 
-  const onFindPassword = (formData) => {
+  const onFindPassword: SubmitHandler<FindPasswordValues> = (formData) => {
     const { email, usercode } = formData;
     dispatch(findPassword({ email, usercode }));
   };
@@ -79,7 +86,7 @@ const Support = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor='usercode' className='sr-only'></label>
+                    <label htmlFor='usercode' className='sr-only' />
                     <input
                       id='usercode'
                       type='text'
@@ -96,15 +103,8 @@ const Support = () => {
                 <div>
                   <div>
                     <div className='h-6 flex justify-center text-orange-400 text-xs ' role='alert'>
-                      {errors.email ? (
-                        <>{errors.email.message}</>
-                      ) : errors.username ? (
-                        <>{errors.username.message}</>
-                      ) : findPasswordError ? (
-                        <>{findPasswordError}</>
-                      ) : (
-                        ''
-                      )}
+                      {errors.email && <>errors.email.message</>}
+                      {findPasswordError && <>findPasswordError</>}
                     </div>
                     <button
                       type='submit'
@@ -141,7 +141,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   if (context.req && cookie) {
     axios.defaults.headers.Cookie = cookie;
   }
-  await context.store.dispatch(loadMe());
+  const dispatch = context.store.dispatch as ThunkDispatch<RootState, void, AnyAction>;
+  await dispatch(loadMe());
 
   return {
     props: { message: '' },

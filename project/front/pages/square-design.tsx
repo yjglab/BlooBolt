@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
-
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import React, { FC, useEffect } from 'react';
 import AppLayout from '../components/AppLayout';
 import SquareHeader from '../components/SquareHeader';
 import { loadPosts } from '../reducers/post';
 import { loadMe, loadUser } from '../reducers/user';
-import wrapper from '../store/configureStore';
+import { RootState, useAppSelector, wrapper } from '../store/configureStore';
 
-const Square = () => {
-  const { me } = useSelector((state) => state.user);
+const SquareDesign: FC = () => {
+  const { me } = useAppSelector((state) => state.user);
   const router = useRouter();
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const Square = () => {
 
   return (
     <AppLayout>
-      <SquareHeader squareSubTitle='백엔드 개발자에요!' squareTitle='Backend Square' squareKind='bedev' />
+      <SquareHeader squareSubTitle='UX/UI 디자이너에요!' squareTitle='Design Square' squareKind='design' />
     </AppLayout>
   );
 };
@@ -33,12 +32,13 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     axios.defaults.headers.Cookie = cookie;
   }
 
-  await context.store.dispatch(loadMe());
-  await context.store.dispatch(loadPosts({ postUnique: 'bedev' }));
-  await context.store.dispatch(loadUser({ username: '' }));
+  const dispatch = context.store.dispatch as ThunkDispatch<RootState, void, AnyAction>;
+  await dispatch(loadMe());
+  await dispatch(loadPosts({ postUnique: 'design' }));
+  await dispatch(loadUser({ username: '' }));
   return {
     props: { message: '' },
   };
 });
 
-export default Square;
+export default SquareDesign;
