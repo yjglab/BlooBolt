@@ -37,7 +37,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   await dispatch(loadPosts({ postUnique: 'bedev' }));
   await dispatch(loadUser({ username: '' }));
   return {
-    props: { message: '' },
+    props: { message: null },
   };
 });
 

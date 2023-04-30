@@ -431,7 +431,7 @@ router.get("/", async (req, res, next) => {
 
       res.status(200).json(me);
     } else {
-      res.status(200).json(null);
+      res.status(403).json(null);
     }
   } catch (error) {
     console.error(error);

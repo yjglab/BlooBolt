@@ -2,7 +2,7 @@ import { Draft, createSlice } from '@reduxjs/toolkit';
 
 interface Notice {
   content: string | null;
-  type: string | null;
+  type: number | null;
 }
 export interface GlobalState {
   notice: Notice;

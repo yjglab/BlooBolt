@@ -1,5 +1,3 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Menu, Transition } from '@headlessui/react';
 import {
   ArrowUturnLeftIcon,
@@ -12,34 +10,46 @@ import {
   UserMinusIcon,
   UserPlusIcon,
 } from '@heroicons/react/20/solid';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { openNotice } from '../reducers/global';
-import { removeComment, editComment, prodComment, unprodComment } from '../reducers/post';
-import { useForm } from 'react-hook-form';
-import { backUrl } from '../config/config';
-import { trace, untrace } from '../reducers/user';
 import Link from 'next/link';
+import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { backUrl } from '../config/config';
+import getUserClassColor from '../functions/getUserClassColor';
+import { openNotice } from '../reducers/global';
+import { editComment, prodComment, removeComment, unprodComment } from '../reducers/post';
+import { trace, untrace } from '../reducers/user';
+import { useAppDispatch, useAppSelector } from '../store/configureStore';
+import Comment from '../typings/comment';
+import Post from '../typings/post';
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-const CommentSection = ({ post, comment }) => {
-  const dispatch = useDispatch();
-  const id = useSelector((state) => state.user.me?.id);
-  const { me } = useSelector((state) => state.user);
+interface CommentSectionProps {
+  post: Post;
+  comment: Comment;
+}
+const CommentSection: FC<CommentSectionProps> = ({ post, comment }) => {
+  const dispatch = useAppDispatch();
+  const id = useAppSelector((state) => state.user.me?.id);
+  const { me } = useAppSelector((state) => state.user);
 
   const [extendComment, setExtendComment] = useState(false);
   const [editCommentMode, setEditCommentMode] = useState(false);
 
   const onCancelEditCommentMode = useCallback(() => {
     setEditCommentMode(false);
-  }, [editCommentMode]);
+  }, []);
   const toggleExtendComment = useCallback(() => {
     setExtendComment(!extendComment);
   }, [extendComment]);
 
+  interface EditCommentValues {
+    content: string;
+    postId: number;
+    commentId: number;
+  }
   const {
     register,
     reset,
@@ -47,7 +57,7 @@ const CommentSection = ({ post, comment }) => {
     setValue,
     setError,
     formState: { isSubmitting, errors },
-  } = useForm({
+  } = useForm<EditCommentValues>({
     mode: 'onSubmit',
     defaultValues: {
       content: '',
@@ -64,8 +74,9 @@ const CommentSection = ({ post, comment }) => {
     }
     setEditCommentMode(true);
     setValue('content', `${comment.content}`);
-  }, [editCommentMode, comment.content]);
-  const onEditComment = useCallback(
+    return null;
+  }, [comment.User.id, dispatch, id, setValue, comment.content, setEditCommentMode]);
+  const onEditComment: SubmitHandler<EditCommentValues> = useCallback(
     (formData) => {
       if (!id) {
         return dispatch(
@@ -77,7 +88,7 @@ const CommentSection = ({ post, comment }) => {
       }
       const { content } = formData;
       if (!content.trim()) {
-        return setError('content');
+        return setError('content', { message: '빈 코멘트를 업로드 할 수 없습니다.' });
       }
 
       dispatch(
@@ -89,8 +100,9 @@ const CommentSection = ({ post, comment }) => {
       );
       reset();
       setEditCommentMode(false);
+      return null;
     },
-    [id],
+    [id, comment.id, dispatch, post.id, reset, setError],
   );
 
   const onRemoveComment = useCallback(() => {
@@ -122,7 +134,8 @@ const CommentSection = ({ post, comment }) => {
         type: 1,
       }),
     );
-  }, [id]);
+    return null;
+  }, [id, comment.User.id, comment.id, dispatch, post.id]);
 
   const isProdded = comment.CommentProdders.find((v) => v.id === id);
   const onProdComment = useCallback(() => {
@@ -142,14 +155,14 @@ const CommentSection = ({ post, comment }) => {
         }),
       );
     }
-    dispatch(
+    return dispatch(
       prodComment({
         postId: post.id,
         commentId: comment.id,
         commentUserId: comment.User.id,
       }),
     );
-  }, [id, comment.User.id]);
+  }, [id, comment.User.id, comment.id, dispatch, post.id]);
   const onUnprodComment = useCallback(() => {
     if (!id) {
       return dispatch(
@@ -159,13 +172,13 @@ const CommentSection = ({ post, comment }) => {
         }),
       );
     }
-    dispatch(
+    return dispatch(
       unprodComment({
         postId: post.id,
         commentId: comment.id,
       }),
     );
-  }, [id, comment.User.id]);
+  }, [id, comment.id, dispatch, post.id]);
 
   const isTracing = me?.Tracings?.find((v) => v.id === comment.User.id);
   const onToggleTrace = () => {
@@ -177,7 +190,7 @@ const CommentSection = ({ post, comment }) => {
         }),
       );
     }
-    if (isTracing) {
+    if (isTracing && comment.User.id) {
       dispatch(untrace(comment.User.id));
       dispatch(
         openNotice({
@@ -185,7 +198,7 @@ const CommentSection = ({ post, comment }) => {
           type: 1,
         }),
       );
-    } else {
+    } else if (!isTracing && comment.User.id) {
       dispatch(trace(comment.User.id));
       dispatch(
         openNotice({
@@ -194,6 +207,7 @@ const CommentSection = ({ post, comment }) => {
         }),
       );
     }
+    return null;
   };
 
   return (
@@ -204,44 +218,24 @@ const CommentSection = ({ post, comment }) => {
       <div className='mb-1.5 flex items-center'>
         <Link href={`/profile/${comment.User.username}`}>
           <img
+            alt=''
             src={
               process.env.NODE_ENV === 'production'
                 ? `${comment.User.avatar}`
                 : `${backUrl}/${comment.User.avatar}`
             }
-            className={`${
-              comment.User.class === 'fedev'
-                ? 'border-amber-400'
-                : comment.User.class === 'bedev'
-                ? 'border-emerald-400'
-                : comment.User.class === 'design'
-                ? 'border-red-400'
-                : comment.User.class === 'plan'
-                ? 'border-sky-300'
-                : 'border-slate-400'
-            } cursor-pointer h-[42px] w-[42px] border-[2.5px] p-0.5 rounded-full object-cover`}
+            className={`${getUserClassColor(
+              comment.User.class,
+            )} cursor-pointer h-[42px] w-[42px] border-[2.5px] p-0.5 rounded-full object-cover`}
           />
         </Link>
         <div className='ml-2 w-full flex flex-col'>
           <Link href={`/profile/${comment.User.username}`}>
             <h1 className='cursor-pointer text-sm font-bold flex items-center'>
               {comment.User.username}
-              <div
-                className={`${
-                  comment.User.class === 'fedev'
-                    ? 'text-amber-400'
-                    : comment.User.class === 'bedev'
-                    ? 'text-emerald-400'
-                    : comment.User.class === 'design'
-                    ? 'text-red-400'
-                    : comment.User.class === 'plan'
-                    ? 'text-sky-300'
-                    : 'text-slate-400'
-                } flex gap-0.5 text-xs`}
-              >
-                {comment.User.rank === 6 ? (
-                  <FaceSmileIcon className='w-4 ml-0.5 ' aria-hidden='true' />
-                ) : comment.User.rank === 0 ? null : (
+              <div className={`${getUserClassColor(comment.User.class)} flex gap-0.5 text-xs`}>
+                {comment.User.rank === 6 && <FaceSmileIcon className='w-4 ml-0.5 ' aria-hidden='true' />}
+                {comment.User.rank === 0 ? null : (
                   <ShieldCheckIcon className={`w-4 ml-0.5 flex-shrink-0 `} aria-hidden='true' />
                 )}
                 {comment.User.rank}
@@ -260,7 +254,7 @@ const CommentSection = ({ post, comment }) => {
                 viewBox='0 0 20 20'
                 xmlns='http://www.w3.org/2000/svg'
               >
-                <path d='M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z'></path>
+                <path d='M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z' />
               </svg>
             </Menu.Button>
           </div>
@@ -279,6 +273,7 @@ const CommentSection = ({ post, comment }) => {
                 <Menu.Item>
                   {({ active }) => (
                     <button
+                      type='button'
                       onClick={onEditCommentMode}
                       className={classNames(
                         active ? 'bg-slate-100 ' : '',
@@ -292,6 +287,7 @@ const CommentSection = ({ post, comment }) => {
                 <Menu.Item>
                   {({ active }) => (
                     <button
+                      type='button'
                       onClick={onRemoveComment}
                       className={classNames(
                         active ? 'bg-slate-100 ' : '',
@@ -311,22 +307,22 @@ const CommentSection = ({ post, comment }) => {
         <div className='mb-5 text-sm break-words font-normal '>
           {editCommentMode ? (
             <>
-              <label htmlFor='content' className='sr-only'></label>
+              <label htmlFor='content' className='sr-only' />
               <textarea
                 id='content'
                 maxLength={800}
-                rows='3'
+                rows={3}
                 disabled={post.blinded}
                 className='px-2  border border-slate-200 rounded-md w-full text-sm sm:text-sm md:text-md  focus:ring-0 focus:outline-none placeholder:text-slate-300'
                 {...register('content')}
-              ></textarea>
+              />
             </>
           ) : (
             <p className={extendComment ? '' : 'line-clamp-3'}>
-              {comment.content.split(/(#[^\s#]+)/g).map((v, i) => {
+              {comment.content.split(/(#[^\s#]+)/g).map((v) => {
                 if (v.match(/(#[^\s#]+)/)) {
                   return (
-                    <Link href={`/hashtag/${v.slice(1)}`} prefetch={false} key={i}>
+                    <Link href={`/hashtag/${v.slice(1)}`} prefetch={false} key={v}>
                       <span className='text-indigo-500 cursor-pointer font-medium hover:text-indigo-600'>
                         {v}
                       </span>
@@ -341,12 +337,13 @@ const CommentSection = ({ post, comment }) => {
         <div className='flex justify-between  gap-2 text-sm items-center'>
           <div className='flex'>
             {isProdded ? (
-              <button onClick={onUnprodComment} className='mx-1 flex items-center gap-0.5'>
+              <button type='button' onClick={onUnprodComment} className='mx-1 flex items-center gap-0.5'>
                 <BoltIcon className='w-4 text-indigo-500' />
                 <span>{comment.CommentProdders.length}</span>
               </button>
             ) : (
               <button
+                type='button'
                 onClick={onProdComment}
                 className='mx-1 flex items-center gap-0.5 hover:text-indigo-500 '
               >
@@ -357,6 +354,7 @@ const CommentSection = ({ post, comment }) => {
 
             {comment.User.id !== me?.id ? (
               <button
+                type='button'
                 onClick={onToggleTrace}
                 className='mx-1 flex items-center gap-0.5 hover:text-indigo-500 '
               >
@@ -401,8 +399,4 @@ const CommentSection = ({ post, comment }) => {
   );
 };
 
-CommentSection.propTypes = {
-  post: PropTypes.object.isRequired,
-  comment: PropTypes.object.isRequired,
-};
 export default CommentSection;

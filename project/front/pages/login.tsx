@@ -3,14 +3,13 @@ import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { FC, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import AppLayout from '../components/AppLayout';
 import LoginForm from '../components/LoginForm';
 import { loadMe } from '../reducers/user';
-import { RootState, wrapper } from '../store/configureStore';
+import { RootState, useAppSelector, wrapper } from '../store/configureStore';
 
 const Login: FC = () => {
-  const { me } = useSelector((state: RootState) => state.user);
+  const { me } = useAppSelector((state) => state.user);
   const router = useRouter();
   useEffect(() => {
     if (me && me.id) {
@@ -36,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   await dispatch(loadMe());
 
   return {
-    props: { message: '' },
+    props: { message: null },
   };
 });
 

@@ -68,7 +68,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   }
 
   return {
-    props: { message: '' },
+    props: { message: null },
   };
 });
 

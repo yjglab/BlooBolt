@@ -41,7 +41,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   await dispatch(loadPosts({ postUnique: 'fedev' }));
   await dispatch(loadUser({ username: '' }));
   return {
-    props: { message: '' },
+    props: { message: null },
   };
 });
 

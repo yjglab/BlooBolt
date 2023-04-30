@@ -152,7 +152,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   const dispatch = context.store.dispatch as ThunkDispatch<RootState, void, AnyAction>;
   await dispatch(loadMe());
   return {
-    props: { message: '' },
+    props: { message: null },
   };
 });
 

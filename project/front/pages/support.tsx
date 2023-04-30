@@ -145,7 +145,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   await dispatch(loadMe());
 
   return {
-    props: { message: '' },
+    props: { message: null },
   };
 });
 
