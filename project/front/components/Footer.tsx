@@ -1,10 +1,10 @@
-import React from 'react';
-import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
+import { BoltIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BoltIcon } from '@heroicons/react/20/solid';
+import React, { FC } from 'react';
+import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
 
-const Footer = () => {
+const Footer: FC = () => {
   return (
     <footer className='mx-auto mt-32 w-full max-w-container px-4 sm:px-6 lg:px-8'>
       <div className='border-t border-slate-900/5 py-10'>
@@ -25,7 +25,7 @@ const Footer = () => {
           <Link href='/service/terms'>
             <span className='cursor-pointer'>서비스 이용 약관</span>
           </Link>
-          <div className='h-4 w-px bg-slate-500/20'></div>
+          <div className='h-4 w-px bg-slate-500/20' />
           <Link href='/service/version-log'>
             <span className='cursor-pointer'>버전 정보</span>
           </Link>

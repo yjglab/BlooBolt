@@ -1,24 +1,28 @@
-import Link from 'next/link';
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { ArrowPathIcon, LockClosedIcon } from '@heroicons/react/20/solid';
-import { useForm } from 'react-hook-form';
-import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
 import Image from 'next/image';
+import Link from 'next/link';
+import React, { FC, useCallback } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { backUrl } from '../config/config';
+import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
 import { logIn } from '../reducers/user';
+import { useAppDispatch, useAppSelector } from '../store/configureStore';
 
-const LoginForm = () => {
-  const dispatch = useDispatch();
-  const { logInError, logInLoading } = useSelector((state) => state.user);
+const LoginForm: FC = () => {
+  const dispatch = useAppDispatch();
+  const { logInError, logInLoading } = useAppSelector((state) => state.user);
 
+  interface LoginValues {
+    email: string;
+    password: string;
+  }
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm();
+  } = useForm<LoginValues>();
 
-  const onLogin = (formData) => {
+  const onLogin: SubmitHandler<LoginValues> = (formData) => {
     const { email, password } = formData;
     dispatch(logIn({ email, password }));
   };
@@ -53,26 +57,33 @@ const LoginForm = () => {
           </div>
 
           <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
-            <div className='w-full  bg-slate-200 h-[1.5px]'></div>
+            <div className='w-full  bg-slate-200 h-[1.5px]' />
             <div className='text-slate-400 text-xs w-full text-center'>소셜 계정 로그인</div>
-            <div className='w-full  bg-slate-200 h-[1.5px]'></div>
+            <div className='w-full  bg-slate-200 h-[1.5px]' />
           </div>
           <div className='flex gap-2'>
             <button
+              type='button'
               onClick={onSignGoogle}
               className='group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium'
             >
               <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
-                <img className='w-5 grayscale' src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg' />
+                <img
+                  alt=''
+                  className='w-5 grayscale'
+                  src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg'
+                />
               </span>
               Google
             </button>
             <button
+              type='button'
               onClick={onSignKakao}
               className='group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium'
             >
               <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                 <img
+                  alt=''
                   className='w-8 grayscale'
                   src='https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png'
                 />
@@ -82,9 +93,9 @@ const LoginForm = () => {
           </div>
 
           <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
-            <div className='w-full  bg-slate-200 h-[1.5px]'></div>
+            <div className='w-full  bg-slate-200 h-[1.5px]' />
             <div className='text-slate-400 text-xs w-full text-center'>일반 계정 로그인</div>
-            <div className='w-full  bg-slate-200 h-[1.5px]'></div>
+            <div className='w-full  bg-slate-200 h-[1.5px]' />
           </div>
 
           <form className='mt-8 space-y-3' onSubmit={handleSubmit(onLogin)}>
@@ -149,12 +160,12 @@ const LoginForm = () => {
             <div>
               <div>
                 <div className='h-6 flex justify-center text-orange-400 text-xs ' role='alert'>
-                  {errors.email ? (
-                    <>{errors.email.message}</>
-                  ) : errors.password ? (
-                    <>{errors.password.message}</>
+                  {errors.email ? ( // eslint-disable-line no-nested-ternary
+                    <>errors.email.message</>
+                  ) : errors.password ? ( // eslint-disable-line no-nested-ternary
+                    <>errors.password.message</>
                   ) : logInError ? (
-                    <>{logInError}</>
+                    <>logInError</>
                   ) : (
                     ''
                   )}

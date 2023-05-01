@@ -1,9 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Transition, Popover } from '@headlessui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import Link from 'next/link';
-import { Fragment } from 'react';
-import { XMarkIcon, Bars3Icon } from '@heroicons/react/24/outline';
+import { Popover, Transition } from '@headlessui/react';
 import {
   ArrowPathIcon,
   ArrowUturnUpIcon,
@@ -20,22 +15,26 @@ import {
   ShieldCheckIcon,
   UserIcon,
 } from '@heroicons/react/20/solid';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
+import Link from 'next/link';
 import Router from 'next/router';
+import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import { backUrl } from '../config/config';
-
-import { logOut } from '../reducers/user';
-import { cancelAllPostImages } from '../reducers/post';
+import getUserClassColor from '../functions/getUserClassColor';
+import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
 import { openNotice } from '../reducers/global';
+import { cancelAllPostImages } from '../reducers/post';
+import { logOut } from '../reducers/user';
+import { useAppDispatch, useAppSelector } from '../store/configureStore';
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-const Navigation = () => {
-  const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+const Navigation: FC = () => {
+  const dispatch = useAppDispatch();
+  const { me } = useAppSelector((state) => state.user);
   const [helper, setHelper] = useState(false);
 
   useEffect(() => {
@@ -54,13 +53,13 @@ const Navigation = () => {
 
   const onGotoTop = useCallback(() => {
     window.scrollTo(0, 0);
-  });
+  }, []);
 
   const onLogout = useCallback(() => {
     dispatch(logOut());
     dispatch(cancelAllPostImages());
     Router.push('/square');
-  });
+  }, [dispatch]);
 
   const onPreparing = useCallback(() => {
     dispatch(
@@ -69,12 +68,13 @@ const Navigation = () => {
         content: '멤버스는 준비중인 기능입니다.',
       }),
     );
-  });
+  }, [dispatch]);
 
   return (
     <Popover className='fixed top-0 w-[100vw] left-0 z-50 bg-white shadow-xl shadow-slate-300/20'>
       {helper && (
         <button
+          type='button'
           onClick={onGotoTop}
           className='shadow-xl hover:bg-indigo-600 hover:scale-105 p-3.5 bg-indigo-500 rounded-full fixed bottom-10 right-4'
         >
@@ -269,12 +269,13 @@ const Navigation = () => {
               )}
             </Popover>{' '}
             {/* <Link href="/members"> */}
-            <div
+            <button
+              type='button'
               onClick={onPreparing}
               className='cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500'
             >
               멤버스
-            </div>
+            </button>
             {/* </Link> */}
             <Link href='/guide'>
               <div className='cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500'>
@@ -286,6 +287,7 @@ const Navigation = () => {
             {me ? (
               <>
                 <button
+                  type='button'
                   onClick={onLogout}
                   className='whitespace-nowrap text-base font-medium text-slate-500 hover:text-slate-600'
                 >
@@ -298,9 +300,9 @@ const Navigation = () => {
                   </Link>
                   <Link href={`/profile/${me.username}`}>
                     <img
+                      alt='avatar'
                       className='cursor-pointer ml-4 h-10 w-10 rounded-full object-cover'
                       src={process.env.NODE_ENV === 'production' ? `${me.avatar}` : `${backUrl}/${me.avatar}`}
-                      alt='avatar-image'
                     />
                   </Link>
                 </>
@@ -461,41 +463,21 @@ const Navigation = () => {
                     <div>
                       <Popover.Button className='mb-3 flex items-center'>
                         <img
+                          alt=''
                           src={
                             process.env.NODE_ENV === 'production' ? `${me.avatar}` : `${backUrl}/${me.avatar}`
                           }
-                          className={`${
-                            me.class === 'fedev'
-                              ? 'border-amber-400'
-                              : me.class === 'bedev'
-                              ? 'border-emerald-400'
-                              : me.class === 'design'
-                              ? 'border-red-400'
-                              : me.class === 'plan'
-                              ? 'border-sky-300'
-                              : 'border-slate-400'
-                          } cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
+                          className={`${getUserClassColor(
+                            me.class,
+                          )} cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
                         />
 
                         <div className='ml-2 w-full flex flex-col'>
                           <h1 className='cursor-pointer text-md font-bold flex items-center'>
                             {me.username}
-                            <div
-                              className={`${
-                                me.class === 'fedev'
-                                  ? 'text-amber-400'
-                                  : me.class === 'bedev'
-                                  ? 'text-emerald-400'
-                                  : me.class === 'design'
-                                  ? 'text-red-400'
-                                  : me.class === 'plan'
-                                  ? 'text-sky-300'
-                                  : 'text-slate-400'
-                              } flex gap-0.5 text-xs`}
-                            >
-                              {me.rank === 6 ? (
-                                <FaceSmileIcon className='w-4 ml-0.5 ' aria-hidden='true' />
-                              ) : me.rank === 0 ? null : (
+                            <div className={`${getUserClassColor(me.class)} flex gap-0.5 text-xs`}>
+                              {me.rank === 6 && <FaceSmileIcon className='w-4 ml-0.5 ' aria-hidden='true' />}
+                              {me.rank === 0 ? null : (
                                 <ShieldCheckIcon className={`w-4 ml-0.5 flex-shrink-0 `} aria-hidden='true' />
                               )}
                               {me.rank}

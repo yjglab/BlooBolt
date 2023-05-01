@@ -196,7 +196,11 @@ export const signUpEmailAuth = createAsyncThunk(
     }
   },
 );
-export const logIn = createAsyncThunk('user/logIn', async (info, thunkAPI) => {
+interface LoginInfo {
+  email: string;
+  password: string;
+}
+export const logIn = createAsyncThunk('user/logIn', async (info: LoginInfo, thunkAPI) => {
   try {
     const { data } = await axios.post('/user/login', info);
     return data;
