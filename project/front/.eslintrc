@@ -11,6 +11,7 @@
           "function-declaration"
         ] }
     ],
+    "react/no-unused-prop-types": "off",
     "no-param-reassign": ["error", { "props": false }],
     "comma-dangle": "off",
     "@typescript-eslint/comma-dangle": ["error", "only-multiline"],

@@ -1,8 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Menu } from '@headlessui/react';
+import { ArrowUturnLeftIcon, DocumentPlusIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import NewPostForm from './NewPostForm';
+import PostForm from './PostForm';
+import PostLoading from './PostLoading';
 import PostSection from './PostSection';
-import PropTypes from 'prop-types';
-
+import { openNotice } from '../reducers/global';
 import {
   cancelAllPostImages,
   flushMainPosts,
@@ -10,35 +16,35 @@ import {
   loadPostsByHashtag,
   loadPostsByKeyword,
 } from '../reducers/post';
+import { useAppDispatch, useAppSelector } from '../store/configureStore';
 
-import { openNotice } from '../reducers/global';
-import { useForm } from 'react-hook-form';
-import { ArrowUturnLeftIcon, DocumentPlusIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import PostForm from './PostForm';
-import { Menu } from '@headlessui/react';
-import PostLoading from './PostLoading';
-
-const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
-  const { me } = useSelector((state) => state.user);
+interface SquareHeaderProps {
+  squareTitle: string;
+  squareSubTitle: string;
+  squareKind: string;
+}
+const SquareHeader: FC<SquareHeaderProps> = ({ squareTitle, squareSubTitle, squareKind }) => {
+  const { me } = useAppSelector((state) => state.user);
   const [togglePostForm, setTogglePostForm] = useState(false);
 
-  const { mainPosts, loadMorePosts, loadPostsLoading } = useSelector((state) => state.post);
+  const { mainPosts, loadMorePosts, loadPostsLoading } = useAppSelector((state) => state.post);
   const [keywordSearching, setKeywordSearching] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const router = useRouter();
   const { tag } = router.query;
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
+  interface SearchPostValues {
+    keyword: string;
+  }
   const {
     register,
     reset,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm({
+  } = useForm<SearchPostValues>({
     mode: 'onSubmit',
   });
 
@@ -72,10 +78,10 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
     return () => {
       window.removeEventListener('scroll', onScreenScroll);
     };
-  }, [loadMorePosts, loadPostsLoading, mainPosts, keywordSearching, router.query.tag]);
+  }, [loadMorePosts, loadPostsLoading, mainPosts, keywordSearching, router.query.tag, squareKind, dispatch]);
 
   const onTogglePostForm = useCallback(() => {
-    if (me.banned) {
+    if (me?.banned) {
       return dispatch(
         openNotice({
           type: 2,
@@ -83,7 +89,7 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
         }),
       );
     }
-    if (squareKind !== 'public' && squareKind !== me.class) {
+    if (squareKind !== 'public' && squareKind !== me?.class) {
       return dispatch(
         openNotice({
           type: 2,
@@ -95,9 +101,10 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
       dispatch(cancelAllPostImages());
     }
     setTogglePostForm(!togglePostForm);
-  }, [togglePostForm]);
+    return null;
+  }, [togglePostForm, dispatch, me?.banned, me?.class, squareKind]);
 
-  const onSearchPosts = useCallback((formData) => {
+  const onSearchPosts: SubmitHandler<SearchPostValues> = (formData) => {
     const { keyword } = formData;
     setSearchKeyword(keyword);
     if (!keyword || !keyword.trim() || keyword.length < 2) {
@@ -107,27 +114,32 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
     setKeywordSearching(true);
     dispatch(flushMainPosts());
     dispatch(loadPostsByKeyword({ keyword }));
-  });
+    return null;
+  };
 
-  const onRefresh = useCallback(() => {
+  const onRefresh = () => {
     if (router.query.tag) {
       router.back();
     }
     setKeywordSearching(false);
     dispatch(flushMainPosts());
     dispatch(loadPosts({ postUnique: squareKind }));
-  });
+  };
 
   return (
     <>
-      {me && togglePostForm && <PostForm squareKind={squareKind} onTogglePostForm={onTogglePostForm} />}
+      {me && togglePostForm && <NewPostForm onTogglePostForm={onTogglePostForm} squareKind={squareKind} />}
       <div className='min-h-screen flex pb-20'>
         <div className='mt-16 md:mt-20 px-2 sm:px-[2%] md:px-[2%] lg:px-[12%] w-full h-full relative '>
           <h1 className='px-6 text-base font-semibold leading-6 text-indigo-500'>
             {keywordSearching ? '어떤 포스트를 찾으시나요?' : squareSubTitle}
           </h1>
           <div className='px-5 h-10 text-2xl flex justify-between items-center'>
-            <div onClick={onRefresh} className='cursor-pointer relative flex items-center font-bold left-1'>
+            <button
+              type='button'
+              onClick={onRefresh}
+              className='cursor-pointer relative flex items-center font-bold left-1'
+            >
               <h1 className=' text-2xl font-bold tracking-tight  sm:text-3xl'>
                 {keywordSearching ? '키워드 검색' : squareTitle}
               </h1>
@@ -135,11 +147,12 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
               {keywordSearching || router.query.tag ? (
                 <ArrowUturnLeftIcon className='ml-3  w-5 hover:scale-110' />
               ) : null}
-            </div>
+            </button>
 
             <div className='flex items-center'>
-              {me && !keywordSearching && !router.query.tag ? (
+              {me && !keywordSearching && !router.query.tag ? ( // eslint-disable-line no-nested-ternary
                 <button
+                  type='button'
                   onClick={onTogglePostForm}
                   className=' flex h-10 gap-1.5 px-2 items-center justify-center rounded-lg bg-indigo-500 hover:bg-indigo-600'
                 >
@@ -148,7 +161,10 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
                 </button>
               ) : keywordSearching || router.query.tag ? null : (
                 <Link href='/login'>
-                  <button className=' flex h-10 gap-1.5 px-2 items-center justify-center rounded-lg bg-indigo-500 hover:bg-indigo-600'>
+                  <button
+                    type='button'
+                    className=' flex h-10 gap-1.5 px-2 items-center justify-center rounded-lg bg-indigo-500 hover:bg-indigo-600'
+                  >
                     <span className='hidden sm:inline text-sm text-white '>포스트</span>
                     <DocumentPlusIcon className='h-5 w-5 text-white' aria-hidden='true' />
                   </button>
@@ -159,7 +175,7 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
 
           <div className='my-4 px-5 flex justify-between items-center'>
             <div>
-              {keywordSearching ? (
+              {keywordSearching ? ( // eslint-disable-line no-nested-ternary
                 <>
                   <span className='font-bold mr-0.5 '>{mainPosts.length}</span>
                   개의 포스트가 있습니다.
@@ -173,10 +189,9 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
             </div>
             <div className='flex py-1  bg-white rounded-md ring-1 ring-slate-200 hover:ring-indigo-500 duration-150 '>
               <form className='flex h-8 p-1' onSubmit={handleSubmit(onSearchPosts)}>
-                <label htmlFor='keyword'></label>
+                <label htmlFor='keyword' />
                 <input
                   id='keyword'
-                  name='keyword'
                   className='p-2 w-20 md:w-36 text-sm h-full outline-none bg-white placeholder:text-sm placeholder:text-slate-300 flex-1 text-slate-600 focus:bg-white focus:ring-0 rounded-md  sm:text-sm'
                   placeholder='포스트 검색'
                   {...register('keyword', {})}
@@ -211,12 +226,6 @@ const SquareHeader = ({ squareTitle, squareSubTitle, squareKind }) => {
       </div>
     </>
   );
-};
-
-SquareHeader.propTypes = {
-  squareTitle: PropTypes.string.isRequired,
-  squareSubTitle: PropTypes.string.isRequired,
-  squareKind: PropTypes.string.isRequired,
 };
 
 export default SquareHeader;

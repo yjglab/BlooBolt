@@ -40,6 +40,7 @@ interface PostSectionProps {
   post: Post;
   detailed: boolean;
   squareKind: string;
+  onTogglePostForm: () => void;
 }
 const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
   const dispatch = useAppDispatch();

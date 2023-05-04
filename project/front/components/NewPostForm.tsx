@@ -4,16 +4,8 @@ import React, { FC, useCallback, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { backUrl } from '../config/config';
 import { openNotice } from '../reducers/global';
-import {
-  cancelPostImage,
-  editPost,
-  loadPrevPostImages,
-  uploadPost,
-  uploadPostImages,
-} from '../reducers/post';
+import { cancelPostImage, uploadPost, uploadPostImages } from '../reducers/post';
 import { useAppDispatch, useAppSelector } from '../store/configureStore';
-import Post from '../typings/post';
-import PostImage from '../typings/postImage';
 
 const getUserClass = (cls: string) => {
   switch (cls) {
@@ -29,28 +21,11 @@ const getUserClass = (cls: string) => {
       return null;
   }
 };
-interface PostFormProps {
+interface NewPostFormProps {
   onTogglePostForm: () => void;
-  onTogglePostEditMode: () => void;
-  post: Post;
   squareKind: string;
-  postEditMode: boolean;
-  prevPostClass: string;
-  prevTopic: string;
-  prevContent: string;
-  prevPostImages: PostImage[];
 }
-const PostForm: FC<PostFormProps> = ({
-  onTogglePostForm,
-  onTogglePostEditMode,
-  post,
-  squareKind,
-  postEditMode,
-  prevPostClass,
-  prevTopic,
-  prevContent,
-  prevPostImages,
-}) => {
+const NewPostForm: FC<NewPostFormProps> = ({ onTogglePostForm, squareKind }) => {
   const dispatch = useAppDispatch();
   const { me } = useAppSelector((state) => state.user);
   const { postImagePaths, uploadPostLoading, uploadPostImagesError } = useAppSelector((state) => state.post);
@@ -120,44 +95,6 @@ const PostForm: FC<PostFormProps> = ({
     return null;
   };
 
-  const onEditPost: SubmitHandler<EditPostValues> = (editedFormData) => {
-    const { postClass, topic, content } = editedFormData;
-    if (postClass === 'default') {
-      return setError('postClass', {
-        message: '포스트 분류를 선택해주세요.',
-      });
-    }
-    if (!content.trim()) {
-      return setError('content', {
-        message: '빈 포스트를 업로드할 수 없습니다',
-      });
-    }
-
-    reset();
-    onTogglePostEditMode(); // false
-    dispatch(editPost({ PostId: post.id, postClass, topic, content, postImagePaths }));
-    dispatch(
-      openNotice({
-        content: '포스트가 수정되었습니다.',
-        type: 1,
-      }),
-    );
-    return null;
-  };
-
-  const onLoadPrevPostImages = useCallback(() => {
-    dispatch(loadPrevPostImages(prevPostImages.map((v) => v.src)));
-  }, [dispatch, prevPostImages]);
-
-  useEffect(() => {
-    if (postEditMode) {
-      onLoadPrevPostImages();
-      setValue('postClass', prevPostClass);
-      setValue('topic', prevTopic || '');
-      setValue('content', prevContent);
-    }
-  }, [onLoadPrevPostImages, postEditMode, prevContent, prevPostClass, prevTopic, setValue]);
-
   const onCancelPostImage = useCallback(
     (i: number) => () => {
       dispatch(cancelPostImage(i));
@@ -185,7 +122,7 @@ const PostForm: FC<PostFormProps> = ({
       <div className='flex md:w-2/3 sm:w-4/5  w-11/12 rounded-md mb-10 relative top-8'>
         <div className='flex relative flex-col w-full '>
           <form
-            onSubmit={postEditMode ? handleSubmit(onEditPost) : handleSubmit(onUploadPost)}
+            onSubmit={handleSubmit(onUploadPost)}
             encType='multipart/form-data'
             className='mb-8 w-full relative '
           >
@@ -280,7 +217,7 @@ const PostForm: FC<PostFormProps> = ({
             <div className='gap-1.5 absolute flex items-center right-0'>
               <button
                 type='button'
-                onClick={postEditMode ? onTogglePostEditMode : onTogglePostForm}
+                onClick={onTogglePostForm}
                 disabled={isSubmitting}
                 className=' hover:bg-slate-200  flex h-10 w-10 items-center justify-center rounded-lg bg-white '
               >
@@ -334,4 +271,4 @@ const PostForm: FC<PostFormProps> = ({
   );
 };
 
-export default PostForm;
+export default NewPostForm;
