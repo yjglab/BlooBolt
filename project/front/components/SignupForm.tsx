@@ -2,21 +2,30 @@ import { ArrowPathIcon, EnvelopeIcon, UserPlusIcon, XMarkIcon } from '@heroicons
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import AppLayout from './AppLayout';
-import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
 import TermsContent from './TermsContent';
-import { signUp, signUpEmailAuth, signKakao } from '../reducers/user';
 import { backUrl } from '../config/config';
+import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
+import { signUp, signUpEmailAuth } from '../reducers/user';
+import { useAppDispatch, useAppSelector } from '../store/configureStore';
 
 const SignupForm = () => {
-  const dispatch = useDispatch();
-  const { signUpError, signUpEmailAuthLoading, supportMessage, signUpLoading } = useSelector(
+  const dispatch = useAppDispatch();
+  const { signUpError, signUpEmailAuthLoading, supportMessage, signUpLoading } = useAppSelector(
     (state) => state.user,
   );
   const [signUpEmailSended, setSignUpEmailSended] = useState(false);
 
+  interface SignUpValues {
+    email: string;
+    username: string;
+    password: string;
+    passwordCheck: string;
+    userClass: string;
+    signupCode: string;
+    term: boolean;
+  }
   const {
     register,
     handleSubmit,
@@ -24,7 +33,7 @@ const SignupForm = () => {
     getValues,
     reset,
     formState: { isSubmitting, errors },
-  } = useForm();
+  } = useForm<SignUpValues>();
 
   const onSignKakao = useCallback(() => {
     window.location.href = `${backUrl}/auth/kakao`;
@@ -33,9 +42,9 @@ const SignupForm = () => {
     window.location.href = `${backUrl}/auth/google`;
   }, []);
 
-  const onSignUp = (formData) => {
+  const onSignUp: SubmitHandler<SignUpValues> = (formData) => {
     const { email, username, password, passwordCheck, userClass, signupCode } = formData;
-    const slCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/g;
+    const slCheck = /[{}[\]/?.,;:|)*~`!^\-+<>@#$%&\\=('"]/g;
     if (username.search(/\s/) !== -1 || slCheck.test(username)) {
       return setError('username', {
         message: '사용자명에 공백 또는 특수문자가 들어갈 수 없습니다.',
@@ -68,9 +77,9 @@ const SignupForm = () => {
     }
     if (signUpError === '이미 존재하는 이메일 계정입니다.') {
       setSignUpEmailSended(false);
-      reset({ signupCode: null });
+      reset({ signupCode: '' });
     }
-    dispatch(
+    return dispatch(
       signUp({
         email,
         username,
@@ -87,6 +96,7 @@ const SignupForm = () => {
     }
     dispatch(signUpEmailAuth({ authEmail }));
     setSignUpEmailSended(true);
+    return null;
   };
 
   const [toggleTerm, setToggleTerm] = useState(false);
@@ -111,27 +121,34 @@ const SignupForm = () => {
             </div>
 
             <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
-              <div className='w-full  bg-slate-200 h-[1.5px]'></div>
+              <div className='w-full  bg-slate-200 h-[1.5px]' />
               <div className='text-slate-400 text-xs w-full text-center'>소셜 계정 회원가입</div>
-              <div className='w-full  bg-slate-200 h-[1.5px]'></div>
+              <div className='w-full  bg-slate-200 h-[1.5px]' />
             </div>
             <div>
               <div className='flex gap-2'>
                 <button
+                  type='button'
                   onClick={onSignGoogle}
                   className='group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium'
                 >
                   <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
-                    <img className='w-5 grayscale' src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg' />
+                    <img
+                      alt=''
+                      className='w-5 grayscale'
+                      src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg'
+                    />
                   </span>
                   Google
                 </button>
                 <button
+                  type='button'
                   onClick={onSignKakao}
                   className='group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium'
                 >
                   <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                     <img
+                      alt=''
                       className='w-8 grayscale'
                       src='https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png'
                     />
@@ -142,15 +159,15 @@ const SignupForm = () => {
             </div>
 
             <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
-              <div className='w-full  bg-slate-200 h-[1.5px]'></div>
+              <div className='w-full  bg-slate-200 h-[1.5px]' />
               <div className='text-slate-400 text-xs w-full text-center'>일반 계정 회원가입</div>
-              <div className='w-full  bg-slate-200 h-[1.5px]'></div>
+              <div className='w-full  bg-slate-200 h-[1.5px]' />
             </div>
             <form className='mt-8 space-y-2' onSubmit={handleSubmit(onSignUp)}>
               <input type='hidden' name='remember' defaultValue='true' />
               <div className='-space-y-px rounded-md '>
                 <div>
-                  <label htmlFor='email' className='sr-only'></label>
+                  <label htmlFor='email' className='sr-only' />
                   <input
                     id='email'
                     type='text'
@@ -168,7 +185,7 @@ const SignupForm = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor='username' className='sr-only'></label>
+                  <label htmlFor='username' className='sr-only' />
                   <input
                     id='username'
                     type='text'
@@ -188,7 +205,7 @@ const SignupForm = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor='password' className='sr-only'></label>
+                  <label htmlFor='password' className='sr-only' />
                   <input
                     id='password'
                     type='password'
@@ -204,7 +221,7 @@ const SignupForm = () => {
                   />
                 </div>
                 <div className='relative flex items-center'>
-                  <label htmlFor='passwordCheck' className='sr-only'></label>
+                  <label htmlFor='passwordCheck' className='sr-only' />
                   <input
                     id='passwordCheck'
                     type='password'
@@ -216,10 +233,9 @@ const SignupForm = () => {
                   />
                 </div>
                 <div className=''>
-                  <label htmlFor='userClass' className='block text-sm font-medium '></label>
+                  <label htmlFor='userClass' className='block text-sm font-medium ' />
                   <select
                     id='userClass'
-                    name='userClass'
                     className='relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
                     {...register('userClass', {
                       required: '직군을 선택해주세요.',
@@ -246,9 +262,13 @@ const SignupForm = () => {
                     })}
                   />
                   <label htmlFor='term' className='ml-2 block text-sm text-slate-600'>
-                    <span onClick={onToggleTerms} className='cursor-pointer underline text-slate-500'>
+                    <button
+                      type='button'
+                      onClick={onToggleTerms}
+                      className='cursor-pointer underline text-slate-500 hover:text-indigo-600'
+                    >
                       BlooBolt 서비스 이용 약관
-                    </span>
+                    </button>
                     에 동의합니다.
                   </label>
                 </div>
@@ -258,7 +278,6 @@ const SignupForm = () => {
                   </span>
                 </Link>
               </div>
-              {/* // */}
 
               {toggleTerm && (
                 <div className='group relative h-96 overflow-y-scroll  w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300 py-2 px-4 text-sm '>
@@ -276,27 +295,23 @@ const SignupForm = () => {
 
               <div>
                 <div className='h-6 flex justify-center text-orange-400 text-xs ' role='alert'>
-                  {errors.email ? (
-                    <>{errors.email.message}</>
-                  ) : errors.username ? (
-                    <>{errors.username.message}</>
-                  ) : errors.password ? (
-                    <>{errors.password.message}</>
-                  ) : errors.passwordCheck ? (
-                    <>{errors.passwordCheck.message}</>
-                  ) : errors.term ? (
-                    <>{errors.term.message}</>
-                  ) : errors.userClass ? (
-                    <>{errors.userClass.message}</>
-                  ) : errors.signupCode ? (
-                    <>{errors.signupCode.message}</>
-                  ) : signUpError ? (
-                    <>{signUpError}</>
-                  ) : (
-                    ''
-                  )}
+                  {errors.email // eslint-disable-line no-nested-ternary
+                    ? errors.email.message
+                    : errors.username // eslint-disable-line no-nested-ternary
+                    ? errors.username.message
+                    : errors.password // eslint-disable-line no-nested-ternary
+                    ? errors.password.message
+                    : errors.passwordCheck // eslint-disable-line no-nested-ternary
+                    ? errors.passwordCheck.message
+                    : errors.term // eslint-disable-line no-nested-ternary
+                    ? errors.term.message
+                    : errors.userClass // eslint-disable-line no-nested-ternary
+                    ? errors.userClass.message
+                    : errors.signupCode // eslint-disable-line no-nested-ternary
+                    ? errors.signupCode.message
+                    : signUpError}
                 </div>
-                {signUpEmailAuthLoading ? (
+                {signUpEmailAuthLoading ? ( // eslint-disable-line no-nested-ternary
                   <div className='group relative flex items-center w-full justify-center rounded-md border border-transparent py-2 px-4'>
                     <ArrowPathIcon className='w-5 left-0 right-0 mx-auto animate-spin' />
                   </div>
@@ -308,19 +323,20 @@ const SignupForm = () => {
                     <input
                       id='signupCode'
                       type='password'
-                      autoFocus
                       placeholder='전송된 이메일 인증 코드 6자리를 입력해주세요.'
                       className='placeholder:text-slate-400 placeholder:text-sm relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
                       {...register('signupCode', {
                         required: '인증코드를 입력해주세요.',
                         maxLength: {
                           value: 6,
+                          message: '',
                         },
                       })}
                     />
                   </div>
                 ) : (
                   <button
+                    type='button'
                     onClick={onSignUpEmailAuth}
                     className='group relative flex w-full justify-center rounded-md border border-transparent bg-slate-500 py-2 px-4 text-sm font-medium text-white hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2'
                   >

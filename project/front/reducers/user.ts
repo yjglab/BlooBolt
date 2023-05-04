@@ -166,7 +166,6 @@ interface SignUpInfo {
   username: string;
   password: string;
   userClass: string;
-  authMail?: string;
 }
 export const signUp = createAsyncThunk('user/signUp', async (info: SignUpInfo, thunkAPI) => {
   try {
@@ -183,7 +182,7 @@ export const signUp = createAsyncThunk('user/signUp', async (info: SignUpInfo, t
 
 export const signUpEmailAuth = createAsyncThunk(
   'user/signUpEmailAuth',
-  async (info: SignUpInfo, thunkAPI) => {
+  async (info: { authEmail: string }, thunkAPI) => {
     try {
       const { data } = await axios.post(`/user/signup/auth`, info);
       return data;

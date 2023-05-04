@@ -20,6 +20,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Router from 'next/router';
 import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
+import GetUserRankIcon from './GetUserRankIcon';
 import { backUrl } from '../config/config';
 import getUserClassColor from '../functions/getUserClassColor';
 import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
@@ -467,7 +468,7 @@ const Navigation: FC = () => {
                           src={
                             process.env.NODE_ENV === 'production' ? `${me.avatar}` : `${backUrl}/${me.avatar}`
                           }
-                          className={`${getUserClassColor(
+                          className={`border-${getUserClassColor(
                             me.class,
                           )} cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
                         />
@@ -475,12 +476,8 @@ const Navigation: FC = () => {
                         <div className='ml-2 w-full flex flex-col'>
                           <h1 className='cursor-pointer text-md font-bold flex items-center'>
                             {me.username}
-                            <div className={`${getUserClassColor(me.class)} flex gap-0.5 text-xs`}>
-                              {me.rank === 6 && <FaceSmileIcon className='w-4 ml-0.5 ' aria-hidden='true' />}
-                              {me.rank === 0 ? null : (
-                                <ShieldCheckIcon className={`w-4 ml-0.5 flex-shrink-0 `} aria-hidden='true' />
-                              )}
-                              {me.rank}
+                            <div className={`text-${getUserClassColor(me.class)} flex gap-0.5 text-xs`}>
+                              <GetUserRankIcon userRank={me.rank} />
                             </div>
                           </h1>
 

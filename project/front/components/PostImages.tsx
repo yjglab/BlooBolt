@@ -1,9 +1,12 @@
-import React, { useCallback, useState } from "react";
-import PostImagesCarousel from "./PostImagesCarousel";
-import PropTypes from "prop-types";
-import { backUrl } from "../config/config";
+import React, { FC, useCallback, useState } from 'react';
+import PostImagesCarousel from './PostImagesCarousel';
+import { backUrl } from '../config/config';
+import PostImage from '../typings/postImage';
 
-const PostImages = ({ postImages }) => {
+interface PostImagesProps {
+  postImages: PostImage[];
+}
+const PostImages: FC<PostImagesProps> = ({ postImages }) => {
   const [openCarousel, setOpenCarousel] = useState(false);
 
   const onOpenCarousel = useCallback(() => {
@@ -17,21 +20,14 @@ const PostImages = ({ postImages }) => {
     return (
       <>
         <img
-          onClick={onOpenCarousel}
-          className="object-cover w-full cursor-pointer"
-          src={
-            process.env.NODE_ENV === "production"
-              ? `${postImages[0].src}`
-              : `${backUrl}/${postImages[0].src}`
-          }
           alt={postImages[0].src}
+          onClick={onOpenCarousel}
+          className='object-cover w-full cursor-pointer'
+          src={
+            process.env.NODE_ENV === 'production' ? `${postImages[0].src}` : `${backUrl}/${postImages[0].src}`
+          }
         />
-        {openCarousel && (
-          <PostImagesCarousel
-            postImages={postImages}
-            onCloseCarousel={onCloseCarousel}
-          />
-        )}
+        {openCarousel && <PostImagesCarousel postImages={postImages} onCloseCarousel={onCloseCarousel} />}
       </>
     );
   }
@@ -40,30 +36,21 @@ const PostImages = ({ postImages }) => {
       <>
         <img
           onClick={onOpenCarousel}
-          className="object-cover w-1/2 cursor-pointer"
+          className='object-cover w-1/2 cursor-pointer'
           src={
-            process.env.NODE_ENV === "production"
-              ? `${postImages[0].src}`
-              : `${backUrl}/${postImages[0].src}`
+            process.env.NODE_ENV === 'production' ? `${postImages[0].src}` : `${backUrl}/${postImages[0].src}`
           }
           alt={postImages[0].src}
         />
         <img
           onClick={onOpenCarousel}
-          className="object-cover w-1/2 cursor-pointer"
+          className='object-cover w-1/2 cursor-pointer'
           src={
-            process.env.NODE_ENV === "production"
-              ? `${postImages[1].src}`
-              : `${backUrl}/${postImages[1].src}`
+            process.env.NODE_ENV === 'production' ? `${postImages[1].src}` : `${backUrl}/${postImages[1].src}`
           }
           alt={postImages[1].src}
         />
-        {openCarousel && (
-          <PostImagesCarousel
-            postImages={postImages}
-            onCloseCarousel={onCloseCarousel}
-          />
-        )}
+        {openCarousel && <PostImagesCarousel postImages={postImages} onCloseCarousel={onCloseCarousel} />}
       </>
     );
   }
@@ -72,20 +59,18 @@ const PostImages = ({ postImages }) => {
       <>
         <img
           onClick={onOpenCarousel}
-          className="object-cover w-1/2 cursor-pointer"
+          className='object-cover w-1/2 cursor-pointer'
           src={
-            process.env.NODE_ENV === "production"
-              ? `${postImages[0].src}`
-              : `${backUrl}/${postImages[0].src}`
+            process.env.NODE_ENV === 'production' ? `${postImages[0].src}` : `${backUrl}/${postImages[0].src}`
           }
           alt={postImages[0].src}
         />
-        <div className="w-1/2 flex flex-col gap-1  ">
+        <div className='w-1/2 flex flex-col gap-1  '>
           <img
             onClick={onOpenCarousel}
-            className="object-cover h-1/2 cursor-pointer"
+            className='object-cover h-1/2 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[1].src}`
                 : `${backUrl}/${postImages[1].src}`
             }
@@ -93,33 +78,28 @@ const PostImages = ({ postImages }) => {
           />
           <img
             onClick={onOpenCarousel}
-            className="object-cover h-1/2 cursor-pointer"
+            className='object-cover h-1/2 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[2].src}`
                 : `${backUrl}/${postImages[2].src}`
             }
             alt={postImages[2].src}
           />
         </div>
-        {openCarousel && (
-          <PostImagesCarousel
-            postImages={postImages}
-            onCloseCarousel={onCloseCarousel}
-          />
-        )}
+        {openCarousel && <PostImagesCarousel postImages={postImages} onCloseCarousel={onCloseCarousel} />}
       </>
     );
   }
   if (postImages.length === 4) {
     return (
       <>
-        <div className="w-1/2 flex flex-col gap-1  relative ">
+        <div className='w-1/2 flex flex-col gap-1  relative '>
           <img
             onClick={onOpenCarousel}
-            className="object-cover h-1/2 cursor-pointer"
+            className='object-cover h-1/2 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[0].src}`
                 : `${backUrl}/${postImages[0].src}`
             }
@@ -127,21 +107,21 @@ const PostImages = ({ postImages }) => {
           />
           <img
             onClick={onOpenCarousel}
-            className="object-cover h-1/2 cursor-pointer"
+            className='object-cover h-1/2 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[1].src}`
                 : `${backUrl}/${postImages[1].src}`
             }
             alt={postImages[1].src}
           />
         </div>
-        <div className="w-1/2 flex flex-col gap-1  relative ">
+        <div className='w-1/2 flex flex-col gap-1  relative '>
           <img
             onClick={onOpenCarousel}
-            className="object-cover h-1/2 cursor-pointer"
+            className='object-cover h-1/2 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[2].src}`
                 : `${backUrl}/${postImages[2].src}`
             }
@@ -149,33 +129,28 @@ const PostImages = ({ postImages }) => {
           />
           <img
             onClick={onOpenCarousel}
-            className="object-cover h-1/2 cursor-pointer"
+            className='object-cover h-1/2 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[3].src}`
                 : `${backUrl}/${postImages[3].src}`
             }
             alt={postImages[3].src}
           />
         </div>
-        {openCarousel && (
-          <PostImagesCarousel
-            postImages={postImages}
-            onCloseCarousel={onCloseCarousel}
-          />
-        )}
+        {openCarousel && <PostImagesCarousel postImages={postImages} onCloseCarousel={onCloseCarousel} />}
       </>
     );
   }
   if (postImages.length === 5) {
     return (
-      <div className="flex flex-col w-full gap-1">
-        <div className="w-full h-1/2 flex justify-center gap-1 ">
+      <div className='flex flex-col w-full gap-1'>
+        <div className='w-full h-1/2 flex justify-center gap-1 '>
           <img
             onClick={onOpenCarousel}
-            className="object-cover w-1/2 cursor-pointer"
+            className='object-cover w-1/2 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[0].src}`
                 : `${backUrl}/${postImages[0].src}`
             }
@@ -183,21 +158,21 @@ const PostImages = ({ postImages }) => {
           />
           <img
             onClick={onOpenCarousel}
-            className="object-cover w-1/2 cursor-pointer"
+            className='object-cover w-1/2 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[1].src}`
                 : `${backUrl}/${postImages[1].src}`
             }
             alt={postImages[1].src}
           />
         </div>
-        <div className="w-full h-1/2 flex justify-center gap-1  ">
+        <div className='w-full h-1/2 flex justify-center gap-1  '>
           <img
             onClick={onOpenCarousel}
-            className="object-cover w-1/3 cursor-pointer"
+            className='object-cover w-1/3 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[2].src}`
                 : `${backUrl}/${postImages[2].src}`
             }
@@ -205,9 +180,9 @@ const PostImages = ({ postImages }) => {
           />
           <img
             onClick={onOpenCarousel}
-            className="object-cover w-1/3 cursor-pointer"
+            className='object-cover w-1/3 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[3].src}`
                 : `${backUrl}/${postImages[3].src}`
             }
@@ -215,33 +190,28 @@ const PostImages = ({ postImages }) => {
           />
           <img
             onClick={onOpenCarousel}
-            className="object-cover w-1/3 cursor-pointer"
+            className='object-cover w-1/3 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[4].src}`
                 : `${backUrl}/${postImages[4].src}`
             }
             alt={postImages[4].src}
           />
         </div>
-        {openCarousel && (
-          <PostImagesCarousel
-            postImages={postImages}
-            onCloseCarousel={onCloseCarousel}
-          />
-        )}
+        {openCarousel && <PostImagesCarousel postImages={postImages} onCloseCarousel={onCloseCarousel} />}
       </div>
     );
   }
   if (postImages.length === 6) {
     return (
-      <div className="flex flex-col w-full gap-1">
-        <div className="w-full h-1/2 justify-center flex  gap-1 ">
+      <div className='flex flex-col w-full gap-1'>
+        <div className='w-full h-1/2 justify-center flex  gap-1 '>
           <img
             onClick={onOpenCarousel}
-            className="object-cover w-1/3 cursor-pointer"
+            className='object-cover w-1/3 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[0].src}`
                 : `${backUrl}/${postImages[0].src}`
             }
@@ -249,9 +219,9 @@ const PostImages = ({ postImages }) => {
           />
           <img
             onClick={onOpenCarousel}
-            className="object-cover w-1/3 cursor-pointer"
+            className='object-cover w-1/3 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[1].src}`
                 : `${backUrl}/${postImages[1].src}`
             }
@@ -259,21 +229,21 @@ const PostImages = ({ postImages }) => {
           />
           <img
             onClick={onOpenCarousel}
-            className="object-cover w-1/3 cursor-pointer"
+            className='object-cover w-1/3 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[2].src}`
                 : `${backUrl}/${postImages[2].src}`
             }
             alt={postImages[2].src}
           />
         </div>
-        <div className="w-full h-1/2 justify-center flex  gap-1  ">
+        <div className='w-full h-1/2 justify-center flex  gap-1  '>
           <img
             onClick={onOpenCarousel}
-            className="object-cover w-1/3 cursor-pointer"
+            className='object-cover w-1/3 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[3].src}`
                 : `${backUrl}/${postImages[3].src}`
             }
@@ -281,9 +251,9 @@ const PostImages = ({ postImages }) => {
           />
           <img
             onClick={onOpenCarousel}
-            className="object-cover w-1/3 cursor-pointer"
+            className='object-cover w-1/3 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[4].src}`
                 : `${backUrl}/${postImages[4].src}`
             }
@@ -291,28 +261,20 @@ const PostImages = ({ postImages }) => {
           />
           <img
             onClick={onOpenCarousel}
-            className="object-cover w-1/3 cursor-pointer"
+            className='object-cover w-1/3 cursor-pointer'
             src={
-              process.env.NODE_ENV === "production"
+              process.env.NODE_ENV === 'production'
                 ? `${postImages[5].src}`
                 : `${backUrl}/${postImages[5].src}`
             }
             alt={postImages[5].src}
           />
         </div>
-        {openCarousel && (
-          <PostImagesCarousel
-            postImages={postImages}
-            onCloseCarousel={onCloseCarousel}
-          />
-        )}
+        {openCarousel && <PostImagesCarousel postImages={postImages} onCloseCarousel={onCloseCarousel} />}
       </div>
     );
   }
-};
-
-PostImages.propTypes = {
-  postImages: PropTypes.arrayOf(PropTypes.object),
+  return null;
 };
 
 export default PostImages;

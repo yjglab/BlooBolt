@@ -13,6 +13,7 @@ import {
 import Link from 'next/link';
 import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import GetUserRankIcon from './GetUserRankIcon';
 import { backUrl } from '../config/config';
 import getUserClassColor from '../functions/getUserClassColor';
 import { openNotice } from '../reducers/global';
@@ -224,7 +225,7 @@ const CommentSection: FC<CommentSectionProps> = ({ post, comment }) => {
                 ? `${comment.User.avatar}`
                 : `${backUrl}/${comment.User.avatar}`
             }
-            className={`${getUserClassColor(
+            className={`border-${getUserClassColor(
               comment.User.class,
             )} cursor-pointer h-[42px] w-[42px] border-[2.5px] p-0.5 rounded-full object-cover`}
           />
@@ -233,12 +234,8 @@ const CommentSection: FC<CommentSectionProps> = ({ post, comment }) => {
           <Link href={`/profile/${comment.User.username}`}>
             <h1 className='cursor-pointer text-sm font-bold flex items-center'>
               {comment.User.username}
-              <div className={`${getUserClassColor(comment.User.class)} flex gap-0.5 text-xs`}>
-                {comment.User.rank === 6 && <FaceSmileIcon className='w-4 ml-0.5 ' aria-hidden='true' />}
-                {comment.User.rank === 0 ? null : (
-                  <ShieldCheckIcon className={`w-4 ml-0.5 flex-shrink-0 `} aria-hidden='true' />
-                )}
-                {comment.User.rank}
+              <div className={`text-${getUserClassColor(comment.User.class)} flex gap-0.5 text-xs`}>
+                <GetUserRankIcon userRank={comment.User.rank} />
               </div>
             </h1>
           </Link>

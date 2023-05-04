@@ -1,21 +1,46 @@
 import { ArrowPathIcon, ArrowUpIcon, TrashIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import React, { useCallback, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { backUrl } from '../config/config';
 import { ArrowUpCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
-import PropTypes from 'prop-types';
+import React, { FC, useCallback, useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { backUrl } from '../config/config';
+import { openNotice } from '../reducers/global';
 import {
-  editPost,
-  uploadPost,
-  loadPrevPostImages,
   cancelPostImage,
+  editPost,
+  loadPrevPostImages,
+  uploadPost,
   uploadPostImages,
 } from '../reducers/post';
-import { openNotice } from '../reducers/global';
-import Router from 'next/router';
+import { useAppDispatch, useAppSelector } from '../store/configureStore';
+import Post from '../typings/post';
+import PostImage from '../typings/postImage';
 
-const PostForm = ({
+const getUserClass = (cls: string) => {
+  switch (cls) {
+    case 'fedev':
+      return '프론트엔드';
+    case 'bedev':
+      return '백엔드';
+    case 'design':
+      return '디자인';
+    case 'plan':
+      return '기획';
+    default:
+      return null;
+  }
+};
+interface PostFormProps {
+  onTogglePostForm: () => void;
+  onTogglePostEditMode: () => void;
+  post: Post;
+  squareKind: string;
+  postEditMode: boolean;
+  prevPostClass: string;
+  prevTopic: string;
+  prevContent: string;
+  prevPostImages: PostImage[];
+}
+const PostForm: FC<PostFormProps> = ({
   onTogglePostForm,
   onTogglePostEditMode,
   post,
@@ -26,12 +51,23 @@ const PostForm = ({
   prevContent,
   prevPostImages,
 }) => {
-  const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
-  const { postImagePaths, editPostDone, uploadPostLoading, uploadPostImagesError } = useSelector(
+  const dispatch = useAppDispatch();
+  const { me } = useAppSelector((state) => state.user);
+  const { postImagePaths, editPostDone, uploadPostLoading, uploadPostImagesError } = useAppSelector(
     (state) => state.post,
   );
 
+  interface UploadPostValues {
+    topic: string;
+    content: string;
+    postClass: string;
+    postImages: readonly string[];
+  }
+  interface EditPostValues {
+    postClass: string;
+    topic: string;
+    content: string;
+  }
   const {
     register,
     reset,
@@ -39,8 +75,9 @@ const PostForm = ({
     watch,
     setError,
     setValue,
+    getValues,
     formState: { isSubmitting, errors },
-  } = useForm({
+  } = useForm<UploadPostValues, EditPostValues>({
     mode: 'onSubmit',
     defaultValues: {
       topic: '',
@@ -48,7 +85,7 @@ const PostForm = ({
     },
   });
 
-  const onUploadPost = (formData) => {
+  const onUploadPost: SubmitHandler<UploadPostValues> = (formData) => {
     const { topic, content, postClass } = formData;
     if (!content.trim()) {
       return setError('content', {
@@ -61,7 +98,7 @@ const PostForm = ({
       });
     }
     reset();
-    onTogglePostForm(false);
+    onTogglePostForm(); // false
 
     dispatch(
       uploadPost({
@@ -72,7 +109,7 @@ const PostForm = ({
         postImagePaths,
       }),
     );
-    if (me.rank === 0) {
+    if (me?.rank === 0) {
       dispatch(
         openNotice({
           content: '첫 포스트를 업로드 했습니다. 새로운 랭크로 등록되었습니다.',
@@ -82,9 +119,10 @@ const PostForm = ({
     } else {
       dispatch(openNotice({ content: '포스트가 업로드 되었습니다.', type: 1 }));
     }
+    return null;
   };
 
-  const onEditPost = (editedFormData) => {
+  const onEditPost: SubmitHandler<EditPostValues> = (editedFormData) => {
     const { postClass, topic, content } = editedFormData;
     if (postClass === 'default') {
       return setError('postClass', {
@@ -98,7 +136,7 @@ const PostForm = ({
     }
 
     reset();
-    onTogglePostEditMode(false);
+    onTogglePostEditMode(); // false
     dispatch(editPost({ PostId: post.id, postClass, topic, content, postImagePaths }));
     dispatch(
       openNotice({
@@ -106,37 +144,40 @@ const PostForm = ({
         type: 1,
       }),
     );
+    return null;
   };
 
   const onLoadPrevPostImages = useCallback(() => {
     dispatch(loadPrevPostImages(prevPostImages.map((v) => v.src)));
-  });
+  }, [dispatch, prevPostImages]);
 
   useEffect(() => {
     if (postEditMode) {
       onLoadPrevPostImages();
       setValue('postClass', prevPostClass);
-      setValue('topic', prevTopic ? prevTopic : '');
+      setValue('topic', prevTopic || '');
       setValue('content', prevContent);
     }
-  }, []);
+  }, [onLoadPrevPostImages, postEditMode, prevContent, prevPostClass, prevTopic, setValue]);
 
-  const onCancelPostImage = useCallback((i) => () => {
-    dispatch(cancelPostImage(i));
-  });
+  const onCancelPostImage = useCallback(
+    (i: number) => () => {
+      dispatch(cancelPostImage(i));
+    },
+    [dispatch],
+  );
 
   const onChangePostImages = () => {
     const postImages = watch('postImages');
     const postImagesFormData = new FormData();
-    [].forEach.call(postImages, (file) => {
+    [].forEach.call(postImages, (file: File) => {
       if (file.size > 10 * 1024 * 1024) {
         setError('postImages', {
           message: '10MB 이하의 이미지 파일만 업로드 가능합니다.',
         });
         return;
-      } else {
-        postImagesFormData.append('postImages', file);
       }
+      postImagesFormData.append('postImages', file);
     });
     dispatch(uploadPostImages(postImagesFormData));
   };
@@ -153,7 +194,7 @@ const PostForm = ({
             <div className='pt-4 pb-4 px-4 mb-2  bg-white w-full rounded-md   '>
               <div className='flex my-1 gap-3 items-center justify-between'>
                 <div className='w-full'>
-                  <label htmlFor='topic' className='block text-sm font-medium text-slate-600'></label>
+                  <label htmlFor='topic' className='block text-sm font-medium text-slate-600' />
                   <input
                     id='topic'
                     type='text'
@@ -168,11 +209,10 @@ const PostForm = ({
                   />
                 </div>
                 <div className=''>
-                  <label htmlFor='postClass' className='block text-sm font-medium text-slate-600'></label>
+                  <label htmlFor='postClass' className='block text-sm font-medium text-slate-600' />
                   {squareKind === 'public' ? (
                     <select
                       id='postClass'
-                      name='postClass'
                       className='relative block w-36 text-sm appearance-none rounded-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
                       {...register('postClass', {
                         required: '포스트 분류를 선택해주세요.',
@@ -188,31 +228,20 @@ const PostForm = ({
                   ) : (
                     <select
                       id='postClass'
-                      name='postClass'
                       // disabled={true}
                       className='cursor-not-allowed relative block w-36 text-sm appearance-none rounded-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
                       {...register('postClass', {})}
                     >
-                      <option value={squareKind}>
-                        {squareKind === 'fedev'
-                          ? '프론트엔드'
-                          : squareKind === 'bedev'
-                          ? '백엔드'
-                          : squareKind === 'design'
-                          ? '디자인'
-                          : squareKind === 'plan'
-                          ? '기획'
-                          : null}
-                      </option>
+                      <option value={squareKind}>{getUserClass(squareKind)}</option>
                     </select>
                   )}
                 </div>
               </div>
-              <label htmlFor='content' className='sr-only'></label>
+              <label htmlFor='content' className='sr-only' />
               <textarea
                 id='content'
                 maxLength={1500}
-                rows='14'
+                rows={14}
                 className='px-1.5 pt-2 w-full text-sm xl:text-base  border-0 focus:ring-0 focus:outline-none placeholder:text-slate-300'
                 placeholder='내용을 입력해주세요.'
                 {...register('content', {
@@ -222,7 +251,7 @@ const PostForm = ({
                     message: '1000자 이내로 입력해주세요',
                   },
                 })}
-              ></textarea>
+              />
               <div className='mt-2 border-t border-slate-200  py-2 w-full'>
                 <div className='mt-1 flex w-full'>
                   {postImagePaths.map((v, i) => (
@@ -232,17 +261,15 @@ const PostForm = ({
                       onClick={onCancelPostImage(i)}
                       className='border border-slate-300 w-2/12 aspect-square lg:w-1/12 sm:w-2/12 mx-0.5 relative rounded-md overflow-hidden  '
                     >
-                      {
-                        <img
-                          className='hover:opacity-25 z-0 aspect-square object-cover'
-                          src={
-                            process.env.NODE_ENV === 'production'
-                              ? `${v.replace(/\/thumb\//, '/original/')}`
-                              : `${backUrl}/${v}`
-                          }
-                          alt={v}
-                        />
-                      }
+                      <img
+                        alt={v}
+                        className='hover:opacity-25 z-0 aspect-square object-cover'
+                        src={
+                          process.env.NODE_ENV === 'production'
+                            ? `${v.replace(/\/thumb\//, '/original/')}`
+                            : `${backUrl}/${v}`
+                        }
+                      />
                       <div className='z-1 flex justify-center items-center w-full h-full top-0 left-0 absolute opacity-0 hover:bg-slate-200 hover:opacity-100 hover:bg-opacity-50'>
                         <TrashIcon className=' w-1/3 h-1/3 ' />
                       </div>
@@ -270,7 +297,6 @@ const PostForm = ({
               </label>
 
               <input
-                name='postImages'
                 id='postImages'
                 type='file'
                 multiple
@@ -294,19 +320,15 @@ const PostForm = ({
             </div>
           </form>
           <div className='absolute bottom-2 left-1.5 flex text-orange-400 text-xs ' role='alert'>
-            {errors.content ? (
-              <>{errors.content.message}</>
-            ) : errors.topic ? (
-              <>{errors.topic.message}</>
-            ) : errors.postImages ? (
-              <>{errors.postImages.message}</>
-            ) : errors.postClass ? (
-              <>{errors.postClass.message}</>
-            ) : uploadPostImagesError ? (
-              <>{uploadPostImagesError}</>
-            ) : (
-              ''
-            )}
+            {errors.content // eslint-disable-line no-nested-ternary
+              ? errors.content.message
+              : errors.topic // eslint-disable-line no-nested-ternary
+              ? errors.topic.message
+              : errors.postImages // eslint-disable-line no-nested-ternary
+              ? errors.postImages.message
+              : errors.postClass // eslint-disable-line no-nested-ternary
+              ? errors.postClass.message
+              : uploadPostImagesError}
           </div>
         </div>
       </div>
@@ -314,15 +336,4 @@ const PostForm = ({
   );
 };
 
-PostForm.propTypes = {
-  onTogglePostForm: PropTypes.func,
-  onTogglePostEditMode: PropTypes.func,
-  post: PropTypes.object,
-  squareKind: PropTypes.string.isRequired,
-  postEditMode: PropTypes.bool,
-  prevPostClass: PropTypes.string,
-  prevTopic: PropTypes.string,
-  prevContent: PropTypes.string,
-  prevPostImages: PropTypes.arrayOf(PropTypes.object),
-};
 export default PostForm;

@@ -1,47 +1,50 @@
 import { Menu, Transition } from '@headlessui/react';
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import CommentArea from './CommentArea';
 import {
   ArrowsPointingOutIcon,
   BoltIcon,
   ChatBubbleOvalLeftIcon,
-  FaceSmileIcon,
-  ServerStackIcon,
-  ShieldCheckIcon,
   UserMinusIcon,
   UserPlusIcon,
 } from '@heroicons/react/20/solid';
-import PostImages from './PostImages';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import Link from 'next/link';
+import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
+import CommentArea from './CommentArea';
+import GetUserRankIcon from './GetUserRankIcon';
 import PostForm from './PostForm';
-
+import PostImages from './PostImages';
+import PostUserReport from './PostUserReport';
+import { backUrl } from '../config/config';
+import getUserClassColor from '../functions/getUserClassColor';
 import { openNotice } from '../reducers/global';
 import {
   cancelAllPostImages,
   prodPost,
   removePost,
+  removePostCompletely,
   revertPost,
   unprodPost,
-  removePostCompletely,
 } from '../reducers/post';
 import { trace, untrace } from '../reducers/user';
-import { backUrl } from '../config/config';
-import PostUserReport from './PostUserReport';
+import { useAppDispatch, useAppSelector } from '../store/configureStore';
+import Post from '../typings/post';
 
 dayjs.locale('ko');
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-const PostSection = ({ post, detailed, squareKind }) => {
-  const dispatch = useDispatch();
-  const id = useSelector((state) => state.user.me?.id);
-  const { me } = useSelector((state) => state.user);
+interface PostSectionProps {
+  post: Post;
+  detailed: boolean;
+  squareKind: string;
+}
+const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
+  const dispatch = useAppDispatch();
+  const id = useAppSelector((state) => state.user.me?.id);
+  const { me } = useAppSelector((state) => state.user);
   const [toggleCommentArea, setToggleCommentArea] = useState(false);
   const [blindPost, setBlindPost] = useState(false);
   const [blindCheck, setBlindCheck] = useState(false);
@@ -58,8 +61,8 @@ const PostSection = ({ post, detailed, squareKind }) => {
         }),
       );
     }
-    setReportCheck(!reportCheck);
-  }, [reportCheck]);
+    return setReportCheck(!reportCheck);
+  }, [reportCheck, dispatch, id]);
 
   useEffect(() => {
     if (post.blinded) {
@@ -74,20 +77,22 @@ const PostSection = ({ post, detailed, squareKind }) => {
   const onRemovePost = () => {
     if (post.User.id !== id) return;
     if (!id) {
-      return dispatch(
+      dispatch(
         openNotice({
           content: '로그인이 필요합니다.',
           type: 2,
         }),
       );
+      return;
     }
     if (post.blinded) {
-      return dispatch(
+      dispatch(
         openNotice({
           content: '이미 블라인드 된 포스트입니다.',
           type: 2,
         }),
       );
+      return;
     }
 
     setBlindCheck(false);
@@ -115,12 +120,13 @@ const PostSection = ({ post, detailed, squareKind }) => {
   const onRevertPost = () => {
     if (post.User.id !== id) return;
     if (!id) {
-      return dispatch(
+      dispatch(
         openNotice({
           content: '로그인이 필요합니다.',
           type: 2,
         }),
       );
+      return;
     }
 
     dispatch(revertPost(post.id));
@@ -163,8 +169,11 @@ const PostSection = ({ post, detailed, squareKind }) => {
         }),
       );
     }
-    dispatch(prodPost({ postId: post.id, postUserId: post.User.id }));
-  }, [id, post.blinded]);
+    if (post.User.id) {
+      dispatch(prodPost({ postId: post.id, postUserId: post.User.id }));
+    }
+    return null;
+  }, [id, dispatch, post.User.id, post.blinded, post.id]);
   const onUnprodPost = useCallback(() => {
     if (!id) {
       return dispatch(
@@ -174,9 +183,11 @@ const PostSection = ({ post, detailed, squareKind }) => {
         }),
       );
     }
-
-    dispatch(unprodPost({ postId: post.id, postUserId: post.User.id }));
-  }, [id]);
+    if (post.User.id) {
+      dispatch(unprodPost({ postId: post.id, postUserId: post.User.id }));
+    }
+    return null;
+  }, [id, dispatch, post.User.id, post.id]);
   const onUnblindPost = useCallback(() => {
     if (!id) {
       return dispatch(
@@ -186,7 +197,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
         }),
       );
     }
-    if (me.rank === 0 && post.User.id !== me.id) {
+    if (me?.rank === 0 && post.User.id !== me.id) {
       return dispatch(
         openNotice({
           content: 'Rank 6 사용자부터 확인할 수 있습니다.',
@@ -195,8 +206,8 @@ const PostSection = ({ post, detailed, squareKind }) => {
       );
     }
 
-    setBlindPost(false);
-  }, [id]);
+    return setBlindPost(false);
+  }, [id, dispatch, me?.id, me?.rank, post.User.id]);
 
   const isTracing = me?.Tracings?.find((v) => v.id === post.User.id);
   const onToggleTrace = () => {
@@ -208,23 +219,26 @@ const PostSection = ({ post, detailed, squareKind }) => {
         }),
       );
     }
-    if (isTracing) {
-      dispatch(untrace(post.User.id));
-      dispatch(
-        openNotice({
-          content: `${post.User.username}님을 트레이스 리스트에서 제거합니다.`,
-          type: 1,
-        }),
-      );
-    } else {
-      dispatch(trace(post.User.id));
-      dispatch(
-        openNotice({
-          content: `${post.User.username}님을 트레이스 리스트에 등록합니다.`,
-          type: 1,
-        }),
-      );
+    if (post.User.id) {
+      if (isTracing) {
+        dispatch(untrace(post.User.id));
+        dispatch(
+          openNotice({
+            content: `${post.User.username}님을 트레이스 리스트에서 제거합니다.`,
+            type: 1,
+          }),
+        );
+      } else {
+        dispatch(trace(post.User.id));
+        dispatch(
+          openNotice({
+            content: `${post.User.username}님을 트레이스 리스트에 등록합니다.`,
+            type: 1,
+          }),
+        );
+      }
     }
+    return null;
   };
 
   const onTogglePostEditMode = useCallback(() => {
@@ -244,12 +258,12 @@ const PostSection = ({ post, detailed, squareKind }) => {
         }),
       );
     }
+    //  if (onTogglePostEditMode)
+    dispatch(cancelAllPostImages());
 
-    if (onTogglePostEditMode) {
-      dispatch(cancelAllPostImages());
-    }
     setPostEditMode(!postEditMode);
-  }, [post.blinded, post.reverted, postEditMode]);
+    return null;
+  }, [post.blinded, post.reverted, postEditMode, dispatch]);
 
   return (
     <>
@@ -258,6 +272,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
         <PostForm
           postEditMode={postEditMode}
           onTogglePostEditMode={onTogglePostEditMode}
+          onTogglePostForm={() => null}
           squareKind={squareKind}
           post={post}
           prevPostClass={post.class}
@@ -286,12 +301,14 @@ const PostSection = ({ post, detailed, squareKind }) => {
             )}
             <div className='mt-2 flex gap-2'>
               <button
+                type='button'
                 onClick={onRemovePost}
                 className='py-1.5 px-3 bg-slate-500 rounded-md text-xs text-white font-semibold hover:bg-slate-500'
               >
                 삭제 확인
               </button>
               <button
+                type='button'
                 onClick={onToggleCheckRemovePost}
                 className='py-1.5 px-3 bg-slate-500 rounded-md text-xs text-white font-semibold hover:bg-slate-500'
               >
@@ -304,6 +321,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
           <div className='flex backdrop-saturate-0 gap-2 bg-slate-400/20 justify-center items-center flex-col absolute inset-0 w-full h-full  backdrop-blur-md z-10'>
             <span className='text-sm text-slate-400'>작성자에 의해 삭제되었습니다</span>
             <button
+              type='button'
               onClick={onUnblindPost}
               className='py-1.5 px-2 bg-slate-400 rounded-md text-xs text-white font-semibold hover:bg-slate-500'
             >
@@ -330,7 +348,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
                     viewBox='0 0 20 20'
                     xmlns='http://www.w3.org/2000/svg'
                   >
-                    <path d='M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z'></path>
+                    <path d='M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z' />
                   </svg>
                 </Menu.Button>
               </div>
@@ -351,6 +369,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
                         <Menu.Item>
                           {({ active }) => (
                             <button
+                              type='button'
                               onClick={onTogglePostEditMode}
                               className={classNames(
                                 active ? 'bg-slate-100 text-slate-600' : 'text-slate-600',
@@ -364,8 +383,9 @@ const PostSection = ({ post, detailed, squareKind }) => {
                         <Menu.Item>
                           {({ active }) => (
                             <button
+                              type='button'
                               onClick={
-                                post.blinded
+                                post.blinded // eslint-disable-line no-nested-ternary
                                   ? onRevertPost
                                   : post.reverted
                                   ? onRemovePost
@@ -376,7 +396,9 @@ const PostSection = ({ post, detailed, squareKind }) => {
                                 'block px-4 py-2 text-sm text-left w-full',
                               )}
                             >
-                              {post.blinded ? '복원' : post.reverted ? '삭제' : '삭제'}
+                              {
+                                post.blinded ? '복원' : post.reverted ? '삭제' : '삭제' // eslint-disable-line no-nested-ternary
+                              }
                             </button>
                           )}
                         </Menu.Item>
@@ -385,6 +407,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
                     <Menu.Item>
                       {({ active }) => (
                         <button
+                          type='button'
                           onClick={onToggleCheckReport}
                           className={classNames(
                             active ? 'bg-slate-100 text-slate-600' : 'text-slate-600',
@@ -403,7 +426,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
               {dayjs(post.updatedAt).format('YY.MM.DD | H:mm:ss')}
               {post.edited && ' (수정됨)'}
             </small>
-            <Link href={!detailed ? `/post/${post.id}` : '#'}>
+            <Link href={`/post/${post.id}`}>
               <h5
                 className={`${
                   detailed ? '' : 'line-clamp-2'
@@ -419,47 +442,23 @@ const PostSection = ({ post, detailed, squareKind }) => {
           <div className='mb-3 flex items-center'>
             <Link href={`/profile/${post.User.username}`}>
               <img
+                alt=''
                 src={
                   process.env.NODE_ENV === 'production'
                     ? `${post.User.avatar}`
                     : `${backUrl}/${post.User.avatar}`
                 }
-                className={`${
-                  post.User.class === 'fedev'
-                    ? 'border-amber-400'
-                    : post.User.class === 'bedev'
-                    ? 'border-emerald-400'
-                    : post.User.class === 'design'
-                    ? 'border-red-400'
-                    : post.User.class === 'plan'
-                    ? 'border-sky-300'
-                    : 'border-slate-400'
-                } cursor-pointer h-[45px] w-[45px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
+                className={`border-${getUserClassColor(
+                  post.User.class,
+                )} cursor-pointer h-[45px] w-[45px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
               />
             </Link>
             <div className='ml-2 w-full flex flex-col'>
               <Link href={`/profile/${post.User.username}`}>
                 <h1 className='cursor-pointer text-sm font-bold flex items-center'>
                   {post.User.username}
-                  <div
-                    className={`${
-                      post.User.class === 'fedev'
-                        ? 'text-amber-400'
-                        : post.User.class === 'bedev'
-                        ? 'text-emerald-400'
-                        : post.User.class === 'design'
-                        ? 'text-red-400'
-                        : post.User.class === 'plan'
-                        ? 'text-sky-300'
-                        : 'text-slate-400'
-                    } flex gap-0.5 text-xs`}
-                  >
-                    {post.User.rank === 6 ? (
-                      <FaceSmileIcon className='w-4 ml-0.5 ' aria-hidden='true' />
-                    ) : post.User.rank === 0 ? null : (
-                      <ShieldCheckIcon className={`w-4 ml-0.5 flex-shrink-0 `} aria-hidden='true' />
-                    )}
-                    {post.User.rank}
+                  <div className={`text-${getUserClassColor(post.User.class)} flex gap-0.5 text-xs`}>
+                    <GetUserRankIcon userRank={post.User.rank} />
                   </div>
                 </h1>
               </Link>
@@ -469,13 +468,13 @@ const PostSection = ({ post, detailed, squareKind }) => {
 
           <p
             className={`${
-              !detailed ? (post.PostImages[0] ? ' line-clamp-4 mb-3' : ' line-clamp-[12] ') : ''
+              !detailed ? (post.PostImages[0] ? ' line-clamp-4 mb-3' : ' line-clamp-[12] ') : '' // eslint-disable-line no-nested-ternary
             }  h-full text-sm break-words  font-normal text-slate-600`}
           >
             {post.content.split(/(#[^\s#]+)/g).map((v, i) => {
               if (v.match(/(#[^\s#]+)/)) {
                 return (
-                  <Link href={`/hashtag/${v.slice(1)}`} prefetch={false} key={i}>
+                  <Link href={`/hashtag/${v.slice(1)}`} prefetch={false} key={v}>
                     <span className='text-indigo-500 cursor-pointer font-medium hover:text-indigo-600'>
                       {v}
                     </span>
@@ -487,15 +486,20 @@ const PostSection = ({ post, detailed, squareKind }) => {
           </p>
 
           {!detailed && (
-            <div className={`flex justify-between items-center left-2.5 absolute bottom-2.5 text-sm`}>
+            <div className='flex justify-between items-center left-2.5 absolute bottom-2.5 text-sm'>
               <div className='flex px-2.5  gap-2'>
                 {isProdded ? (
-                  <button onClick={onUnprodPost} className='flex items-center gap-0.5 hover:text-indigo-500'>
+                  <button
+                    type='button'
+                    onClick={onUnprodPost}
+                    className='flex items-center gap-0.5 hover:text-indigo-500'
+                  >
                     <BoltIcon className='w-5 text-indigo-500' />
                     <span className='text-indigo-500'>{post.PostProdders.length}</span>
                   </button>
                 ) : (
                   <button
+                    type='button'
                     onClick={onProdPost}
                     className='flex hover:scale-105 items-center gap-0.5 hover:text-indigo-500'
                   >
@@ -505,6 +509,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
                 )}
 
                 <button
+                  type='button'
                   onClick={onToggleCommentArea}
                   className='flex hover:scale-105 items-center gap-0.5 hover:text-indigo-500'
                 >
@@ -514,19 +519,11 @@ const PostSection = ({ post, detailed, squareKind }) => {
 
                 {post.User.id !== me?.id ? (
                   <button
+                    type='button'
                     onClick={onToggleTrace}
                     className='flex items-center gap-0.5 hover:text-indigo-500 hover:scale-105'
                   >
-                    {isTracing ? (
-                      <>
-                        <UserMinusIcon className='w-5 ' />
-                      </>
-                    ) : (
-                      <>
-                        {' '}
-                        <UserPlusIcon className='w-5 ' />
-                      </>
-                    )}
+                    {isTracing ? <UserMinusIcon className='w-5 ' /> : <UserPlusIcon className='w-5 ' />}
                   </button>
                 ) : null}
               </div>
@@ -546,7 +543,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
 
         {!detailed && (
           <Link href={`/post/${post.id}`}>
-            <button className='absolute hover:text-indigo-500 bottom-2.5 right-6'>
+            <button type='button' className='absolute hover:text-indigo-500 bottom-2.5 right-6'>
               <ArrowsPointingOutIcon className='w-5 hover:scale-105' />
             </button>
           </Link>
@@ -562,12 +559,17 @@ const PostSection = ({ post, detailed, squareKind }) => {
             >
               <div className='flex px-2.5  gap-2'>
                 {isProdded ? (
-                  <button onClick={onUnprodPost} className='flex items-center gap-1 hover:text-indigo-500'>
+                  <button
+                    type='button'
+                    onClick={onUnprodPost}
+                    className='flex items-center gap-1 hover:text-indigo-500'
+                  >
                     <BoltIcon className='w-5 text-indigo-500' />
                     <span className='text-indigo-500'>{post.PostProdders.length}</span>
                   </button>
                 ) : (
                   <button
+                    type='button'
                     onClick={onProdPost}
                     className='flex hover:scale-105 items-center gap-1 hover:text-indigo-500'
                   >
@@ -578,6 +580,7 @@ const PostSection = ({ post, detailed, squareKind }) => {
 
                 {post.User.id !== me?.id ? (
                   <button
+                    type='button'
                     onClick={onToggleTrace}
                     className='flex items-center gap-1 hover:text-indigo-500 hover:scale-105'
                   >
@@ -612,9 +615,4 @@ const PostSection = ({ post, detailed, squareKind }) => {
   );
 };
 
-PostSection.propTypes = {
-  post: PropTypes.object.isRequired,
-  detailed: PropTypes.bool.isRequired,
-  squareKind: PropTypes.string.isRequired,
-};
 export default PostSection;

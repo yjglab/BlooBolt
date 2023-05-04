@@ -1,4 +1,5 @@
 import Post from './post';
+import UserReport from './userReport';
 
 export default interface User {
   id: number;
@@ -25,4 +26,5 @@ export default interface User {
   Posts: Post[];
   Tracings: Partial<User>[];
   Tracers: Partial<User>[];
+  UserReports: UserReport[];
 }

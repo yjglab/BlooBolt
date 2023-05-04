@@ -160,15 +160,11 @@ const LoginForm: FC = () => {
             <div>
               <div>
                 <div className='h-6 flex justify-center text-orange-400 text-xs ' role='alert'>
-                  {errors.email ? ( // eslint-disable-line no-nested-ternary
-                    <>errors.email.message</>
-                  ) : errors.password ? ( // eslint-disable-line no-nested-ternary
-                    <>errors.password.message</>
-                  ) : logInError ? (
-                    <>logInError</>
-                  ) : (
-                    ''
-                  )}
+                  {errors.email // eslint-disable-line no-nested-ternary
+                    ? errors.email.message
+                    : errors.password // eslint-disable-line no-nested-ternary
+                    ? errors.password.message
+                    : logInError}
                 </div>
                 <button
                   type='submit'
