@@ -1,21 +1,31 @@
-import React, { useCallback, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-
-import { changeMyPublicInfo } from '../reducers/user';
+import React, { FC, useCallback, useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import getUserClass from '../functions/getUserClass';
 import { openNotice } from '../reducers/global';
+import { changeMyPublicInfo } from '../reducers/user';
+import { useAppDispatch, useAppSelector } from '../store/configureStore';
+import User from '../typings/user';
 
-const UserPublicInfo = ({ me }) => {
-  const dispatch = useDispatch();
-  const { changeMyPublicInfoDone, changeMyPublicInfoError } = useSelector((state) => state.user);
+interface UserPublicInfoProps {
+  me: User;
+}
+const UserPublicInfo: FC<UserPublicInfoProps> = ({ me }) => {
+  const dispatch = useAppDispatch();
+  const { changeMyPublicInfoDone, changeMyPublicInfoError } = useAppSelector((state) => state.user);
+  interface EditPublicInfoValues {
+    username: string;
+    role: string;
+    country: string;
+    website: string;
+    about: string;
+  }
   const {
     register,
     handleSubmit,
     setValue,
     setError,
     formState: { isSubmitting, errors },
-  } = useForm({
+  } = useForm<EditPublicInfoValues>({
     mode: 'onSubmit',
   });
 
@@ -25,11 +35,11 @@ const UserPublicInfo = ({ me }) => {
     setValue('country', `${me.country}`);
     setValue('website', `${me.website}`);
     setValue('about', `${me.about}`);
-  }, [me.username, me.role, me.website, me.about]);
+  }, [me.username, me.role, me.website, me.about, me.country, setValue]);
 
-  const onEditPublicInfo = (formData) => {
+  const onEditPublicInfo: SubmitHandler<EditPublicInfoValues> = (formData) => {
     const { username, role, country, website, about } = formData;
-    const slCheck = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/g;
+    const slCheck = /[{}[\]/?.,;:|)*~`!^\-+<>@#$%&\\=('"]/g;
     if (username.search(/\s/) !== -1 || slCheck.test(username)) {
       return setError('username', {
         message: '사용자명에 공백 또는 특수문자가 들어갈 수 없습니다.',
@@ -52,6 +62,7 @@ const UserPublicInfo = ({ me }) => {
         type: 1,
       }),
     );
+    return null;
   };
 
   return (
@@ -74,7 +85,6 @@ const UserPublicInfo = ({ me }) => {
                   <input
                     id='username'
                     type='text'
-                    name='username'
                     placeholder='James'
                     className='placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
                     {...register('username', {
@@ -98,18 +108,8 @@ const UserPublicInfo = ({ me }) => {
                     id='userClass'
                     type='text'
                     name='userClass'
-                    disabled={true}
-                    placeholder={
-                      me.class === 'fedev'
-                        ? 'Frontend Developer'
-                        : me.class === 'bedev'
-                        ? 'Backend Developer'
-                        : me.class === 'design'
-                        ? 'Designer'
-                        : me.class === 'plan'
-                        ? 'Service Planner'
-                        : 'Normal'
-                    }
+                    disabled
+                    placeholder={getUserClass(me.class)}
                     className='cursor-not-allowed placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
                   />
                 </div>
@@ -119,7 +119,6 @@ const UserPublicInfo = ({ me }) => {
                   </label>
                   <input
                     type='text'
-                    name='role'
                     id='role'
                     placeholder='서버 개발'
                     className='placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
@@ -137,12 +136,10 @@ const UserPublicInfo = ({ me }) => {
                   </label>
                   <select
                     id='country'
-                    name='country'
                     className='mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
                     {...register('country', {})}
                   >
                     <option>Korea</option>
-
                     <option>Australia</option>
                     <option>Austria</option>
                     <option>Belgium</option>
@@ -193,7 +190,6 @@ const UserPublicInfo = ({ me }) => {
                       </span>
                       <input
                         type='text'
-                        name='website'
                         id='website'
                         placeholder='www.mywebsite.com'
                         className='block placeholder:text-slate-300 w-full flex-1 rounded-none rounded-r-md border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
@@ -215,8 +211,7 @@ const UserPublicInfo = ({ me }) => {
                   <div className='mt-1'>
                     <textarea
                       id='about'
-                      name='about'
-                      rows='3'
+                      rows={3}
                       className='mt-1 placeholder:text-slate-300 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
                       placeholder='안녕하세요.'
                       {...register('about', {
@@ -225,27 +220,23 @@ const UserPublicInfo = ({ me }) => {
                           message: '50자 이하의 소개문을 입력해주세요',
                         },
                       })}
-                    ></textarea>
+                    />
                   </div>
                 </div>
               </div>
               <div className='flex justify-between items-center bg-slate-50 px-4 py-3 text-right sm:px-6'>
                 <div className=' flex text-orange-400 text-xs ' role='alert'>
-                  {errors.username ? (
-                    <>{errors.username.message}</>
-                  ) : errors.role ? (
-                    <>{errors.role.message}</>
-                  ) : errors.country ? (
-                    <>{errors.country.message}</>
-                  ) : errors.website ? (
-                    <>{errors.website.message}</>
-                  ) : errors.about ? (
-                    <>{errors.about.message}</>
-                  ) : changeMyPublicInfoError ? (
-                    <>{changeMyPublicInfoError}</>
-                  ) : (
-                    ''
-                  )}
+                  {errors.username // eslint-disable-line no-nested-ternary
+                    ? errors.username.message
+                    : errors.role // eslint-disable-line no-nested-ternary
+                    ? errors.role.message
+                    : errors.country // eslint-disable-line no-nested-ternary
+                    ? errors.country.message
+                    : errors.website // eslint-disable-line no-nested-ternary
+                    ? errors.website.message
+                    : errors.about
+                    ? errors.about.message
+                    : changeMyPublicInfoError}
                 </div>
                 <button
                   type='submit'
@@ -261,10 +252,6 @@ const UserPublicInfo = ({ me }) => {
       </div>
     </div>
   );
-};
-
-UserPublicInfo.propTypes = {
-  me: PropTypes.object.isRequired,
 };
 
 export default UserPublicInfo;

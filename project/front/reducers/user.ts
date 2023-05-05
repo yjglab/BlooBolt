@@ -223,18 +223,21 @@ export const logOut = createAsyncThunk('user/logOut', async (info, thunkAPI) => 
     throw error;
   }
 });
-export const uploadUserAvatar = createAsyncThunk('user/uploadUserAvatar', async (info, thunkAPI) => {
-  try {
-    const { data } = await axios.post(`/user/avatar`, info);
-    return data;
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      console.error(error.response.data);
-      return thunkAPI.rejectWithValue(error.response.data);
+export const uploadUserAvatar = createAsyncThunk(
+  'user/uploadUserAvatar',
+  async (info: FormData, thunkAPI) => {
+    try {
+      const { data } = await axios.post(`/user/avatar`, info);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
     }
-    throw error;
-  }
-});
+  },
+);
 interface ChangeMyInfo extends Partial<User> {
   userId: number;
 }

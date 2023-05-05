@@ -3,6 +3,7 @@ import { ArrowUpCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import React, { FC, useCallback, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { backUrl } from '../config/config';
+import getUserClass from '../functions/getUserClass';
 import { openNotice } from '../reducers/global';
 import {
   cancelPostImage,
@@ -15,20 +16,6 @@ import { useAppDispatch, useAppSelector } from '../store/configureStore';
 import Post from '../typings/post';
 import PostImage from '../typings/postImage';
 
-const getUserClass = (cls: string) => {
-  switch (cls) {
-    case 'fedev':
-      return '프론트엔드';
-    case 'bedev':
-      return '백엔드';
-    case 'design':
-      return '디자인';
-    case 'plan':
-      return '기획';
-    default:
-      return null;
-  }
-};
 interface PostFormProps {
   onTogglePostForm: () => void;
   onTogglePostEditMode: () => void;

@@ -20,8 +20,8 @@ const PostImages: FC<PostImagesProps> = ({ postImages }) => {
     return (
       <>
         <img
-          alt={postImages[0].src}
           onClick={onOpenCarousel}
+          alt={postImages[0].src}
           className='object-cover w-full cursor-pointer'
           src={
             process.env.NODE_ENV === 'production' ? `${postImages[0].src}` : `${backUrl}/${postImages[0].src}`

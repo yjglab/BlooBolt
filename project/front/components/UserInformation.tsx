@@ -1,29 +1,29 @@
-import React, { useCallback } from "react";
-import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
-import UserPersonalInfo from "./UserPersonalInfo";
-import UserPublicInfo from "./UserPublicInfo";
+import React, { FC } from 'react';
+import UserPersonalInfo from './UserPersonalInfo';
+import UserPublicInfo from './UserPublicInfo';
+import { useAppSelector } from '../store/configureStore';
 
-const UserInformation = () => {
-  const { me } = useSelector((state) => state.user);
+const UserInformation: FC = () => {
+  const { me } = useAppSelector((state) => state.user);
+  if (!me) return null;
 
   return (
-    <div className="sm:w-[50%] xl:w-8/12 px-3">
-      <div className="text-2xl font-semibold">내 정보</div>
-      <div className="w-full  py-6 sm:px-0">
+    <div className='sm:w-[50%] xl:w-8/12 px-3'>
+      <div className='text-2xl font-semibold'>내 정보</div>
+      <div className='w-full  py-6 sm:px-0'>
         <UserPublicInfo me={me} />
 
-        <div className="hidden sm:block" aria-hidden="true">
-          <div className="py-5">
-            <div className="border-t border-slate-200"></div>
+        <div className='hidden sm:block' aria-hidden='true'>
+          <div className='py-5'>
+            <div className='border-t border-slate-200' />
           </div>
         </div>
 
         <UserPersonalInfo me={me} />
 
-        <div className="hidden sm:block" aria-hidden="true">
-          <div className="py-5">
-            <div className="border-t border-slate-200"></div>
+        <div className='hidden sm:block' aria-hidden='true'>
+          <div className='py-5'>
+            <div className='border-t border-slate-200' />
           </div>
         </div>
         {/* 

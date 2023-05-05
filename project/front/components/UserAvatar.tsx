@@ -1,18 +1,21 @@
-import React, { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
 import { CameraIcon } from '@heroicons/react/20/solid';
-import { uploadUserAvatar } from '../reducers/user';
-import { openNotice } from '../reducers/global';
+import React, { FC } from 'react';
+import { useForm } from 'react-hook-form';
 import { backUrl } from '../config/config';
-import PropTypes from 'prop-types';
+import { openNotice } from '../reducers/global';
+import { uploadUserAvatar } from '../reducers/user';
+import { useAppDispatch } from '../store/configureStore';
 
-const UserAvatar = ({ avatarPath, owner }) => {
-  const dispatch = useDispatch();
+interface UserAvatarProps {
+  avatarPath: string;
+  owner: boolean;
+}
+const UserAvatar: FC<UserAvatarProps> = ({ avatarPath, owner }) => {
+  const dispatch = useAppDispatch();
   const {
     register,
     watch,
-    formState: {},
+    // formState: {},
   } = useForm();
 
   const onUploadUserAvatar = () => {
@@ -26,9 +29,8 @@ const UserAvatar = ({ avatarPath, owner }) => {
           type: 2,
         }),
       );
-    } else {
-      userAvatarFormData.append('userAvatar', userAvatarImage[0]);
     }
+    userAvatarFormData.append('userAvatar', userAvatarImage[0]);
 
     dispatch(uploadUserAvatar(userAvatarFormData));
     dispatch(
@@ -37,6 +39,7 @@ const UserAvatar = ({ avatarPath, owner }) => {
         type: 1,
       }),
     );
+    return null;
   };
 
   return (
@@ -48,10 +51,9 @@ const UserAvatar = ({ avatarPath, owner }) => {
             htmlFor='userAvatar'
             className='cursor-pointer w-full h-full opacity-40 hover:opacity-60 absolute bottom-0'
           >
-            <div className='w-full h-7 bg-slate-900 absolute bottom-0'></div>
+            <div className='w-full h-7 bg-slate-900 absolute bottom-0' />
           </label>
           <input
-            name='userAvatar'
             id='userAvatar'
             type='file'
             accept='image/*'
@@ -63,16 +65,12 @@ const UserAvatar = ({ avatarPath, owner }) => {
         </>
       )}
       <img
+        alt=''
         src={process.env.NODE_ENV === 'production' ? `${avatarPath}` : `${backUrl}/${avatarPath}`}
         className='aspect-square object-cover'
       />
     </div>
   );
-};
-
-UserAvatar.propTypes = {
-  user: PropTypes.object,
-  owner: PropTypes.bool.isRequired,
 };
 
 export default UserAvatar;

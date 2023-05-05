@@ -1,33 +1,33 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import { Tab } from '@headlessui/react';
-import {
-  BoltIcon,
-  ChatBubbleOvalLeftEllipsisIcon,
-  ChatBubbleOvalLeftIcon,
-  FaceFrownIcon,
-  FaceSmileIcon,
-  ShieldCheckIcon,
-  UserMinusIcon,
-} from '@heroicons/react/20/solid';
+import { BoltIcon, ChatBubbleOvalLeftIcon, FaceFrownIcon, UserMinusIcon } from '@heroicons/react/20/solid';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
-import { untrace } from '../reducers/user';
-import { openNotice } from '../reducers/global';
 import Link from 'next/link';
+import React, { FC } from 'react';
+import GetUserRankIcon from './GetUserRankIcon';
 import { backUrl } from '../config/config';
+import getUserClassColor from '../functions/getUserClassColor';
+import { openNotice } from '../reducers/global';
+import { untrace } from '../reducers/user';
+import { useAppDispatch } from '../store/configureStore';
+import User from '../typings/user';
+
 dayjs.locale('ko');
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-const UserActivity = ({ owner, me, user }) => {
-  const dispatch = useDispatch();
+interface UserActivityProps {
+  owner: boolean;
+  me: User;
+  user: Partial<User>;
+}
+const UserActivity: FC<UserActivityProps> = ({ owner, me, user }) => {
+  const dispatch = useAppDispatch();
 
-  const onUntrace = (tracing) => () => {
-    dispatch(untrace(tracing.id));
+  const onUntrace = (tracing: Partial<User>) => () => {
+    if (tracing.id) dispatch(untrace(tracing.id));
     dispatch(
       openNotice({
         content: `${tracing.username}님을 트레이스 리스트에서 제거합니다.`,
@@ -51,7 +51,7 @@ const UserActivity = ({ owner, me, user }) => {
                 )
               }
             >
-              {`포스트 (${user.Posts.length})`}
+              {`포스트 (${user.Posts && user.Posts.length})`}
             </Tab>
 
             <Tab
@@ -62,7 +62,7 @@ const UserActivity = ({ owner, me, user }) => {
                 )
               }
             >
-              {`트레이서 (${user.Tracers.length})`}
+              {`트레이서 (${user.Tracers && user.Tracers.length})`}
             </Tab>
 
             <Tab
@@ -73,7 +73,7 @@ const UserActivity = ({ owner, me, user }) => {
                 )
               }
             >
-              {`트레이싱 (${(owner ? me.Tracings : user.Tracings).length})`}
+              {`트레이싱 (${user.Tracings && user.Tracings.length})`}
             </Tab>
           </Tab.List>
           <Tab.Panels className='mt-2 rounded-md shadow'>
@@ -84,16 +84,17 @@ const UserActivity = ({ owner, me, user }) => {
               )}
             >
               <ul>
-                {user.Posts.length === 0 ? (
+                {user.Posts && user.Posts.length === 0 ? (
                   <div className='rounded-md text-sm text-slate-300 p-3 h-20 flex justify-center items-center hover:bg-slate-100'>
                     <span>포스트가 없습니다. 새로운 포스트를 만들어보세요</span>
                     <FaceFrownIcon className='w-4 ml-1' />
                   </div>
                 ) : (
+                  user.Posts &&
                   user.Posts.map((post) => (
                     <li
                       key={post.id}
-                      className={`border-b my-2 relative  p-3 hover:rounded-md hover:bg-slate-100`}
+                      className='border-b my-2 relative  p-3 hover:rounded-md hover:bg-slate-100'
                     >
                       <h3
                         className={`truncate line-clamp-1 ${
@@ -119,7 +120,7 @@ const UserActivity = ({ owner, me, user }) => {
                       </ul>
 
                       <Link href={`/post/${post.id}`}>
-                        <a
+                        <span
                           className={classNames(
                             'absolute inset-0 rounded-md ',
                             'ring-indigo-500 focus:z-10 focus:outline-none focus:ring-2',
@@ -139,12 +140,13 @@ const UserActivity = ({ owner, me, user }) => {
               )}
             >
               <ul>
-                {user.Tracers.length === 0 ? (
+                {user.Tracers && user.Tracers.length === 0 ? (
                   <div className='rounded-md text-sm text-slate-300 p-3 h-20 flex justify-center items-center hover:bg-slate-100'>
                     <span>트레이스하는 사용자가 없습니다</span>
                     <FaceFrownIcon className='w-4 ml-1' />
                   </div>
                 ) : (
+                  user.Tracers &&
                   user.Tracers.map((tracer) => (
                     <li
                       key={tracer.id}
@@ -153,22 +155,15 @@ const UserActivity = ({ owner, me, user }) => {
                       <div className=' flex items-center'>
                         <Link href={`/profile/${tracer.username}`}>
                           <img
+                            alt=''
                             src={
                               process.env.NODE_ENV === 'production'
                                 ? `${tracer.avatar}`
                                 : `${backUrl}/${tracer.avatar}`
                             }
-                            className={`${
-                              tracer.class === 'fedev'
-                                ? 'border-amber-400'
-                                : tracer.class === 'bedev'
-                                ? 'border-emerald-400'
-                                : tracer.class === 'design'
-                                ? 'border-red-400'
-                                : tracer.class === 'plan'
-                                ? 'border-sky-300'
-                                : 'border-slate-400'
-                            } h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
+                            className={`border-${getUserClassColor(
+                              tracer.class,
+                            )} h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
                           />
                         </Link>
 
@@ -176,28 +171,8 @@ const UserActivity = ({ owner, me, user }) => {
                           <Link href={`/profile/${tracer.username}`}>
                             <h1 className='cursor-pointer text-md font-bold flex items-center'>
                               {tracer.username}
-                              <div
-                                className={`${
-                                  tracer.class === 'fedev'
-                                    ? 'text-amber-400'
-                                    : tracer.class === 'bedev'
-                                    ? 'text-emerald-400'
-                                    : tracer.class === 'design'
-                                    ? 'text-red-400'
-                                    : tracer.class === 'plan'
-                                    ? 'text-sky-300'
-                                    : 'text-slate-400'
-                                } flex gap-0.5 text-xs`}
-                              >
-                                {tracer.rank === 6 ? (
-                                  <FaceSmileIcon className='w-4 ml-0.5 ' aria-hidden='true' />
-                                ) : tracer.rank === 0 ? null : (
-                                  <ShieldCheckIcon
-                                    className={`w-4 ml-0.5 flex-shrink-0 `}
-                                    aria-hidden='true'
-                                  />
-                                )}
-                                {tracer.rank}
+                              <div className={`text-${getUserClassColor(tracer.class)} flex gap-0.5 text-xs`}>
+                                <GetUserRankIcon userRank={tracer.rank} />
                               </div>
                             </h1>
                           </Link>
@@ -223,33 +198,27 @@ const UserActivity = ({ owner, me, user }) => {
               )}
             >
               <ul>
-                {(owner ? me.Tracings : user.Tracings).length === 0 ? (
+                {user.Tracings && user.Tracings.length === 0 ? (
                   <div className='rounded-md text-sm text-slate-300 p-3 h-20 flex justify-center items-center hover:bg-slate-100'>
                     <span>나를 트레이스하는 사용자가 없습니다</span>
                     <FaceFrownIcon className='w-4 ml-1' />
                   </div>
                 ) : (
-                  (owner ? me.Tracings : user.Tracings).map((tracing) => (
+                  user.Tracings &&
+                  user.Tracings.map((tracing) => (
                     <li key={tracing.id} className='border-b my-2 hover:rounded-md p-3  hover:bg-slate-100'>
                       <div className='cursor-pointer flex items-center'>
                         <Link href={`/profile/${tracing.username}`}>
                           <img
+                            alt=''
                             src={
                               process.env.NODE_ENV === 'production'
                                 ? `${tracing.avatar}`
                                 : `${backUrl}/${tracing.avatar}`
                             }
-                            className={`${
-                              tracing.class === 'fedev'
-                                ? 'border-amber-400'
-                                : tracing.class === 'bedev'
-                                ? 'border-emerald-400'
-                                : tracing.class === 'design'
-                                ? 'border-red-400'
-                                : tracing.class === 'plan'
-                                ? 'border-sky-300'
-                                : 'border-slate-400'
-                            } h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
+                            className={`border-${getUserClassColor(
+                              tracing.class,
+                            )} h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
                           />
                         </Link>
                         <div className='ml-2 w-full flex flex-col'>
@@ -258,27 +227,9 @@ const UserActivity = ({ owner, me, user }) => {
                               <h1 className='text-md font-bold flex items-center'>
                                 {tracing.username}
                                 <div
-                                  className={`${
-                                    tracing.class === 'fedev'
-                                      ? 'text-amber-400'
-                                      : tracing.class === 'bedev'
-                                      ? 'text-emerald-400'
-                                      : tracing.class === 'design'
-                                      ? 'text-red-400'
-                                      : tracing.class === 'plan'
-                                      ? 'text-sky-300'
-                                      : 'text-slate-400'
-                                  } flex gap-0.5 text-xs`}
+                                  className={`text-${getUserClassColor(tracing.class)} flex gap-0.5 text-xs`}
                                 >
-                                  {tracing.rank === 6 ? (
-                                    <FaceSmileIcon className='w-4 ml-0.5 ' aria-hidden='true' />
-                                  ) : tracing.rank === 0 ? null : (
-                                    <ShieldCheckIcon
-                                      className={`w-4 ml-0.5 flex-shrink-0 `}
-                                      aria-hidden='true'
-                                    />
-                                  )}
-                                  {tracing.rank}
+                                  <GetUserRankIcon userRank={tracing.rank} />
                                 </div>
                               </h1>
                             </Link>
@@ -286,6 +237,7 @@ const UserActivity = ({ owner, me, user }) => {
                             <h1 className='text-sm  flex items-center'>
                               {owner && (
                                 <button
+                                  type='button'
                                   onClick={onUntrace(tracing)}
                                   className='flex items-center gap-1 hover:text-indigo-500'
                                 >
@@ -312,12 +264,6 @@ const UserActivity = ({ owner, me, user }) => {
       </div>
     </div>
   );
-};
-
-UserActivity.propTypes = {
-  owner: PropTypes.bool.isRequired,
-  me: PropTypes.object,
-  user: PropTypes.object.isRequired,
 };
 
 export default UserActivity;

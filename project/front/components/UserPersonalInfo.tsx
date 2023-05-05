@@ -1,21 +1,30 @@
-import React, { useCallback, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-import { changeMyPersonalInfo } from '../reducers/user';
-import { openNotice } from '../reducers/global';
 import { KeyIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
+import React, { FC, useCallback, useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { openNotice } from '../reducers/global';
+import { changeMyPersonalInfo } from '../reducers/user';
+import { useAppDispatch, useAppSelector } from '../store/configureStore';
+import User from '../typings/user';
 
-const UserPersonalInfo = ({ me }) => {
-  const dispatch = useDispatch();
-  const { changeMyPersonalInfoDone, changeMyPersonalInfoError } = useSelector((state) => state.user);
+interface UserPersonalInfoProps {
+  me: User;
+}
+const UserPersonalInfo: FC<UserPersonalInfoProps> = ({ me }) => {
+  const dispatch = useAppDispatch();
+  const { changeMyPersonalInfoDone, changeMyPersonalInfoError } = useAppSelector((state) => state.user);
+
+  interface EditPersonalInfoValues {
+    email: string;
+    realname: string;
+    address: string;
+  }
   const {
     register,
     handleSubmit,
     setValue,
     formState: { isSubmitting, errors },
-  } = useForm({
+  } = useForm<EditPersonalInfoValues>({
     mode: 'onSubmit',
   });
 
@@ -23,9 +32,9 @@ const UserPersonalInfo = ({ me }) => {
     setValue('email', `${me.email}`);
     setValue('realname', `${me.realname}`);
     setValue('address', `${me.address}`);
-  }, [me.email, me.realname, me.address]);
+  }, [me.email, me.realname, me.address, setValue]);
 
-  const onEditPersonalInfo = (formData) => {
+  const onEditPersonalInfo: SubmitHandler<EditPersonalInfoValues> = (formData) => {
     const { realname, address } = formData;
 
     dispatch(
@@ -65,7 +74,7 @@ const UserPersonalInfo = ({ me }) => {
                     name='email'
                     placeholder={me.email}
                     className=' cursor-not-allowed placeholder:text-slate-400 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                    disabled={true}
+                    disabled
                   />
                 </div>
                 <div className='col-span-6 sm:col-span-3'>
@@ -74,7 +83,6 @@ const UserPersonalInfo = ({ me }) => {
                   </label>
                   <input
                     type='text'
-                    name='realname'
                     id='realname'
                     className='placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
                     {...register('realname', {
@@ -91,12 +99,12 @@ const UserPersonalInfo = ({ me }) => {
                   </label>
                   <input
                     type='text'
-                    name='address'
                     id='address'
                     className='placeholder:text-slate-300 mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
                     {...register('address', {
                       maxLength: {
                         value: 50,
+                        message: '',
                       },
                     })}
                   />
@@ -113,15 +121,9 @@ const UserPersonalInfo = ({ me }) => {
               </div>
               <div className='flex justify-between items-center bg-slate-50 px-4 py-3 text-right sm:px-6'>
                 <div className=' flex text-orange-400 text-xs ' role='alert'>
-                  {errors.username ? (
-                    <>{errors.username.message}</>
-                  ) : errors.realname ? (
-                    <>{errors.realname.message}</>
-                  ) : changeMyPersonalInfoError ? (
-                    <>{changeMyPersonalInfoError}</>
-                  ) : (
-                    ''
-                  )}
+                  {errors.realname // eslint-disable-line no-nested-ternary
+                    ? errors.realname.message
+                    : changeMyPersonalInfoError}
                 </div>
                 <button
                   type='submit'
@@ -137,10 +139,6 @@ const UserPersonalInfo = ({ me }) => {
       </div>
     </div>
   );
-};
-
-UserPersonalInfo.propTypes = {
-  me: PropTypes.object.isRequired,
 };
 
 export default UserPersonalInfo;
