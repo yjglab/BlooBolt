@@ -95,7 +95,7 @@ const CommentForm: FC<CommentFormProps> = ({ post, detailed, onToggleCommentArea
           </button>
         )}
         <div className=' text-orange-400  text-xs ' role='alert'>
-          {errors.content && <>errors.content.message</>}
+          {errors.content && errors.content.message}
         </div>
         <button
           type='submit'

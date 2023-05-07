@@ -76,7 +76,7 @@ const PostUserReport: FC<PostUserReportProps> = ({ post, onToggleCheckReport }) 
             },
           })}
         />
-        <small>{errors.reportContent ? <>errors.reportContent.message</> : null}</small>
+        <small>{errors.reportContent ? errors.reportContent.message : null}</small>
         <div className='mt-2 flex gap-2'>
           <button
             type='submit'

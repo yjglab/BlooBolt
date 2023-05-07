@@ -116,15 +116,13 @@ const ChangePassword: FC = () => {
               <div>
                 <div>
                   <div className='h-6 flex justify-center text-orange-400 text-xs ' role='alert'>
-                    {errors.prevPassword && <>errors.prevPassword.message</>}
-                    {errors.nextPassword && <>errors.nextPassword.message</>}
-                    {errors.nextPasswordCheck && <>errors.nextPasswordCheck.message</>}
-                    {changePasswordError && <>changePasswordError</>}
-                    {!errors.prevPassword &&
-                      !errors.nextPassword &&
-                      !errors.nextPasswordCheck &&
-                      !changePasswordError &&
-                      ''}
+                    {errors.prevPassword // eslint-disable-line no-nested-ternary
+                      ? errors.prevPassword.message
+                      : errors.nextPassword // eslint-disable-line no-nested-ternary
+                      ? errors.nextPassword.message
+                      : errors.nextPasswordCheck
+                      ? errors.nextPasswordCheck.message
+                      : changePasswordError}
                   </div>
                   <button
                     type='submit'

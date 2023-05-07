@@ -125,9 +125,11 @@ const SocialSetup: FC = () => {
               <div>
                 <div>
                   <div className='h-6 flex justify-center text-orange-400 text-xs ' role='alert'>
-                    {errors.username && <>errors.username.message</>}
-                    {errors.userClass && <>errors.userClass.message</>}
-                    {socialSetupError && <>socialSetupError</>}
+                    {errors.username // eslint-disable-line no-nested-ternary
+                      ? errors.username.message
+                      : errors.userClass
+                      ? errors.userClass.message
+                      : socialSetupError}
                   </div>
                   <button
                     type='submit'

@@ -103,8 +103,7 @@ const Support: FC = () => {
                 <div>
                   <div>
                     <div className='h-6 flex justify-center text-orange-400 text-xs ' role='alert'>
-                      {errors.email && <>errors.email.message</>}
-                      {findPasswordError && <>findPasswordError</>}
+                      {errors.email ? errors.email.message : findPasswordError}
                     </div>
                     <button
                       type='submit'
