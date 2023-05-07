@@ -11,7 +11,7 @@ const GetUserRankIcon: FC<{ userRank: number | undefined }> = ({ userRank }) => 
     );
   }
   if (userRank === 0) {
-    return <span>{userRank}</span>;
+    return <span> {userRank}</span>;
   }
   return (
     <>

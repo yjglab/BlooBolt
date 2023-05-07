@@ -80,7 +80,8 @@ const Profile: FC = () => {
       <div className='min-h-screen'>
         <div className='pt-20  mb-6  px-6 pb-6 w-full bg-white md:flex md:items-center md:justify-between'>
           <div className='flex justify-center md:block'>
-            <UserAvatar avatarPath={owner ? me?.avatar : user?.avatar} owner={owner} />
+            {/* <UserAvatar avatarPath={owner ? me.avatar : user.avatar} owner={owner} /> */}
+            <UserAvatar avatarPath={user?.avatar || ''} owner={owner} />
           </div>
           <div className='flex items-center flex-col md:flex-1 md:block '>
             <div className='flex flex-col  mb-1 items-center md:items-start'>
@@ -145,7 +146,7 @@ const Profile: FC = () => {
         <div
           className={`${owner ? 'justify-between' : 'justify-center'} w-full flex-col flex sm:flex-row p-6`}
         >
-          <UserActivity owner={owner} me={me} user={user || {}} />
+          {me && <UserActivity owner={owner} me={me} user={user || {}} />}
           {owner && <UserInformation />}
         </div>
       </div>

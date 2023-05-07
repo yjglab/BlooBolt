@@ -41,7 +41,7 @@ const Post: FC = () => {
 
           <div className=' px-0 md:px-4'>
             {/* detailed: true */}
-            <PostSection post={solePost} detailed squareKind={solePost.class} />
+            <PostSection post={solePost} detailed squareKind={solePost.class} onTogglePostForm={() => null} />
           </div>
         </div>
       </div>
