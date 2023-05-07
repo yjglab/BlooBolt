@@ -8,6 +8,7 @@ BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들�
 > Common
 
 <div> 
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
 <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
 <img src="https://img.shields.io/badge/Redux--Toolkit-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
@@ -22,13 +23,13 @@ BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들�
 <img src="https://img.shields.io/badge/AWSLambda-FF9900?style=for-the-badge&logo=AWSLambda&logoColor=white">
 </div>
 
-> Branch: dev-ts
-
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
-
 > Branch: master
 
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
+프로덕션 코드
+
+> Branch: development
+
+테스트 코드
 
 ## 🏛 서비스 소개 / [결과물 바로보기](https://bloobolt.com)
 
