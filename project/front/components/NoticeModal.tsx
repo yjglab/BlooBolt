@@ -1,8 +1,18 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { FC, Fragment, useState } from 'react';
-import getNoticeModalColor from '../functions/getNoticeModalColor';
 import { closeNotice } from '../reducers/global';
 import { useAppDispatch, useAppSelector } from '../store/configureStore';
+
+const getNoticeModalColor = (type: number | null) => {
+  switch (type) {
+    case 1:
+      return ['text-indigo-500', 'Success'];
+    case 2:
+      return ['text-red-600', 'Failed'];
+    default:
+      return ['text-slate-700', 'Notice'];
+  }
+};
 
 const NoticeModal: FC = () => {
   const dispatch = useAppDispatch();

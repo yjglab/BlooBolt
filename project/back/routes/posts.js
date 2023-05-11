@@ -13,11 +13,11 @@ const router = express.Router();
 router.post("/keyword/:word", async (req, res, next) => {
   try {
     const where = {};
-    // if (parseInt(req.query.lastPostId, 10)) {
-    //   where.id = {
-    //     [Op.lt]: parseInt(req.query.lastPostId, 10),
-    //   };
-    // }
+    if (parseInt(req.query.lastPostId, 10)) {
+      where.id = {
+        [Op.lt]: parseInt(req.query.lastPostId, 10),
+      };
+    }
     const word = decodeURIComponent(req.params.word);
     const loadedPosts = await Post.findAll({
       where: {
@@ -40,7 +40,7 @@ router.post("/keyword/:word", async (req, res, next) => {
           },
         ],
       },
-      // limit: 12,
+      limit: 12,
       order: [
         ["createdAt", "DESC"],
         [Comment, "createdAt", "DESC"],

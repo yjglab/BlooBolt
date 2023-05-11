@@ -3,6 +3,13 @@ import {
   ArrowsPointingOutIcon,
   BoltIcon,
   ChatBubbleOvalLeftIcon,
+  DocumentTextIcon,
+  InformationCircleIcon,
+  PaintBrushIcon,
+  PresentationChartBarIcon,
+  QuestionMarkCircleIcon,
+  RectangleGroupIcon,
+  ServerStackIcon,
   UserMinusIcon,
   UserPlusIcon,
 } from '@heroicons/react/20/solid';
@@ -31,6 +38,23 @@ import { useAppDispatch, useAppSelector } from '../store/configureStore';
 import Post from '../typings/post';
 
 dayjs.locale('ko');
+
+const getPostClassIcon = (type: string) => {
+  switch (type) {
+    case 'fedev':
+      return <RectangleGroupIcon className='w-5' />;
+    case 'bedev':
+      return <ServerStackIcon className='w-5' />;
+    case 'design':
+      return <PaintBrushIcon className='w-5' />;
+    case 'plan':
+      return <PresentationChartBarIcon className='w-5' />;
+    case 'question':
+      return <QuestionMarkCircleIcon className='w-5' />;
+    default:
+      return <InformationCircleIcon className='w-5' />;
+  }
+};
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -489,6 +513,10 @@ const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
           {!detailed && (
             <div className='flex justify-between items-center left-2.5 absolute bottom-2.5 text-sm'>
               <div className='flex px-2.5  gap-2'>
+                <div className='flex items-center gap-0.5 text-indigo-500 mr-0.5'>
+                  {getPostClassIcon(post.class)}
+                </div>
+
                 {isProdded ? (
                   <button
                     type='button'

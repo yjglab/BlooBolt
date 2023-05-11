@@ -13,14 +13,14 @@ const router = express.Router();
 router.post("/:id", async (req, res, next) => {
   try {
     const where = {};
-    // if (parseInt(req.query.lastPostId, 10)) {
-    //   where.id = {
-    //     [Op.lt]: parseInt(req.query.lastPostId, 10),
-    //   };
-    // }
+    if (parseInt(req.query.lastPostId, 10)) {
+      where.id = {
+        [Op.lt]: parseInt(req.query.lastPostId, 10),
+      };
+    }
     const posts = await Post.findAll({
       where,
-      // limit: 12,
+      limit: 12,
       order: [
         ["createdAt", "DESC"],
         [Comment, "createdAt", "DESC"],

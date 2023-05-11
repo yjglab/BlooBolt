@@ -1,11 +1,10 @@
-import { Menu } from '@headlessui/react';
 import { ArrowUturnLeftIcon, DocumentPlusIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useInView } from 'react-intersection-observer';
 import NewPostForm from './NewPostForm';
-import PostForm from './PostForm';
 import PostLoading from './PostLoading';
 import PostSection from './PostSection';
 import { openNotice } from '../reducers/global';
@@ -24,61 +23,61 @@ interface SquareHeaderProps {
   squareKind: string;
 }
 const SquareHeader: FC<SquareHeaderProps> = ({ squareTitle, squareSubTitle, squareKind }) => {
+  const dispatch = useAppDispatch();
   const { me } = useAppSelector((state) => state.user);
   const [togglePostForm, setTogglePostForm] = useState(false);
 
   const { mainPosts, loadMorePosts, loadPostsLoading } = useAppSelector((state) => state.post);
   const [keywordSearching, setKeywordSearching] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState('');
   const router = useRouter();
-  const { tag } = router.query;
+  const [postLoadRef, inView] = useInView();
 
-  const dispatch = useAppDispatch();
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const { tag } = router.query;
 
   interface SearchPostValues {
     keyword: string;
   }
   const {
     register,
-    reset,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<SearchPostValues>({
     mode: 'onSubmit',
   });
 
   useEffect(() => {
-    function onScreenScroll() {
-      if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
-      ) {
-        if (router.query.tag && loadMorePosts && !loadPostsLoading) {
-          //   console.log("해시태그");
-          //   const lastPostId = mainPosts[mainPosts.length - 1]?.id;
-          //   dispatch(
-          //     loadPostsByHashtag({
-          //       lastPostId,
-          //       tag,
-          //     })
-          //   );
-        } else if (!router.query.tag && !keywordSearching && loadMorePosts && !loadPostsLoading) {
-          console.log('일반');
-          const lastPostId = mainPosts[mainPosts.length - 1]?.id;
-          dispatch(loadPosts({ lastPostId, postUnique: squareKind }));
-        } else if (!router.query.tag && keywordSearching && loadMorePosts && !loadPostsLoading) {
-          //   console.log("서치");
-          //   const lastPostId = mainPosts[mainPosts.length - 1]?.id;
-          //   dispatch(loadPostsByKeyword({ keyword: searchKeyword, lastPostId }));
-        }
-      }
+    if (inView && loadMorePosts && !loadPostsLoading && !tag && !keywordSearching) {
+      // 일반 로드
+      const lastPostId = mainPosts[mainPosts.length - 1]?.id;
+      dispatch(loadPosts({ lastPostId, postUnique: squareKind }));
     }
-    window.addEventListener('scroll', onScreenScroll);
-    return () => {
-      window.removeEventListener('scroll', onScreenScroll);
-    };
-  }, [loadMorePosts, loadPostsLoading, mainPosts, keywordSearching, router.query.tag, squareKind, dispatch]);
+    if (inView && loadMorePosts && !loadPostsLoading && tag && !keywordSearching) {
+      // 해시태그 포스트 로드
+      const lastPostId = mainPosts[mainPosts.length - 1]?.id;
+      dispatch(
+        loadPostsByHashtag({
+          lastPostId,
+          tag: tag as string,
+        }),
+      );
+    }
+    if (inView && loadMorePosts && !loadPostsLoading && !tag && keywordSearching) {
+      // 검색 포스트 로드
+      const lastPostId = mainPosts[mainPosts.length - 1]?.id;
+      dispatch(loadPostsByKeyword({ keyword: searchKeyword, lastPostId }));
+    }
+  }, [
+    inView,
+    loadMorePosts,
+    dispatch,
+    searchKeyword,
+    keywordSearching,
+    loadPostsLoading,
+    mainPosts,
+    tag,
+    squareKind,
+  ]);
 
   const onTogglePostForm = useCallback(() => {
     if (me?.banned) {
@@ -223,6 +222,10 @@ const SquareHeader: FC<SquareHeaderProps> = ({ squareTitle, squareSubTitle, squa
             )}
           </div>
         </div>
+      </div>
+
+      <div ref={postLoadRef} className='mt-10 text-center text-sm leading-6 text-slate-500'>
+        포스트를 모두 로드했습니다
       </div>
     </>
   );
