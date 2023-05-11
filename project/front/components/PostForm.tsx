@@ -3,7 +3,7 @@ import { ArrowUpCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import React, { FC, useCallback, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { backUrl } from '../config/config';
-import getUserClass from '../functions/getUserClass';
+
 import { openNotice } from '../reducers/global';
 import {
   cancelPostImage,
@@ -15,6 +15,21 @@ import {
 import { useAppDispatch, useAppSelector } from '../store/configureStore';
 import Post from '../typings/post';
 import PostImage from '../typings/postImage';
+
+const getUserClass = (cls: string) => {
+  switch (cls) {
+    case 'fedev':
+      return '프론트엔드';
+    case 'bedev':
+      return '백엔드';
+    case 'design':
+      return '디자인';
+    case 'plan':
+      return '기획';
+    default:
+      return '일반';
+  }
+};
 
 interface PostFormProps {
   onTogglePostForm: () => void;
@@ -205,6 +220,7 @@ const PostForm: FC<PostFormProps> = ({
                     >
                       <option value='default'>...분류</option>
                       <option value='normal'>일반</option>
+                      <option value='question'>질문</option>
                       <option value='fedev'>개발-프론트엔드</option>
                       <option value='bedev'>개발-백엔드</option>
                       <option value='design'>디자인-UX/UI</option>
@@ -213,7 +229,7 @@ const PostForm: FC<PostFormProps> = ({
                   ) : (
                     <select
                       id='postClass'
-                      // disabled={true}
+                      // disabled
                       className='cursor-not-allowed relative block w-36 text-sm appearance-none rounded-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
                       {...register('postClass', {})}
                     >

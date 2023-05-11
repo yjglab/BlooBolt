@@ -1,10 +1,24 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import getUserClass from '../functions/getUserClass';
 import { openNotice } from '../reducers/global';
 import { changeMyPublicInfo } from '../reducers/user';
 import { useAppDispatch, useAppSelector } from '../store/configureStore';
 import User from '../typings/user';
+
+const getUserClass = (cls: string) => {
+  switch (cls) {
+    case 'fedev':
+      return '프론트엔드';
+    case 'bedev':
+      return '백엔드';
+    case 'design':
+      return '디자인';
+    case 'plan':
+      return '기획';
+    default:
+      return '일반';
+  }
+};
 
 interface UserPublicInfoProps {
   me: User;

@@ -22,12 +22,26 @@ import Router from 'next/router';
 import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import GetUserRankIcon from './GetUserRankIcon';
 import { backUrl } from '../config/config';
-import getUserClassColor from '../functions/getUserClassColor';
 import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
 import { openNotice } from '../reducers/global';
 import { cancelAllPostImages } from '../reducers/post';
 import { logOut } from '../reducers/user';
 import { useAppDispatch, useAppSelector } from '../store/configureStore';
+
+const getUserClassColor = (userClass: string | undefined) => {
+  switch (userClass) {
+    case 'fedev':
+      return 'amber-400';
+    case 'bedev':
+      return 'emerald-400';
+    case 'design':
+      return 'red-400';
+    case 'plan':
+      return 'sky-300';
+    default:
+      return 'slate-400';
+  }
+};
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');

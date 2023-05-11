@@ -23,7 +23,6 @@ import PostForm from './PostForm';
 import PostImages from './PostImages';
 import PostUserReport from './PostUserReport';
 import { backUrl } from '../config/config';
-import getUserClassColor from '../functions/getUserClassColor';
 import { openNotice } from '../reducers/global';
 import {
   cancelAllPostImages,
@@ -38,6 +37,21 @@ import { useAppDispatch, useAppSelector } from '../store/configureStore';
 import Post from '../typings/post';
 
 dayjs.locale('ko');
+
+const getUserClassColor = (userClass: string | undefined) => {
+  switch (userClass) {
+    case 'fedev':
+      return 'amber-400';
+    case 'bedev':
+      return 'emerald-400';
+    case 'design':
+      return 'red-400';
+    case 'plan':
+      return 'sky-300';
+    default:
+      return 'slate-400';
+  }
+};
 
 const getPostClassIcon = (type: string) => {
   switch (type) {
@@ -513,7 +527,11 @@ const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
           {!detailed && (
             <div className='flex justify-between items-center left-2.5 absolute bottom-2.5 text-sm'>
               <div className='flex px-2.5  gap-2'>
-                <div className='flex items-center gap-0.5 text-indigo-500 mr-0.5'>
+                <div
+                  className={`flex items-center gap-0.5 text-${
+                    post.class === 'question' ? 'red-400' : 'indigo-500'
+                  } mr-0.5`}
+                >
                   {getPostClassIcon(post.class)}
                 </div>
 

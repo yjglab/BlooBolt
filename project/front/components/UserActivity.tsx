@@ -6,13 +6,28 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 import GetUserRankIcon from './GetUserRankIcon';
 import { backUrl } from '../config/config';
-import getUserClassColor from '../functions/getUserClassColor';
+
 import { openNotice } from '../reducers/global';
 import { untrace } from '../reducers/user';
 import { useAppDispatch } from '../store/configureStore';
 import User from '../typings/user';
 
 dayjs.locale('ko');
+
+const getUserClassColor = (userClass: string | undefined) => {
+  switch (userClass) {
+    case 'fedev':
+      return 'amber-400';
+    case 'bedev':
+      return 'emerald-400';
+    case 'design':
+      return 'red-400';
+    case 'plan':
+      return 'sky-300';
+    default:
+      return 'slate-400';
+  }
+};
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');

@@ -155,6 +155,7 @@ const NewPostForm: FC<NewPostFormProps> = ({ onTogglePostForm, squareKind }) => 
                     >
                       <option value='default'>...분류</option>
                       <option value='normal'>일반</option>
+                      <option value='question'>질문</option>
                       <option value='fedev'>개발-프론트엔드</option>
                       <option value='bedev'>개발-백엔드</option>
                       <option value='design'>디자인-UX/UI</option>
