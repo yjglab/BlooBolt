@@ -88,7 +88,6 @@ const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
   const [blindPost, setBlindPost] = useState(false);
   const [blindCheck, setBlindCheck] = useState(false);
   const [reportCheck, setReportCheck] = useState(false);
-  const [postClassIconHover, setPostClassIconHover] = useState(false);
   const [postEditMode, setPostEditMode] = useState(false);
 
   const onToggleCheckReport = useCallback(() => {
@@ -527,12 +526,7 @@ const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
           {!detailed && (
             <div className='flex justify-between items-center left-2.5 absolute bottom-2.5 text-sm'>
               <div className='flex px-2.5  gap-2'>
-                {/* ...포스트입니다. 추가하기 (호버) */}
                 <div
-                  onMouseOver={() => setPostClassIconHover(true)}
-                  onFocus={() => setPostClassIconHover(true)}
-                  onMouseOut={() => setPostClassIconHover(false)}
-                  onBlur={() => setPostClassIconHover(false)}
                   className={`flex items-center gap-0.5 text-${
                     post.class === 'question' ? 'red-400' : 'indigo-500'
                   } mr-0.5`}
