@@ -6,6 +6,8 @@ import Post from '../typings/post';
 export interface PostState {
   mainPosts: Post[];
   solePost: Post | null;
+  recommendPosts: Post[];
+  recommendQuestionPosts: Post[];
   postImagePaths: string[];
   loadMorePosts: boolean;
 
@@ -76,10 +78,16 @@ export interface PostState {
   unprodCommentLoading: boolean;
   unprodCommentDone: boolean;
   unprodCommentError: any;
+
+  doneQuestionPostLoading: boolean;
+  doneQuestionPostDone: boolean;
+  doneQuestionPostError: any;
 }
 export const initialState: PostState = {
   mainPosts: [],
   solePost: null,
+  recommendPosts: [],
+  recommendQuestionPosts: [],
   postImagePaths: [],
   loadMorePosts: true,
 
@@ -150,6 +158,10 @@ export const initialState: PostState = {
   unprodCommentLoading: false,
   unprodCommentDone: false,
   unprodCommentError: null,
+
+  doneQuestionPostLoading: false,
+  doneQuestionPostDone: false,
+  doneQuestionPostError: null,
 };
 interface LoadPostsInfo {
   lastPostId?: number;
@@ -435,6 +447,22 @@ export const unprodComment = createAsyncThunk(
   },
 );
 
+export const doneQuestionPost = createAsyncThunk(
+  'post/doneQuestionPost',
+  async (info: { postId: number }, thunkAPI) => {
+    try {
+      const { data } = await axios.post(`/post/${info.postId}/doneQuestion`);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
+    }
+  },
+);
+
 export const post = createSlice({
   name: 'post',
   initialState,
@@ -461,8 +489,11 @@ export const post = createSlice({
       .addCase(loadPosts.fulfilled, (state, { payload }) => {
         state.loadPostsLoading = false;
         state.loadPostsDone = true;
-        state.mainPosts = state.mainPosts.concat(payload);
-        state.loadMorePosts = payload.length === 12;
+        state.mainPosts = state.mainPosts.concat(payload.loadedPosts);
+        state.recommendPosts = payload.loadedRecommendPosts;
+        state.recommendQuestionPosts = payload.loadedRecommendQuestionPosts;
+
+        state.loadMorePosts = payload.loadedPosts.length === 12;
       })
       .addCase(loadPosts.rejected, (state, { payload }) => {
         state.loadPostsLoading = false;
@@ -753,6 +784,23 @@ export const post = createSlice({
       .addCase(unprodComment.rejected, (state, { payload }) => {
         state.unprodCommentLoading = false;
         state.unprodCommentError = payload;
+      })
+
+      .addCase(doneQuestionPost.pending, (state) => {
+        state.doneQuestionPostLoading = true;
+        state.doneQuestionPostError = null;
+      })
+      .addCase(doneQuestionPost.fulfilled, (state, { payload }) => {
+        state.doneQuestionPostLoading = false;
+        state.doneQuestionPostDone = true;
+        const targetPost = state.solePost
+          ? state.solePost
+          : state.mainPosts.find((v) => v.id === payload.PostId);
+        if (targetPost) targetPost.class = payload.PostClass;
+      })
+      .addCase(doneQuestionPost.rejected, (state, { payload }) => {
+        state.doneQuestionPostLoading = false;
+        state.doneQuestionPostError = payload;
       })
 
       .addDefaultCase((state) => state);

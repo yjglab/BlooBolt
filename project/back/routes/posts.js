@@ -1,5 +1,5 @@
 const express = require("express");
-const { Op } = require("sequelize");
+const { Op, literal, fn, col } = require("sequelize");
 const {
   Post,
   PostImage,
@@ -10,6 +10,7 @@ const {
 } = require("../models");
 const router = express.Router();
 
+// 검색 포스트 로드
 router.post("/keyword/:word", async (req, res, next) => {
   try {
     const where = {};
@@ -89,12 +90,14 @@ router.post("/keyword/:word", async (req, res, next) => {
   }
 });
 
+// 일반 로드
 router.post("/", async (req, res, next) => {
   try {
     const where = {};
     if (parseInt(req.query.lastPostId, 10)) {
       where.id = { [Op.lt]: parseInt(req.query.lastPostId, 10) };
     }
+
     const loadedPosts = await Post.findAll({
       where: {
         ...where,
@@ -142,7 +145,47 @@ router.post("/", async (req, res, next) => {
         },
       ],
     });
-    res.status(201).json(loadedPosts);
+
+    const allPosts = await Post.findAll({
+      where: {
+        [Op.and]: { unique: req.body.postUnique },
+      },
+      attributes: ["id", "topic"],
+      include: [
+        {
+          model: User,
+          attributes: ["id", "class", "username", "rank"],
+        },
+        {
+          model: User,
+          as: "PostProdders",
+          attributes: ["id"],
+        },
+      ],
+    });
+    const loadedRecommendPosts = allPosts
+      .sort((a, b) => b.PostProdders.length - a.PostProdders.length)
+      .slice(0, 3);
+    const loadedRecommendQuestionPosts = await Post.findAll({
+      where: {
+        [Op.and]: { unique: req.body.postUnique },
+        class: "question",
+      },
+      limit: 3,
+      order: literal("rand()"),
+      include: [
+        {
+          model: User,
+          attributes: ["id", "class", "username", "rank"],
+        },
+      ],
+    });
+
+    res.status(201).json({
+      loadedPosts,
+      loadedRecommendPosts,
+      loadedRecommendQuestionPosts,
+    });
   } catch (error) {
     console.error(error);
     next(error);

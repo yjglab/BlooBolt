@@ -610,4 +610,27 @@ router.get("/:postId/detail", async (req, res, next) => {
   }
 });
 
+router.post("/:postId/doneQuestion", async (req, res, next) => {
+  try {
+    const targetPost = await Post.findOne({
+      where: {
+        id: req.params.postId,
+        UserId: req.user.id,
+      },
+    });
+    if (!targetPost) {
+      res.status(403).send("존재하지 않는 포스트입니다.");
+    }
+    await targetPost.update({
+      class: "question-done",
+    });
+    res
+      .status(201)
+      .json({ PostId: targetPost.id, PostClass: targetPost.class });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 module.exports = router;

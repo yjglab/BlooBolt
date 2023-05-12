@@ -1,13 +1,10 @@
 import { Popover, Transition } from '@headlessui/react';
 import {
-  ArrowPathIcon,
   ArrowUturnUpIcon,
   BookOpenIcon,
   BuildingLibraryIcon,
   ChevronDownIcon,
-  FaceSmileIcon,
   HomeIcon,
-  InformationCircleIcon,
   PaintBrushIcon,
   PresentationChartBarIcon,
   RectangleGroupIcon,

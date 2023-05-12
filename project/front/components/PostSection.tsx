@@ -3,6 +3,7 @@ import {
   ArrowsPointingOutIcon,
   BoltIcon,
   ChatBubbleOvalLeftIcon,
+  CheckCircleIcon,
   DocumentTextIcon,
   InformationCircleIcon,
   PaintBrushIcon,
@@ -31,6 +32,7 @@ import {
   removePostCompletely,
   revertPost,
   unprodPost,
+  doneQuestionPost,
 } from '../reducers/post';
 import { trace, untrace } from '../reducers/user';
 import { useAppDispatch, useAppSelector } from '../store/configureStore';
@@ -65,6 +67,9 @@ const getPostClassIcon = (type: string) => {
       return <PresentationChartBarIcon className='w-5' />;
     case 'question':
       return <QuestionMarkCircleIcon className='w-5' />;
+    case 'question-done':
+      return <CheckCircleIcon className='w-5' />;
+
     default:
       return <InformationCircleIcon className='w-5' />;
   }
@@ -296,12 +301,24 @@ const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
         }),
       );
     }
+    if (post.class === 'question-done') {
+      return dispatch(
+        openNotice({
+          content: '질문이 완료된 포스트는 수정할 수 없습니다.',
+          type: 2,
+        }),
+      );
+    }
     //  if (onTogglePostEditMode)
     dispatch(cancelAllPostImages());
 
     setPostEditMode(!postEditMode);
     return null;
-  }, [post.blinded, post.reverted, postEditMode, dispatch]);
+  }, [post.blinded, post.reverted, postEditMode, dispatch, post.class]);
+
+  const onDoneQuestionPost = () => {
+    return dispatch(doneQuestionPost({ postId: post.id }));
+  };
 
   return (
     <>
@@ -404,6 +421,21 @@ const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
                   <div className='py-1'>
                     {post.User.id === id ? (
                       <>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              type='button'
+                              onClick={onDoneQuestionPost}
+                              className={classNames(
+                                active ? 'bg-slate-100 text-slate-600' : 'text-slate-600',
+                                'block px-4 py-2 text-sm text-left w-full',
+                              )}
+                            >
+                              해결됨
+                              <CheckCircleIcon className='w-4 inline ml-0.5 relative bottom-0.5' />
+                            </button>
+                          )}
+                        </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <button

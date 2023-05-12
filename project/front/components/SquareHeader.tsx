@@ -33,11 +33,13 @@ const SquareHeader: FC<SquareHeaderProps> = ({ squareTitle, squareSubTitle, squa
   const { me } = useAppSelector((state) => state.user);
   const [togglePostForm, setTogglePostForm] = useState(false);
 
-  const { mainPosts, loadMorePosts, loadPostsLoading } = useAppSelector((state) => state.post);
+  const { mainPosts, recommendPosts, recommendQuestionPosts, loadMorePosts, loadPostsLoading } =
+    useAppSelector((state) => state.post);
   const [keywordSearching, setKeywordSearching] = useState(false);
   const router = useRouter();
-  const [postLoadRef, inView] = useInView();
-
+  const [postLoadRef, postLoadInView] = useInView();
+  const [indicateRecommendPostsRef, indicateRecommendPostsInview] = useInView();
+  const [hideSearchbar, setHideSearchbar] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const { tag } = router.query;
 
@@ -53,12 +55,17 @@ const SquareHeader: FC<SquareHeaderProps> = ({ squareTitle, squareSubTitle, squa
   });
 
   useEffect(() => {
-    if (inView && loadMorePosts && !loadPostsLoading && !tag && !keywordSearching) {
+    if (!indicateRecommendPostsInview) setHideSearchbar(true);
+    else setHideSearchbar(false);
+  }, [indicateRecommendPostsInview]);
+
+  useEffect(() => {
+    if (postLoadInView && loadMorePosts && !loadPostsLoading && !tag && !keywordSearching) {
       // 일반 로드
       const lastPostId = mainPosts[mainPosts.length - 1]?.id;
       dispatch(loadPosts({ lastPostId, postUnique: squareKind }));
     }
-    if (inView && loadMorePosts && !loadPostsLoading && tag && !keywordSearching) {
+    if (postLoadInView && loadMorePosts && !loadPostsLoading && tag && !keywordSearching) {
       // 해시태그 포스트 로드
       const lastPostId = mainPosts[mainPosts.length - 1]?.id;
       dispatch(
@@ -68,13 +75,13 @@ const SquareHeader: FC<SquareHeaderProps> = ({ squareTitle, squareSubTitle, squa
         }),
       );
     }
-    if (inView && loadMorePosts && !loadPostsLoading && !tag && keywordSearching) {
+    if (postLoadInView && loadMorePosts && !loadPostsLoading && !tag && keywordSearching) {
       // 검색 포스트 로드
       const lastPostId = mainPosts[mainPosts.length - 1]?.id;
       dispatch(loadPostsByKeyword({ keyword: searchKeyword, lastPostId }));
     }
   }, [
-    inView,
+    postLoadInView,
     loadMorePosts,
     dispatch,
     searchKeyword,
@@ -139,7 +146,10 @@ const SquareHeader: FC<SquareHeaderProps> = ({ squareTitle, squareSubTitle, squa
           <h1 className='px-2 md:px-6 text-base font-semibold leading-6 text-indigo-500'>
             {keywordSearching ? '어떤 포스트를 찾으시나요?' : squareSubTitle}
           </h1>
-          <div className='px-1 md:px-5 h-10  flex justify-between items-center'>
+          <div
+            ref={indicateRecommendPostsRef}
+            className='px-1 md:px-5 h-10  flex justify-between items-center'
+          >
             <button
               type='button'
               onClick={onRefresh}
@@ -186,46 +196,53 @@ const SquareHeader: FC<SquareHeaderProps> = ({ squareTitle, squareSubTitle, squa
             </div>
           </div>
 
-          <div className='my-4 mb-8 px-2 md:px-5 w-full mx-auto flex flex-col md:flex-row justify-between items-center z-10 '>
-            <div className='flex p-1 w-full justify-evenly gap-2'>
-              <div className='flex l-2 w-1/3 py-1  bg-white rounded-lg ring-1 ring-slate-200 hover:ring-indigo-500 duration-150 '>
-                <div className='px-2 flex  h-8 p-1 items-center'>
-                  <div className='flex'>
-                    <BoltIcon className='w-5 animate-ping text-indigo-300' />
-                    <BoltIcon className='w-5 absolute text-indigo-500' />
+          <div className='my-4 sticky top-14 md:top-16  mb-8 px-2 md:px-5 w-full mx-auto flex flex-col md:flex-row justify-between items-center z-10'>
+            <div className='  z-10 flex  w-full justify-evenly gap-2'>
+              {recommendPosts.map((recommendPost) => (
+                <Link key={recommendPost.id} href={`post/${recommendPost.id}`}>
+                  <div
+                    className={`${
+                      hideSearchbar && 'shadow-xl shadow-slate-300/30'
+                    } flex l-2 w-1/3 py-1 hover:bg-indigo-50 cursor-pointer  bg-white rounded-lg ring-1 ring-slate-200 hover:ring-indigo-500 duration-150`}
+                  >
+                    <div className='px-2   flex  h-8 p-1 items-center'>
+                      <div className='text-indigo-500 flex'>
+                        <BoltIcon className=' w-4 md:w-5 animate-ping text-indigo-300' />
+                        <BoltIcon className=' w-4 md:w-5 absolute ' />
+                      </div>
+                      <span className='ml-0.5 text-indigo-500 font-semibold tracking-tighter text-xs md:text-sm'>
+                        {recommendPost.PostProdders.length}
+                      </span>
+                      <div className='ml-2 text-sm text-ellipsis line-clamp-1 '>{recommendPost.topic}</div>
+                    </div>
                   </div>
-                  <span className='ml-0.5 text-indigo-500 font-semibold tracking-tighter text-sm'>56</span>
-                  <div className='ml-2 text-sm text-ellipsis line-clamp-1'>
-                    제목제adawdqw목제목제목제목제목
-                  </div>
-                </div>
-              </div>
-              <div className='w-1/3  flex py-1  bg-white rounded-lg ring-1 ring-slate-200 hover:ring-indigo-500 duration-150 '>
-                <div className='px-2.5 flex  h-8 p-1 items-center'>
-                  <div className='flex'>
-                    <BoltIcon className='w-5 animate-ping text-indigo-300' />
-                    <BoltIcon className='w-5 absolute text-indigo-500' />
-                  </div>
-                  <span className='ml-0.5 text-indigo-500 font-semibold tracking-tighter text-sm'>56</span>
-                  <div className='ml-2 text-sm text-ellipsis line-clamp-1'>
-                    제목제adawdqw목제목제목제목제목
-                  </div>
-                </div>
-              </div>
-              <div className='w-1/3  flex py-1  bg-white rounded-lg ring-1 ring-slate-200 hover:ring-indigo-500 duration-150 '>
-                <div className='px-2.5 flex  h-8 p-1 items-center'>
-                  <div className='flex'>
-                    <QuestionMarkCircleIcon className='w-5 animate-ping text-red-200' />
-                    <QuestionMarkCircleIcon className='w-5 absolute text-red-400' />
-                  </div>
+                </Link>
+              ))}
+              <Link href={`post/${recommendQuestionPosts[0]?.id}`}>
+                <div
+                  className={`${
+                    hideSearchbar && 'shadow-xl shadow-slate-300/30'
+                  } flex l-2 w-1/3 py-1 cursor-pointer  hover:bg-red-50 bg-white rounded-lg ring-1 ring-slate-200 hover:ring-red-400 duration-150`}
+                >
+                  <div className='px-2 flex  h-8 p-1 items-center'>
+                    <div className='flex'>
+                      <QuestionMarkCircleIcon className='w-4 md:w-5 animate-ping text-red-200' />
+                      <QuestionMarkCircleIcon className='w-4 md:w-5 absolute text-red-400' />
+                    </div>
 
-                  <div className='ml-2 text-sm text-ellipsis line-clamp-1'>
-                    제목제adawdqw목제목제목제목제목
+                    <div className='ml-2 text-sm text-ellipsis line-clamp-1'>
+                      {recommendQuestionPosts[0]?.topic}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
-            <div className='w-full md:w-1/4 md:ml-10 my-1.5 md:my-0 flex py-1  bg-white rounded-lg ring-1 ring-slate-200 hover:ring-indigo-500 duration-150 '>
+            {/* 검색바 */}
+            <div
+              className={`${
+                hideSearchbar ? 'hidden' : 'flex'
+              } w-full md:w-2/5 md:ml-7 my-1.5 md:my-0  py-1  bg-white rounded-lg ring-1 ring-slate-200 hover:ring-indigo-500 duration-150`}
+            >
               <form className=' flex w-full justify-between h-8 p-1' onSubmit={handleSubmit(onSearchPosts)}>
                 <label htmlFor='keyword' />
                 <input
