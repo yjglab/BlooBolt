@@ -123,10 +123,6 @@ const Guide: FC = () => {
                   베타 단계를 배포 중이며 새롭게 추가되는 내용이 있다면 해당 항목에서 자세히 알려드립니다.
                   또한 정식버전인 1.0에서 많은 것들이 추가되고 업데이트 될 것입니다.
                 </div>
-                <div className='mb-2'>
-                  <div className='w-[4px] h-[4px] mr-0.5 bg-slate-700 rounded-full inline-block relative bottom-1' />{' '}
-                  이제 회원가입과 로그인 절차를 편리하게 하기 위한 소셜 로그인 기능을 제공합니다.
-                </div>
               </div>
               <div className='lg:w-1/2 w-full relative pl-9'>
                 <div className=' font-semibold '>
