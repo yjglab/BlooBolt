@@ -146,7 +146,7 @@ const Profile: FC = () => {
         <div
           className={`${owner ? 'justify-between' : 'justify-center'} w-full flex-col flex sm:flex-row p-6`}
         >
-          {me && <UserActivity owner={owner} me={me} user={user || {}} />}
+          <UserActivity owner={owner} user={user || {}} />
           {owner && <UserInformation />}
         </div>
       </div>

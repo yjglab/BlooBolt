@@ -15,8 +15,6 @@ import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import GetUserRankIcon from './GetUserRankIcon';
 import { backUrl } from '../config/config';
-import getUserBorderColor from '../functions/getUserBorderColor';
-import getUserTextColor from '../functions/getUserTextColor';
 import { openNotice } from '../reducers/global';
 import { editComment, prodComment, removeComment, unprodComment } from '../reducers/post';
 import { trace, untrace } from '../reducers/user';
@@ -226,16 +224,36 @@ const CommentSection: FC<CommentSectionProps> = ({ post, comment }) => {
                 ? `${comment.User.avatar}`
                 : `${backUrl}/${comment.User.avatar}`
             }
-            className={`${getUserBorderColor(
-              comment.User.class,
-            )} cursor-pointer h-[42px] w-[42px] border-[2.5px] p-0.5 rounded-full object-cover`}
+            className={`${
+              comment.User.class === 'fedev' // eslint-disable-line no-nested-ternary
+                ? 'border-amber-400'
+                : comment.User.class === 'bedev' // eslint-disable-line no-nested-ternary
+                ? 'border-emerald-400'
+                : comment.User.class === 'design' // eslint-disable-line no-nested-ternary
+                ? 'border-red-400'
+                : comment.User.class === 'plan'
+                ? 'border-sky-300'
+                : 'border-slate-400'
+            } cursor-pointer h-[42px] w-[42px] border-[2.5px] p-0.5 rounded-full object-cover`}
           />
         </Link>
         <div className='ml-2 w-full flex flex-col'>
           <Link href={`/profile/${comment.User.username}`}>
             <h1 className='cursor-pointer text-sm font-bold flex items-center'>
               {comment.User.username}
-              <div className={`${getUserTextColor(comment.User.class)} flex gap-0.5 text-xs`}>
+              <div
+                className={`${
+                  comment.User.class === 'fedev' // eslint-disable-line no-nested-ternary
+                    ? 'text-amber-400'
+                    : comment.User.class === 'bedev' // eslint-disable-line no-nested-ternary
+                    ? 'text-emerald-400'
+                    : comment.User.class === 'design' // eslint-disable-line no-nested-ternary
+                    ? 'text-red-400'
+                    : comment.User.class === 'plan'
+                    ? 'text-sky-300'
+                    : 'text-slate-400'
+                } flex gap-0.5 text-xs`}
+              >
                 <GetUserRankIcon userRank={comment.User.rank} />
               </div>
             </h1>

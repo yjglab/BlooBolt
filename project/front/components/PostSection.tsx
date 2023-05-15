@@ -23,8 +23,6 @@ import PostForm from './PostForm';
 import PostImages from './PostImages';
 import PostUserReport from './PostUserReport';
 import { backUrl } from '../config/config';
-import getUserBorderColor from '../functions/getUserBorderColor';
-import getUserTextColor from '../functions/getUserTextColor';
 import { openNotice } from '../reducers/global';
 import {
   cancelAllPostImages,
@@ -504,16 +502,36 @@ const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
                     ? `${post.User.avatar}`
                     : `${backUrl}/${post.User.avatar}`
                 }
-                className={`${getUserBorderColor(
-                  post.User.class,
-                )} cursor-pointer h-[45px] w-[45px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
+                className={`${
+                  post.User.class === 'fedev' // eslint-disable-line no-nested-ternary
+                    ? 'border-amber-400'
+                    : post.User.class === 'bedev' // eslint-disable-line no-nested-ternary
+                    ? 'border-emerald-400'
+                    : post.User.class === 'design' // eslint-disable-line no-nested-ternary
+                    ? 'border-red-400'
+                    : post.User.class === 'plan'
+                    ? 'border-sky-300'
+                    : 'border-slate-400'
+                } cursor-pointer h-[45px] w-[45px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
               />
             </Link>
             <div className='ml-2 w-full flex flex-col'>
               <Link href={`/profile/${post.User.username}`}>
                 <h1 className='cursor-pointer text-sm font-bold flex items-center'>
                   {post.User.username}
-                  <div className={`${getUserTextColor(post.User.class)} flex gap-0.5 text-xs`}>
+                  <div
+                    className={`${
+                      post.User.class === 'fedev' // eslint-disable-line no-nested-ternary
+                        ? 'text-amber-400'
+                        : post.User.class === 'bedev' // eslint-disable-line no-nested-ternary
+                        ? 'text-emerald-400'
+                        : post.User.class === 'design' // eslint-disable-line no-nested-ternary
+                        ? 'text-red-400'
+                        : post.User.class === 'plan'
+                        ? 'text-sky-300'
+                        : 'text-slate-400'
+                    } flex gap-0.5 text-xs`}
+                  >
                     <GetUserRankIcon userRank={post.User.rank} />
                   </div>
                 </h1>

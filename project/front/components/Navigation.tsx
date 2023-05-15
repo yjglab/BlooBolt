@@ -19,8 +19,6 @@ import Router from 'next/router';
 import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import GetUserRankIcon from './GetUserRankIcon';
 import { backUrl } from '../config/config';
-import getUserBorderColor from '../functions/getUserBorderColor';
-import getUserTextColor from '../functions/getUserTextColor';
 import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
 import { openNotice } from '../reducers/global';
 import { cancelAllPostImages } from '../reducers/post';
@@ -297,7 +295,19 @@ const Navigation: FC = () => {
                   <Link href={`/profile/${me.username}`}>
                     <>
                       <div className='cursor-pointer ml-3.5 font-bold'>{me.username}</div>
-                      <div className={`${getUserTextColor(me.class)} flex gap-0.5 text-xs font-bold`}>
+                      <div
+                        className={`${
+                          me.class === 'fedev' // eslint-disable-line no-nested-ternary
+                            ? 'text-amber-400'
+                            : me.class === 'bedev' // eslint-disable-line no-nested-ternary
+                            ? 'text-emerald-400'
+                            : me.class === 'design' // eslint-disable-line no-nested-ternary
+                            ? 'text-red-400'
+                            : me.class === 'plan'
+                            ? 'text-sky-300'
+                            : 'text-slate-400'
+                        } flex gap-0.5 text-xs font-bold`}
+                      >
                         <GetUserRankIcon userRank={me.rank} />
                       </div>
                     </>
@@ -472,15 +482,35 @@ const Navigation: FC = () => {
                           src={
                             process.env.NODE_ENV === 'production' ? `${me.avatar}` : `${backUrl}/${me.avatar}`
                           }
-                          className={`${getUserBorderColor(
-                            me.class,
-                          )} cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
+                          className={`${
+                            me.class === 'fedev' // eslint-disable-line no-nested-ternary
+                              ? 'border-amber-400'
+                              : me.class === 'bedev' // eslint-disable-line no-nested-ternary
+                              ? 'border-emerald-400'
+                              : me.class === 'design' // eslint-disable-line no-nested-ternary
+                              ? 'border-red-400'
+                              : me.class === 'plan'
+                              ? 'border-sky-300'
+                              : 'border-slate-400'
+                          } cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
                         />
 
                         <div className='ml-2 w-full flex flex-col'>
                           <h1 className='cursor-pointer text-md font-bold flex items-center'>
                             {me.username}
-                            <div className={`text-${getUserTextColor(me.class)} flex gap-0.5 text-xs`}>
+                            <div
+                              className={`${
+                                me.class === 'fedev' // eslint-disable-line no-nested-ternary
+                                  ? 'text-amber-400'
+                                  : me.class === 'bedev' // eslint-disable-line no-nested-ternary
+                                  ? 'text-emerald-400'
+                                  : me.class === 'design' // eslint-disable-line no-nested-ternary
+                                  ? 'text-red-400'
+                                  : me.class === 'plan'
+                                  ? 'text-sky-300'
+                                  : 'text-slate-400'
+                              } flex gap-0.5 text-xs`}
+                            >
                               <GetUserRankIcon userRank={me.rank} />
                             </div>
                           </h1>

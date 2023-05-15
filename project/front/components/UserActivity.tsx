@@ -6,8 +6,6 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 import GetUserRankIcon from './GetUserRankIcon';
 import { backUrl } from '../config/config';
-import getUserBorderColor from '../functions/getUserBorderColor';
-import getUserTextColor from '../functions/getUserTextColor';
 import { openNotice } from '../reducers/global';
 import { untrace } from '../reducers/user';
 import { useAppDispatch } from '../store/configureStore';
@@ -21,10 +19,9 @@ function classNames(...classes: string[]) {
 
 interface UserActivityProps {
   owner: boolean;
-  me: User;
   user: Partial<User>;
 }
-const UserActivity: FC<UserActivityProps> = ({ owner, me, user }) => {
+const UserActivity: FC<UserActivityProps> = ({ owner, user }) => {
   const dispatch = useAppDispatch();
 
   const onUntrace = (tracing: Partial<User>) => () => {
@@ -162,9 +159,17 @@ const UserActivity: FC<UserActivityProps> = ({ owner, me, user }) => {
                                 ? `${tracer.avatar}`
                                 : `${backUrl}/${tracer.avatar}`
                             }
-                            className={`${getUserBorderColor(
-                              tracer.class,
-                            )} h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
+                            className={`${
+                              tracer.class === 'fedev' // eslint-disable-line no-nested-ternary
+                                ? 'border-amber-400'
+                                : tracer.class === 'bedev' // eslint-disable-line no-nested-ternary
+                                ? 'border-emerald-400'
+                                : tracer.class === 'design' // eslint-disable-line no-nested-ternary
+                                ? 'border-red-400'
+                                : tracer.class === 'plan'
+                                ? 'border-sky-300'
+                                : 'border-slate-400'
+                            } h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
                           />
                         </Link>
 
@@ -172,7 +177,19 @@ const UserActivity: FC<UserActivityProps> = ({ owner, me, user }) => {
                           <Link href={`/profile/${tracer.username}`}>
                             <h1 className='cursor-pointer text-md font-bold flex items-center'>
                               {tracer.username}
-                              <div className={`${getUserTextColor(tracer.class)} flex gap-0.5 text-xs`}>
+                              <div
+                                className={`${
+                                  tracer.class === 'fedev' // eslint-disable-line no-nested-ternary
+                                    ? 'text-amber-400'
+                                    : tracer.class === 'bedev' // eslint-disable-line no-nested-ternary
+                                    ? 'text-emerald-400'
+                                    : tracer.class === 'design' // eslint-disable-line no-nested-ternary
+                                    ? 'text-red-400'
+                                    : tracer.class === 'plan'
+                                    ? 'text-sky-300'
+                                    : 'text-slate-400'
+                                } flex gap-0.5 text-xs`}
+                              >
                                 <GetUserRankIcon userRank={tracer.rank} />
                               </div>
                             </h1>
@@ -217,9 +234,17 @@ const UserActivity: FC<UserActivityProps> = ({ owner, me, user }) => {
                                 ? `${tracing.avatar}`
                                 : `${backUrl}/${tracing.avatar}`
                             }
-                            className={`${getUserBorderColor(
-                              tracing.class,
-                            )} h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
+                            className={`${
+                              tracing.class === 'fedev' // eslint-disable-line no-nested-ternary
+                                ? 'border-amber-400'
+                                : tracing.class === 'bedev' // eslint-disable-line no-nested-ternary
+                                ? 'border-emerald-400'
+                                : tracing.class === 'design' // eslint-disable-line no-nested-ternary
+                                ? 'border-red-400'
+                                : tracing.class === 'plan'
+                                ? 'border-sky-300'
+                                : 'border-slate-400'
+                            } h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
                           />
                         </Link>
                         <div className='ml-2 w-full flex flex-col'>
@@ -227,7 +252,19 @@ const UserActivity: FC<UserActivityProps> = ({ owner, me, user }) => {
                             <Link href={`/profile/${tracing.username}`}>
                               <h1 className='text-md font-bold flex items-center'>
                                 {tracing.username}
-                                <div className={`${getUserTextColor(tracing.class)} flex gap-0.5 text-xs`}>
+                                <div
+                                  className={`${
+                                    tracing.class === 'fedev' // eslint-disable-line no-nested-ternary
+                                      ? 'text-amber-400'
+                                      : tracing.class === 'bedev' // eslint-disable-line no-nested-ternary
+                                      ? 'text-emerald-400'
+                                      : tracing.class === 'design' // eslint-disable-line no-nested-ternary
+                                      ? 'text-red-400'
+                                      : tracing.class === 'plan'
+                                      ? 'text-sky-300'
+                                      : 'text-slate-400'
+                                  } flex gap-0.5 text-xs`}
+                                >
                                   <GetUserRankIcon userRank={tracing.rank} />
                                 </div>
                               </h1>
