@@ -4,7 +4,6 @@ import {
   BoltIcon,
   ChatBubbleOvalLeftIcon,
   CheckCircleIcon,
-  DocumentTextIcon,
   InformationCircleIcon,
   PaintBrushIcon,
   PresentationChartBarIcon,
@@ -24,6 +23,8 @@ import PostForm from './PostForm';
 import PostImages from './PostImages';
 import PostUserReport from './PostUserReport';
 import { backUrl } from '../config/config';
+import getUserBorderColor from '../functions/getUserBorderColor';
+import getUserTextColor from '../functions/getUserTextColor';
 import { openNotice } from '../reducers/global';
 import {
   cancelAllPostImages,
@@ -39,21 +40,6 @@ import { useAppDispatch, useAppSelector } from '../store/configureStore';
 import Post from '../typings/post';
 
 dayjs.locale('ko');
-
-const getUserClassColor = (userClass: string | undefined) => {
-  switch (userClass) {
-    case 'fedev':
-      return 'amber-400';
-    case 'bedev':
-      return 'emerald-400';
-    case 'design':
-      return 'red-400';
-    case 'plan':
-      return 'sky-300';
-    default:
-      return 'slate-400';
-  }
-};
 
 const getPostClassIcon = (type: string) => {
   switch (type) {
@@ -518,7 +504,7 @@ const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
                     ? `${post.User.avatar}`
                     : `${backUrl}/${post.User.avatar}`
                 }
-                className={`border-${getUserClassColor(
+                className={`${getUserBorderColor(
                   post.User.class,
                 )} cursor-pointer h-[45px] w-[45px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
               />
@@ -527,7 +513,7 @@ const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
               <Link href={`/profile/${post.User.username}`}>
                 <h1 className='cursor-pointer text-sm font-bold flex items-center'>
                   {post.User.username}
-                  <div className={`text-${getUserClassColor(post.User.class)} flex gap-0.5 text-xs`}>
+                  <div className={`${getUserTextColor(post.User.class)} flex gap-0.5 text-xs`}>
                     <GetUserRankIcon userRank={post.User.rank} />
                   </div>
                 </h1>

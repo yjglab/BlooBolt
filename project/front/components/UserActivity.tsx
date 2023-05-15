@@ -6,28 +6,14 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 import GetUserRankIcon from './GetUserRankIcon';
 import { backUrl } from '../config/config';
-
+import getUserBorderColor from '../functions/getUserBorderColor';
+import getUserTextColor from '../functions/getUserTextColor';
 import { openNotice } from '../reducers/global';
 import { untrace } from '../reducers/user';
 import { useAppDispatch } from '../store/configureStore';
 import User from '../typings/user';
 
 dayjs.locale('ko');
-
-const getUserClassColor = (userClass: string | undefined) => {
-  switch (userClass) {
-    case 'fedev':
-      return 'amber-400';
-    case 'bedev':
-      return 'emerald-400';
-    case 'design':
-      return 'red-400';
-    case 'plan':
-      return 'sky-300';
-    default:
-      return 'slate-400';
-  }
-};
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -176,7 +162,7 @@ const UserActivity: FC<UserActivityProps> = ({ owner, me, user }) => {
                                 ? `${tracer.avatar}`
                                 : `${backUrl}/${tracer.avatar}`
                             }
-                            className={`border-${getUserClassColor(
+                            className={`${getUserBorderColor(
                               tracer.class,
                             )} h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
                           />
@@ -186,7 +172,7 @@ const UserActivity: FC<UserActivityProps> = ({ owner, me, user }) => {
                           <Link href={`/profile/${tracer.username}`}>
                             <h1 className='cursor-pointer text-md font-bold flex items-center'>
                               {tracer.username}
-                              <div className={`text-${getUserClassColor(tracer.class)} flex gap-0.5 text-xs`}>
+                              <div className={`${getUserTextColor(tracer.class)} flex gap-0.5 text-xs`}>
                                 <GetUserRankIcon userRank={tracer.rank} />
                               </div>
                             </h1>
@@ -231,7 +217,7 @@ const UserActivity: FC<UserActivityProps> = ({ owner, me, user }) => {
                                 ? `${tracing.avatar}`
                                 : `${backUrl}/${tracing.avatar}`
                             }
-                            className={`border-${getUserClassColor(
+                            className={`${getUserBorderColor(
                               tracing.class,
                             )} h-[50px] w-[50px] border-[3px] p-0.5 rounded-full object-cover`}
                           />
@@ -241,9 +227,7 @@ const UserActivity: FC<UserActivityProps> = ({ owner, me, user }) => {
                             <Link href={`/profile/${tracing.username}`}>
                               <h1 className='text-md font-bold flex items-center'>
                                 {tracing.username}
-                                <div
-                                  className={`text-${getUserClassColor(tracing.class)} flex gap-0.5 text-xs`}
-                                >
+                                <div className={`${getUserTextColor(tracing.class)} flex gap-0.5 text-xs`}>
                                   <GetUserRankIcon userRank={tracing.rank} />
                                 </div>
                               </h1>

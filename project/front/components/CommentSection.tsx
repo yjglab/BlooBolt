@@ -15,27 +15,14 @@ import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import GetUserRankIcon from './GetUserRankIcon';
 import { backUrl } from '../config/config';
+import getUserBorderColor from '../functions/getUserBorderColor';
+import getUserTextColor from '../functions/getUserTextColor';
 import { openNotice } from '../reducers/global';
 import { editComment, prodComment, removeComment, unprodComment } from '../reducers/post';
 import { trace, untrace } from '../reducers/user';
 import { useAppDispatch, useAppSelector } from '../store/configureStore';
 import Comment from '../typings/comment';
 import Post from '../typings/post';
-
-const getUserClassColor = (userClass: string | undefined) => {
-  switch (userClass) {
-    case 'fedev':
-      return 'amber-400';
-    case 'bedev':
-      return 'emerald-400';
-    case 'design':
-      return 'red-400';
-    case 'plan':
-      return 'sky-300';
-    default:
-      return 'slate-400';
-  }
-};
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -239,7 +226,7 @@ const CommentSection: FC<CommentSectionProps> = ({ post, comment }) => {
                 ? `${comment.User.avatar}`
                 : `${backUrl}/${comment.User.avatar}`
             }
-            className={`border-${getUserClassColor(
+            className={`${getUserBorderColor(
               comment.User.class,
             )} cursor-pointer h-[42px] w-[42px] border-[2.5px] p-0.5 rounded-full object-cover`}
           />
@@ -248,7 +235,7 @@ const CommentSection: FC<CommentSectionProps> = ({ post, comment }) => {
           <Link href={`/profile/${comment.User.username}`}>
             <h1 className='cursor-pointer text-sm font-bold flex items-center'>
               {comment.User.username}
-              <div className={`text-${getUserClassColor(comment.User.class)} flex gap-0.5 text-xs`}>
+              <div className={`${getUserTextColor(comment.User.class)} flex gap-0.5 text-xs`}>
                 <GetUserRankIcon userRank={comment.User.rank} />
               </div>
             </h1>

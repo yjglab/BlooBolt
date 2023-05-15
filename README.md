@@ -1,4 +1,4 @@
-# BlooBolt 0.1.0
+# BlooBolt 0.2.0
 
 ![배너-01](https://user-images.githubusercontent.com/70316567/222092312-07e87f20-6bde-4a61-833b-2c8fe615141c.png)
 
@@ -23,13 +23,7 @@ BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들�
 <img src="https://img.shields.io/badge/AWSLambda-FF9900?style=for-the-badge&logo=AWSLambda&logoColor=white">
 </div>
 
-> Branch: master
-
-프로덕션 코드
-
-> Branch: development
-
-테스트 코드
+프로덕션 배포용 코드는 Master Branch, 테스트 코드는 Develop Branch에서 작업됩니다.
 
 ## 🏛 서비스 소개 / [결과물 바로보기](https://bloobolt.com)
 
@@ -59,6 +53,8 @@ BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들�
 - 물론, 누군가가 나를 트레이스 했을 수도 있습니다.
 
 ## 🛠 [사용된 기술과 선정 이유 - WIKI](https://github.com/yjglab/BlooBolt/wiki/%EA%B8%B0%EC%88%A0-%EC%84%A0%EC%A0%95-%EC%9D%B4%EC%9C%A0)
+
+## 🛠 [기술 및 라이브러리 변경내역 기록 - WIKI](https://github.com/yjglab/BlooBolt/wiki/%EA%B8%B0%EC%88%A0-%EA%B4%80%EB%A0%A8-%EA%B8%B0%EB%A1%9D)
 
 ## 📃 페이지
 
@@ -95,15 +91,20 @@ BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들�
 
 ## 🗓 Version Release
 
-- [BlooBolt 0.1.0](https://github.com/yjglab/BlooBolt "BlooBolt") - Latest
-- [BlooBolt 0.0.0 Beta](https://github.com/yjglab/BlooBolt "BlooBolt")
+- [BlooBolt 0.2.0](https://github.com/yjglab/BlooBolt/releases/tag/0.1.0 "BlooBolt") - Latest
+- [BlooBolt 0.1.0](https://github.com/yjglab/BlooBolt/releases/tag/0.1.0 "BlooBolt")
+- [BlooBolt 0.0.0 Beta](https://github.com/yjglab/BlooBolt/releases/tag/0.0.0 "BlooBolt")
 
 ## 다음 버전에서 추가됩니다.
 
-> 포스트 스크랩
+> 정식 버전 공개
 
-- 특정 포스트만 모아놨다가 나중에 다시 볼 수 있는 포스트 스크랩 기능이 제공됩니다.
+- 베타를 종료하고 1.0.0 정식 버전으로 공개됩니다.
 
-> 플래시 게시물
+> 멤버스 (1.0.0)
 
-- 많은 프롯을 받고 있는 포스트들은 플래시 게시물 리스트에 등록되어 사용자들로 하여금 더 많은 공감을 불러낼 수 있습니다.
+- 새로운 멤버스 시스템이 공개됩니다. 멤버스는 다수의 참여자들과 실시간 대화를 할 수 있는 공간입니다.
+
+> 포스트 스크랩 (1.0.0)
+
+- 특정 포스트만 모아놨다가 나중에 다시 확인할 수 있도록 포스트 스크랩 기능이 제공됩니다.

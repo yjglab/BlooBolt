@@ -2,6 +2,9 @@ import { FaceSmileIcon, ShieldCheckIcon } from '@heroicons/react/20/solid';
 import React, { FC } from 'react';
 
 const GetUserRankIcon: FC<{ userRank: number | undefined }> = ({ userRank }) => {
+  if (userRank === 0) {
+    return null;
+  }
   if (userRank === 6) {
     return (
       <>
@@ -9,9 +12,6 @@ const GetUserRankIcon: FC<{ userRank: number | undefined }> = ({ userRank }) => 
         {userRank}
       </>
     );
-  }
-  if (userRank === 0) {
-    return <span> {userRank}</span>;
   }
   return (
     <>
