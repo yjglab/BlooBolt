@@ -19,26 +19,13 @@ import Router from 'next/router';
 import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import GetUserRankIcon from './GetUserRankIcon';
 import { backUrl } from '../config/config';
+import getUserBorderColor from '../functions/getUserBorderColor';
+import getUserTextColor from '../functions/getUserTextColor';
 import blooboltLogoNobg from '../public/blooboltLogoNobg.png';
 import { openNotice } from '../reducers/global';
 import { cancelAllPostImages } from '../reducers/post';
 import { logOut } from '../reducers/user';
 import { useAppDispatch, useAppSelector } from '../store/configureStore';
-
-const getUserClassColor = (userClass: string | undefined) => {
-  switch (userClass) {
-    case 'fedev':
-      return 'amber-400';
-    case 'bedev':
-      return 'emerald-400';
-    case 'design':
-      return 'red-400';
-    case 'plan':
-      return 'sky-300';
-    default:
-      return 'slate-400';
-  }
-};
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -281,13 +268,13 @@ const Navigation: FC = () => {
               )}
             </Popover>{' '}
             {/* <Link href="/members"> */}
-            <button
+            {/* <button
               type='button'
               onClick={onPreparing}
               className='cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500'
             >
               멤버스
-            </button>
+            </button> */}
             {/* </Link> */}
             <Link href='/guide'>
               <div className='cursor-pointer hover:text-slate-600 text-base font-medium text-slate-500'>
@@ -308,12 +295,18 @@ const Navigation: FC = () => {
 
                 <>
                   <Link href={`/profile/${me.username}`}>
-                    <div className='cursor-pointer ml-3.5 font-bold'>{me.username}</div>
+                    <>
+                      <div className='cursor-pointer ml-3.5 font-bold'>{me.username}</div>
+                      <div className={`${getUserTextColor(me.class)} flex gap-0.5 text-xs font-bold`}>
+                        <GetUserRankIcon userRank={me.rank} />
+                      </div>
+                    </>
                   </Link>
+
                   <Link href={`/profile/${me.username}`}>
                     <img
                       alt='avatar'
-                      className='cursor-pointer ml-4 h-10 w-10 rounded-full object-cover'
+                      className='cursor-pointer ml-2 h-10 w-10 rounded-full object-cover'
                       src={process.env.NODE_ENV === 'production' ? `${me.avatar}` : `${backUrl}/${me.avatar}`}
                     />
                   </Link>
@@ -479,7 +472,7 @@ const Navigation: FC = () => {
                           src={
                             process.env.NODE_ENV === 'production' ? `${me.avatar}` : `${backUrl}/${me.avatar}`
                           }
-                          className={`border-${getUserClassColor(
+                          className={`${getUserBorderColor(
                             me.class,
                           )} cursor-pointer h-[50px] w-[50px] aspect-square border-[3px] p-0.5 rounded-full object-cover`}
                         />
@@ -487,7 +480,7 @@ const Navigation: FC = () => {
                         <div className='ml-2 w-full flex flex-col'>
                           <h1 className='cursor-pointer text-md font-bold flex items-center'>
                             {me.username}
-                            <div className={`text-${getUserClassColor(me.class)} flex gap-0.5 text-xs`}>
+                            <div className={`text-${getUserTextColor(me.class)} flex gap-0.5 text-xs`}>
                               <GetUserRankIcon userRank={me.rank} />
                             </div>
                           </h1>
