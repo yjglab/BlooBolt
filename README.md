@@ -1,6 +1,6 @@
 # BlooBolt 0.2.0
 
-![배너-01](https://user-images.githubusercontent.com/70316567/222092312-07e87f20-6bde-4a61-833b-2c8fe615141c.png)
+![배너-01](https://github.com/yjglab/BlooBolt/assets/70316567/7f3c9a9a-8c6b-4483-ac8b-9bffe5b26700.png)
 
 BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들의 소통 광장입니다.
 [https://bloobolt.com](https://bloobolt.com "BlooBolt")
@@ -72,6 +72,8 @@ BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들�
 - /square-plan `기획 스퀘어`
 - /profile/사용자명 `사용자 프로필`
 - /chpw `비밀번호 변경`
+- /terms `서비스 이용 약관`
+- /version-log `버전 업데이트 정보`
 
 ## 🔖 [주요 기능 소개 - WIKI](https://github.com/yjglab/BlooBolt/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)
 

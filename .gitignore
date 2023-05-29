@@ -1,7 +1,7 @@
 node_modules
 .next
 .env
-private
+bloobolt-private
 uploads
 db.js
 bloobolt.cer
