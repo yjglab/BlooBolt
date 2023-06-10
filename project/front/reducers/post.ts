@@ -471,7 +471,7 @@ export const post = createSlice({
       state.mainPosts = [];
     },
     loadPrevPostImages(state, action: PayloadAction<string[]>) {
-      state.postImagePaths = state.postImagePaths.concat(action.payload);
+      state.postImagePaths = action.payload;
     },
     cancelPostImage(state, action: PayloadAction<number>) {
       state.postImagePaths = state.postImagePaths.filter((v, i) => i !== action.payload);

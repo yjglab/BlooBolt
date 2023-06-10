@@ -405,21 +405,24 @@ const PostSection: FC<PostSectionProps> = ({ post, detailed, squareKind }) => {
                   <div className='py-1'>
                     {post.User.id === id ? (
                       <>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
-                              type='button'
-                              onClick={onDoneQuestionPost}
-                              className={classNames(
-                                active ? 'bg-slate-100 text-slate-600' : 'text-slate-600',
-                                'block px-4 py-2 text-sm text-left w-full',
-                              )}
-                            >
-                              해결됨
-                              <CheckCircleIcon className='w-4 inline ml-0.5 relative bottom-0.5' />
-                            </button>
-                          )}
-                        </Menu.Item>
+                        {post.class === 'question' && (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                type='button'
+                                onClick={onDoneQuestionPost}
+                                className={classNames(
+                                  active ? 'bg-slate-100 text-slate-600' : 'text-slate-600',
+                                  'block px-4 py-2 text-sm text-left w-full',
+                                )}
+                              >
+                                해결됨
+                                <CheckCircleIcon className='w-4 inline ml-0.5 relative bottom-0.5' />
+                              </button>
+                            )}
+                          </Menu.Item>
+                        )}
+
                         <Menu.Item>
                           {({ active }) => (
                             <button
