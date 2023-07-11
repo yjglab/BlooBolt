@@ -7,3 +7,4 @@ db.js
 bloobolt.cer
 project(saga)
 .vscode
+.DS_Store
