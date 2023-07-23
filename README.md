@@ -1,6 +1,6 @@
 # BlooBolt 0.2.0
 
-![image](https://github.com/yjglab/BlooBolt/assets/70316567/5ef4e6ab-3fc6-4db8-aaf2-b99b2f3162a5)
+![image](https://github.com/yjglab/BlooBolt/assets/70316567/3735aca2-828b-4c46-9b91-f80f51f2e851)
 
 BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들의 소통 광장입니다.
 [https://bloobolt.com](https://bloobolt.com "BlooBolt")
@@ -113,4 +113,4 @@ BlooBolt Square는 소프트웨어 개발자와 기획, 디자인 직무자들�
 
 - 특정 포스트만 모아놨다가 나중에 다시 확인할 수 있도록 포스트 스크랩 기능이 제공됩니다.
 
-![image](https://github.com/yjglab/BlooWays/assets/70316567/0326c40d-d8b1-40aa-b41c-da3a964efbda)
+![image](https://github.com/yjglab/BlooBolt/assets/70316567/3edb2565-34a8-41c3-a6bf-db89a55698a8)
